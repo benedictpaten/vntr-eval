@@ -1,0 +1,25 @@
+# built C helpers (make -C tools/c; realign_units.py builds tools/bin/libunitdp.so on first use)
+tools/bin/
+*.o
+*.so
+*.dylib
+*.dSYM/
+a.out
+# caches, work files, full-panel MSAs and graphs, toolkit intermediates (config.WORK_DIR); never tracked
+work/
+# scratch and temporary files written next to outputs (msa_graph.py / panel.py temp dirs, partial writes)
+*.tmp
+*.tmp.*
+msa_graph.*/
+scratch/
+# Python bytecode and tool caches
+__pycache__/
+*.pyc
+.pytest_cache/
+# editor / OS litter
+.DS_Store
+.idea/
+.vscode/
+*.swp
+# lock files of results/*runtime*.tsv (tools/realign.py and the panel drivers)
+results/*.lock

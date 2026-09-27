@@ -1,0 +1,285 @@
+{
+ "region_id": "L009656",
+ "stratum": "hotspot_vntr",
+ "role": "test",
+ "contig": "chr21",
+ "core_start": 41564800,
+ "core_end": 41568906,
+ "span_start": 41564464,
+ "span_end": 41569502,
+ "anchor_left": "126698675+",
+ "anchor_right": "126701249+",
+ "period": 9.0,
+ "motif": "ACACCACAC",
+ "copies": 456.3,
+ "n_hap32": 34,
+ "n_hprc": 440,
+ "vg_fp": 12,
+ "vg_fn": 2,
+ "pg_fp": 13,
+ "pg_fn": 2,
+ "in_benchmark": 1,
+ "notes": [
+  "pilot: alleles present but misaligned",
+  "hprc: 16 full-panel walks touch an anchor without spanning (includes reference paths)"
+ ],
+ "coordinates": "CHM13v2.0, 1-based inclusive; span = first base of the left anchor node to the last base of the right anchor node",
+ "pad_bp": 200,
+ "span_bp": 5039,
+ "core_bp": 4107,
+ "flank_left_bp": 336,
+ "flank_right_bp": 596,
+ "anchor_left_seq": "G",
+ "anchor_right_seq": "CAACATCTGGTAGCTCCGGGTCCCGTCCCACCGGCTGCACAGTGAATGGAGCTGTCACTCACGCCTGCAGCCTTGCTTGACTGCGGGTCCTGCCTGGACCTTGTTAGGGGCTGGAAGGTGACTCCCTGAAAATTATATGGGGTCCTACCCCCAAAGGCTCAGAATGGGACTGTGTTTGGCGGTGGGGGCTTTGATTAAATTGAAGTGATGTCACTGGGGTGGGCCCTGGCCCAGTCTGGCCGGTGTCCTTGTAAGAAGAGGAGATGA",
+ "sv_benchmark_frac_core": 1.0,
+ "sv_benchmark_frac_span": 1.0,
+ "tr_annotation": {
+  "census_region_id": "TR787259",
+  "tr_class": "VNTR",
+  "period": 9.0,
+  "motif": "ACACCACAC",
+  "copies": 456.3,
+  "region_gc": 0.563,
+  "dist_telomere": 3521776,
+  "matched_to": null,
+  "match": null,
+  "reference_tandem_scan": {
+   "scanned_bp": 5039,
+   "min_identity": 0.8,
+   "str": null,
+   "vntr": {
+    "period": 9,
+    "covered_bp": 3586,
+    "covered_frac": 0.7116
+   }
+  },
+  "truth_h1_tandem_scan": {
+   "scanned_bp": 4773,
+   "min_identity": 0.8,
+   "str": null,
+   "vntr": {
+    "period": 9,
+    "covered_bp": 3357,
+    "covered_frac": 0.7033
+   }
+  },
+  "repeatmasker_tandem_like": [
+   {
+    "start1": 41564805,
+    "end": 41568894,
+    "name": "(CACACACAC)n",
+    "class": "Simple_repeat",
+    "period": 9
+   }
+  ]
+ },
+ "census_counts": {
+  "vg_fp": 12,
+  "vg_fn": 2,
+  "vg_tp_base": 0,
+  "vg_tp_comp": 0,
+  "pg_fp": 13,
+  "pg_fn": 2,
+  "truth_sv": 3,
+  "truth_indel10": 11
+ },
+ "hap32": {
+  "n_spanning_paths": 34,
+  "n_distinct_sequences": 26,
+  "n_fragments": 0,
+  "anchor_only_pieces": [],
+  "haplotypes_not_spanning": [],
+  "len_min": 1032,
+  "len_median": 4823.5,
+  "len_max": 6503,
+  "chm13_len": 5039,
+  "grch38_spans": true,
+  "n_sequences_with_N_runs": 0,
+  "anchor_coverage_H": 34
+ },
+ "baseline_mc": {
+  "graph": "Minigraph-Cactus HPRC v2.1, hap32 sampled panel (32 haplotypes + CHM13 + GRCh38)",
+  "nodes": 1997,
+  "edges": 2388,
+  "node_bp": 12727,
+  "nodes_per_kb_chm13": 396.31,
+  "mean_node_len": 6.37,
+  "median_node_len": 2,
+  "between_subgraph_nodes": 1997,
+  "between_subgraph_edges": 2388,
+  "fragment_only_nodes": 0,
+  "directed_cycle": false,
+  "census_graph_features": {
+   "g_ref_span_ctx1000": 6116.0,
+   "g_nodes_per_kb": 334.7,
+   "g_nonref_bp_per_kb": 1258.7,
+   "g_distinct_haps": 30.0,
+   "g_hap_len_cv": 0.216,
+   "g_hap_len_min": 2109.0,
+   "g_hap_len_max": 7580.0,
+   "g_node_revisits": 0.0
+  }
+ },
+ "truth": {
+  "hap1_len": 4773,
+  "hap2_len": 4825,
+  "reference_len": 5039,
+  "n_records_in_span": 126,
+  "n_applied_h1": 45,
+  "n_applied_h2": 36,
+  "n_sv50_stvar_records": 2,
+  "n_sv50_stvar_TRF_period_ge7": 2,
+  "n_sv50_stvar_in_requested_interval": 2,
+  "requested_interval_frac_in_sv_benchmark": 1.0,
+  "span_frac_in_sv_benchmark": 1.0,
+  "span_frac_in_smvar_benchmark": 0.1649,
+  "edit_h1_vs_ref": 356,
+  "edit_h2_vs_ref": 317,
+  "edit_h1_vs_h2": 135
+ },
+ "closest_hap32_to_truth": {
+  "truth_h1": {
+   "hap_id": "h21",
+   "weight": 1,
+   "is_reference": 0,
+   "edit_distance": 0,
+   "length_diff_panel_minus_truth": 0,
+   "identity": 1.0
+  },
+  "truth_h2": {
+   "hap_id": "h1",
+   "weight": 5,
+   "is_reference": 0,
+   "edit_distance": 0,
+   "length_diff_panel_minus_truth": 0,
+   "identity": 1.0
+  }
+ },
+ "called_haplotypes_vs_truth": {
+  "reference_as_call": {
+   "pairing": "slot1-h1,slot2-h2",
+   "d_h1": 356,
+   "d_h2": 317,
+   "total": 673
+  },
+  "vg": {
+   "pairing": "slot1-h2,slot2-h1",
+   "d_h1": 1767,
+   "d_h2": 474,
+   "total": 2241,
+   "slot1_len": 5214,
+   "slot2_len": 6539,
+   "skipped_edge": 0,
+   "skipped_overlap": 67,
+   "skipped_other": 0,
+   "missing_allele": 52,
+   "unphased_het": 0,
+   "phase_sets": 1,
+   "n_applied": [
+    41,
+    61
+   ],
+   "phase_reliable": true
+  },
+  "pangenie": {
+   "pairing": "slot1-h2,slot2-h1",
+   "d_h1": 338,
+   "d_h2": 181,
+   "total": 519,
+   "slot1_len": 4717,
+   "slot2_len": 4478,
+   "skipped_edge": 0,
+   "skipped_overlap": 19,
+   "skipped_other": 0,
+   "missing_allele": 0,
+   "unphased_het": 35,
+   "phase_sets": 0,
+   "n_applied": [
+    67,
+    69
+   ],
+   "phase_reliable": false
+  }
+ },
+ "calls_in_span": {
+  "n_rows": 351,
+  "called_sv50": {
+   "pangenie_sv50_FP": 13,
+   "vg_sv50_FP": 12
+  },
+  "truth_sv50_status": {
+   "pg_FN": 2,
+   "vg_FN": 2
+  }
+ },
+ "reads_census": {
+  "reads_per_kb": 213.2,
+  "mapq0_frac": 0.11,
+  "mapq_lt5_frac": 0.418
+ },
+ "hprc": {
+  "status": "ok",
+  "method": "gbz-base query --sample CHM13 --contig chr21 --interval 41564463..41569502 --context 10000 --distinct on hprc-v2.1-mc-chm13-eval.gref.gbz; walks cut at the anchors",
+  "graph": "HPRC v2.1 Minigraph-Cactus, CHM13-based eval build with gref cover: 456 sample haplotypes (HG002 not among them) + CHM13 + GRCh38 + gref_CHM13",
+  "n_sample_haplotypes_spanning": 440,
+  "n_distinct_sample_sequences": 248,
+  "n_distinct_in_hap32": 24,
+  "sample_haplotypes_in_hap32_sequences": 96,
+  "n_reference_records": 2,
+  "subtracted_reference_segments": [
+   "CHM13 x2 (CHM13 and its gref_CHM13 copy)",
+   "GRCh38#0#chr21[12965808]"
+  ],
+  "segments_before_subtraction": 443,
+  "chm13_segment_weight_before_subtraction": 2,
+  "anchor_touching_walks_not_spanning": {
+   "right_anchor_only": 16
+  },
+  "len_min": 2173,
+  "len_max": 6994,
+  "subgraph_nodes": 3585,
+  "query_seconds": 63.3,
+  "naming": "hprc#k: gbz-base reports walks without sample names; k is an ordinal over the sample haplotypes, grouped by identical sequence (group, by decreasing group size), so names are stable for this graph and anchor pair but carry no sample identity. CHM13 and GRCh38 keep their hap32.fa names.",
+  "seconds": 0.3
+ },
+ "provenance": {
+  "built": "2026-09-26T10:40:36",
+  "script": "tools/package_regions.py",
+  "region_py": "tools/region.py",
+  "graph_db": "/Users/benedictpaten/PycharmProjects/vg-call-eval/work/graph.hap32.gbz.db",
+  "contig_gbz_for_names": "/Users/benedictpaten/PycharmProjects/vg-call-eval/work/wgs/chr21/chr21.gbz",
+  "truth": [
+   "/Users/benedictpaten/PycharmProjects/vg-call-eval/data/truth/CHM13v2.0_HG2-T2TQ100-V1.1_stvar.vcf.gz",
+   "/Users/benedictpaten/PycharmProjects/vg-call-eval/data/truth/CHM13v2.0_HG2-T2TQ100-V1.1_smvar.vcf.gz"
+  ],
+  "vg_calls": "/Users/benedictpaten/PycharmProjects/vg-call-eval/work/wgs-mm095/chr21/chr21.vcf.gz",
+  "pangenie_calls": "/Users/benedictpaten/PycharmProjects/vg-call-eval/work/pangenie/score/chr21.norm.vcf.gz",
+  "names_check": "named runs from vg paths -A == gbz-base --between subpaths (multiset)",
+  "n_paths_scanned": 228,
+  "toolkit_warnings": []
+ },
+ "files": {
+  "hap32.fa": {
+   "bytes": 155657,
+   "n_sequences": 34
+  },
+  "hap32.fragments.fa": {
+   "bytes": 0,
+   "n_sequences": 0
+  },
+  "hprc.fa.gz": {
+   "bytes": 24987,
+   "n_sequences": 442
+  },
+  "truth.fa": {
+   "bytes": 9770,
+   "n_sequences": 2
+  },
+  "mc.gfa": {
+   "bytes": 415413
+  },
+  "calls.tsv": {
+   "bytes": 44736
+  }
+ }
+}

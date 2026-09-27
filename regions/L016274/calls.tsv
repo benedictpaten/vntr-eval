@@ -1,0 +1,5 @@
+source	chrom	pos	end	id	ref_len	alt_len	len_diff	gt	called	qual	filter	truvari	aardvark	vg_truvari	pg_truvari	applied_h1	applied_h2	in_sv_benchmark	svtype	TRFperiod	MatchId	overlaps_span_edge
+truth_stvar	chr9	10173215	10173215	.	1	529	528	0|1	.	.	.	.	.	TP	TP	ref	yes	1	INS	.	.	0
+truth_smvar	chr9	10173215	10173215	.	1	529	528	0|1	.	.	.	.	.	-	-	ref	no:duplicate_of_stvar	1	.	.	.	0
+pangenie	chr9	10173215	10173215	chr9-10173227-INS->201264358>201264359>201264361>201264362>201264363-527	1	528	527	0/1	1	.	PASS	TP	-	.	.	.	.	.	.	.	59.0,59.0	0
+vg	chr9	10173221	10173221	>199519574>199519579	1	529	528	1|0	1	496.595	PASS	TP	-	.	.	.	.	.	.	.	57.0,57.0	0

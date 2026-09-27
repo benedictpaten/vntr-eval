@@ -1,0 +1,17 @@
+source	chrom	pos	end	id	ref_len	alt_len	len_diff	gt	called	qual	filter	truvari	aardvark	vg_truvari	pg_truvari	applied_h1	applied_h2	in_sv_benchmark	svtype	TRFperiod	MatchId	overlaps_span_edge
+truth_stvar	chr12	43283077	43283077	.	1	1	0	1|1	.	.	.	.	.	-	-	yes	yes	1	.	.	.	0
+truth_smvar	chr12	43283077	43283077	.	1	1	0	1|1	.	.	.	.	.	-	-	no:duplicate_of_stvar	no:duplicate_of_stvar	1	.	.	.	0
+vg	chr12	43283077	43283077	>40574551>40574555	1	1	0	1|1	1	415.625	PASS	-	TP	.	.	.	.	.	.	.	.	0
+pangenie	chr12	43283077	43283077	chr12-43283077-SNV->41606743>41606744>41606747-1	1	1	0	1/1	1	.	PASS	-	TP	.	.	.	.	.	.	.	.	0
+truth_stvar	chr12	43283171	43283503	.	333	1	332	1|1	.	.	.	.	.	TP	TP	yes	yes	1	DEL	.	.	0
+truth_smvar	chr12	43283171	43283503	.	333	1	332	1|1	.	.	.	.	.	-	-	no:duplicate_of_stvar	no:duplicate_of_stvar	1	.	.	.	0
+vg	chr12	43283171	43283503	>40574558>40574585	333	1	-332	1|1	1	521.089	PASS	TP	-	.	.	.	.	.	.	.	254.0,254.0	0
+pangenie	chr12	43283171	43283503	chr12-43283181-DEL->41606750>41606777-332	333	1	-332	1/1	1	.	PASS	TP	-	.	.	.	.	.	.	.	254.0,254.0	0
+truth_stvar	chr12	43283607	43283607	.	1	1	0	1|1	.	.	.	.	.	-	-	yes	yes	1	.	.	.	0
+truth_smvar	chr12	43283607	43283607	.	1	1	0	1|1	.	.	.	.	.	-	-	no:duplicate_of_stvar	no:duplicate_of_stvar	1	.	.	.	0
+vg	chr12	43283607	43283607	>40574586>40574589	1	1	0	1|1	1	449.034	PASS	-	TP	.	.	.	.	.	.	.	.	0
+pangenie	chr12	43283607	43283607	chr12-43283607-SNV->41606778>41606780>41606781-1	1	1	0	1/1	1	.	PASS	-	TP	.	.	.	.	.	.	.	.	0
+truth_stvar	chr12	43283820	43283820	.	1	1	0	1|1	.	.	.	.	.	-	-	yes	yes	1	.	.	.	0
+truth_smvar	chr12	43283820	43283820	.	1	1	0	1|1	.	.	.	.	.	-	-	no:duplicate_of_stvar	no:duplicate_of_stvar	1	.	.	.	0
+vg	chr12	43283820	43283820	>40574595>40574598	1	1	0	1|1	1	520.887	PASS	-	TP	.	.	.	.	.	.	.	.	0
+pangenie	chr12	43283820	43283820	chr12-43283820-SNV->41606787>41606789>41606790-1	1	1	0	1/1	1	.	PASS	-	TP	.	.	.	.	.	.	.	.	0

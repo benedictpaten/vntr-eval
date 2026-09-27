@@ -1,0 +1,13 @@
+source	chrom	pos	end	id	ref_len	alt_len	len_diff	gt	called	qual	filter	truvari	aardvark	vg_truvari	pg_truvari	applied_h1	applied_h2	in_sv_benchmark	svtype	TRFperiod	MatchId	overlaps_span_edge
+truth_stvar	chr8	135615619	135615619	.	1	1	0	0|1	.	.	.	.	.	-	-	ref	yes	1	.	.	.	0
+truth_smvar	chr8	135615619	135615619	.	1	1	0	0|1	.	.	.	.	.	-	-	ref	no:duplicate_of_stvar	1	.	.	.	0
+vg	chr8	135615619	135615619	>194412963>194412966	1	1	0	1|0	1	48.5411	PASS	-	-	.	.	.	.	.	.	.	.	0
+pangenie	chr8	135615619	135615619	chr8-135615619-SNV->199035390>199035392>199035393-1	1	1	0	0/1	1	.	PASS	-	-	.	.	.	.	.	.	.	.	0
+truth_stvar	chr8	135615740	135615799	.	60	1	59	0|1	.	.	.	.	.	TP	TP	ref	yes	1	DEL	59	.	0
+truth_smvar	chr8	135615740	135615799	.	60	1	59	0|1	.	.	.	.	.	-	-	ref	no:duplicate_of_stvar	1	.	59	.	0
+pangenie	chr8	135615740	135615799	chr8-135615778-DEL->199035441>199035446-59	60	1	-59	0/1	1	.	PASS	TP	-	.	.	.	.	.	.	.	658.0,658.0	0
+vg	chr8	135615767	135615826	>194413011>194413025	60	1	-59	1|0	1	50.5042	PASS	TP	-	.	.	.	.	.	.	.	672.0,672.0	0
+truth_stvar	chr8	135616002	135616002	.	1	1	0	0|1	.	.	.	.	.	-	-	ref	yes	1	.	.	.	0
+truth_smvar	chr8	135616002	135616002	.	1	1	0	0|1	.	.	.	.	.	-	-	ref	no:duplicate_of_stvar	1	.	.	.	0
+vg	chr8	135616002	135616002	>194413079>194413111	1	1	0	1|0	1	29.3505	PASS	-	-	.	.	.	.	.	.	.	.	0
+pangenie	chr8	135616002	135616002	chr8-135616002-SNV->199035510>199035511>199035514-1	1	1	0	0/1	1	.	PASS	-	-	.	.	.	.	.	.	.	.	0

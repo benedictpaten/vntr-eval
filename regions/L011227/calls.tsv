@@ -1,0 +1,17 @@
+source	chrom	pos	end	id	ref_len	alt_len	len_diff	gt	called	qual	filter	truvari	aardvark	vg_truvari	pg_truvari	applied_h1	applied_h2	in_sv_benchmark	svtype	TRFperiod	MatchId	overlaps_span_edge
+truth_stvar	chr4	7425009	7425027	.	19	1	18	0|1	.	.	.	.	.	-	-	ref	yes	1	.	.	.	0
+truth_smvar	chr4	7425009	7425027	.	19	1	18	0|1	.	.	.	.	.	-	-	ref	no:duplicate_of_stvar	1	.	.	.	0
+vg	chr4	7425009	7425027	>149247219>149247221	19	1	-18	0|1	1	12.6903	PASS	-	-	.	.	.	.	.	.	.	.	0
+pangenie	chr4	7425009	7425027	chr4-7425015-DEL->150696339>150696341-18	19	1	-18	0/1	1	.	PASS	-	-	.	.	.	.	.	.	.	.	0
+truth_stvar	chr4	7425966	7425986	.	21	1	20	0|1	.	.	.	.	.	-	-	ref	yes	1	DEL	18	.	0
+truth_smvar	chr4	7425966	7425986	.	21	1	20	0|1	.	.	.	.	.	-	-	ref	no:duplicate_of_stvar	1	.	18	.	0
+vg	chr4	7425966	7425986	>149247369>149247372	21	1	-20	0|1	1	0.761343	PASS	-	-	.	.	.	.	.	.	.	.	0
+pangenie	chr4	7425966	7425986	chr4-7425966-DEL->150696489>150696492-20	21	1	-20	0/1	1	.	PASS	-	-	.	.	.	.	.	.	.	.	0
+truth_stvar	chr4	7427040	7427060	.	21	1	20	0|1	.	.	.	.	.	-	-	ref	yes	1	DEL	18	.	0
+truth_smvar	chr4	7427040	7427060	.	21	1	20	0|1	.	.	.	.	.	-	-	ref	no:duplicate_of_stvar	1	.	18	.	0
+vg	chr4	7427040	7427060	>149247686>149247688	21	1	-20	0|1	1	19.351	PASS	-	-	.	.	.	.	.	.	.	.	0
+pangenie	chr4	7427040	7427060	chr4-7427040-DEL->150696806>150696808-20	21	1	-20	0/1	1	.	PASS	-	-	.	.	.	.	.	.	.	.	0
+truth_stvar	chr4	7427151	7427263	.	113	1	112	0|1	.	.	.	.	.	TP	TP	ref	yes	1	DEL	18	.	0
+truth_smvar	chr4	7427151	7427263	.	113	1	112	0|1	.	.	.	.	.	-	-	ref	no:duplicate_of_stvar	1	.	18	.	0
+pangenie	chr4	7427151	7427263	chr4-7427230-DEL->150696835>150696850-112	113	1	-112	0/1	1	.	PASS	TP	-	.	.	.	.	.	.	.	122.0,122.0	0
+vg	chr4	7427229	7427341	>149247715>149247730	113	1	-112	0|1	1	5.03302	PASS	TP	-	.	.	.	.	.	.	.	137.0,137.0	0

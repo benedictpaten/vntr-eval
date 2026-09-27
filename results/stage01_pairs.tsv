@@ -1,0 +1,549 @@
+arm	method	metric	n	stratum	table	a	all	all_vs_hap32_better	all_vs_hap32_worse	all_vs_mc_better	all_vs_mc_worse	b	better	diff	dsum_m	dsum_mc	equal	gap_closed	hap32	hap_better	hap_worse	m_absent	m_ctrl	m_hot	m_redundant	m_redundant_only	m_tandem	m_unique	mc	mc_absent	mc_ctrl_all	mc_hot	mc_redundant	mc_redundant_only	mc_tandem	mc_unique	p	phab_f1_m	phab_f1_mc	raw_f1_m	raw_f1_mc	reads	refined_f1_m	refined_f1_mc	regress_gt_0p01	regress_gt_0p05	retained	spellable_mc	still_spellable	worse
+hap32 arm: m(hap32)	mafft_fftns2	alignment.all_cost_over_opt	40	hotspot_vntr	A_gap													0.5151939655172418					1.0998999999999999	1.3268499999999999							1.1019	1.5659																		
+hap32 arm: m(hap32)	mafft_fftns2	alignment.all_excess_per_kb	40	hotspot_vntr	A_gap													0.4795471146822498					8.469999999999999	97.03							4.405	182.375																		
+hap32 arm: m(hap32)	mafft_fftns2	alignment.affine_all_cost_over_opt	40	hotspot_vntr	A_gap													0.4224354580763076					1.057	1.2898							1.037	1.4747																		
+hap32 arm: m(hap32)	mafft_fftns2	size.nodes_per_kb	40	hotspot_vntr	A_gap													0.5910010111223458					38.315	372.28							101.265	763.895																		
+hap32 arm: m(hap32)	mafft_fftns2	size.node_len_mean	40	hotspot_vntr	A_gap													0.4197415828053174					30.299	6.975							11.6455	3.5965																		
+hap32 arm: m(hap32)	mafft_fftns2	inflation.sv_pieces_mean	40	hotspot_vntr	A_gap													0.10004212792847603					0.80115	8.3572							0.6667	9.2121																		
+hap32 arm: m(hap32)	mafft_fftns2	redundancy.kmer_frac_extra	40	hotspot_vntr	A_gap													0.09843855456850482					0.052305000000000004	0.54695							0.052705	0.6009150000000001																		
+hap32 arm: m(hap32)	mafft_fftns2	alignment.all_U_per_kb	40	hotspot_vntr	A_gap													0.8886825160970778					0.02	4.640000000000001							0.14500000000000002	40.525																		
+hap32 arm: m(hap32)	mafft_linsi	alignment.all_cost_over_opt	39	hotspot_vntr	A_gap													0.9812742143779597					1.0278	1.1106							1.1019	1.5665																		
+hap32 arm: m(hap32)	mafft_linsi	alignment.all_excess_per_kb	39	hotspot_vntr	A_gap													0.8280841662849907					1.79	36.31							4.405	189.99																		
+hap32 arm: m(hap32)	mafft_linsi	alignment.affine_all_cost_over_opt	39	hotspot_vntr	A_gap													0.8324200913242007					1.0065499999999998	1.1104							1.037	1.475																		
+hap32 arm: m(hap32)	mafft_linsi	size.nodes_per_kb	39	hotspot_vntr	A_gap													0.6389622970787894					28.53	354.69							101.265	803.2																		
+hap32 arm: m(hap32)	mafft_linsi	size.node_len_mean	39	hotspot_vntr	A_gap													0.3161992821947807					35.843	6.025							11.6455	3.426																		
+hap32 arm: m(hap32)	mafft_linsi	inflation.sv_pieces_mean	39	hotspot_vntr	A_gap													0.6009623150947315					0.59095	4.125							0.6667	9.3333																		
+hap32 arm: m(hap32)	mafft_linsi	redundancy.kmer_frac_extra	39	hotspot_vntr	A_gap													0.33230943114181805					0.050945000000000004	0.41897							0.052705	0.60126																		
+hap32 arm: m(hap32)	mafft_linsi	alignment.all_U_per_kb	39	hotspot_vntr	A_gap													0.9638766519823789					0.0	1.58							0.14500000000000002	39.87																		
+hap32 arm: m(hap32)	mafft_einsi	alignment.all_cost_over_opt	37	hotspot_vntr	A_gap													0.8269313767803197					1.02955	1.1821							1.1019	1.5653																		
+hap32 arm: m(hap32)	mafft_einsi	alignment.all_excess_per_kb	37	hotspot_vntr	A_gap													0.6809309970356021					1.29	58.76							4.405	174.76																		
+hap32 arm: m(hap32)	mafft_einsi	alignment.affine_all_cost_over_opt	37	hotspot_vntr	A_gap													0.744855967078189					1.0045	1.1486							1.037	1.4744																		
+hap32 arm: m(hap32)	mafft_einsi	size.nodes_per_kb	37	hotspot_vntr	A_gap													0.7370793727188867					27.71	265.15							101.265	724.59																		
+hap32 arm: m(hap32)	mafft_einsi	size.node_len_mean	37	hotspot_vntr	A_gap													0.7060460263173148					40.706	9.11							11.6455	3.02																		
+hap32 arm: m(hap32)	mafft_einsi	inflation.sv_pieces_mean	37	hotspot_vntr	A_gap													0.22905439092139313					0.6061	7.1613							0.6667	9.0909																		
+hap32 arm: m(hap32)	mafft_einsi	redundancy.kmer_frac_extra	37	hotspot_vntr	A_gap													0.35671196371368863					0.031985	0.40514							0.052705	0.60057																		
+hap32 arm: m(hap32)	mafft_einsi	alignment.all_U_per_kb	37	hotspot_vntr	A_gap													0.922242314647378					0.0	2.94							0.14500000000000002	36.09																		
+hap32 arm: m(hap32)	mafft_ginsi	alignment.all_cost_over_opt	39	hotspot_vntr	A_gap													0.9834266035299186					1.02665	1.1096							1.1019	1.5665																		
+hap32 arm: m(hap32)	mafft_ginsi	alignment.all_excess_per_kb	39	hotspot_vntr	A_gap													0.8103564404450792					1.79	39.6							4.405	189.99																		
+hap32 arm: m(hap32)	mafft_ginsi	alignment.affine_all_cost_over_opt	39	hotspot_vntr	A_gap													0.8280821917808217					1.00755	1.1123							1.037	1.475																		
+hap32 arm: m(hap32)	mafft_ginsi	size.nodes_per_kb	39	hotspot_vntr	A_gap													0.6425666194163276					28.53	352.16							101.265	803.2																		
+hap32 arm: m(hap32)	mafft_ginsi	size.node_len_mean	39	hotspot_vntr	A_gap													0.3270271914350021					35.843	6.114							11.6455	3.426																		
+hap32 arm: m(hap32)	mafft_ginsi	inflation.sv_pieces_mean	39	hotspot_vntr	A_gap													0.5419541688782221					0.6061	4.6364							0.6667	9.3333																		
+hap32 arm: m(hap32)	mafft_ginsi	redundancy.kmer_frac_extra	39	hotspot_vntr	A_gap													0.33336675447311576					0.050945000000000004	0.41839							0.052705	0.60126																		
+hap32 arm: m(hap32)	mafft_ginsi	alignment.all_U_per_kb	39	hotspot_vntr	A_gap													0.9681560730018881					0.0	1.41							0.14500000000000002	39.87																		
+hap32 arm: m(hap32)	poa_abpoa	alignment.all_cost_over_opt	37	hotspot_vntr	A_gap													1.0406801549720193					1.0243	1.083							1.1019	1.5665																		
+hap32 arm: m(hap32)	poa_abpoa	alignment.all_excess_per_kb	37	hotspot_vntr	A_gap													0.8834226904114019					1.06	26.04							4.405	189.99																		
+hap32 arm: m(hap32)	poa_abpoa	alignment.affine_all_cost_over_opt	37	hotspot_vntr	A_gap													0.8681732580037661					1.00595	1.1							1.037	1.5149																		
+hap32 arm: m(hap32)	poa_abpoa	size.nodes_per_kb	37	hotspot_vntr	A_gap													0.6816508242088798					31.9	299.7							101.265	724.59																		
+hap32 arm: m(hap32)	poa_abpoa	size.node_len_mean	37	hotspot_vntr	A_gap													0.2897223349371051					36.009	5.519							11.6455	3.02																		
+hap32 arm: m(hap32)	poa_abpoa	inflation.sv_pieces_mean	37	hotspot_vntr	A_gap													0.44983038331064085					0.5758	5.4348							0.6667	9.3333																		
+hap32 arm: m(hap32)	poa_abpoa	redundancy.kmer_frac_extra	37	hotspot_vntr	A_gap													0.22175170890639123					0.038169999999999996	0.47908							0.052705	0.60057																		
+hap32 arm: m(hap32)	poa_abpoa	alignment.all_U_per_kb	37	hotspot_vntr	A_gap													0.982334121574628					0.0	0.78							0.14500000000000002	36.09																		
+hap32 arm: m(hap32)	poa_spoa	alignment.all_cost_over_opt	27	hotspot_vntr	A_gap													1.0707822240096523					1.0165	1.0667							1.1019	1.5992																		
+hap32 arm: m(hap32)	poa_spoa	alignment.all_excess_per_kb	27	hotspot_vntr	A_gap													0.9265943213914077					1.21	16.75							4.405	172.58																		
+hap32 arm: m(hap32)	poa_spoa	alignment.affine_all_cost_over_opt	27	hotspot_vntr	A_gap													0.81738153212212					1.0179	1.1345							1.037	1.5709																		
+hap32 arm: m(hap32)	poa_spoa	size.nodes_per_kb	27	hotspot_vntr	A_gap													0.5805840785657109					44.54	344.91							101.265	682.18																		
+hap32 arm: m(hap32)	poa_spoa	size.node_len_mean	27	hotspot_vntr	A_gap													0.18621358116198192					26.289	4.509							11.6455	2.876																		
+hap32 arm: m(hap32)	poa_spoa	inflation.sv_pieces_mean	27	hotspot_vntr	A_gap													0.42635678745475236					0.5455	5.1515							0.6667	8.4848																		
+hap32 arm: m(hap32)	poa_spoa	redundancy.kmer_frac_extra	27	hotspot_vntr	A_gap													0.12144587469719295					0.05822	0.51511							0.052705	0.57903																		
+hap32 arm: m(hap32)	poa_spoa	alignment.all_U_per_kb	27	hotspot_vntr	A_gap													0.9695953029985321					0.0	0.87							0.14500000000000002	23.99																		
+hap32 arm: m(hap32)	poa_abpoa_mc	alignment.all_cost_over_opt	40	hotspot_vntr	A_gap													0.8525862068965516					1.0305499999999999	1.1703000000000001							1.1019	1.5659																		
+hap32 arm: m(hap32)	poa_abpoa_mc	alignment.all_excess_per_kb	40	hotspot_vntr	A_gap													0.749171208630668					1.65	49.045							4.405	182.375																		
+hap32 arm: m(hap32)	poa_abpoa_mc	alignment.affine_all_cost_over_opt	40	hotspot_vntr	A_gap													0.7454877770162207					1.0076999999999998	1.1484							1.037	1.4747																		
+hap32 arm: m(hap32)	poa_abpoa_mc	size.nodes_per_kb	40	hotspot_vntr	A_gap													0.7012812580172947					31.66	299.205							101.265	763.895																		
+hap32 arm: m(hap32)	poa_abpoa_mc	size.node_len_mean	40	hotspot_vntr	A_gap													0.36364765809417327					35.843	6.5235							11.6455	3.5965																		
+hap32 arm: m(hap32)	poa_abpoa_mc	inflation.sv_pieces_mean	40	hotspot_vntr	A_gap													0.5281789032695954					0.6061	4.6986							0.6667	9.2121																		
+hap32 arm: m(hap32)	poa_abpoa_mc	redundancy.kmer_frac_extra	40	hotspot_vntr	A_gap													0.32482990095036585					0.032365000000000005	0.42284							0.052705	0.6009150000000001																		
+hap32 arm: m(hap32)	poa_abpoa_mc	alignment.all_U_per_kb	40	hotspot_vntr	A_gap													0.8906636948984646					0.0	4.5600000000000005							0.14500000000000002	40.525																		
+hap32 arm: m(hap32)	unit_aware	alignment.all_cost_over_opt	40	hotspot_vntr	A_gap													1.1169181034482762					1.0152	1.04765							1.1019	1.5659																		
+hap32 arm: m(hap32)	unit_aware	alignment.all_excess_per_kb	40	hotspot_vntr	A_gap													0.9392594257459123					1.0899999999999999	15.215							4.405	182.375																		
+hap32 arm: m(hap32)	unit_aware	alignment.affine_all_cost_over_opt	40	hotspot_vntr	A_gap													0.8730865889878907					1.02045	1.0925500000000001							1.037	1.4747																		
+hap32 arm: m(hap32)	unit_aware	size.nodes_per_kb	40	hotspot_vntr	A_gap													0.5775017732369496					40.349999999999994	381.225							101.265	763.895																		
+hap32 arm: m(hap32)	unit_aware	size.node_len_mean	40	hotspot_vntr	A_gap													0.09050813765685184					27.285	4.325							11.6455	3.5965																		
+hap32 arm: m(hap32)	unit_aware	inflation.sv_pieces_mean	40	hotspot_vntr	A_gap													0.2890034404474922					0.46965	6.74245							0.6667	9.2121																		
+hap32 arm: m(hap32)	unit_aware	redundancy.kmer_frac_extra	40	hotspot_vntr	A_gap													0.1518761058718376					0.070975	0.517655							0.052705	0.6009150000000001																		
+hap32 arm: m(hap32)	unit_aware	alignment.all_U_per_kb	40	hotspot_vntr	A_gap													0.9947994056463597					0.0	0.355							0.14500000000000002	40.525																		
+full-panel arm projected onto hap32: m__all	mafft_fftns2__all	alignment.all_cost_over_opt	31	hotspot_vntr	A_gap													0.35786290322580644					1.2055500000000001	1.4204							1.1019	1.5979																		
+full-panel arm projected onto hap32: m__all	mafft_fftns2__all	alignment.all_excess_per_kb	31	hotspot_vntr	A_gap													0.3144938308309797					15.120000000000001	119.69							4.405	172.58																		
+full-panel arm projected onto hap32: m__all	mafft_fftns2__all	alignment.affine_all_cost_over_opt	31	hotspot_vntr	A_gap													0.31273253410500207					1.1515	1.3695							1.037	1.5208																		
+full-panel arm projected onto hap32: m__all	mafft_fftns2__all	size.nodes_per_kb	31	hotspot_vntr	A_gap													0.5018117969066042					39.195	390.67							101.265	682.18																		
+full-panel arm projected onto hap32: m__all	mafft_fftns2__all	size.node_len_mean	31	hotspot_vntr	A_gap													0.3735435626920178					29.868000000000002	6.242							11.6455	3.02																		
+full-panel arm projected onto hap32: m__all	mafft_fftns2__all	inflation.sv_pieces_mean	31	hotspot_vntr	A_gap													0.21756368557251726					1.04545	7.2581							0.6667	9.0909																		
+full-panel arm projected onto hap32: m__all	mafft_fftns2__all	redundancy.kmer_frac_extra	31	hotspot_vntr	A_gap													-0.03606136892604379					0.05895	0.59801							0.052705	0.57903																		
+full-panel arm projected onto hap32: m__all	mafft_fftns2__all	alignment.all_U_per_kb	31	hotspot_vntr	A_gap													0.6763285024154588					0.1	9.19							0.14500000000000002	28.09																		
+full-panel arm projected onto hap32: m__all	mafft_linsi__all	alignment.all_cost_over_opt	4	hotspot_vntr	A_gap													1.3235150925024348					1.0543	1.03545							1.1019	1.3073000000000001																		
+full-panel arm projected onto hap32: m__all	mafft_linsi__all	alignment.all_excess_per_kb	4	hotspot_vntr	A_gap													0.9281993296450349					1.84	13.295							4.405	128.22																		
+full-panel arm projected onto hap32: m__all	mafft_linsi__all	alignment.affine_all_cost_over_opt	4	hotspot_vntr	A_gap													0.9909407665505221					1.0222	1.0396							1.037	1.3239999999999998																		
+full-panel arm projected onto hap32: m__all	mafft_linsi__all	size.nodes_per_kb	4	hotspot_vntr	A_gap													0.809700619354436					36.56	162.255							101.265	421.76																		
+full-panel arm projected onto hap32: m__all	mafft_linsi__all	size.node_len_mean	4	hotspot_vntr	A_gap													0.652390438247012					27.667	9.377							11.6455	5.1195																		
+full-panel arm projected onto hap32: m__all	mafft_linsi__all	inflation.sv_pieces_mean	4	hotspot_vntr	A_gap													0.7335442521598027					0.5152	2.13635							0.6667	6.18225																		
+full-panel arm projected onto hap32: m__all	mafft_linsi__all	redundancy.kmer_frac_extra	4	hotspot_vntr	A_gap													0.3181729302725744					0.06529	0.31423							0.052705	0.43627																		
+full-panel arm projected onto hap32: m__all	mafft_linsi__all	alignment.all_U_per_kb	4	hotspot_vntr	A_gap													0.8611111111111112					0.0	2.5949999999999998							0.14500000000000002	17.785																		
+full-panel arm projected onto hap32: m__all	mafft_einsi__all	alignment.all_cost_over_opt	1	hotspot_vntr	A_gap													1.1729483282674777					1.0179	1.045							1.1019	1.4309																		
+full-panel arm projected onto hap32: m__all	mafft_einsi__all	alignment.all_excess_per_kb	1	hotspot_vntr	A_gap													0.9219111483654652					0.9900000000000001	16.05							4.405	153.53																		
+full-panel arm projected onto hap32: m__all	mafft_einsi__all	alignment.affine_all_cost_over_opt	1	hotspot_vntr	A_gap													0.9843081312410837					1.00335	1.0436							1.037	1.4576																		
+full-panel arm projected onto hap32: m__all	mafft_einsi__all	size.nodes_per_kb	1	hotspot_vntr	A_gap													1.5150557180115387					18.22	68.68							101.265	164.53																		
+full-panel arm projected onto hap32: m__all	mafft_einsi__all	size.node_len_mean	1	hotspot_vntr	A_gap													3.0118152524167554					56.810500000000005	16.328							11.6455	9.318																		
+full-panel arm projected onto hap32: m__all	mafft_einsi__all	inflation.sv_pieces_mean	1	hotspot_vntr	A_gap													0.8621493149408145					0.30300000000000005	1.4062							0.6667	6.0312																		
+full-panel arm projected onto hap32: m__all	mafft_einsi__all	redundancy.kmer_frac_extra	1	hotspot_vntr	A_gap													0.616776800370386					0.014955	0.18928							0.052705	0.40909																		
+full-panel arm projected onto hap32: m__all	mafft_einsi__all	alignment.all_U_per_kb	1	hotspot_vntr	A_gap													0.6724967205946655					0.0	3.89							0.14500000000000002	11.58																		
+full-panel arm projected onto hap32: m__all	mafft_ginsi__all	alignment.all_cost_over_opt	1	hotspot_vntr	A_gap													1.210638297872341					1.0546	1.0326							1.1019	1.4309																		
+full-panel arm projected onto hap32: m__all	mafft_ginsi__all	alignment.all_excess_per_kb	1	hotspot_vntr	A_gap													0.9515507124895223					2.18	11.63							4.405	153.53																		
+full-panel arm projected onto hap32: m__all	mafft_ginsi__all	alignment.affine_all_cost_over_opt	1	hotspot_vntr	A_gap													1.0133143128863524					1.0206499999999998	1.0314							1.037	1.4576																		
+full-panel arm projected onto hap32: m__all	mafft_ginsi__all	size.nodes_per_kb	1	hotspot_vntr	A_gap													1.0207855844463762					34.09	99.95							101.265	164.53																		
+full-panel arm projected onto hap32: m__all	mafft_ginsi__all	size.node_len_mean	1	hotspot_vntr	A_gap													0.8880773361976368					30.1305	11.385							11.6455	9.318																		
+full-panel arm projected onto hap32: m__all	mafft_ginsi__all	inflation.sv_pieces_mean	1	hotspot_vntr	A_gap													0.9786559791220056					0.30300000000000005	0.7812							0.6667	6.0312																		
+full-panel arm projected onto hap32: m__all	mafft_ginsi__all	redundancy.kmer_frac_extra	1	hotspot_vntr	A_gap													0.3612385481992789					0.061875	0.28035							0.052705	0.40909																		
+full-panel arm projected onto hap32: m__all	mafft_ginsi__all	alignment.all_U_per_kb	1	hotspot_vntr	A_gap													0.834280717096633					0.0	2.04							0.14500000000000002	11.58																		
+full-panel arm projected onto hap32: m__all	mafft_fftnsi__all	alignment.all_cost_over_opt	9	hotspot_vntr	A_gap													0.6939914163090131					1.1109499999999999	1.1732							1.1019	1.3349																		
+full-panel arm projected onto hap32: m__all	mafft_fftnsi__all	alignment.all_excess_per_kb	9	hotspot_vntr	A_gap													0.2436282337911211					8.684999999999999	63.61							4.405	82.68																		
+full-panel arm projected onto hap32: m__all	mafft_fftnsi__all	alignment.affine_all_cost_over_opt	9	hotspot_vntr	A_gap													0.5472005208333335					1.0526	1.1761							1.037	1.3442																		
+full-panel arm projected onto hap32: m__all	mafft_fftnsi__all	size.nodes_per_kb	9	hotspot_vntr	A_gap													0.5009869431082128					37.705	271.91							101.265	443.23																		
+full-panel arm projected onto hap32: m__all	mafft_fftnsi__all	size.node_len_mean	9	hotspot_vntr	A_gap													0.5726238532110092					29.988500000000002	8.734							11.6455	4.833																		
+full-panel arm projected onto hap32: m__all	mafft_fftnsi__all	inflation.sv_pieces_mean	9	hotspot_vntr	A_gap													0.6217484253267715					0.5758	3.303							0.6667	7.6364																		
+full-panel arm projected onto hap32: m__all	mafft_fftnsi__all	redundancy.kmer_frac_extra	9	hotspot_vntr	A_gap													-0.3235173662029515					0.055665	0.55361							0.052705	0.43117																		
+full-panel arm projected onto hap32: m__all	mafft_fftnsi__all	alignment.all_U_per_kb	9	hotspot_vntr	A_gap													0.789263996644999					0.060000000000000005	5.17							0.14500000000000002	23.99																		
+full-panel arm projected onto hap32: m__all	poa_abpoa__all	alignment.all_cost_over_opt	30	hotspot_vntr	A_gap													0.9418386491557227					1.0842	1.1298							1.1019	1.5816																		
+full-panel arm projected onto hap32: m__all	poa_abpoa__all	alignment.all_excess_per_kb	30	hotspot_vntr	A_gap													0.7696806782264498					6.115	43.39							4.405	173.67000000000002																		
+full-panel arm projected onto hap32: m__all	poa_abpoa__all	alignment.affine_all_cost_over_opt	30	hotspot_vntr	A_gap													0.5637212331741203					1.06665	1.23795							1.037	1.4975999999999998																		
+full-panel arm projected onto hap32: m__all	poa_abpoa__all	size.nodes_per_kb	30	hotspot_vntr	A_gap													0.38665335726583383					54.004999999999995	436.14							101.265	647.2449999999999																		
+full-panel arm projected onto hap32: m__all	poa_abpoa__all	size.node_len_mean	30	hotspot_vntr	A_gap													0.01460252060106644					20.439500000000002	3.5140000000000002							11.6455	3.3935																		
+full-panel arm projected onto hap32: m__all	poa_abpoa__all	inflation.sv_pieces_mean	30	hotspot_vntr	A_gap													0.39352548870225595					0.62125	5.68185							0.6667	8.93605																		
+full-panel arm projected onto hap32: m__all	poa_abpoa__all	redundancy.kmer_frac_extra	30	hotspot_vntr	A_gap													0.05030154542027871					0.062075	0.5566150000000001							0.052705	0.583305																		
+full-panel arm projected onto hap32: m__all	poa_abpoa__all	alignment.all_U_per_kb	30	hotspot_vntr	A_gap													0.928557636609384					0.07500000000000001	1.995							0.14500000000000002	26.04																		
+full-panel arm projected onto hap32: m__all	poa_spoa__all	alignment.all_cost_over_opt	20	hotspot_vntr	A_gap													0.97364185110664					1.0686	1.115							1.1019	1.5989																		
+full-panel arm projected onto hap32: m__all	poa_spoa__all	alignment.all_excess_per_kb	20	hotspot_vntr	A_gap													0.8406418146083707					4.9	29.134999999999998							4.405	159.59																		
+full-panel arm projected onto hap32: m__all	poa_spoa__all	alignment.affine_all_cost_over_opt	20	hotspot_vntr	A_gap													0.4826464208242947					1.0989	1.29935							1.037	1.5440999999999998																		
+full-panel arm projected onto hap32: m__all	poa_spoa__all	size.nodes_per_kb	20	hotspot_vntr	A_gap													0.35924502000989267					78.12	386.26							101.265	546.0450000000001																		
+full-panel arm projected onto hap32: m__all	poa_spoa__all	size.node_len_mean	20	hotspot_vntr	A_gap													-0.06714471968709264					15.132	3.4604999999999997							11.6455	3.9755000000000003																		
+full-panel arm projected onto hap32: m__all	poa_spoa__all	inflation.sv_pieces_mean	20	hotspot_vntr	A_gap													0.6766501775163519					0.5312	3.1212							0.6667	8.25755																		
+full-panel arm projected onto hap32: m__all	poa_spoa__all	redundancy.kmer_frac_extra	20	hotspot_vntr	A_gap													-0.1393039150702497					0.14641	0.5769500000000001							0.052705	0.51285																		
+full-panel arm projected onto hap32: m__all	poa_spoa__all	alignment.all_U_per_kb	20	hotspot_vntr	A_gap													0.9136581122227055					0.17	2.13							0.14500000000000002	23.134999999999998																		
+full-panel arm projected onto hap32: m__all	poa_abpoa_mc__all	alignment.all_cost_over_opt	39	hotspot_vntr	A_gap													0.6274214377959538					1.08355	1.275							1.1019	1.5665																		
+full-panel arm projected onto hap32: m__all	poa_abpoa_mc__all	alignment.all_excess_per_kb	39	hotspot_vntr	A_gap													0.555001751219118					5.734999999999999	86.99							4.405	189.99																		
+full-panel arm projected onto hap32: m__all	poa_abpoa_mc__all	alignment.affine_all_cost_over_opt	39	hotspot_vntr	A_gap													0.36187214611872154					1.0375	1.3165							1.037	1.475																		
+full-panel arm projected onto hap32: m__all	poa_abpoa_mc__all	size.nodes_per_kb	39	hotspot_vntr	A_gap													0.631027089402865					29.18	360.26							101.265	803.2																		
+full-panel arm projected onto hap32: m__all	poa_abpoa_mc__all	size.node_len_mean	39	hotspot_vntr	A_gap													0.2678995072692986					36.692499999999995	5.628							11.6455	3.426																		
+full-panel arm projected onto hap32: m__all	poa_abpoa_mc__all	inflation.sv_pieces_mean	39	hotspot_vntr	A_gap													0.30069462072785175					0.7576	6.7273							0.6667	9.3333																		
+full-panel arm projected onto hap32: m__all	poa_abpoa_mc__all	redundancy.kmer_frac_extra	39	hotspot_vntr	A_gap													0.09545077521852861					0.045380000000000004	0.5489							0.052705	0.60126																		
+full-panel arm projected onto hap32: m__all	poa_abpoa_mc__all	alignment.all_U_per_kb	39	hotspot_vntr	A_gap													0.7106356198867212					0.03	11.64							0.14500000000000002	39.87																		
+full-panel arm projected onto hap32: m__all	unit_aware__all	alignment.all_cost_over_opt	40	hotspot_vntr	A_gap													1.0913793103448282					1.0449	1.0594999999999999							1.1019	1.5659																		
+full-panel arm projected onto hap32: m__all	unit_aware__all	alignment.all_excess_per_kb	40	hotspot_vntr	A_gap													0.9159127942911727					1.825	19.37							4.405	182.375																		
+full-panel arm projected onto hap32: m__all	unit_aware__all	alignment.affine_all_cost_over_opt	40	hotspot_vntr	A_gap													0.7691341101210873					1.07185	1.13805							1.037	1.4747																		
+full-panel arm projected onto hap32: m__all	unit_aware__all	size.nodes_per_kb	40	hotspot_vntr	A_gap													0.46839110815990825					44.985	453.525							101.265	763.895																		
+full-panel arm projected onto hap32: m__all	unit_aware__all	size.node_len_mean	40	hotspot_vntr	A_gap													0.03783078643309728					22.54	3.901							11.6455	3.5965																		
+full-panel arm projected onto hap32: m__all	unit_aware__all	inflation.sv_pieces_mean	40	hotspot_vntr	A_gap													0.15070681302221067					0.51515	7.924250000000001							0.6667	9.2121																		
+full-panel arm projected onto hap32: m__all	unit_aware__all	redundancy.kmer_frac_extra	40	hotspot_vntr	A_gap													0.10688422319913912					0.092245	0.54232							0.052705	0.6009150000000001																		
+full-panel arm projected onto hap32: m__all	unit_aware__all	alignment.all_U_per_kb	40	hotspot_vntr	A_gap													0.9887320455671125					0.01	0.6							0.14500000000000002	40.525																		
+hap32 arm	mafft_fftns2	alignment.all_cost_over_opt	40	control_vntr_matched	B_controls	1.1019						1.0998999999999999	14	0.0			11																				0.7871285933069885								13	10				15
+hap32 arm	mafft_fftns2	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.0566	9	0.0			8																				0.7561664581298828								8	7				8
+hap32 arm	mafft_fftns2	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0	0	0.0			19																				1.0								0	0				1
+hap32 arm	mafft_fftns2	alignment.all_cost_over_opt	40	hotspot_vntr	B_controls	1.5659						1.3268499999999999	32	-0.20019999999999993			1																				1.1274605640210211e-05								6	5				7
+hap32 arm	mafft_fftns2	alignment.all_cost_over_opt	24	hotspot_other	B_controls	1.62545						1.3128	22	-0.28385000000000005			0																				2.2649765014648438e-06								2	1				2
+hap32 arm	mafft_linsi	alignment.all_cost_over_opt	40	control_vntr_matched	B_controls	1.1019						1.0278	22	-0.018449999999999966			15																				2.4799024686217308e-05								3	0				3
+hap32 arm	mafft_linsi	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.0149	11	0.0			10																				0.069580078125								3	2				4
+hap32 arm	mafft_linsi	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0000499999999999	0	0.0			16																				0.09375								3	3				4
+hap32 arm	mafft_linsi	alignment.all_cost_over_opt	39	hotspot_vntr	B_controls	1.5665						1.1106	39	-0.4005000000000001			0																				3.637978807091713e-12								0	0				0
+hap32 arm	mafft_linsi	alignment.all_cost_over_opt	24	hotspot_other	B_controls	1.62545						1.16405	24	-0.37045000000000006			0																				1.1920928955078125e-07								0	0				0
+hap32 arm	mafft_einsi	alignment.all_cost_over_opt	40	control_vntr_matched	B_controls	1.1019						1.02955	22	-0.019199999999999995			17																				3.935769200325012e-06								1	0				1
+hap32 arm	mafft_einsi	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.0067	10	-0.00029999999999996696			14																				0.0053253173828125								1	0				1
+hap32 arm	mafft_einsi	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0	0	0.0			19																				1.0								0	0				1
+hap32 arm	mafft_einsi	alignment.all_cost_over_opt	37	hotspot_vntr	B_controls	1.5653						1.1821	36	-0.35950000000000015			0																				1.4551915228366852e-10								1	1				1
+hap32 arm	mafft_einsi	alignment.all_cost_over_opt	24	hotspot_other	B_controls	1.62545						1.2207	23	-0.27779999999999994			1																				1.1920928955078125e-07								0	0				0
+hap32 arm	mafft_ginsi	alignment.all_cost_over_opt	40	control_vntr_matched	B_controls	1.1019						1.02665	23	-0.01859999999999995			15																				6.3569750636816025e-06								2	0				2
+hap32 arm	mafft_ginsi	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.0342	11	0.0			8																				0.16495704650878906								5	3				6
+hap32 arm	mafft_ginsi	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0000499999999999	0	0.0			16																				0.09375								3	3				4
+hap32 arm	mafft_ginsi	alignment.all_cost_over_opt	39	hotspot_vntr	B_controls	1.5665						1.1096	39	-0.4047999999999998			0																				3.637978807091713e-12								0	0				0
+hap32 arm	mafft_ginsi	alignment.all_cost_over_opt	24	hotspot_other	B_controls	1.62545						1.1629	24	-0.3690500000000001			0																				1.1920928955078125e-07								0	0				0
+hap32 arm	poa_abpoa	alignment.all_cost_over_opt	40	control_vntr_matched	B_controls	1.1019						1.0243	24	-0.019200000000000106			16																				6.379559636116028e-08								0	0				0
+hap32 arm	poa_abpoa	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.0065	12	-0.00039999999999995595			9																				0.025821685791015625								3	1				4
+hap32 arm	poa_abpoa	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0	0	0.0			19																				0.75								0	0				1
+hap32 arm	poa_abpoa	alignment.all_cost_over_opt	37	hotspot_vntr	B_controls	1.5665						1.083	37	-0.4544999999999999			0																				1.4551915228366852e-11								0	0				0
+hap32 arm	poa_abpoa	alignment.all_cost_over_opt	24	hotspot_other	B_controls	1.62545						1.15025	24	-0.4378500000000001			0																				1.1920928955078125e-07								0	0				0
+hap32 arm	poa_spoa	alignment.all_cost_over_opt	39	control_vntr_matched	B_controls	1.1031						1.0165	23	-0.05710000000000015			13																				2.630287781357765e-06								1	0				3
+hap32 arm	poa_spoa	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.0046	13	-0.00890000000000013			11																				0.002712249755859375								1	1				1
+hap32 arm	poa_spoa	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0	0	0.0			20																				0.5								0	0				0
+hap32 arm	poa_spoa	alignment.all_cost_over_opt	27	hotspot_vntr	B_controls	1.5992						1.0667	27	-0.5184			0																				1.4901161193847656e-08								0	0				0
+hap32 arm	poa_spoa	alignment.all_cost_over_opt	24	hotspot_other	B_controls	1.62545						1.1252	24	-0.48040000000000016			0																				1.1920928955078125e-07								0	0				0
+hap32 arm	poa_abpoa_mc	alignment.all_cost_over_opt	40	control_vntr_matched	B_controls	1.1019						1.0305499999999999	20	-0.005299999999999971			18																				1.5350058674812317e-05								2	0				2
+hap32 arm	poa_abpoa_mc	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.0067	9	-0.00039999999999995595			14																				0.01593017578125								1	0				2
+hap32 arm	poa_abpoa_mc	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0	0	0.0			19																				0.75								0	0				1
+hap32 arm	poa_abpoa_mc	alignment.all_cost_over_opt	40	hotspot_vntr	B_controls	1.5659						1.1703000000000001	39	-0.3911			0																				6.002665031701326e-11								1	1				1
+hap32 arm	poa_abpoa_mc	alignment.all_cost_over_opt	24	hotspot_other	B_controls	1.62545						1.2842500000000001	22	-0.25845000000000007			1																				2.2649765014648438e-06								1	1				1
+hap32 arm	unit_aware	alignment.all_cost_over_opt	40	control_vntr_matched	B_controls	1.1019						1.0152	24	-0.06525000000000003			13																				1.0730582289397717e-06								0	0				3
+hap32 arm	unit_aware	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.0149	13	-0.007800000000000029			8																				0.02542257308959961								2	1				4
+hap32 arm	unit_aware	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0000499999999999	0	0.0			16																				0.09375								3	3				4
+hap32 arm	unit_aware	alignment.all_cost_over_opt	40	hotspot_vntr	B_controls	1.5659						1.04765	40	-0.4635			0																				1.8189894035458565e-12								0	0				0
+hap32 arm	unit_aware	alignment.all_cost_over_opt	24	hotspot_other	B_controls	1.62545						1.0532	24	-0.5325500000000001			0																				1.1920928955078125e-07								0	0				0
+full-panel arm, projected	mafft_fftns2__all	alignment.all_cost_over_opt	40	control_vntr_matched	B_controls	1.1019						1.2055500000000001	12	0.006550000000000056			7																				0.07920455750718247								18	16				21
+full-panel arm, projected	mafft_fftns2__all	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.042	5	0.0033999999999998476			8																				0.058258056640625								10	6				12
+full-panel arm, projected	mafft_fftns2__all	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0	0	0.0			19																				0.625								0	0				1
+full-panel arm, projected	mafft_fftns2__all	alignment.all_cost_over_opt	31	hotspot_vntr	B_controls	1.5979						1.4204	22	-0.14559999999999995			0																				0.0044362908229231834								9	5				9
+full-panel arm, projected	mafft_fftns2__all	alignment.all_cost_over_opt	24	hotspot_other	B_controls	1.62545						1.35955	19	-0.10305000000000009			2																				5.328655242919922e-05								3	2				3
+full-panel arm, projected	mafft_linsi__all	alignment.all_cost_over_opt	27	control_vntr_matched	B_controls	1.1116						1.0543	15	-0.020199999999999996			9																				0.004151344299316406								3	1				3
+full-panel arm, projected	mafft_linsi__all	alignment.all_cost_over_opt	20	control_vntr_correct	B_controls	1.0208						1.0345	6	0.0			8																				0.52447509765625								4	1				6
+full-panel arm, projected	mafft_linsi__all	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0000499999999999	0	0.0			16																				0.09375								3	3				4
+full-panel arm, projected	mafft_linsi__all	alignment.all_cost_over_opt	4	hotspot_vntr	B_controls	1.3073000000000001						1.03545	4	-0.2801			0																				0.125								0	0				0
+full-panel arm, projected	mafft_linsi__all	alignment.all_cost_over_opt	6	hotspot_other	B_controls	1.5175						1.1593499999999999	6	-0.2936000000000001			0																				0.03125								0	0				0
+full-panel arm, projected	mafft_einsi__all	alignment.all_cost_over_opt	22	control_vntr_matched	B_controls	1.10615						1.0179	13	-0.019950000000000023			9																				0.000152587890625								0	0				0
+full-panel arm, projected	mafft_einsi__all	alignment.all_cost_over_opt	18	control_vntr_correct	B_controls	1.0137						1.0057999999999998	6	0.0			9																				0.2060546875								2	0				3
+full-panel arm, projected	mafft_einsi__all	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0	0	0.0			19																				1.0								0	0				1
+full-panel arm, projected	mafft_einsi__all	alignment.all_cost_over_opt	1	hotspot_vntr	B_controls	1.4309						1.045	1	-0.38590000000000013			0																												0	0				0
+full-panel arm, projected	mafft_einsi__all	alignment.all_cost_over_opt	4	hotspot_other	B_controls	1.5175						1.3302999999999998	3	-0.17495000000000005			0																				0.25								0	0				1
+full-panel arm, projected	mafft_ginsi__all	alignment.all_cost_over_opt	22	control_vntr_matched	B_controls	1.10615						1.0546	13	-0.019199999999999995			7																				0.0055999755859375								2	1				2
+full-panel arm, projected	mafft_ginsi__all	alignment.all_cost_over_opt	18	control_vntr_correct	B_controls	1.0137						1.0345	6	0.0			6																				0.454833984375								5	2				6
+full-panel arm, projected	mafft_ginsi__all	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0000499999999999	0	0.0			16																				0.09375								3	3				4
+full-panel arm, projected	mafft_ginsi__all	alignment.all_cost_over_opt	1	hotspot_vntr	B_controls	1.4309						1.0326	1	-0.3983000000000001			0																												0	0				0
+full-panel arm, projected	mafft_ginsi__all	alignment.all_cost_over_opt	4	hotspot_other	B_controls	1.5175						1.1635	4	-0.29395000000000004			0																				0.125								0	0				0
+full-panel arm, projected	mafft_fftnsi__all	alignment.all_cost_over_opt	34	control_vntr_matched	B_controls	1.1019						1.1109499999999999	12	0.0			8																				0.8695757398381829								11	8				14
+full-panel arm, projected	mafft_fftnsi__all	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.0358	6	0.0			9																				0.36827659606933594								8	4				10
+full-panel arm, projected	mafft_fftnsi__all	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0	0	0.0			19																				1.0								0	0				1
+full-panel arm, projected	mafft_fftnsi__all	alignment.all_cost_over_opt	9	hotspot_vntr	B_controls	1.3349						1.1732	7	-0.05160000000000009			0																				0.1640625								1	1				2
+full-panel arm, projected	mafft_fftnsi__all	alignment.all_cost_over_opt	17	hotspot_other	B_controls	1.6528						1.2965	16	-0.1695000000000002			0																				7.62939453125e-05								1	1				1
+full-panel arm, projected	poa_abpoa__all	alignment.all_cost_over_opt	40	control_vntr_matched	B_controls	1.1019						1.0842	15	0.0			13																				0.4688330565113574								12	8				12
+full-panel arm, projected	poa_abpoa__all	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.0771	9	0.0			7																				1.0								8	7				9
+full-panel arm, projected	poa_abpoa__all	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0000499999999999	0	0.0			19																				0.75								0	0				1
+full-panel arm, projected	poa_abpoa__all	alignment.all_cost_over_opt	30	hotspot_vntr	B_controls	1.5816						1.1298	30	-0.36345000000000005			0																				1.862645149230957e-09								0	0				0
+full-panel arm, projected	poa_abpoa__all	alignment.all_cost_over_opt	23	hotspot_other	B_controls	1.6528						1.2435	21	-0.3419000000000001			0																				3.337860107421875e-06								2	2				2
+full-panel arm, projected	poa_spoa__all	alignment.all_cost_over_opt	37	control_vntr_matched	B_controls	1.1031						1.0686	19	-0.012199999999999989			8																				0.00806064996868372								10	5				10
+full-panel arm, projected	poa_spoa__all	alignment.all_cost_over_opt	24	control_vntr_correct	B_controls	1.01585						1.0655000000000001	10	-0.00014999999999998348			6																				0.47333431243896484								8	8				8
+full-panel arm, projected	poa_spoa__all	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0000499999999999	0	0.0			20																				1.0								0	0				0
+full-panel arm, projected	poa_spoa__all	alignment.all_cost_over_opt	20	hotspot_vntr	B_controls	1.5989						1.115	19	-0.41525			0																				3.814697265625e-06								0	0				1
+full-panel arm, projected	poa_spoa__all	alignment.all_cost_over_opt	22	hotspot_other	B_controls	1.6583						1.2387000000000001	20	-0.39259999999999995			0																				4.76837158203125e-06								2	0				2
+full-panel arm, projected	poa_abpoa_mc__all	alignment.all_cost_over_opt	40	control_vntr_matched	B_controls	1.1019						1.08355	13	0.0			16																				0.8647311441600323								11	9				11
+full-panel arm, projected	poa_abpoa_mc__all	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.0242	6	0.0			12																				0.7417526245117188								5	1				7
+full-panel arm, projected	poa_abpoa_mc__all	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0000499999999999	0	0.0			19																				0.375								0	0				1
+full-panel arm, projected	poa_abpoa_mc__all	alignment.all_cost_over_opt	39	hotspot_vntr	B_controls	1.5665						1.275	29	-0.18590000000000018			0																				4.399772296892479e-05								10	4				10
+full-panel arm, projected	poa_abpoa_mc__all	alignment.all_cost_over_opt	24	hotspot_other	B_controls	1.62545						1.35605	18	-0.13190000000000002			1																				0.0015796422958374023								5	3				5
+full-panel arm, projected	unit_aware__all	alignment.all_cost_over_opt	40	control_vntr_matched	B_controls	1.1019						1.0449	22	-0.020950000000000024			10																				0.0019591173622757196								7	3				8
+full-panel arm, projected	unit_aware__all	alignment.all_cost_over_opt	25	control_vntr_correct	B_controls	1.0146						1.017	9	-0.00020000000000020002			10																				0.27681541442871094								3	2				6
+full-panel arm, projected	unit_aware__all	alignment.all_cost_over_opt	20	control_nontr_sv	B_controls	1.0000499999999999						1.0000499999999999	0	0.0			16																				0.09375								3	3				4
+full-panel arm, projected	unit_aware__all	alignment.all_cost_over_opt	40	hotspot_vntr	B_controls	1.5659						1.0594999999999999	40	-0.45405000000000006			0																				1.8189894035458565e-12								0	0				0
+full-panel arm, projected	unit_aware__all	alignment.all_cost_over_opt	24	hotspot_other	B_controls	1.62545						1.097	24	-0.47275			0																				1.1920928955078125e-07								0	0				0
+	mafft_fftns2		31	hotspot_vntr	D_panel		1.4204	5	26	22	9								1.2882										1.5979								0.0010653818026185036										0.5731352922182755			
+	mafft_fftns2		40	control_vntr_matched	D_panel		1.2055500000000001	7	23	12	21								1.0998999999999999										1.1019								0.002328513073734939													
+	mafft_fftns2		25	control_vntr_correct	D_panel		1.042	6	9	5	12								1.0566										1.0146								0.35541629791259766													
+	mafft_fftns2		24	hotspot_other	D_panel		1.35955	1	21	19	3								1.3128										1.62545								7.62939453125e-05										0.8504717735486964			
+	mafft_fftns2		20	control_nontr_sv	D_panel		1.0	0	0	0	1								1.0										1.0000499999999999								1.0													
+	mafft_linsi		4	hotspot_vntr	D_panel		1.03545	2	1	4	0								1.0417										1.3073000000000001								0.375										1.0235316265060244			
+	mafft_linsi		27	control_vntr_matched	D_panel		1.0543	2	12	15	3								1.0225										1.1116								0.00335693359375										0.6430976430976424			
+	mafft_linsi		20	control_vntr_correct	D_panel		1.0345	1	6	6	6								1.0126										1.0208								0.01611328125													
+	mafft_linsi		6	hotspot_other	D_panel		1.1593499999999999	2	4	6	0								1.15765										1.5175								0.21875										0.9952758093650137			
+	mafft_linsi		20	control_nontr_sv	D_panel		1.0000499999999999	1	0	0	4								1.0000499999999999										1.0000499999999999								1.0													
+	mafft_einsi		1	hotspot_vntr	D_panel		1.045	1	0	1	0								1.0501										1.4309																		1.0133928571428574			
+	mafft_einsi		22	control_vntr_matched	D_panel		1.0179	1	3	13	0								1.0161										1.10615								0.21875										0.9800111049416987			
+	mafft_einsi		18	control_vntr_correct	D_panel		1.0057999999999998	0	3	6	3								1.0057999999999998										1.0137								0.3125													
+	mafft_einsi		4	hotspot_other	D_panel		1.3302999999999998	0	4	3	1								1.21035										1.5175								0.125										0.6094741982744595			
+	mafft_einsi		20	control_nontr_sv	D_panel		1.0	0	0	0	1								1.0										1.0000499999999999																					
+	mafft_ginsi		1	hotspot_vntr	D_panel		1.0326	0	0	1	0								1.0348										1.4309																		1.0055541529916687			
+	mafft_ginsi		22	control_vntr_matched	D_panel		1.0546	0	8	13	2								1.0143499999999999										1.10615								0.0048828125										0.5615468409586049			
+	mafft_ginsi		18	control_vntr_correct	D_panel		1.0345	1	6	6	6								1.02125										1.0137								0.01953125													
+	mafft_ginsi		4	hotspot_other	D_panel		1.1635	0	2	4	0								1.1581										1.5175								0.375										0.9849749582637728			
+	mafft_ginsi		20	control_nontr_sv	D_panel		1.0000499999999999	1	0	0	4								1.0000499999999999										1.0000499999999999								1.0													
+	poa_abpoa		30	hotspot_vntr	D_panel		1.1298	1	22	30	0								1.0833										1.5816								1.3820827007293701e-06										0.9066827212522577			
+	poa_abpoa		40	control_vntr_matched	D_panel		1.0842	1	22	15	12								1.0243										1.1019								1.4901161193847656e-07										0.22809278350515494			
+	poa_abpoa		25	control_vntr_correct	D_panel		1.0771	0	16	9	9								1.0065										1.0146								6.67572021484375e-06													
+	poa_abpoa		23	hotspot_other	D_panel		1.2435	1	20	21	2								1.1636										1.6528								1.1920928955078125e-06										0.8366721177432541			
+	poa_abpoa		20	control_nontr_sv	D_panel		1.0000499999999999	0	0	0	1								1.0										1.0000499999999999								1.0													
+	poa_spoa		20	hotspot_vntr	D_panel		1.115	1	19	19	1								1.0502										1.5989								0.0004825592041015625										0.8819026790595954			
+	poa_spoa		37	control_vntr_matched	D_panel		1.0686	0	25	19	10								1.0165										1.1031								2.60770320892334e-08										0.39838337182448			
+	poa_spoa		24	control_vntr_correct	D_panel		1.0655000000000001	0	16	10	8								1.0046										1.01585								9.5367431640625e-07													
+	poa_spoa		22	hotspot_other	D_panel		1.2387000000000001	0	22	20	2								1.1271499999999999										1.6583								4.76837158203125e-07										0.7899839969876679			
+	poa_spoa		20	control_nontr_sv	D_panel		1.0000499999999999	0	0	0	0								1.0										1.0000499999999999								0.5													
+	poa_abpoa_mc		39	hotspot_vntr	D_panel		1.275	6	32	29	10								1.1698										1.5665								1.8413629732094705e-07										0.7348122006554072			
+	poa_abpoa_mc		40	control_vntr_matched	D_panel		1.08355	2	19	13	11								1.0305499999999999										1.1019								2.2083520889282227e-05										0.2571829011913108			
+	poa_abpoa_mc		25	control_vntr_correct	D_panel		1.0242	1	9	6	7								1.0067										1.0146								0.0040283203125													
+	poa_abpoa_mc		24	hotspot_other	D_panel		1.35605	5	19	18	5								1.2842500000000001										1.62545								0.0006498098373413086										0.7895662368112548			
+	poa_abpoa_mc		20	control_nontr_sv	D_panel		1.0000499999999999	0	0	0	1								1.0										1.0000499999999999								1.0													
+	unit_aware		40	hotspot_vntr	D_panel		1.0594999999999999	2	34	40	0								1.04765										1.5659								2.2115091269370168e-07										0.9771345875542693			
+	unit_aware		40	control_vntr_matched	D_panel		1.0449	0	23	22	8								1.0152										1.1019								1.594889909029007e-08										0.6574394463667839			
+	unit_aware		25	control_vntr_correct	D_panel		1.017	3	9	9	6								1.0149										1.0146								0.01596975326538086													
+	unit_aware		24	hotspot_other	D_panel		1.097	0	22	24	0								1.0532										1.62545								1.1920928955078125e-07										0.9234600262123197			
+	unit_aware		20	control_nontr_sv	D_panel		1.0000499999999999	1	0	0	4								1.0000499999999999										1.0000499999999999								1.0													
+	mafft_fftns2		31	hotspot_vntr	D_full	1.6102						1.3615	28	-0.23940000000000006			0																				4.003755748271942e-06													3
+	mafft_fftns2		40	control_vntr_matched	D_full	1.19945						1.30915	13	0.051549999999999985			5																				0.012490710148995277													22
+	mafft_fftns2		25	control_vntr_correct	D_full	1.0556						1.118	6	0.0019000000000000128			7																				0.27221012115478516													12
+	mafft_fftns2		24	hotspot_other	D_full	1.4267						1.27515	20	-0.12795			1																				0.00020515918731689453													3
+	mafft_fftns2		20	control_nontr_sv	D_full	1.0003						1.0002	0	0.0			18																				0.4375													2
+	mafft_linsi		4	hotspot_vntr	D_full	1.5151						1.03955	4	-0.476			0																				0.125													0
+	mafft_linsi		27	control_vntr_matched	D_full	1.1965						1.0832	17	-0.05069999999999997			5																				0.00014960765838623047													5
+	mafft_linsi		20	control_vntr_correct	D_full	1.0704500000000001						1.04345	10	-0.022600000000000064			6																				0.0182342529296875													4
+	mafft_linsi		6	hotspot_other	D_full	1.286						1.1335000000000002	6	-0.15634999999999988			0																				0.03125													0
+	mafft_linsi		20	control_nontr_sv	D_full	1.0003						1.0002	0	0.0			16																				0.109375													4
+	mafft_einsi		1	hotspot_vntr	D_full	1.5919						1.0551	1	-0.5368000000000002			0																																	0
+	mafft_einsi		22	control_vntr_matched	D_full	1.1486999999999998						1.06845	13	-0.023800000000000043			7																				0.0011138916015625													2
+	mafft_einsi		18	control_vntr_correct	D_full	1.0704500000000001						1.0372	11	-0.027800000000000047			5																				0.0030517578125													2
+	mafft_einsi		4	hotspot_other	D_full	1.2073999999999998						1.1921	2	-0.007200000000000095			0																				0.625													2
+	mafft_einsi		20	control_nontr_sv	D_full	1.0003						1.00015	0	0.0			19																				0.4375													1
+	mafft_ginsi		1	hotspot_vntr	D_full	1.5919						1.0446	1	-0.5473000000000001			0																																	0
+	mafft_ginsi		22	control_vntr_matched	D_full	1.1486999999999998						1.059	14	-0.04260000000000008			4																				0.00041961669921875													4
+	mafft_ginsi		18	control_vntr_correct	D_full	1.0704500000000001						1.0485	9	-0.022600000000000064			4																				0.033538818359375													5
+	mafft_ginsi		4	hotspot_other	D_full	1.2073999999999998						1.0878999999999999	4	-0.13014999999999988			0																				0.125													0
+	mafft_ginsi		20	control_nontr_sv	D_full	1.0003						1.0002	0	0.0			16																				0.109375													4
+	mafft_fftnsi		9	hotspot_vntr	D_full	1.5919						1.2888	9	-0.39990000000000014			0																				0.00390625													0
+	mafft_fftnsi		34	control_vntr_matched	D_full	1.2102						1.2425000000000002	14	0.0			7																				0.444234280847013													13
+	mafft_fftnsi		25	control_vntr_correct	D_full	1.0556						1.103	7	0.0018000000000000238			7																				0.5620746612548828													11
+	mafft_fftnsi		17	hotspot_other	D_full	1.4627						1.2509	16	-0.2096			0																				0.001678466796875													1
+	mafft_fftnsi		20	control_nontr_sv	D_full	1.0003						1.00015	0	0.0			19																				0.875													1
+	poa_abpoa		30	hotspot_vntr	D_full	1.62415						1.1106	29	-0.45899999999999996			0																				9.313225746154785e-09													1
+	poa_abpoa		40	control_vntr_matched	D_full	1.19945						1.1141999999999999	20	-0.00990000000000002			9																				0.03209542465629056													11
+	poa_abpoa		25	control_vntr_correct	D_full	1.0556						1.1095	9	0.0			7																				0.774528980255127													9
+	poa_abpoa		23	hotspot_other	D_full	1.4488						1.2054	22	-0.26660000000000017			0																				4.76837158203125e-07													1
+	poa_abpoa		20	control_nontr_sv	D_full	1.0003						1.0002	0	0.0			19																				0.25													1
+	poa_spoa		20	hotspot_vntr	D_full	1.67705						1.09415	20	-0.59365			0																				1.9073486328125e-06													0
+	poa_spoa		37	control_vntr_matched	D_full	1.218						1.0897	22	-0.06020000000000003			9																				0.00043048278894275427													6
+	poa_spoa		24	control_vntr_correct	D_full	1.05515						1.11645	11	-0.0010999999999998789			4																				0.5009052753448486													9
+	poa_spoa		22	hotspot_other	D_full	1.45575						1.1826500000000002	22	-0.28635			0																				4.76837158203125e-07													0
+	poa_spoa		20	control_nontr_sv	D_full	1.0003						1.0002	0	0.0			20																				0.5													0
+	poa_abpoa_mc		39	hotspot_vntr	D_full	1.5151						1.2687	36	-0.2764			0																				2.0187144400551915e-08													3
+	poa_abpoa_mc		40	control_vntr_matched	D_full	1.19945						1.1494	15	0.0			12																				0.8524555477779359													13
+	poa_abpoa_mc		25	control_vntr_correct	D_full	1.0556						1.0454	11	-0.0021999999999999797			10																				0.07942724227905273													4
+	poa_abpoa_mc		24	hotspot_other	D_full	1.4267						1.3241	19	-0.12335000000000007			1																				0.0031430721282958984													4
+	poa_abpoa_mc		20	control_nontr_sv	D_full	1.0003						1.0002	0	0.0			18																				0.25													2
+	unit_aware		40	hotspot_vntr	D_full	1.5128						1.05355	40	-0.4646499999999999			0																				1.8189894035458565e-12													0
+	unit_aware		40	control_vntr_matched	D_full	1.19945						1.05415	28	-0.10924999999999996			4																				4.9953057896345854e-05													8
+	unit_aware		25	control_vntr_correct	D_full	1.0556						1.0232	18	-0.0504			4																				0.00028705596923828125													3
+	unit_aware		24	hotspot_other	D_full	1.4267						1.06325	24	-0.37675000000000003			0																				1.1920928955078125e-07													0
+	unit_aware		20	control_nontr_sv	D_full	1.0003						1.0002	0	0.0			16																				0.109375													4
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftns2	alignment.all_cost_over_opt	31	hotspot_vntr	A_gap													0.6054777845404749					1.30915	1.3615							1.19945	1.6102																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftns2	alignment.all_excess_per_kb	31	hotspot_vntr	A_gap													0.4541929534069711					29.02	139.08							8.875	247.43																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftns2	alignment.affine_all_cost_over_opt	31	hotspot_vntr	A_gap													0.570567422356179					1.23395	1.3069							1.1430500000000001	1.5246																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftns2	size.nodes_per_kb	31	hotspot_vntr	A_gap													-0.5157561633754445					142.595	1682.85							138.105	1157.23																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftns2	size.node_len_mean	31	hotspot_vntr	A_gap													0.10943274947774387					12.336	5.221							10.763	4.54																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftns2	inflation.sv_pieces_mean	31	hotspot_vntr	A_gap													0.01606809947588734					1.1143	7.803							0.80995	7.9172																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftns2	redundancy.kmer_frac_extra	31	hotspot_vntr	A_gap													-0.09285327783558792					0.247795	0.81522							0.158825	0.75945																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftns2	alignment.all_U_per_kb	31	hotspot_vntr	A_gap													0.7143722000242161					0.29000000000000004	12.19							0.395	41.69																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_linsi	alignment.all_cost_over_opt	4	hotspot_vntr	A_gap													1.506573736733724					1.0832	1.03955							1.19945	1.5151																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_linsi	alignment.all_excess_per_kb	4	hotspot_vntr	A_gap													0.9487379520346276					3.55	19.06							8.875	207.56																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_linsi	alignment.affine_all_cost_over_opt	4	hotspot_vntr	A_gap													1.2592058707901979					1.0571	1.0441500000000001							1.1430500000000001	1.5246																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_linsi	size.nodes_per_kb	4	hotspot_vntr	A_gap													0.2421980696655253					156.38	723.435							138.105	910.51																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_linsi	size.node_len_mean	4	hotspot_vntr	A_gap													-0.19950495049504957					11.63	4.7055							10.763	5.713																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_linsi	inflation.sv_pieces_mean	4	hotspot_vntr	A_gap													0.7443547118844762					0.5492	2.1917							0.80995	6.2149																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_linsi	redundancy.kmer_frac_extra	4	hotspot_vntr	A_gap													0.20574639437892908					0.17294	0.54542							0.158825	0.6455649999999999																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_linsi	alignment.all_U_per_kb	4	hotspot_vntr	A_gap													0.9782048277478322					0.02	0.8600000000000001							0.395	21.73																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_einsi	alignment.all_cost_over_opt	1	hotspot_vntr	A_gap													1.3678175563766082					1.06845	1.0551							1.19945	1.5919																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_einsi	alignment.all_excess_per_kb	1	hotspot_vntr	A_gap													0.9543725114289928					2.205	16.61							8.875	178.4																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_einsi	alignment.affine_all_cost_over_opt	1	hotspot_vntr	A_gap													1.1871252761123385					1.012	1.0541							1.1430500000000001	1.6184																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_einsi	size.nodes_per_kb	1	hotspot_vntr	A_gap													0.3962813328120247					80.27	207.59							138.105	253.2																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_einsi	size.node_len_mean	1	hotspot_vntr	A_gap													13.773228346456696					18.4085	18.874							10.763	10.128																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_einsi	inflation.sv_pieces_mean	1	hotspot_vntr	A_gap													0.9107351633307685					0.51735	1.2566							0.80995	5.8136																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_einsi	redundancy.kmer_frac_extra	1	hotspot_vntr	A_gap													-0.7235478682732618					0.05676	0.48567							0.158825	0.34846																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_einsi	alignment.all_U_per_kb	1	hotspot_vntr	A_gap													0.5605665300037271					0.019999999999999997	6.29							0.395	13.81																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_ginsi	alignment.all_cost_over_opt	1	hotspot_vntr	A_gap													1.394572557013632					1.059	1.0446							1.19945	1.5919																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_ginsi	alignment.all_excess_per_kb	1	hotspot_vntr	A_gap													0.9731308066656835					2.01	13.43							8.875	178.4																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_ginsi	alignment.affine_all_cost_over_opt	1	hotspot_vntr	A_gap													1.202692752708531					1.0257	1.0467							1.1430500000000001	1.6184																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_ginsi	size.nodes_per_kb	1	hotspot_vntr	A_gap													-0.04457187540727221					110.46000000000001	258.33							138.105	253.2																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_ginsi	size.node_len_mean	1	hotspot_vntr	A_gap													-0.12283464566929043					12.6145	10.05							10.763	10.128																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_ginsi	inflation.sv_pieces_mean	1	hotspot_vntr	A_gap													1.0246919748583534					0.438	0.6864							0.80995	5.8136																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_ginsi	redundancy.kmer_frac_extra	1	hotspot_vntr	A_gap													-0.050465367680017					0.098355	0.35803							0.158825	0.34846																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_ginsi	alignment.all_U_per_kb	1	hotspot_vntr	A_gap													0.981736861721953					0.02	0.64							0.395	13.81																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftnsi	alignment.all_cost_over_opt	9	hotspot_vntr	A_gap													0.772327685055421					1.2425000000000002	1.2888							1.19945	1.5919																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftnsi	alignment.all_excess_per_kb	9	hotspot_vntr	A_gap													0.5386133111018481					11.54	91.89							8.875	188.8																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftnsi	alignment.affine_all_cost_over_opt	9	hotspot_vntr	A_gap													0.7628063532134218					1.1596000000000002	1.2558							1.1430500000000001	1.6184																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftnsi	size.nodes_per_kb	9	hotspot_vntr	A_gap													-0.5932746775943112					123.64500000000001	1129.56							138.105	760.38																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftnsi	size.node_len_mean	9	hotspot_vntr	A_gap													0.06743421052631582					12.4725	5.093							10.763	4.683																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftnsi	inflation.sv_pieces_mean	9	hotspot_vntr	A_gap													0.49981782473851183					0.9877	3.6242							0.80995	6.4364																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftnsi	redundancy.kmer_frac_extra	9	hotspot_vntr	A_gap													-0.12998471371559284					0.21194000000000002	0.70954							0.158825	0.64619																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	mafft_fftnsi	alignment.all_U_per_kb	9	hotspot_vntr	A_gap													0.7833363652901584					0.685	6.35							0.395	27.88																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa	alignment.all_cost_over_opt	30	hotspot_vntr	A_gap													1.2092064987049678					1.1141999999999999	1.1106							1.19945	1.62415																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa	alignment.all_excess_per_kb	30	hotspot_vntr	A_gap													0.8530874785591767					7.38	43.135000000000005							8.875	242.075																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa	alignment.affine_all_cost_over_opt	30	hotspot_vntr	A_gap													0.7950617283950623					1.1249500000000001	1.2260499999999999							1.1430500000000001	1.54805																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa	size.nodes_per_kb	30	hotspot_vntr	A_gap													0.08845687586196721					152.39	1066.7350000000001							138.105	1156.85																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa	size.node_len_mean	30	hotspot_vntr	A_gap													-0.3617892707998715					8.7805	2.2845							10.763	4.537																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa	inflation.sv_pieces_mean	30	hotspot_vntr	A_gap													0.4147817663737088					0.8340000000000001	4.94835							0.80995	7.8815																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa	redundancy.kmer_frac_extra	30	hotspot_vntr	A_gap													0.13414107883817428					0.185985	0.680505							0.158825	0.761325																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa	alignment.all_U_per_kb	30	hotspot_vntr	A_gap													0.9377166914314017					0.1	2.91							0.395	40.775																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_spoa	alignment.all_cost_over_opt	20	hotspot_vntr	A_gap													1.2204773869346732					1.0897	1.09415							1.19945	1.67705																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_spoa	alignment.all_excess_per_kb	20	hotspot_vntr	A_gap													0.9036259541984732					5.03	29.58							8.875	223.715																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_spoa	alignment.affine_all_cost_over_opt	20	hotspot_vntr	A_gap													0.7936636060942392					1.1566	1.2452999999999999							1.1430500000000001	1.6386																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_spoa	size.nodes_per_kb	20	hotspot_vntr	A_gap													-0.12667368647769017					202.48	1079.7							138.105	973.835																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_spoa	size.node_len_mean	20	hotspot_vntr	A_gap													-0.38130420815933186					6.311	2.163							10.763	4.537																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_spoa	inflation.sv_pieces_mean	20	hotspot_vntr	A_gap													0.6238474387110788					0.5033	3.3209							0.80995	7.4853000000000005																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_spoa	redundancy.kmer_frac_extra	20	hotspot_vntr	A_gap													-0.01376081035883221					0.25997	0.68925							0.158825	0.68205																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_spoa	alignment.all_U_per_kb	20	hotspot_vntr	A_gap													0.9349061967026719					0.21	2.685							0.395	35.575																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa_mc	alignment.all_cost_over_opt	39	hotspot_vntr	A_gap													0.7806114367178836					1.1494	1.2687							1.19945	1.5151																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa_mc	alignment.all_excess_per_kb	39	hotspot_vntr	A_gap													0.601831862673178					8.665	103.86							8.875	247.43																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa_mc	alignment.affine_all_cost_over_opt	39	hotspot_vntr	A_gap													0.5586321682554097					1.0752000000000002	1.2889							1.1430500000000001	1.4735																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa_mc	size.nodes_per_kb	39	hotspot_vntr	A_gap													0.3112141111849948					106.845	1013.39							138.105	1408.87																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa_mc	size.node_len_mean	39	hotspot_vntr	A_gap													-0.22577534950988273					11.8005	3.135							10.763	4.54																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa_mc	inflation.sv_pieces_mean	39	hotspot_vntr	A_gap													0.2815476153156486					0.7228	6.5395							0.80995	8.7848																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa_mc	redundancy.kmer_frac_extra	39	hotspot_vntr	A_gap													0.13552520361168818					0.11903	0.70599							0.158825	0.79177																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	poa_abpoa_mc	alignment.all_U_per_kb	39	hotspot_vntr	A_gap													0.7325861527181313					0.105	13.16							0.395	48.13																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	unit_aware	alignment.all_cost_over_opt	40	hotspot_vntr	A_gap													1.4656135311951488					1.05415	1.05355							1.19945	1.5128																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	unit_aware	alignment.all_excess_per_kb	40	hotspot_vntr	A_gap													0.9475557461406519					3.245	21.105							8.875	242.075																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	unit_aware	alignment.affine_all_cost_over_opt	40	hotspot_vntr	A_gap													1.0472512494320765					1.0688	1.12745							1.1430500000000001	1.4732																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	unit_aware	size.nodes_per_kb	40	hotspot_vntr	A_gap													-0.06410324068247963					187.125	1448.745							138.105	1369.79																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	unit_aware	size.node_len_mean	40	hotspot_vntr	A_gap													-0.399822193485816					8.051	2.1029999999999998							10.763	4.5765																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	unit_aware	inflation.sv_pieces_mean	40	hotspot_vntr	A_gap													0.16231702836664583					0.47495	7.3081499999999995							0.80995	8.5673																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	unit_aware	redundancy.kmer_frac_extra	40	hotspot_vntr	A_gap													0.12094489701198713					0.18534	0.7080850000000001							0.158825	0.783655																		
+Hotspot VNTRs vs matched controls on the full panel (results/full)	unit_aware	alignment.all_U_per_kb	40	hotspot_vntr	A_gap													0.9966148215919488					0.015	0.58							0.395	55.045																		
+hap32 arm	mafft_fftns2		40	hotspot_vntr	E_truth										826	815				22	21																	0.9973190155309718	0.9893825231025114	0.3189855168818081	0.2615044785251233		0.9508467935042884	0.8665056916177992				39	32	
+hap32 arm	mafft_fftns2		40	control_vntr_matched	E_truth										18	17				1	1																	0.9666666666666666	1.0	0.5842696629213483	0.9577464788732395		0.8319594166138238	0.9577464788732395				70	70	
+hap32 arm	mafft_fftns2		25	control_vntr_correct	E_truth										7	7				0	0																	1.0	1.0	0.73541842772612	0.9850746268656716		0.989010989010989	0.9850746268656716				44	44	
+hap32 arm	mafft_fftns2		24	hotspot_other	E_truth										285	240				5	16																	1.0	1.0	0.31690140845070425	0.308951291967939		0.954100249663914	0.9735655987330978				34	26	
+hap32 arm	mafft_fftns2		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	1.0	1.0		1.0	1.0				40	40	
+hap32 arm	mafft_linsi		39	hotspot_vntr	E_truth										1042	812				10	32																	1.0	0.9889422366096788	0.336705640813744	0.2593808163903215		0.963948360562093	0.8635988760354705				39	28	
+hap32 arm	mafft_linsi		40	control_vntr_matched	E_truth										24	17				0	2																	1.0	1.0	0.7714285714285715	0.9577464788732395		0.9538461538461539	0.9577464788732395				70	70	
+hap32 arm	mafft_linsi		25	control_vntr_correct	E_truth										7	7				1	1																	1.0	1.0	0.8391608391608392	0.9850746268656716		0.9710082215491129	0.9850746268656716				44	43	
+hap32 arm	mafft_linsi		24	hotspot_other	E_truth										406	240				3	21																	1.0	1.0	0.4007544657716632	0.308951291967939		0.9713002017238217	0.9735655987330978				34	23	
+hap32 arm	mafft_linsi		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	0.975609756097561	1.0		1.0	1.0				40	40	
+hap32 arm	mafft_einsi		37	hotspot_vntr	E_truth										845	550				10	30																	0.9984639016897081	0.9889259778315709	0.382011116725619	0.26969688296075794		0.9640192668706541	0.9062523070432933				39	27	
+hap32 arm	mafft_einsi		40	control_vntr_matched	E_truth										22	17				0	2																	1.0	1.0	0.7323943661971832	0.9577464788732395		0.928540864356012	0.9577464788732395				70	70	
+hap32 arm	mafft_einsi		25	control_vntr_correct	E_truth										7	7				0	0																	1.0	1.0	0.8224789915966385	0.9850746268656716		0.9850746268656716	0.9850746268656716				44	44	
+hap32 arm	mafft_einsi		24	hotspot_other	E_truth										471	240				2	22																	0.9937106918238994	1.0	0.42340544424044063	0.308951291967939		0.9146428170489841	0.9735655987330978				34	21	
+hap32 arm	mafft_einsi		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	1.0	1.0		1.0	1.0				40	40	
+hap32 arm	mafft_ginsi		39	hotspot_vntr	E_truth										1080	812				11	31																	1.0	0.9889422366096788	0.32428301062745674	0.2593808163903215		0.9179354599837691	0.8635988760354705				39	29	
+hap32 arm	mafft_ginsi		40	control_vntr_matched	E_truth										25	17				0	2																	1.0	1.0	0.7222222222222222	0.9577464788732395		0.9417077175697866	0.9577464788732395				70	70	
+hap32 arm	mafft_ginsi		25	control_vntr_correct	E_truth										8	7				1	1																	1.0	1.0	0.8553758325404377	0.9850746268656716		0.9714045416316232	0.9850746268656716				44	43	
+hap32 arm	mafft_ginsi		24	hotspot_other	E_truth										357	240				2	19																	1.0	1.0	0.40244969378827644	0.308951291967939		0.9818733530304241	0.9735655987330978				34	23	
+hap32 arm	mafft_ginsi		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	0.975609756097561	1.0		1.0	1.0				40	40	
+hap32 arm	poa_abpoa		37	hotspot_vntr	E_truth										1523	604				12	28																	1.0	0.9893957293412838	0.32662522389632287	0.27300684288206095		0.9827825331670893	0.9089372505135872				38	28	
+hap32 arm	poa_abpoa		40	control_vntr_matched	E_truth										16	17				1	0																	1.0	1.0	0.6478873239436619	0.9577464788732395		0.8805031446540881	0.9577464788732395				70	70	
+hap32 arm	poa_abpoa		25	control_vntr_correct	E_truth										9	7				0	1																	1.0	1.0	0.8115942028985507	0.9850746268656716		0.9406514948683623	0.9850746268656716				44	43	
+hap32 arm	poa_abpoa		24	hotspot_other	E_truth										793	240				4	18																	0.9796831314072693	1.0	0.3291139240506329	0.308951291967939		0.8459291248571066	0.9735655987330978				34	25	
+hap32 arm	poa_abpoa		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	1.0	1.0		1.0	1.0				40	40	
+hap32 arm	poa_spoa		27	hotspot_vntr	E_truth										712	370				8	15																	0.9974554707379135	0.98398566225357	0.3465714184673056	0.3007444882692146		0.9781005390056665	0.8941797099430681				31	26	
+hap32 arm	poa_spoa		39	control_vntr_matched	E_truth										17	16				0	1																	1.0	1.0	0.40476190476190477	0.9565217391304348		0.7464454976303319	0.9565217391304348				69	69	
+hap32 arm	poa_spoa		25	control_vntr_correct	E_truth										7	7				0	0																	1.0	1.0	0.6751918158567776	0.9850746268656716		0.9243697478991596	0.9850746268656716				44	44	
+hap32 arm	poa_spoa		24	hotspot_other	E_truth										869	240				5	14																	0.9883720930232558	1.0	0.1927247769389156	0.308951291967939		0.8269847038223926	0.9735655987330978				34	28	
+hap32 arm	poa_spoa		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	1.0	1.0		1.0	1.0				40	40	
+hap32 arm	poa_abpoa_mc		40	hotspot_vntr	E_truth										1845	815				8	35																	0.9986754966887418	0.9893825231025114	0.29899609033754854	0.2615044785251233		0.9186733951324845	0.8665056916177992				39	28	
+hap32 arm	poa_abpoa_mc		40	control_vntr_matched	E_truth										19	17				0	1																	1.0	1.0	0.8108108108108107	0.9577464788732395		0.9577897160399079	0.9577464788732395				70	70	
+hap32 arm	poa_abpoa_mc		25	control_vntr_correct	E_truth										23	7				0	1																	1.0	1.0	0.9126034958601655	0.9850746268656716		0.9850746268656716	0.9850746268656716				44	43	
+hap32 arm	poa_abpoa_mc		24	hotspot_other	E_truth										658	240				1	23																	0.9940828402366864	1.0	0.4310344827586207	0.308951291967939		0.9145745027714379	0.9735655987330978				34	24	
+hap32 arm	poa_abpoa_mc		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	1.0	1.0		1.0	1.0				40	40	
+hap32 arm	unit_aware		40	hotspot_vntr	E_truth										1071	815				23	17																	0.996128980363373	0.9893825231025114	0.26022885212192753	0.2615044785251233		0.9405576536208055	0.8665056916177992				39	34	
+hap32 arm	unit_aware		40	control_vntr_matched	E_truth										15	17				2	0																	1.0	1.0	0.3228285933897002	0.9577464788732395		0.9032258064516129	0.9577464788732395				70	70	
+hap32 arm	unit_aware		25	control_vntr_correct	E_truth										9	7				0	1																	1.0	1.0	0.5269461077844311	0.9850746268656716		0.9436181252161882	0.9850746268656716				44	43	
+hap32 arm	unit_aware		24	hotspot_other	E_truth										542	240				7	10																	1.0	1.0	0.20289855072463767	0.308951291967939		0.8945594902585466	0.9735655987330978				34	31	
+hap32 arm	unit_aware		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	0.975609756097561	1.0		1.0	1.0				40	40	
+full-panel arm, projected	mafft_fftns2__all		31	hotspot_vntr	E_truth										236	404				16	9																	0.9956803253342829	0.9870494853974403	0.33321554515493956	0.2932085874195974		0.9505048357955149	0.9119665838789794				36	34	
+full-panel arm, projected	mafft_fftns2__all		40	control_vntr_matched	E_truth										14	17				2	0																	0.962962962962963	1.0	0.39024390243902435	0.9577464788732395		0.6348820238384821	0.9577464788732395				70	70	
+full-panel arm, projected	mafft_fftns2__all		25	control_vntr_correct	E_truth										7	7				0	0																	1.0	1.0	0.6103763987792471	0.9850746268656716		0.9744094488188976	0.9850746268656716				44	44	
+full-panel arm, projected	mafft_fftns2__all		24	hotspot_other	E_truth										162	240				5	12																	0.9946524064171123	1.0	0.31114629056630927	0.308951291967939		0.964061005687824	0.9735655987330978				34	30	
+full-panel arm, projected	mafft_fftns2__all		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	1.0	1.0		1.0	1.0				40	40	
+full-panel arm, projected	mafft_linsi__all		4	hotspot_vntr	E_truth										17	1				0	3																	1.0	1.0	0.5263157894736842	0.3582089552238805		1.0	1.0				7	4	
+full-panel arm, projected	mafft_linsi__all		27	control_vntr_matched	E_truth										7	7				0	0																	1.0	1.0	0.7307692307692308	1.0		0.9583333333333334	1.0				50	50	
+full-panel arm, projected	mafft_linsi__all		20	control_vntr_correct	E_truth										5	5				0	0																	1.0	1.0	0.8632138114209827	1.0		1.0	1.0				36	36	
+full-panel arm, projected	mafft_linsi__all		6	hotspot_other	E_truth										36	31				1	2																	1.0	1.0	0.32558139534883723	0.17543859649122806		1.0	1.0				9	7	
+full-panel arm, projected	mafft_linsi__all		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	0.975609756097561	1.0		1.0	1.0				40	40	
+full-panel arm, projected	mafft_einsi__all		1	hotspot_vntr	E_truth										6	0				0	1																	1.0	1.0	0.5714285714285715	0.30769230769230765		1.0	1.0				2	1	
+full-panel arm, projected	mafft_einsi__all		22	control_vntr_matched	E_truth										7	7				0	0																	1.0	1.0	0.7317073170731707	1.0		1.0	1.0				40	40	
+full-panel arm, projected	mafft_einsi__all		18	control_vntr_correct	E_truth										4	4				0	0																	1.0	1.0	0.8766603415559772	1.0		1.0	1.0				33	33	
+full-panel arm, projected	mafft_einsi__all		4	hotspot_other	E_truth										31	30				1	3																	1.0	1.0	0.40816326530612246	0.21621621621621623		1.0	1.0				6	3	
+full-panel arm, projected	mafft_einsi__all		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	1.0	1.0		1.0	1.0				40	40	
+full-panel arm, projected	mafft_ginsi__all		1	hotspot_vntr	E_truth										9	0				0	1																	1.0	1.0	0.8	0.30769230769230765		1.0	1.0				2	1	
+full-panel arm, projected	mafft_ginsi__all		22	control_vntr_matched	E_truth										7	7				0	0																	1.0	1.0	0.6363636363636364	1.0		1.0	1.0				40	40	
+full-panel arm, projected	mafft_ginsi__all		18	control_vntr_correct	E_truth										4	4				0	0																	1.0	1.0	0.8415300546448087	1.0		1.0	1.0				33	33	
+full-panel arm, projected	mafft_ginsi__all		4	hotspot_other	E_truth										30	30				1	2																	1.0	1.0	0.30769230769230765	0.21621621621621623		1.0	1.0				6	5	
+full-panel arm, projected	mafft_ginsi__all		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	0.975609756097561	1.0		1.0	1.0				40	40	
+full-panel arm, projected	mafft_fftnsi__all		9	hotspot_vntr	E_truth										31	47				3	2																	1.0	1.0	0.38867765103506546	0.2898550724637681		1.0	0.9617662897145934				14	12	
+full-panel arm, projected	mafft_fftnsi__all		34	control_vntr_matched	E_truth										11	14				2	0																	0.9600000000000001	1.0	0.525	0.955223880597015		0.8794378698224853	0.955223880597015				60	60	
+full-panel arm, projected	mafft_fftnsi__all		25	control_vntr_correct	E_truth										7	7				0	0																	1.0	1.0	0.600652883569097	0.9850746268656716		0.9850746268656716	0.9850746268656716				44	44	
+full-panel arm, projected	mafft_fftnsi__all		17	hotspot_other	E_truth										131	194				4	7																	1.0	1.0	0.22278849654168184	0.3020833333333333		0.9273420783328682	0.9526933928219934				26	22	
+full-panel arm, projected	mafft_fftnsi__all		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	1.0	1.0		1.0	1.0				40	40	
+full-panel arm, projected	poa_abpoa__all		30	hotspot_vntr	E_truth										435	398				16	7																	0.9889228758946337	0.9864038211756819	0.29951078731566533	0.28457644279446503		0.7773903334157035	0.9066706512961702				35	34	
+full-panel arm, projected	poa_abpoa__all		40	control_vntr_matched	E_truth										15	17				1	0																	1.0	1.0	0.39999999999999997	0.9577464788732395		0.8323170731707316	0.9577464788732395				70	70	
+full-panel arm, projected	poa_abpoa__all		25	control_vntr_correct	E_truth										6	7				1	0																	1.0	1.0	0.4634146341463415	0.9850746268656716		0.8932238193018479	0.9850746268656716				44	44	
+full-panel arm, projected	poa_abpoa__all		23	hotspot_other	E_truth										573	240				9	6																	0.9859154929577465	1.0	0.24355113264370826	0.3231138988217363		0.8033741715203857	0.9721570090177063				32	29	
+full-panel arm, projected	poa_abpoa__all		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	1.0	1.0		1.0	1.0				40	40	
+full-panel arm, projected	poa_spoa__all		20	hotspot_vntr	E_truth										112	209				10	3																	1.0	0.9953488372093023	0.24132877381533954	0.29666562792147083		0.8807478637245933	0.9561606902129953				27	26	
+full-panel arm, projected	poa_spoa__all		37	control_vntr_matched	E_truth										14	16				1	0																	1.0	1.0	0.2962962962962963	0.9565217391304348		0.6956521739130435	0.9565217391304348				65	65	
+full-panel arm, projected	poa_spoa__all		24	control_vntr_correct	E_truth										7	7				0	0																	1.0	1.0	0.30769230769230765	0.9846153846153847		0.888888888888889	0.9846153846153847				42	42	
+full-panel arm, projected	poa_spoa__all		22	hotspot_other	E_truth										521	232				10	4																	1.0	1.0	0.16094674556213018	0.3333333333333333		0.9387341772151898	0.9700979896959289				31	29	
+full-panel arm, projected	poa_spoa__all		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	1.0	1.0		1.0	1.0				40	40	
+full-panel arm, projected	poa_abpoa_mc__all		39	hotspot_vntr	E_truth										981	812				21	19																	1.0	0.9889422366096788	0.28374626354281124	0.2593808163903215		0.9317570850202428	0.8635988760354705				39	31	
+full-panel arm, projected	poa_abpoa_mc__all		40	control_vntr_matched	E_truth										15	17				2	0																	0.9666666666666666	1.0	0.7297297297297296	0.9577464788732395		0.8930041152263375	0.9577464788732395				70	70	
+full-panel arm, projected	poa_abpoa_mc__all		25	control_vntr_correct	E_truth										7	7				0	0																	1.0	1.0	0.7072905331882482	0.9850746268656716		0.9588377723970944	0.9850746268656716				44	44	
+full-panel arm, projected	poa_abpoa_mc__all		24	hotspot_other	E_truth										411	240				10	8																	0.9936305732484078	1.0	0.3834586466165414	0.308951291967939		0.8900774379839873	0.9735655987330978				34	30	
+full-panel arm, projected	poa_abpoa_mc__all		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	1.0	1.0		1.0	1.0				40	40	
+full-panel arm, projected	unit_aware__all		40	hotspot_vntr	E_truth										670	815				26	9																	1.0	0.9893825231025114	0.2647685068947415	0.2615044785251233		0.9462989582953601	0.8665056916177992				39	36	
+full-panel arm, projected	unit_aware__all		40	control_vntr_matched	E_truth										15	17				1	0																	1.0	1.0	0.3043478260869565	0.9577464788732395		0.7438692098092643	0.9577464788732395				70	70	
+full-panel arm, projected	unit_aware__all		25	control_vntr_correct	E_truth										7	7				0	0																	1.0	1.0	0.4280980781974818	0.9850746268656716		0.8743169398907105	0.9850746268656716				44	44	
+full-panel arm, projected	unit_aware__all		24	hotspot_other	E_truth										414	240				10	5																	1.0	1.0	0.18248175182481752	0.308951291967939		0.9047604450847562	0.9735655987330978				34	32	
+full-panel arm, projected	unit_aware__all		20	control_nontr_sv	E_truth										0	0				0	0																	1.0	1.0	0.975609756097561	1.0		1.0	1.0				40	40	
+hap32 arm	mafft_fftns2		40	hotspot_vntr	F_reads																	0.008647538887705093			0.7552001448966547	0.2271028808864266	0.5598542041338164	0.20437475815043685		0.008647538887705093			0.8254058938845089	0.29720655870445334	0.5598542041338164	0.13429219262731726						23465								
+hap32 arm	mafft_fftns2		40	control_vntr_matched	F_reads																	0.007416534636777346			0.37215075004213716	0.16754200235968314	0.41059152199561777	0.41445897522332703		0.007416534636777346			0.39793456935782917	0.1951716163829429	0.41059152199561777	0.3868125905949773						5933								
+hap32 arm	mafft_fftns2		25	control_vntr_correct	F_reads																	0.008097929792979299			0.23986426642664266	0.13546062106210624	0.34878654365436546	0.5076551755175518		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+hap32 arm	mafft_fftns2		24	hotspot_other	F_reads																	0.0377867131294964			0.6308474370503597	0.2906938399280576	0.3857888264388489	0.2857417940647482		0.0377867131294964			0.7214324640287768	0.36826196043165466	0.3857888264388489	0.20818275629496408						4448								
+hap32 arm	mafft_fftns2		16	control_nontr_sv	F_reads																	0.0			0.07691748251748252	0.07691748251748252	0.0	0.9230825174825175		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+hap32 arm	mafft_linsi		39	hotspot_vntr	F_reads																	0.00848974742585585			0.671302072516061	0.1765334154712664	0.5656506424359764	0.2493312461497844		0.00848974742585585			0.8224111942268767	0.28918137375693026	0.5656506424359764	0.13667874680982134						22726								
+hap32 arm	mafft_linsi		40	control_vntr_matched	F_reads																	0.007416534636777346			0.2681564975560425	0.11257783583347379	0.41059152199561777	0.4694181021405696		0.007416534636777346			0.39793456935782917	0.1951716163829429	0.41059152199561777	0.3868125905949773						5933								
+hap32 arm	mafft_linsi		25	control_vntr_correct	F_reads																	0.008097929792979299			0.13906431143114312	0.07605432043204322	0.34878654365436546	0.5670614761476148		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+hap32 arm	mafft_linsi		24	hotspot_other	F_reads																	0.0377867131294964			0.5380031924460431	0.22414053507194248	0.3857888264388489	0.352292131294964		0.0377867131294964			0.7214324640287768	0.36826196043165466	0.3857888264388489	0.20818275629496408						4448								
+hap32 arm	mafft_linsi		16	control_nontr_sv	F_reads																	0.0			0.08390979020979021	0.08390979020979021	0.0	0.9160902097902098		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+hap32 arm	mafft_einsi		37	hotspot_vntr	F_reads																	0.008868923268611774			0.5868576887135292	0.14064556640016612	0.5466708181912574	0.3038119146506075		0.008868923268611774			0.8263484165714879	0.31014220226352396	0.5466708181912574	0.13431865849859825						19262								
+hap32 arm	mafft_einsi		40	control_vntr_matched	F_reads																	0.007416534636777346			0.25434490139895505	0.10029142086634081	0.41059152199561777	0.4817025113770437		0.007416534636777346			0.39793456935782917	0.1951716163829429	0.41059152199561777	0.3868125905949773						5933								
+hap32 arm	mafft_einsi		25	control_vntr_correct	F_reads																	0.008097929792979299			0.11160922592259226	0.05490027002700269	0.34878654365436546	0.5882083258325832		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+hap32 arm	mafft_einsi		24	hotspot_other	F_reads																	0.0377867131294964			0.5301395008992806	0.22684159172661872	0.3857888264388489	0.3495970773381295		0.0377867131294964			0.7214324640287768	0.36826196043165466	0.3857888264388489	0.20818275629496408						4448								
+hap32 arm	mafft_einsi		16	control_nontr_sv	F_reads																	0.0			0.07691748251748252	0.07691748251748252	0.0	0.9230825174825175		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+hap32 arm	mafft_ginsi		39	hotspot_vntr	F_reads																	0.00848974742585585			0.6700732773035288	0.1759634779547655	0.5656506424359764	0.24989886033617875		0.00848974742585585			0.8224111942268767	0.28918137375693026	0.5656506424359764	0.13667874680982134						22726								
+hap32 arm	mafft_ginsi		40	control_vntr_matched	F_reads																	0.007416534636777346			0.2683238327995955	0.112747631889432	0.41059152199561777	0.46924830608461143		0.007416534636777346			0.39793456935782917	0.1951716163829429	0.41059152199561777	0.3868125905949773						5933								
+hap32 arm	mafft_ginsi		25	control_vntr_correct	F_reads																	0.008097929792979299			0.15031111611161116	0.08100067506750674	0.34878654365436546	0.5621151215121512		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+hap32 arm	mafft_ginsi		24	hotspot_other	F_reads																	0.0377867131294964			0.5359687500000001	0.22280170863309354	0.3857888264388489	0.35363995053956837		0.0377867131294964			0.7214324640287768	0.36826196043165466	0.3857888264388489	0.20818275629496408						4448								
+hap32 arm	mafft_ginsi		16	control_nontr_sv	F_reads																	0.0			0.08390979020979021	0.08390979020979021	0.0	0.9160902097902098		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+hap32 arm	poa_abpoa		37	hotspot_vntr	F_reads																	0.009350206978119458			0.7049628030751036	0.2093419977420569	0.5489441212838019	0.2323574323961077		0.009350206978119458			0.8111930272565991	0.29665108327509265	0.5489441212838019	0.14505521208537173						18601								
+hap32 arm	poa_abpoa		40	control_vntr_matched	F_reads																	0.007416534636777346			0.28737249283667626	0.1264009775830103	0.41059152199561777	0.4555990729816282		0.007416534636777346			0.39793456935782917	0.1951716163829429	0.41059152199561777	0.3868125905949773						5933								
+hap32 arm	poa_abpoa		25	control_vntr_correct	F_reads																	0.008097929792979299			0.2344917641764176	0.1404234473447345	0.34878654365436546	0.5027041404140413		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+hap32 arm	poa_abpoa		24	hotspot_other	F_reads																	0.0377867131294964			0.651290445143885	0.30395840827338133	0.3857888264388489	0.27247625899280564		0.0377867131294964			0.7214324640287768	0.36826196043165466	0.3857888264388489	0.20818275629496408						4448								
+hap32 arm	poa_abpoa		16	control_nontr_sv	F_reads																	0.0			0.07691748251748252	0.07691748251748252	0.0	0.9230825174825175		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+hap32 arm	poa_spoa		27	hotspot_vntr	F_reads																	0.012130049261083742			0.7292409414340449	0.28735446086480576	0.47892806057288817	0.22158471081919356		0.012130049261083742			0.7978449644225505	0.3542271574530195	0.47892806057288817	0.15472441160372197						10962								
+hap32 arm	poa_spoa		39	control_vntr_matched	F_reads																	0.007532060938034918			0.3481716535433071	0.15130299554946935	0.4096271824717562	0.4315415611092093		0.007532060938034918			0.4034477576172544	0.19769774049982886	0.4096271824717562	0.38513515919205754						5842								
+hap32 arm	poa_spoa		25	control_vntr_correct	F_reads																	0.008097929792979299			0.21782902790279024	0.12511719171917193	0.34878654365436546	0.5179985598559855		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+hap32 arm	poa_spoa		24	hotspot_other	F_reads																	0.0377867131294964			0.6834447167266188	0.3291331384892086	0.3857888264388489	0.24730247302158265		0.0377867131294964			0.7214324640287768	0.36826196043165466	0.3857888264388489	0.20818275629496408						4448								
+hap32 arm	poa_spoa		16	control_nontr_sv	F_reads																	0.0			0.07691748251748252	0.07691748251748252	0.0	0.9230825174825175		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+hap32 arm	poa_abpoa_mc		40	hotspot_vntr	F_reads																	0.008647538887705093			0.6779447560196036	0.18640696356275302	0.5598542041338164	0.2450990070317494		0.008647538887705093			0.8254058938845089	0.29720655870445334	0.5598542041338164	0.13429219262731726						23465								
+hap32 arm	poa_abpoa_mc		40	control_vntr_matched	F_reads																	0.007416534636777346			0.26546623967638633	0.11915486263273221	0.41059152199561777	0.4628457272880499		0.007416534636777346			0.39793456935782917	0.1951716163829429	0.41059152199561777	0.3868125905949773						5933								
+hap32 arm	poa_abpoa_mc		25	control_vntr_correct	F_reads																	0.008097929792979299			0.12332020702070207	0.05850837083708371	0.34878654365436546	0.5846136813681369		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+hap32 arm	poa_abpoa_mc		24	hotspot_other	F_reads																	0.0377867131294964			0.5883666366906476	0.25899563848920865	0.3857888264388489	0.31744066996402875		0.0377867131294964			0.7214324640287768	0.36826196043165466	0.3857888264388489	0.20818275629496408						4448								
+hap32 arm	poa_abpoa_mc		16	control_nontr_sv	F_reads																	0.0			0.07691748251748252	0.07691748251748252	0.0	0.9230825174825175		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+hap32 arm	unit_aware		40	hotspot_vntr	F_reads																	0.008647538887705093			0.7553754357553806	0.23260409546132543	0.5598542041338164	0.19889255913062004		0.008647538887705093			0.8254058938845089	0.29720655870445334	0.5598542041338164	0.13429219262731726						23465								
+hap32 arm	unit_aware		40	control_vntr_matched	F_reads																	0.007416534636777346			0.32344265969998315	0.15673986178998817	0.41059152199561777	0.425257963930558		0.007416534636777346			0.39793456935782917	0.1951716163829429	0.41059152199561777	0.3868125905949773						5933								
+hap32 arm	unit_aware		25	control_vntr_correct	F_reads																	0.008097929792979299			0.22052074707470748	0.13635918091809182	0.34878654365436546	0.506756615661566		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+hap32 arm	unit_aware		24	hotspot_other	F_reads																	0.0377867131294964			0.6791752922661871	0.32238639838129496	0.3857888264388489	0.254047279676259		0.0377867131294964			0.7214324640287768	0.36826196043165466	0.3857888264388489	0.20818275629496408						4448								
+hap32 arm	unit_aware		16	control_nontr_sv	F_reads																	0.0			0.08390979020979021	0.08390979020979021	0.0	0.9160902097902098		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+full-panel arm, projected	mafft_fftns2__all		31	hotspot_vntr	F_reads																	0.011522388537581045			0.750655695189306	0.27559695829664616	0.5081252941647322	0.20476205074841916		0.011522388537581045			0.8094098615224524	0.3353884575362203	0.5081252941647322	0.1449667173617226						12493								
+full-panel arm, projected	mafft_fftns2__all		40	control_vntr_matched	F_reads																	0.007416534636777346			0.43922497893140056	0.19299228046519465	0.41059152199561777	0.38901665262093377		0.007416534636777346			0.39793456935782917	0.1951716163829429	0.41059152199561777	0.3868125905949773						5933								
+full-panel arm, projected	mafft_fftns2__all		25	control_vntr_correct	F_reads																	0.008097929792979299			0.3361783528352835	0.19216507650765077	0.34878654365436546	0.4509435643564357		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+full-panel arm, projected	mafft_fftns2__all		24	hotspot_other	F_reads																	0.0377867131294964			0.6591758318345324	0.3091289793165468	0.3857888264388489	0.26730631744604316		0.0377867131294964			0.7214324640287768	0.36826196043165466	0.3857888264388489	0.20818275629496408						4448								
+full-panel arm, projected	mafft_fftns2__all		16	control_nontr_sv	F_reads																	0.0			0.07691748251748252	0.07691748251748252	0.0	0.9230825174825175		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+full-panel arm, projected	mafft_linsi__all		4	hotspot_vntr	F_reads																	0.04245934182590233			0.5838899150743099	0.17094118895966026	0.45329639065817406	0.33333821656050955		0.04245934182590233			0.7568696390658175	0.32697006369426745	0.45329639065817406	0.17727420382165604						942								
+full-panel arm, projected	mafft_linsi__all		27	control_vntr_matched	F_reads																	0.0039036976970483295			0.3603548167369446	0.13168962049951347	0.4249009082062926	0.4395028219266949		0.0039036976970483295			0.4288033733376582	0.21051216347713264	0.4249009082062926	0.36066665585468705						3083								
+full-panel arm, projected	mafft_linsi__all		20	control_vntr_correct	F_reads																	0.004427212389380531			0.21348788716814157	0.12389009955752213	0.3821993915929203	0.4894991150442478		0.004427212389380531			0.3788824115044248	0.23507295353982302	0.3821993915929203	0.37831321902654863						1808								
+full-panel arm, projected	mafft_linsi__all		6	hotspot_other	F_reads																	0.010002774694783573			0.5594001109877913	0.1764640399556049	0.42616259711431753	0.38733052164261933		0.010002774694783573			0.7424921198668146	0.34851287458379576	0.42616259711431753	0.21531254162042177						901								
+full-panel arm, projected	mafft_linsi__all		16	control_nontr_sv	F_reads																	0.0			0.08390979020979021	0.08390979020979021	0.0	0.9160902097902098		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+full-panel arm, projected	mafft_einsi__all		1	hotspot_vntr	F_reads																	0.007			0.7324	0.2817	0.4648	0.2465		0.007			0.9014	0.4507	0.4648	0.0775						142								
+full-panel arm, projected	mafft_einsi__all		22	control_vntr_matched	F_reads																	0.0025675398048279406			0.21572290703646635	0.09707498715973292	0.4355185927067283	0.4648223420647149		0.0025675398048279406			0.40266230097586025	0.21418479712378016	0.4355185927067283	0.34770282485875703						1947								
+full-panel arm, projected	mafft_einsi__all		18	control_vntr_correct	F_reads																	0.004827744270205067			0.14716314837153197	0.0518651990349819	0.3649065138721352	0.5784177322074789		0.004827744270205067			0.40109885404101325	0.2527200844390833	0.3649065138721352	0.37755958986731						1658								
+full-panel arm, projected	mafft_einsi__all		4	hotspot_other	F_reads																	0.006311320754716981			0.5283352201257862	0.22221027253668763	0.3689444444444445	0.4025109014675052		0.006311320754716981			0.815508176100629	0.4507348008385744	0.3689444444444445	0.17399203354297696						477								
+full-panel arm, projected	mafft_einsi__all		16	control_nontr_sv	F_reads																	0.0			0.07691748251748252	0.07691748251748252	0.0	0.9230825174825175		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+full-panel arm, projected	mafft_ginsi__all		1	hotspot_vntr	F_reads																	0.007			0.5775	0.1268	0.4648	0.4014		0.007			0.9014	0.4507	0.4648	0.0775						142								
+full-panel arm, projected	mafft_ginsi__all		22	control_vntr_matched	F_reads																	0.0025675398048279406			0.3168942475603493	0.1212206471494607	0.4355185927067283	0.4406854648176681		0.0025675398048279406			0.40266230097586025	0.21418479712378016	0.4355185927067283	0.34770282485875703						1947								
+full-panel arm, projected	mafft_ginsi__all		18	control_vntr_correct	F_reads																	0.004827744270205067			0.22194396863691196	0.13087503015681545	0.3649065138721352	0.4994079613992762		0.004827744270205067			0.40109885404101325	0.2527200844390833	0.3649065138721352	0.37755958986731						1658								
+full-panel arm, projected	mafft_ginsi__all		4	hotspot_other	F_reads																	0.006311320754716981			0.5220241090146751	0.19913815513626834	0.3689444444444445	0.425588679245283		0.006311320754716981			0.815508176100629	0.4507348008385744	0.3689444444444445	0.17399203354297696						477								
+full-panel arm, projected	mafft_ginsi__all		16	control_nontr_sv	F_reads																	0.0			0.08390979020979021	0.08390979020979021	0.0	0.9160902097902098		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+full-panel arm, projected	mafft_fftnsi__all		9	hotspot_vntr	F_reads																	0.023158679811401628			0.6978150878696956	0.24518495499357054	0.5233590227175311	0.20831470210030006		0.023158679811401628			0.7663775825117873	0.2829013287612516	0.5233590227175311	0.1705936990998714						2333								
+full-panel arm, projected	mafft_fftnsi__all		34	control_vntr_matched	F_reads																	0.0035202509410288585			0.49184454203262223	0.2105378168130489	0.4303600250941029	0.3556000501882058		0.0035202509410288585			0.42534012547051453	0.22208461731493095	0.4303600250941029	0.3440235884567126						3985								
+full-panel arm, projected	mafft_fftnsi__all		25	control_vntr_correct	F_reads																	0.008097929792979299			0.3258393339333933	0.18362119711971198	0.34878654365436546	0.4594906840684069		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+full-panel arm, projected	mafft_fftnsi__all		17	hotspot_other	F_reads																	0.046206366459627335			0.6580168866459627	0.35326137422360254	0.3284093944099379	0.2721396739130435		0.046206366459627335			0.7002926242236024	0.395580551242236	0.3284093944099379	0.2298215450310559						2576								
+full-panel arm, projected	mafft_fftnsi__all		16	control_nontr_sv	F_reads																	0.0			0.07691748251748252	0.07691748251748252	0.0	0.9230825174825175		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+full-panel arm, projected	poa_abpoa__all		30	hotspot_vntr	F_reads																	0.011067001859050192			0.8136739648470508	0.33411285279702563	0.4996622781815109	0.1551465100557715		0.011067001859050192			0.8084303194186242	0.34341788068277845	0.4996622781815109	0.14585585600811224						11834								
+full-panel arm, projected	poa_abpoa__all		40	control_vntr_matched	F_reads																	0.007416534636777346			0.4115928029664589	0.17408951626495867	0.41059152199561777	0.40788336423394567		0.007416534636777346			0.39793456935782917	0.1951716163829429	0.41059152199561777	0.3868125905949773						5933								
+full-panel arm, projected	poa_abpoa__all		25	control_vntr_correct	F_reads																	0.008097929792979299			0.4347376687668767	0.2556293879387939	0.34878654365436546	0.3874907290729073		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+full-panel arm, projected	poa_abpoa__all		23	hotspot_other	F_reads																	0.037983118644067795			0.7358141468926556	0.3760460564971751	0.38779405649717513	0.19819722033898304		0.037983118644067795			0.724730079096045	0.36972388700564973	0.38779405649717513	0.20451929943502828						4425								
+full-panel arm, projected	poa_abpoa__all		16	control_nontr_sv	F_reads																	0.0			0.07691748251748252	0.07691748251748252	0.0	0.9230825174825175		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+full-panel arm, projected	poa_spoa__all		20	hotspot_vntr	F_reads																	0.011385174880763118			0.8384953232644409	0.4227626258611552	0.42527319819819814	0.1405760996290408		0.011385174880763118			0.8081540010598834	0.41454745627980927	0.42527319819819814	0.14878893746687863						7548								
+full-panel arm, projected	poa_spoa__all		37	control_vntr_matched	F_reads																	0.007626115135341211			0.418031223789554	0.1927089592070149	0.39458947769729324	0.4050756957682043		0.007626115135341211			0.3608337590545178	0.1898500953107129	0.39458947769729324	0.40792556233320615						5246								
+full-panel arm, projected	poa_spoa__all		24	control_vntr_correct	F_reads																	0.0076808837656099915			0.3986451969260326	0.2646423150816522	0.3318941882804995	0.39577310278578287		0.0076808837656099915			0.3496675312199808	0.23342881844380406	0.3318941882804995	0.42699634966378486						2082								
+full-panel arm, projected	poa_spoa__all		22	hotspot_other	F_reads																	0.0429035439137134			0.7344563430919363	0.41140485362095536	0.3435977914740626	0.20209340010272211		0.0429035439137134			0.7187750898818696	0.4013907806882383	0.3435977914740626	0.21211738572162303						3894								
+full-panel arm, projected	poa_spoa__all		16	control_nontr_sv	F_reads																	0.0			0.07691748251748252	0.07691748251748252	0.0	0.9230825174825175		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+full-panel arm, projected	poa_abpoa_mc__all		39	hotspot_vntr	F_reads																	0.00848974742585585			0.7681187934524334	0.24020582592625186	0.5656506424359764	0.18565081404558656		0.00848974742585585			0.8224111942268767	0.28918137375693026	0.5656506424359764	0.13667874680982134						22726								
+full-panel arm, projected	poa_abpoa_mc__all		40	control_vntr_matched	F_reads																	0.007416534636777346			0.36389969661216914	0.15102445643013657	0.41059152199561777	0.43097832462497904		0.007416534636777346			0.39793456935782917	0.1951716163829429	0.41059152199561777	0.3868125905949773						5933								
+full-panel arm, projected	poa_abpoa_mc__all		25	control_vntr_correct	F_reads																	0.008097929792979299			0.24978294329432943	0.12375130513051304	0.34878654365436546	0.5193528352835284		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+full-panel arm, projected	poa_abpoa_mc__all		24	hotspot_other	F_reads																	0.0377867131294964			0.6722200314748202	0.3248704136690648	0.3857888264388489	0.25157108812949636		0.0377867131294964			0.7214324640287768	0.36826196043165466	0.3857888264388489	0.20818275629496408						4448								
+full-panel arm, projected	poa_abpoa_mc__all		16	control_nontr_sv	F_reads																	0.0			0.07691748251748252	0.07691748251748252	0.0	0.9230825174825175		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								
+full-panel arm, projected	unit_aware__all		40	hotspot_vntr	F_reads																	0.008647538887705093			0.7761375282335392	0.2471430854464095	0.5598542041338164	0.18436731728105688		0.008647538887705093			0.8254058938845089	0.29720655870445334	0.5598542041338164	0.13429219262731726						23465								
+full-panel arm, projected	unit_aware__all		40	control_vntr_matched	F_reads																	0.007416534636777346			0.3989461992246755	0.16383168717343663	0.41059152199561777	0.4181668970166864		0.007416534636777346			0.39793456935782917	0.1951716163829429	0.41059152199561777	0.3868125905949773						5933								
+full-panel arm, projected	unit_aware__all		25	control_vntr_correct	F_reads																	0.008097929792979299			0.24436768676867687	0.15166044104410445	0.34878654365436546	0.49145864086408636		0.008097929792979299			0.3591394239423942	0.2290732673267327	0.34878654365436546	0.4140424842484249						2222								
+full-panel arm, projected	unit_aware__all		24	hotspot_other	F_reads																	0.0377867131294964			0.6857020458633094	0.33318383543165475	0.3857888264388489	0.2432599820143885		0.0377867131294964			0.7214324640287768	0.36826196043165466	0.3857888264388489	0.20818275629496408						4448								
+full-panel arm, projected	unit_aware__all		16	control_nontr_sv	F_reads																	0.0			0.08390979020979021	0.08390979020979021	0.0	0.9160902097902098		0.0			0.10488951048951049	0.10488951048951049	0.0	0.8951104895104895						143								

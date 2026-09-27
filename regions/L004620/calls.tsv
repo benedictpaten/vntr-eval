@@ -1,0 +1,15 @@
+source	chrom	pos	end	id	ref_len	alt_len	len_diff	gt	called	qual	filter	truvari	aardvark	vg_truvari	pg_truvari	applied_h1	applied_h2	in_sv_benchmark	svtype	TRFperiod	MatchId	overlaps_span_edge
+truth_stvar	chr14	45458740	45459051	.	312	1	311	0|1	.	.	.	.	.	TP	TP	ref	yes	1	DEL	.	.	0
+truth_smvar	chr14	45458740	45459051	.	312	1	311	0|1	.	.	.	.	.	-	-	ref	no:duplicate_of_stvar	1	.	.	.	0
+vg	chr14	45458740	45459051	>58327327>58327339	312	1	-311	0|1	1	293.107	PASS	TP	-	.	.	.	.	.	.	.	152.0,152.0	0
+pangenie	chr14	45458740	45459051	chr14-45458743-DEL->58873300>58873312-311	312	1	-311	1/0	1	.	PASS	TP	-	.	.	.	.	.	.	.	151.0,151.0	0
+truth_stvar	chr14	45459028	45459029	.	2	1	0	0|1	.	.	.	.	.	-	-	ref	no:star_allele	1	.	.	.	0
+truth_stvar	chr14	45459028	45459029	.	2	1	1	1|0	.	.	.	.	.	-	-	yes	ref	1	.	.	.	0
+truth_smvar	chr14	45459028	45459029	.	2	1,1	1	1|2	.	.	.	.	.	-	-	no:duplicate_of_stvar	no:star_allele	1	.	.	.	0
+vg	chr14	45459028	45459029	>58327331>58327335	2	1	-1	1|.	1	237.344	PASS	-	-	.	.	.	.	.	.	.	.	0
+pangenie	chr14	45459028	45459029	chr14-45459028-DEL->58873304>58873308-1	2	1	-1	0/1	1	.	PASS	-	-	.	.	.	.	.	.	.	.	0
+truth_stvar	chr14	45459051	45459051	.	1	1	0	0|1	.	.	.	.	.	-	-	ref	no:star_allele	1	.	.	.	0
+truth_stvar	chr14	45459051	45459051	.	1	1	0	1|0	.	.	.	.	.	-	-	yes	ref	1	.	.	.	0
+truth_smvar	chr14	45459051	45459051	.	1	1,1	0	1|2	.	.	.	.	.	-	-	no:duplicate_of_stvar	no:star_allele	1	.	.	.	0
+vg	chr14	45459051	45459051	>58327335>58327338	1	1	0	1|.	1	267.636	PASS	-	-	.	.	.	.	.	.	.	.	0
+pangenie	chr14	45459051	45459051	chr14-45459051-SNV->58873308>58873310>58873311-1	1	1	0	0/1	1	.	PASS	-	-	.	.	.	.	.	.	.	.	0
