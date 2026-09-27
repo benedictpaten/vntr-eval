@@ -389,6 +389,48 @@ N node in every graph. Sources: `results/stage01.md` c, `results/realign_runtime
    disabled inside the >= 1 kb VNTRs, and compare the resulting subgraphs with `evaluate.py --panel`.
 7. **Scale** to `regions/vntr_ge1kb.bed` (3,111 regions) with the method that survives Stage 3.
 
+## Runtime and memory
+
+Per method and panel, from the runtime tables every driver wrote (`results/runtime_summary.md`,
+`tools/runtime_summary.py`). Time is the aligner's wall clock on a shared, often heavily loaded
+10-core Mac, with 1-3 threads depending on the method, so it is not CPU time. Peak memory is exact
+for Cactus-settings abPOA (`/usr/bin/time -l`) and sampled about once a second for the others, which
+makes those lower bounds; unit-aware on hap32 was not memory-sampled at all. "Refused" regions were
+not run because a predicted time or memory was over the cap (hap32: 900 s per mafft call, 12 GB;
+full panel: 1,800 s per region, 10-12 GB), so they are the largest regions and every statistic
+below is censored from above.
+
+| method | hap32: finished | median (hotspot) / max time | max peak | full panel: finished | median (hotspot) / max time | max peak | largest refused, predicted |
+|---|---|---|---|---|---|---|---|
+| mafft FFT-NS-2 | 149 | 0.6 s (5 s) / 188 s | 8.6 GB | 140 | 5 s (302 s) / 3,054 s | 8.4 GB | 8 GB, 15 h |
+| mafft FFT-NS-i | - | - | - | 105 | 6 s (204 s) / 1,563 s | 6.5 GB | 8 GB, 30 h |
+| mafft L-INS-i | 148 | 5 s (47 s) / 737 s | 12.2 GB | 77 | 31 s (463 s) / 1,029 s | 5.6 GB | 244 GB, 515 h |
+| mafft E-INS-i | 146 | 3 s (49 s) / 397 s | 11.9 GB | 65 | 19 s (190 s) / 812 s | 7.9 GB | 244 GB, 515 h |
+| mafft G-INS-i | 148 | 4 s (46 s) / 847 s | 14.2 GB | 65 | 23 s (128 s) / 321 s | 5.6 GB | 244 GB, 515 h |
+| abPOA | 146 | 0.1 s (1 s) / 10 s | 7.3 GB | 138 | 1 s (25 s) / 269 s | 8.7 GB | 268 GB |
+| spoa | 135 | 0.9 s (5 s) / 22 s | 9.5 GB | 123 | 9 s (91 s) / 269 s | 10.2 GB | 993 GB |
+| abPOA, Cactus settings | 149 | 1.1 s (4 s) / 18 s | 5.4 GB (exact) | 148 | 21 s (124 s) / 416 s | 6.9 GB (exact) | MSA too large to build (L012272) |
+| repeat-unit-aware | 149 | 2.2 s (6 s) / 421 s | not sampled | 149 | 13 s (132 s) / 1,722 s | 9.4 GB | - |
+
+- **On hap32 everything is cheap.** Every method's median is under 5 s. Only the all-pairs mafft
+  modes need minutes (up to 14 min) and more than 10 GB, at the few largest regions; L012272
+  killed all three near 11 GB.
+- **On the full panel, coverage is set by memory and all-pairs time, not typical runtime.**
+  - Only unit-aware finishes every region: 3.5 h of aligner time in total, at most 29 min and
+    9.4 GB for one region.
+  - Cactus-settings abPOA finishes 148 because BAR's 10 kb rule caps every string it aligns.
+  - Default abPOA and spoa are fast where they run, but their memory grows with the square of the
+    longest allele, so single outlier alleles put 11 and 26 regions out of reach; spoa's prediction
+    for L012272 is ~1 TB.
+  - The all-pairs mafft modes are predicted to need up to 515 h and 244 GB at the largest region.
+- **To compare methods fairly, use the shared-region tables** in `results/runtime_summary.md`
+  (135 regions on hap32, 104 on the full panel).
+  - On hap32: abPOA 0.1 s, FFT-NS-2 0.5 s, spoa 0.9 s, Cactus-settings abPOA 1.1 s, unit-aware 2.0 s
+    and L-/E-/G-INS-i 3-4 s median per region.
+  - On the full panel: abPOA 0.5 s, FFT-NS-2 2.5 s, FFT-NS-i 5.9 s, spoa 6.2 s, unit-aware 6.6 s
+    and Cactus-settings abPOA 14.4 s.
+- Graph building, projection and evaluation are not included.
+
 ## Before/after pages
 
 Six self-contained viewer pages are in [../results/pages/](../results/pages/). Each shows MC, the
