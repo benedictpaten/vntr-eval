@@ -414,7 +414,7 @@ below is censored from above.
 
 - **On hap32 everything is cheap.** Every method's median is under 5 s. Only the all-pairs mafft
   modes need minutes (up to 14 min) and more than 10 GB, at the few largest regions; L012272
-  killed all three near 11 GB.
+  killed all three at 10-11 GB, and E-INS-i also timed out at L001909 and L015347.
 - **On the full panel, coverage is set by memory and all-pairs time, not typical runtime.**
   - Only unit-aware finishes every region: 3.5 h of aligner time in total, at most 29 min and
     9.4 GB for one region.
