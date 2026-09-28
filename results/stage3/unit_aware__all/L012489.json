@@ -1,0 +1,101 @@
+{
+ "region_id": "L012489",
+ "stratum": "hotspot_other",
+ "contig": "chr5",
+ "span_start": 19222405,
+ "span_end": 19225216,
+ "core_start": 19222646,
+ "core_end": 19224997,
+ "label": "unit_aware__all",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/calls/unit_aware__all/L012489.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 2812,
+ "truth_len": [
+  2882,
+  2956
+ ],
+ "called_len": [
+  2962,
+  2895
+ ],
+ "ed": 28,
+ "ed_per_kb": 4.7962,
+ "exact": false,
+ "ed_ref": 384,
+ "ed_ref_per_kb": 65.776,
+ "gain": 0.92708,
+ "pairing": "slot1-h2,slot2-h1",
+ "ed_h1": 13,
+ "ed_h2": 15,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 28,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 27,
+  "descendant_before_ancestor_by_pos": 1,
+  "order_changed_by_nesting": 1,
+  "records_in_span": 77,
+  "nonref_records": 77,
+  "overlap_skipped_alleles": [
+   21,
+   6
+  ],
+  "applied_alleles": [
+   47,
+   29
+  ],
+  "applied_under_nonref_parent": [
+   3,
+   4
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 37,
+ "flags": [
+  "overlap_skipped_alleles",
+  "descendant_before_ancestor_by_pos",
+  "applied_under_nonref_parent"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 20,
+  "ed_suppress_nested": 9
+ },
+ "edit_distances_computed": 12,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 2812,
+  "span_bp": 2812,
+  "call_sv_records_in_span": 2,
+  "raw_TP-base": 0,
+  "raw_FN": 3,
+  "raw_TP-comp": 0,
+  "raw_FP": 2,
+  "raw_f1": 0.0,
+  "status": "ok",
+  "refined_TP-base": 0,
+  "refined_FN": 3,
+  "refined_TP-comp": 0,
+  "refined_FP": 2,
+  "refined_f1": 0.0,
+  "refined_status": "ok",
+  "refined_seconds": 2.1,
+  "phab_TP-base": 3,
+  "phab_FN": 0,
+  "phab_TP-comp": 3,
+  "phab_FP": 1,
+  "phab_f1": 0.8571,
+  "phab_status": "ok",
+  "phab_seconds": 2.0
+ },
+ "seconds": 4.66
+}

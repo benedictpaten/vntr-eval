@@ -1,0 +1,100 @@
+{
+ "region_id": "L008976",
+ "stratum": "hotspot_vntr",
+ "contig": "chr2",
+ "span_start": 242515653,
+ "span_end": 242521283,
+ "core_start": 242515898,
+ "core_end": 242521074,
+ "label": "poa_abpoa",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/calls/poa_abpoa/L008976.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 5631,
+ "truth_len": [
+  7234,
+  14075
+ ],
+ "called_len": [
+  5337,
+  14208
+ ],
+ "ed": 2889,
+ "ed_per_kb": 135.5765,
+ "exact": false,
+ "ed_ref": 10187,
+ "ed_ref_per_kb": 478.0609,
+ "gain": 0.7164,
+ "pairing": "slot1-h1,slot2-h2",
+ "ed_h1": 1988,
+ "ed_h2": 901,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 2889,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 232,
+  "records_in_span": 333,
+  "nonref_records": 333,
+  "missing_alleles_as_ref": 34,
+  "overlap_skipped_alleles": [
+   104,
+   131
+  ],
+  "applied_alleles": [
+   95,
+   95
+  ],
+  "applied_under_nonref_parent": [
+   0,
+   1
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 485,
+ "flags": [
+  "missing_alleles_as_ref",
+  "overlap_skipped_alleles",
+  "applied_under_nonref_parent"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 2889,
+  "ed_suppress_nested": 2888
+ },
+ "edit_distances_computed": 8,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 5631,
+  "span_bp": 5631,
+  "call_sv_records_in_span": 15,
+  "raw_TP-base": 4,
+  "raw_FN": 20,
+  "raw_TP-comp": 4,
+  "raw_FP": 15,
+  "raw_f1": 0.186,
+  "status": "ok",
+  "refined_TP-base": 4,
+  "refined_FN": 20,
+  "refined_TP-comp": 4,
+  "refined_FP": 15,
+  "refined_f1": 0.186,
+  "refined_status": "ok",
+  "refined_seconds": 2.8,
+  "phab_TP-base": 19,
+  "phab_FN": 0,
+  "phab_TP-comp": 19,
+  "phab_FP": 6,
+  "phab_f1": 0.8636,
+  "phab_status": "ok",
+  "phab_seconds": 2.8
+ },
+ "seconds": 6.32
+}

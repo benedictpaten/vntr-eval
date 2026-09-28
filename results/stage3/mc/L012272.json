@@ -1,0 +1,102 @@
+{
+ "region_id": "L012272",
+ "stratum": "hotspot_vntr",
+ "contig": "chr5",
+ "span_start": 550470,
+ "span_end": 605845,
+ "core_start": 558986,
+ "core_end": 563969,
+ "label": "mc",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/calls/mc/L012272.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 55376,
+ "truth_len": [
+  53149,
+  51045
+ ],
+ "called_len": [
+  54440,
+  51046
+ ],
+ "ed": 1311,
+ "ed_per_kb": 12.5823,
+ "exact": false,
+ "ed_ref": 7022,
+ "ed_ref_per_kb": 67.3935,
+ "gain": 0.8133,
+ "pairing": "slot1-h1,slot2-h2",
+ "ed_h1": 1307,
+ "ed_h2": 4,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 1311,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 144,
+  "descendant_before_ancestor_by_pos": 1,
+  "order_changed_by_nesting": 1,
+  "records_in_span": 145,
+  "nonref_records": 145,
+  "missing_alleles_as_ref": 139,
+  "overlap_skipped_alleles": [
+   0,
+   5
+  ],
+  "applied_alleles": [
+   139,
+   1
+  ],
+  "applied_under_nonref_parent": [
+   0,
+   0
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 144,
+ "flags": [
+  "missing_alleles_as_ref",
+  "overlap_skipped_alleles",
+  "descendant_before_ancestor_by_pos"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 1311,
+  "ed_suppress_nested": 1311
+ },
+ "edit_distances_computed": 6,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 55376,
+  "span_bp": 55376,
+  "call_sv_records_in_span": 14,
+  "raw_TP-base": 3,
+  "raw_FN": 12,
+  "raw_TP-comp": 3,
+  "raw_FP": 11,
+  "raw_f1": 0.2069,
+  "status": "ok",
+  "refined_TP-base": 3,
+  "refined_FN": 12,
+  "refined_TP-comp": 3,
+  "refined_FP": 11,
+  "refined_f1": 0.2069,
+  "refined_status": "ok",
+  "refined_seconds": 9.6,
+  "phab_TP-base": 12,
+  "phab_FN": 4,
+  "phab_TP-comp": 12,
+  "phab_FP": 4,
+  "phab_f1": 0.75,
+  "phab_status": "ok",
+  "phab_seconds": 7.9
+ },
+ "seconds": 19.44
+}

@@ -1,0 +1,100 @@
+{
+ "region_id": "L010328",
+ "stratum": "hotspot_vntr",
+ "contig": "chr3",
+ "span_start": 38087956,
+ "span_end": 38090895,
+ "core_start": 38088191,
+ "core_end": 38090635,
+ "label": "unit_aware__all",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/calls/unit_aware__all/L010328.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 2940,
+ "truth_len": [
+  3222,
+  5106
+ ],
+ "called_len": [
+  1206,
+  4557
+ ],
+ "ed": 2727,
+ "ed_per_kb": 327.4496,
+ "exact": false,
+ "ed_ref": 2504,
+ "ed_ref_per_kb": 300.6724,
+ "gain": -0.08906,
+ "pairing": "slot1-h1,slot2-h2",
+ "ed_h1": 2018,
+ "ed_h2": 709,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 2727,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 266,
+  "records_in_span": 289,
+  "nonref_records": 289,
+  "missing_alleles_as_ref": 266,
+  "overlap_skipped_alleles": [
+   0,
+   3
+  ],
+  "applied_alleles": [
+   8,
+   282
+  ],
+  "applied_under_nonref_parent": [
+   0,
+   4
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 269,
+ "flags": [
+  "missing_alleles_as_ref",
+  "overlap_skipped_alleles",
+  "applied_under_nonref_parent"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 2727,
+  "ed_suppress_nested": 2742
+ },
+ "edit_distances_computed": 8,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 2940,
+  "span_bp": 2940,
+  "call_sv_records_in_span": 3,
+  "raw_TP-base": 1,
+  "raw_FN": 9,
+  "raw_TP-comp": 1,
+  "raw_FP": 2,
+  "raw_f1": 0.1538,
+  "status": "ok",
+  "refined_TP-base": 1,
+  "refined_FN": 9,
+  "refined_TP-comp": 1,
+  "refined_FP": 2,
+  "refined_f1": 0.1538,
+  "refined_status": "ok",
+  "refined_seconds": 2.1,
+  "phab_TP-base": 7,
+  "phab_FN": 4,
+  "phab_TP-comp": 7,
+  "phab_FP": 2,
+  "phab_f1": 0.7,
+  "phab_status": "ok",
+  "phab_seconds": 2.1
+ },
+ "seconds": 4.83
+}

@@ -1,0 +1,80 @@
+{
+ "region_id": "L000289",
+ "stratum": "hotspot_vntr",
+ "contig": "chr1",
+ "span_start": 31283864,
+ "span_end": 31289650,
+ "core_start": 31284081,
+ "core_end": 31289447,
+ "label": "mc@hybrid50k",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/diag/mc@hybrid50k/L000289.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 5787,
+ "truth_len": [
+  4770,
+  3474
+ ],
+ "called_len": [
+  4446,
+  3861
+ ],
+ "ed": 1068,
+ "ed_per_kb": 129.5488,
+ "exact": false,
+ "ed_ref": 3498,
+ "ed_ref_per_kb": 424.3086,
+ "gain": 0.69468,
+ "pairing": "slot1-h1,slot2-h2",
+ "ed_h1": 560,
+ "ed_h2": 508,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 1068,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 64,
+  "descendant_before_ancestor_by_pos": 1,
+  "order_changed_by_nesting": 1,
+  "records_in_span": 319,
+  "nonref_records": 319,
+  "missing_alleles_as_ref": 61,
+  "overlap_skipped_alleles": [
+   20,
+   33
+  ],
+  "applied_alleles": [
+   156,
+   216
+  ],
+  "applied_under_nonref_parent": [
+   0,
+   0
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 120,
+ "flags": [
+  "missing_alleles_as_ref",
+  "overlap_skipped_alleles",
+  "descendant_before_ancestor_by_pos"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 1068,
+  "ed_suppress_nested": 1068
+ },
+ "edit_distances_computed": 6,
+ "status": "ok",
+ "truvari": {
+  "status": "skipped"
+ },
+ "seconds": 0.03
+}

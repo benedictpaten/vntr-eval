@@ -1,0 +1,101 @@
+{
+ "region_id": "L005990",
+ "stratum": "hotspot_vntr",
+ "contig": "chr17",
+ "span_start": 366336,
+ "span_end": 372912,
+ "core_start": 369878,
+ "core_end": 372692,
+ "label": "unit_aware__all",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/calls/unit_aware__all/L005990.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 6577,
+ "truth_len": [
+  6576,
+  7136
+ ],
+ "called_len": [
+  7910,
+  7829
+ ],
+ "ed": 2034,
+ "ed_per_kb": 148.3372,
+ "exact": false,
+ "ed_ref": 846,
+ "ed_ref_per_kb": 61.6978,
+ "gain": -1.40426,
+ "pairing": "slot1-h1,slot2-h2",
+ "ed_h1": 1334,
+ "ed_h2": 700,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 2034,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 9,
+  "order_changed_by_nesting": 1,
+  "records_in_span": 351,
+  "nonref_records": 351,
+  "missing_alleles_as_ref": 7,
+  "overlap_skipped_alleles": [
+   1,
+   4
+  ],
+  "applied_alleles": [
+   261,
+   271
+  ],
+  "applied_under_nonref_parent": [
+   3,
+   1
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 11,
+ "flags": [
+  "missing_alleles_as_ref",
+  "overlap_skipped_alleles",
+  "applied_under_nonref_parent"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 2019,
+  "ed_suppress_nested": 2018
+ },
+ "edit_distances_computed": 12,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 6577,
+  "span_bp": 6577,
+  "call_sv_records_in_span": 2,
+  "raw_TP-base": 1,
+  "raw_FN": 4,
+  "raw_TP-comp": 1,
+  "raw_FP": 1,
+  "raw_f1": 0.2857,
+  "status": "ok",
+  "refined_TP-base": 1,
+  "refined_FN": 4,
+  "refined_TP-comp": 1,
+  "refined_FP": 1,
+  "refined_f1": 0.2857,
+  "refined_status": "ok",
+  "refined_seconds": 2.1,
+  "phab_TP-base": 2,
+  "phab_FN": 2,
+  "phab_TP-comp": 2,
+  "phab_FP": 10,
+  "phab_f1": 0.25,
+  "phab_status": "ok",
+  "phab_seconds": 2.2
+ },
+ "seconds": 5.2
+}

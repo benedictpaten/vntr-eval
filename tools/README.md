@@ -23,11 +23,16 @@ repository; every location has an environment override (`VNTR_EVAL_DIR`, `VNTR_R
 | [units_panel.py](UNIT_ALIGN.md) | `unit_aware` on the full panel: union -> MSA -> full-panel graph (`work/panel/unit_aware/`) and projected hap32 graph (`candidates/unit_aware__all/`), runtimes in `results/realign_runtime.all.units.tsv` | no (reads the union files `panel.py` wrote) |
 | [realign_poa_mc.py](POA.md#poa_abpoa_mc-abpoa-run-the-way-minigraph-cactus-runs-it) / [poa_panel_mc.py](POA.md#poa_abpoa_mc-abpoa-run-the-way-minigraph-cactus-runs-it) | abPOA with Minigraph-Cactus's BAR settings and 10 kb rule (`poa_abpoa_mc`), hap32 arm and full-panel arm; runtimes in `results/mcpoa_runtime{,.all}.tsv` | no |
 | [remap_local.py](../results/stage2_remap.md) | Stage 2: rebuild a region's reads from GAF-Base, map them with giraffe to each local graph (MC, candidates, HG002's own graph), compare placement | yes |
+| [call_local.py](../results/stage3_gate.md) | Stage 3 caller: the graph's span inside the genome-wide hap32 graph +- 200 kb (same panel, CHM13/GRCh38 as reference samples), reads re-mapped with giraffe, `vg call` with the production flags (pinned vg 2a6a228a5), shifted to CHM13 -> `work/stage3/calls/<graph>/<id>.vcf.gz`; `gate` compares local MC with production (diagnostic arms decompose every difference); null graphs `mc_relabel` (MC with candidate-style node IDs) and `mc_unchop` (MC unchopped) -> `work/stage3/diag/<null>@hybrid200k/`; replicate arms `hybrid50k` (50 kb flank) and `hybrid200kids` (span node IDs re-laid) for any graph (`run --arms ... --arm-graphs ...`) -> `work/stage3/diag/<graph>@<arm>/` | yes |
+| [replicate_noise.py](../results/stage3_noise.md) | Stage 3 noise per graph, without the truth: the pair edit distance between each graph's Stage 3 call and its replicate calls -> `results/stage3_noise.{tsv,md}`, read by `score_haplotypes.py summarise --noise` | no (reads the calls) |
+| [null_decomp.py](../results/stage3_pilot.md) | Stage 3: where a null graph's call difference comes from (alignments vs caller, depth term); `rescore-*` recomputes its EDs from the kept VCFs | yes (vg runs) |
+| [score_haplotypes.py](#score_haplotypespy-the-stage-3-scorer) | Stage 3 scorer: the haplotypes a VCF writes over a region's span against HG002's truth (edit distance, paired per stratum), plus truvari bench/refine/phab; batch, summary and the scorer's own validation | truvari part and `validate`: yes |
 
 Tests (offline, seconds each): every
 `tools/test_*.py`, for example `python3 tools/test_msa_graph.py`, `test_evaluate.py`, `test_panel.py`,
 `test_realign.py`, `test_realign_poa.py`, `test_realign_poa_mc.py`, `test_realign_units.py`,
-`test_poa_panel.py`, `test_poa_panel_mc.py`, `test_mafft_panel.py`, `test_units_panel.py`, `test_region.py`.
+`test_poa_panel.py`, `test_poa_panel_mc.py`, `test_mafft_panel.py`, `test_units_panel.py`, `test_region.py`,
+`test_score_haplotypes.py`.
 
 ## msa_graph.py
 
@@ -299,4 +304,50 @@ tables for the questions in [../results/stage01.md](../results/stage01.md):
 
 Every comparison is paired over the regions where all the graphs it names exist, with n.
 `stage01_pairs.tsv` holds the same numbers in long form (one row per table, method, stratum and metric).
+
+## score_haplotypes.py: the Stage 3 scorer
+
+```bash
+python3 tools/score_haplotypes.py score regions/L014297 calls.vcf.gz --label mc --out L014297.json [--haplotypes called.fa]
+python3 tools/score_haplotypes.py batch --label mc --vcf 'work/stage3/call/mc/{id}.vcf.gz' --regions pilot --jobs 4
+python3 tools/score_haplotypes.py batch --label genomewide --vcf genomewide --labels-dir genomewide --regions all   # production
+python3 tools/score_haplotypes.py summarise --labels mc,unit_aware__all,mafft_linsi,unit_aware,truth,genomewide \
+                                            --baseline mc --regions pilot [--noise results/stage3_noise.tsv]
+                                                                                   # -> results/stage3_summary.{tsv,md}
+python3 tools/score_haplotypes.py validate --jobs 4                                # -> results/stage3_scorer_validation.tsv
+python3 tools/test_score_haplotypes.py
+```
+
+- **Input**: a region package and a VCF in CHM13 coordinates (the region's contig name, e.g.
+  `chr6`; sample `HG002`, or a single-sample VCF under any name). bgzipped and tabix-indexed, or
+  plain text. `--vcf` in batch mode is a pattern with `{id}`, `{contig}`, `{stratum}`; `genomewide`
+  means `vg-call-eval/work/wgs-mm095/{contig}/{contig}.vcf.gz`.
+- **The rule** is stated in full in the module docstring. In short: every record overlapping the
+  span is applied to CHM13 once per GT slot; unknown phase between blocks (PS sets, unphased hets)
+  is chosen to minimise ED, exactly up to 2^12 assignments, greedily beyond (flagged); records
+  crossing the span edge are clipped (flagged); missing/FILTERed/symbolic alleles count as
+  reference (flagged); overlapping records in one slot are resolved in (POS, longest first)
+  order by what each allele actually changes, except that a vg record is never applied before
+  a record it is nested in (nesting from vg's `>start>end` snarl ID and INFO/AT; scorer
+  version 2 -- version 1 let a child whose trimmed POS lay left of its parent's win, and dropped
+  the parent's allele). ED = the better pairing of summed unit edit distances to HG002's two
+  haplotypes; chrX/chrY outside the PARs compare a homozygous pair.
+- **Output** (`results/stage3/<label>/<id>.json`): `ed`, `ed_per_kb`, `exact`, `ed_ref` (CHM13 on
+  both haplotypes), `gain`, `called_len`, `truth_len`, the pairing, `phase` (method, blocks,
+  assignments tried, ED under the VCF's own phase), `records` (every counter), `flags`,
+  `sensitivity.ed_raw_overlap` (ED under the raw overlap rule), `sensitivity.ed_suppress_nested`
+  (ED when a parent's non-reference allele suppresses everything nested in it on that slot;
+  `records.applied_under_nonref_parent` counts the child alleles the rule applies there), `truvari` (raw, refined, phab: TP,
+  FP, FN, F1) and, with `--labels-dir`, the genome-wide truvari labels over the span and the core.
+  A region errors (no ED) when the contig is not in the VCF header or when at least 20% of its
+  alleles have a REF that is not CHM13's (wrong coordinates).
+- **Validation** (`validate`, all 149 regions): the stvar truth VCF and the stvar+smvar union give
+  ED 0 everywhere; dropped SVs, a swapped phase and a flipped GT give ED > 0; the same swap with the
+  phase unknown gives ED 0 again through the phase search (exact and greedy); an empty VCF gives
+  ED_ref. The raw overlap rule is kept as a check and fails where the docstring says it does.
+  The truth VCFs carry no vg nesting, so the nesting clause is checked by the unit tests
+  (`TestNesting`: a parent written right of its child must win; version 1 scores that case ED 40).
+- **Noise-aware counts** (`summarise --noise`): beside the rule's better/worse counts, a region
+  counts only when the paired difference exceeds both graphs' replicate noise summed
+  (`replicate_noise.py`, truth-free). The rule's own counts are unchanged.
 

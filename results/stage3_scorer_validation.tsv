@@ -1,0 +1,1600 @@
+check	expect	region_id	stratum	verdict	ed	ed_ref	flags	filtered_as_ref	missing_alleles	perturbation	truvari_raw_f1
+truth_stvar	eq0	L001909	hotspot_vntr	pass	0	7652		0	0		1.0
+truth_stvar	eq0	L009000	hotspot_vntr	pass	0	19625		0	0		1.0
+truth_stvar	eq0	L007009	hotspot_vntr	pass	0	13050		0	0		1.0
+truth_stvar	eq0	L009658	hotspot_vntr	pass	0	8714		0	0		1.0
+truth_stvar	eq0	L005990	hotspot_vntr	pass	0	846		0	0		1.0
+truth_stvar	eq0	L012184	hotspot_vntr	pass	0	8317		0	0		1.0
+truth_stvar	eq0	L005411	hotspot_vntr	pass	0	2444		0	0		1.0
+truth_stvar	eq0	L002013	hotspot_vntr	pass	0	2458		0	0		1.0
+truth_stvar	eq0	L000289	hotspot_vntr	pass	0	3498		0	0		1.0
+truth_stvar	eq0	L001084	hotspot_vntr	pass	0	2530	overlap_skipped_alleles	0	0		1.0
+truth_stvar	eq0	L010328	hotspot_vntr	pass	0	2504		0	0		1.0
+truth_stvar	eq0	L009803	hotspot_vntr	pass	0	4745		0	0		1.0
+truth_stvar	eq0	L013244	hotspot_vntr	pass	0	1558		0	0		1.0
+truth_stvar	eq0	L011138	hotspot_vntr	pass	0	7502		0	0		1.0
+truth_stvar	eq0	L002143	hotspot_vntr	pass	0	865		0	0		1.0
+truth_stvar	eq0	L007040	hotspot_vntr	pass	0	31963		0	0		1.0
+truth_stvar	eq0	L008864	hotspot_vntr	pass	0	3694		0	0		1.0
+truth_stvar	eq0	L015347	hotspot_vntr	pass	0	12274		0	0		1.0
+truth_stvar	eq0	L012294	hotspot_vntr	pass	0	1476		0	0		1.0
+truth_stvar	eq0	L007081	hotspot_vntr	pass	0	4677		0	0		1.0
+truth_stvar	eq0	L014160	hotspot_vntr	pass	0	2603		0	0		1.0
+truth_stvar	eq0	L002096	hotspot_vntr	pass	0	4219		0	0		1.0
+truth_stvar	eq0	L015331	hotspot_vntr	pass	0	1547		0	0		1.0
+truth_stvar	eq0	L005481	hotspot_vntr	pass	0	647		0	0		1.0
+truth_stvar	eq0	L014358	hotspot_vntr	pass	0	1231		0	0		1.0
+truth_stvar	eq0	L014297	hotspot_vntr	pass	0	1754		0	0		1.0
+truth_stvar	eq0	L004145	hotspot_vntr	pass	0	4581		0	0		1.0
+truth_stvar	eq0	L009448	hotspot_vntr	pass	0	3218		0	0		1.0
+truth_stvar	eq0	L000034	hotspot_vntr	pass	0	1166		0	0		1.0
+truth_stvar	eq0	L006952	hotspot_vntr	pass	0	1957		0	0		1.0
+truth_stvar	eq0	L008216	hotspot_vntr	pass	0	460		0	0		1.0
+truth_stvar	eq0	L008976	hotspot_vntr	pass	0	10187		0	0		1.0
+truth_stvar	eq0	L014210	hotspot_vntr	pass	0	2443		0	0		1.0
+truth_stvar	eq0	L001264	hotspot_vntr	pass	0	2755		0	0		1.0
+truth_stvar	eq0	L012272	hotspot_vntr	pass	0	7022		0	0		1.0
+truth_stvar	eq0	L015415	hotspot_vntr	pass	0	2621		0	0		1.0
+truth_stvar	eq0	L011463	hotspot_vntr	pass	0	2411		0	0		1.0
+truth_stvar	eq0	L002182	hotspot_vntr	pass	0	1748		0	0		1.0
+truth_stvar	eq0	L009656	hotspot_vntr	pass	0	673		0	0		1.0
+truth_stvar	eq0	L009398	hotspot_vntr	pass	0	1211		0	0		1.0
+truth_stvar	eq0	L007376	control_vntr_matched	pass	0	682		0	0		1.0
+truth_stvar	eq0	L001894	control_vntr_matched	pass	0	447		0	0		1.0
+truth_stvar	eq0	L000709	control_vntr_matched	pass	0	238		0	0		1.0
+truth_stvar	eq0	L010350	control_vntr_matched	pass	0	225		0	0		1.0
+truth_stvar	eq0	L007172	control_vntr_matched	pass	0	338		0	0		1.0
+truth_stvar	eq0	L011430	control_vntr_matched	pass	0	276		0	0		1.0
+truth_stvar	eq0	L000381	control_vntr_matched	pass	0	548		0	0		1.0
+truth_stvar	eq0	L007065	control_vntr_matched	pass	0	73		0	0		1.0
+truth_stvar	eq0	L017325	control_vntr_matched	pass	0	6654		0	0		1.0
+truth_stvar	eq0	TR101140	control_vntr_matched	pass	0	0		0	0		
+truth_stvar	eq0	TR724750	control_vntr_matched	pass	0	1		0	0		
+truth_stvar	eq0	L000308	control_vntr_matched	pass	0	2123		0	0		1.0
+truth_stvar	eq0	TR368009	control_vntr_matched	pass	0	7		0	0		
+truth_stvar	eq0	L004021	control_vntr_matched	pass	0	222		0	0		1.0
+truth_stvar	eq0	L002884	control_vntr_matched	pass	0	679		0	0		1.0
+truth_stvar	eq0	L003826	control_vntr_matched	pass	0	121		0	0		1.0
+truth_stvar	eq0	TR423938	control_vntr_matched	pass	0	0		0	0		
+truth_stvar	eq0	TR687433	control_vntr_matched	pass	0	1		0	0		
+truth_stvar	eq0	TR424743	control_vntr_matched	pass	0	108		0	0		
+truth_stvar	eq0	TR460913	control_vntr_matched	pass	0	0		0	0		
+truth_stvar	eq0	TR499276	control_vntr_matched	pass	0	10		0	0		
+truth_stvar	eq0	L003872	control_vntr_matched	pass	0	290		0	0		1.0
+truth_stvar	eq0	L009770	control_vntr_matched	pass	0	2108		0	0		1.0
+truth_stvar	eq0	L011227	control_vntr_matched	pass	0	170		0	0		1.0
+truth_stvar	eq0	TR743754	control_vntr_matched	pass	0	7		0	0		
+truth_stvar	eq0	L016124	control_vntr_matched	pass	0	299		0	0		1.0
+truth_stvar	eq0	TR499275	control_vntr_matched	pass	0	57		0	0		
+truth_stvar	eq0	TR668316	control_vntr_matched	pass	0	0		0	0		
+truth_stvar	eq0	L015223	control_vntr_matched	pass	0	2682		0	0		1.0
+truth_stvar	eq0	TR455654	control_vntr_matched	pass	0	7		0	0		
+truth_stvar	eq0	TR687489	control_vntr_matched	pass	0	0		0	0		
+truth_stvar	eq0	L007717	control_vntr_matched	pass	0	702		0	0		1.0
+truth_stvar	eq0	L014181	control_vntr_matched	pass	0	400		0	0		1.0
+truth_stvar	eq0	TR573259	control_vntr_matched	pass	0	0		0	0		
+truth_stvar	eq0	L014111	control_vntr_matched	pass	0	303		0	0		1.0
+truth_stvar	eq0	L007687	control_vntr_matched	pass	0	175		0	0		1.0
+truth_stvar	eq0	L012313	control_vntr_matched	pass	0	212		0	0		1.0
+truth_stvar	eq0	TR446002	control_vntr_matched	pass	0	15		0	0		
+truth_stvar	eq0	TR831034	control_vntr_matched	pass	0	200		0	0		
+truth_stvar	eq0	L001899	control_vntr_matched	pass	0	183		0	0		1.0
+truth_stvar	eq0	L003119	control_vntr_correct	pass	0	2204		0	0		1.0
+truth_stvar	eq0	L011121	control_vntr_correct	pass	0	692		0	0		1.0
+truth_stvar	eq0	L001491	control_vntr_correct	pass	0	914		0	0		1.0
+truth_stvar	eq0	L011224	control_vntr_correct	pass	0	535		0	0		1.0
+truth_stvar	eq0	L010508	control_vntr_correct	pass	0	75		0	0		1.0
+truth_stvar	eq0	L001922	control_vntr_correct	pass	0	1423		0	0		1.0
+truth_stvar	eq0	L014324	control_vntr_correct	pass	0	916		0	0		1.0
+truth_stvar	eq0	L014426	control_vntr_correct	pass	0	552		0	0		1.0
+truth_stvar	eq0	L000407	control_vntr_correct	pass	0	95		0	0		1.0
+truth_stvar	eq0	L009885	control_vntr_correct	pass	0	364		0	0		1.0
+truth_stvar	eq0	L008887	control_vntr_correct	pass	0	723		0	0		1.0
+truth_stvar	eq0	L013000	control_vntr_correct	pass	0	1602		0	0		1.0
+truth_stvar	eq0	L003672	control_vntr_correct	pass	0	246		0	0		1.0
+truth_stvar	eq0	L000698	control_vntr_correct	pass	0	1834		0	0		1.0
+truth_stvar	eq0	L008902	control_vntr_correct	pass	0	294		0	0		1.0
+truth_stvar	eq0	L015743	control_vntr_correct	pass	0	5098		0	0		1.0
+truth_stvar	eq0	L009771	control_vntr_correct	pass	0	230		0	0		1.0
+truth_stvar	eq0	L016523	control_vntr_correct	pass	0	142		0	0		1.0
+truth_stvar	eq0	L016062	control_vntr_correct	pass	0	61		0	0		1.0
+truth_stvar	eq0	L013074	control_vntr_correct	pass	0	9862		0	0		1.0
+truth_stvar	eq0	L016884	control_vntr_correct	pass	0	170		0	0		1.0
+truth_stvar	eq0	L010113	control_vntr_correct	pass	0	107		0	0		1.0
+truth_stvar	eq0	L015285	control_vntr_correct	pass	0	205		0	0		1.0
+truth_stvar	eq0	L016830	control_vntr_correct	pass	0	2221		0	0		1.0
+truth_stvar	eq0	L007033	control_vntr_correct	pass	0	3956		0	0		1.0
+truth_stvar	eq0	L003828	hotspot_other	pass	0	7178		0	0		1.0
+truth_stvar	eq0	L015904	hotspot_other	pass	0	1764		0	0		1.0
+truth_stvar	eq0	L015847	hotspot_other	pass	0	3302		0	0		1.0
+truth_stvar	eq0	L016870	hotspot_other	pass	0	10162		0	0		1.0
+truth_stvar	eq0	L008877	hotspot_other	pass	0	4243		0	0		1.0
+truth_stvar	eq0	L012256	hotspot_other	pass	0	2048		0	0		1.0
+truth_stvar	eq0	L004989	hotspot_other	pass	0	1132		0	0		1.0
+truth_stvar	eq0	L007798	hotspot_other	pass	0	2691		0	0		1.0
+truth_stvar	eq0	L013531	hotspot_other	pass	0	1836		0	0		1.0
+truth_stvar	eq0	L005261	hotspot_other	pass	0	1272		0	0		1.0
+truth_stvar	eq0	L005618	hotspot_other	pass	0	2474		0	0		1.0
+truth_stvar	eq0	L012489	hotspot_other	pass	0	384		0	0		1.0
+truth_stvar	eq0	L007844	hotspot_other	pass	0	3063		0	0		1.0
+truth_stvar	eq0	L007161	hotspot_other	pass	0	717		0	0		1.0
+truth_stvar	eq0	L015126	hotspot_other	pass	0	632		0	0		1.0
+truth_stvar	eq0	L010060	hotspot_other	pass	0	187		0	0		1.0
+truth_stvar	eq0	L004848	hotspot_other	pass	0	306		0	0		1.0
+truth_stvar	eq0	L007480	hotspot_other	pass	0	259		0	0		1.0
+truth_stvar	eq0	L005064	hotspot_other	pass	0	296		0	0		1.0
+truth_stvar	eq0	L003695	hotspot_other	pass	0	430		0	0		1.0
+truth_stvar	eq0	L013064	hotspot_other	pass	0	512		0	0		1.0
+truth_stvar	eq0	L002940	hotspot_other	pass	0	1063		0	0		1.0
+truth_stvar	eq0	L007184	hotspot_other	pass	0	489		0	0		1.0
+truth_stvar	eq0	L015708	hotspot_other	pass	0	68		0	0		
+truth_stvar	eq0	L016040	control_nontr_sv	pass	0	65		0	0		1.0
+truth_stvar	eq0	L010452	control_nontr_sv	pass	0	122		0	0		1.0
+truth_stvar	eq0	L013399	control_nontr_sv	pass	0	1562		0	0		1.0
+truth_stvar	eq0	L000506	control_nontr_sv	pass	0	328		0	0		1.0
+truth_stvar	eq0	L003171	control_nontr_sv	pass	0	668		0	0		1.0
+truth_stvar	eq0	L006556	control_nontr_sv	pass	0	307		0	0		1.0
+truth_stvar	eq0	L017097	control_nontr_sv	pass	0	1714		0	0		1.0
+truth_stvar	eq0	L009600	control_nontr_sv	pass	0	210		0	0		1.0
+truth_stvar	eq0	L007192	control_nontr_sv	pass	0	240		0	0		1.0
+truth_stvar	eq0	L008631	control_nontr_sv	pass	0	336		0	0		1.0
+truth_stvar	eq0	L012530	control_nontr_sv	pass	0	123		0	0		1.0
+truth_stvar	eq0	L005688	control_nontr_sv	pass	0	580		0	0		1.0
+truth_stvar	eq0	L011931	control_nontr_sv	pass	0	837		0	0		1.0
+truth_stvar	eq0	L004620	control_nontr_sv	pass	0	313		0	0		1.0
+truth_stvar	eq0	L014899	control_nontr_sv	pass	0	51		0	0		1.0
+truth_stvar	eq0	L001527	control_nontr_sv	pass	0	297		0	0		1.0
+truth_stvar	eq0	L002292	control_nontr_sv	pass	0	1479		0	0		1.0
+truth_stvar	eq0	L009283	control_nontr_sv	pass	0	135		0	0		1.0
+truth_stvar	eq0	L003883	control_nontr_sv	pass	0	2886		0	0		1.0
+truth_stvar	eq0	L016274	control_nontr_sv	pass	0	528		0	0		1.0
+truth_stvar_raw	eq0	L001909	hotspot_vntr	FAIL	1	7652	overlap_skipped_alleles	0	0		
+truth_stvar_raw	eq0	L009000	hotspot_vntr	pass	0	19625		0	0		
+truth_stvar_raw	eq0	L007009	hotspot_vntr	pass	0	13050		0	0		
+truth_stvar_raw	eq0	L009658	hotspot_vntr	pass	0	8714		0	0		
+truth_stvar_raw	eq0	L005990	hotspot_vntr	pass	0	846		0	0		
+truth_stvar_raw	eq0	L012184	hotspot_vntr	pass	0	8317		0	0		
+truth_stvar_raw	eq0	L005411	hotspot_vntr	pass	0	2444		0	0		
+truth_stvar_raw	eq0	L002013	hotspot_vntr	pass	0	2458		0	0		
+truth_stvar_raw	eq0	L000289	hotspot_vntr	pass	0	3498		0	0		
+truth_stvar_raw	eq0	L001084	hotspot_vntr	pass	0	2530	overlap_skipped_alleles	0	0		
+truth_stvar_raw	eq0	L010328	hotspot_vntr	pass	0	2504		0	0		
+truth_stvar_raw	eq0	L009803	hotspot_vntr	pass	0	4745		0	0		
+truth_stvar_raw	eq0	L013244	hotspot_vntr	pass	0	1558		0	0		
+truth_stvar_raw	eq0	L011138	hotspot_vntr	pass	0	7502		0	0		
+truth_stvar_raw	eq0	L002143	hotspot_vntr	pass	0	865		0	0		
+truth_stvar_raw	eq0	L007040	hotspot_vntr	pass	0	31963		0	0		
+truth_stvar_raw	eq0	L008864	hotspot_vntr	pass	0	3694		0	0		
+truth_stvar_raw	eq0	L015347	hotspot_vntr	pass	0	12274		0	0		
+truth_stvar_raw	eq0	L012294	hotspot_vntr	pass	0	1476		0	0		
+truth_stvar_raw	eq0	L007081	hotspot_vntr	pass	0	4677		0	0		
+truth_stvar_raw	eq0	L014160	hotspot_vntr	pass	0	2603		0	0		
+truth_stvar_raw	eq0	L002096	hotspot_vntr	pass	0	4219		0	0		
+truth_stvar_raw	eq0	L015331	hotspot_vntr	pass	0	1547		0	0		
+truth_stvar_raw	eq0	L005481	hotspot_vntr	pass	0	647		0	0		
+truth_stvar_raw	eq0	L014358	hotspot_vntr	pass	0	1231		0	0		
+truth_stvar_raw	eq0	L014297	hotspot_vntr	pass	0	1754		0	0		
+truth_stvar_raw	eq0	L004145	hotspot_vntr	pass	0	4581		0	0		
+truth_stvar_raw	eq0	L009448	hotspot_vntr	pass	0	3218		0	0		
+truth_stvar_raw	eq0	L000034	hotspot_vntr	pass	0	1166		0	0		
+truth_stvar_raw	eq0	L006952	hotspot_vntr	pass	0	1957		0	0		
+truth_stvar_raw	eq0	L008216	hotspot_vntr	pass	0	460		0	0		
+truth_stvar_raw	eq0	L008976	hotspot_vntr	pass	0	10187		0	0		
+truth_stvar_raw	eq0	L014210	hotspot_vntr	pass	0	2443		0	0		
+truth_stvar_raw	eq0	L001264	hotspot_vntr	pass	0	2755		0	0		
+truth_stvar_raw	eq0	L012272	hotspot_vntr	pass	0	7022		0	0		
+truth_stvar_raw	eq0	L015415	hotspot_vntr	pass	0	2621		0	0		
+truth_stvar_raw	eq0	L011463	hotspot_vntr	pass	0	2411		0	0		
+truth_stvar_raw	eq0	L002182	hotspot_vntr	pass	0	1748		0	0		
+truth_stvar_raw	eq0	L009656	hotspot_vntr	pass	0	673		0	0		
+truth_stvar_raw	eq0	L009398	hotspot_vntr	pass	0	1211		0	0		
+truth_stvar_raw	eq0	L007376	control_vntr_matched	pass	0	682		0	0		
+truth_stvar_raw	eq0	L001894	control_vntr_matched	pass	0	447		0	0		
+truth_stvar_raw	eq0	L000709	control_vntr_matched	pass	0	238		0	0		
+truth_stvar_raw	eq0	L010350	control_vntr_matched	pass	0	225		0	0		
+truth_stvar_raw	eq0	L007172	control_vntr_matched	pass	0	338		0	0		
+truth_stvar_raw	eq0	L011430	control_vntr_matched	pass	0	276		0	0		
+truth_stvar_raw	eq0	L000381	control_vntr_matched	pass	0	548		0	0		
+truth_stvar_raw	eq0	L007065	control_vntr_matched	pass	0	73		0	0		
+truth_stvar_raw	eq0	L017325	control_vntr_matched	pass	0	6654		0	0		
+truth_stvar_raw	eq0	TR101140	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_raw	eq0	TR724750	control_vntr_matched	pass	0	1		0	0		
+truth_stvar_raw	eq0	L000308	control_vntr_matched	pass	0	2123		0	0		
+truth_stvar_raw	eq0	TR368009	control_vntr_matched	pass	0	7		0	0		
+truth_stvar_raw	eq0	L004021	control_vntr_matched	pass	0	222		0	0		
+truth_stvar_raw	eq0	L002884	control_vntr_matched	pass	0	679		0	0		
+truth_stvar_raw	eq0	L003826	control_vntr_matched	pass	0	121		0	0		
+truth_stvar_raw	eq0	TR423938	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_raw	eq0	TR687433	control_vntr_matched	pass	0	1		0	0		
+truth_stvar_raw	eq0	TR424743	control_vntr_matched	pass	0	108		0	0		
+truth_stvar_raw	eq0	TR460913	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_raw	eq0	TR499276	control_vntr_matched	pass	0	10		0	0		
+truth_stvar_raw	eq0	L003872	control_vntr_matched	pass	0	290		0	0		
+truth_stvar_raw	eq0	L009770	control_vntr_matched	pass	0	2108		0	0		
+truth_stvar_raw	eq0	L011227	control_vntr_matched	pass	0	170		0	0		
+truth_stvar_raw	eq0	TR743754	control_vntr_matched	pass	0	7		0	0		
+truth_stvar_raw	eq0	L016124	control_vntr_matched	pass	0	299		0	0		
+truth_stvar_raw	eq0	TR499275	control_vntr_matched	pass	0	57		0	0		
+truth_stvar_raw	eq0	TR668316	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_raw	eq0	L015223	control_vntr_matched	pass	0	2682		0	0		
+truth_stvar_raw	eq0	TR455654	control_vntr_matched	pass	0	7		0	0		
+truth_stvar_raw	eq0	TR687489	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_raw	eq0	L007717	control_vntr_matched	pass	0	702		0	0		
+truth_stvar_raw	eq0	L014181	control_vntr_matched	pass	0	400		0	0		
+truth_stvar_raw	eq0	TR573259	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_raw	eq0	L014111	control_vntr_matched	pass	0	303		0	0		
+truth_stvar_raw	eq0	L007687	control_vntr_matched	pass	0	175		0	0		
+truth_stvar_raw	eq0	L012313	control_vntr_matched	pass	0	212		0	0		
+truth_stvar_raw	eq0	TR446002	control_vntr_matched	pass	0	15		0	0		
+truth_stvar_raw	eq0	TR831034	control_vntr_matched	pass	0	200		0	0		
+truth_stvar_raw	eq0	L001899	control_vntr_matched	pass	0	183		0	0		
+truth_stvar_raw	eq0	L003119	control_vntr_correct	pass	0	2204		0	0		
+truth_stvar_raw	eq0	L011121	control_vntr_correct	pass	0	692		0	0		
+truth_stvar_raw	eq0	L001491	control_vntr_correct	pass	0	914		0	0		
+truth_stvar_raw	eq0	L011224	control_vntr_correct	pass	0	535		0	0		
+truth_stvar_raw	eq0	L010508	control_vntr_correct	pass	0	75		0	0		
+truth_stvar_raw	eq0	L001922	control_vntr_correct	pass	0	1423		0	0		
+truth_stvar_raw	eq0	L014324	control_vntr_correct	pass	0	916		0	0		
+truth_stvar_raw	eq0	L014426	control_vntr_correct	pass	0	552		0	0		
+truth_stvar_raw	eq0	L000407	control_vntr_correct	pass	0	95		0	0		
+truth_stvar_raw	eq0	L009885	control_vntr_correct	pass	0	364		0	0		
+truth_stvar_raw	eq0	L008887	control_vntr_correct	pass	0	723		0	0		
+truth_stvar_raw	eq0	L013000	control_vntr_correct	pass	0	1602		0	0		
+truth_stvar_raw	eq0	L003672	control_vntr_correct	pass	0	246		0	0		
+truth_stvar_raw	eq0	L000698	control_vntr_correct	pass	0	1834		0	0		
+truth_stvar_raw	eq0	L008902	control_vntr_correct	pass	0	294		0	0		
+truth_stvar_raw	eq0	L015743	control_vntr_correct	pass	0	5098		0	0		
+truth_stvar_raw	eq0	L009771	control_vntr_correct	pass	0	230		0	0		
+truth_stvar_raw	eq0	L016523	control_vntr_correct	pass	0	142		0	0		
+truth_stvar_raw	eq0	L016062	control_vntr_correct	pass	0	61		0	0		
+truth_stvar_raw	eq0	L013074	control_vntr_correct	pass	0	9862		0	0		
+truth_stvar_raw	eq0	L016884	control_vntr_correct	pass	0	170		0	0		
+truth_stvar_raw	eq0	L010113	control_vntr_correct	pass	0	107		0	0		
+truth_stvar_raw	eq0	L015285	control_vntr_correct	pass	0	205		0	0		
+truth_stvar_raw	eq0	L016830	control_vntr_correct	pass	0	2221		0	0		
+truth_stvar_raw	eq0	L007033	control_vntr_correct	pass	0	3956		0	0		
+truth_stvar_raw	eq0	L003828	hotspot_other	pass	0	7178		0	0		
+truth_stvar_raw	eq0	L015904	hotspot_other	pass	0	1764		0	0		
+truth_stvar_raw	eq0	L015847	hotspot_other	pass	0	3302		0	0		
+truth_stvar_raw	eq0	L016870	hotspot_other	pass	0	10162		0	0		
+truth_stvar_raw	eq0	L008877	hotspot_other	pass	0	4243		0	0		
+truth_stvar_raw	eq0	L012256	hotspot_other	pass	0	2048		0	0		
+truth_stvar_raw	eq0	L004989	hotspot_other	pass	0	1132		0	0		
+truth_stvar_raw	eq0	L007798	hotspot_other	pass	0	2691		0	0		
+truth_stvar_raw	eq0	L013531	hotspot_other	pass	0	1836		0	0		
+truth_stvar_raw	eq0	L005261	hotspot_other	pass	0	1272		0	0		
+truth_stvar_raw	eq0	L005618	hotspot_other	pass	0	2474		0	0		
+truth_stvar_raw	eq0	L012489	hotspot_other	pass	0	384		0	0		
+truth_stvar_raw	eq0	L007844	hotspot_other	pass	0	3063		0	0		
+truth_stvar_raw	eq0	L007161	hotspot_other	pass	0	717		0	0		
+truth_stvar_raw	eq0	L015126	hotspot_other	pass	0	632		0	0		
+truth_stvar_raw	eq0	L010060	hotspot_other	pass	0	187		0	0		
+truth_stvar_raw	eq0	L004848	hotspot_other	pass	0	306		0	0		
+truth_stvar_raw	eq0	L007480	hotspot_other	pass	0	259		0	0		
+truth_stvar_raw	eq0	L005064	hotspot_other	pass	0	296		0	0		
+truth_stvar_raw	eq0	L003695	hotspot_other	pass	0	430		0	0		
+truth_stvar_raw	eq0	L013064	hotspot_other	pass	0	512		0	0		
+truth_stvar_raw	eq0	L002940	hotspot_other	pass	0	1063		0	0		
+truth_stvar_raw	eq0	L007184	hotspot_other	pass	0	489		0	0		
+truth_stvar_raw	eq0	L015708	hotspot_other	pass	0	68		0	0		
+truth_stvar_raw	eq0	L016040	control_nontr_sv	pass	0	65		0	0		
+truth_stvar_raw	eq0	L010452	control_nontr_sv	pass	0	122		0	0		
+truth_stvar_raw	eq0	L013399	control_nontr_sv	pass	0	1562		0	0		
+truth_stvar_raw	eq0	L000506	control_nontr_sv	pass	0	328		0	0		
+truth_stvar_raw	eq0	L003171	control_nontr_sv	pass	0	668		0	0		
+truth_stvar_raw	eq0	L006556	control_nontr_sv	pass	0	307		0	0		
+truth_stvar_raw	eq0	L017097	control_nontr_sv	pass	0	1714		0	0		
+truth_stvar_raw	eq0	L009600	control_nontr_sv	pass	0	210		0	0		
+truth_stvar_raw	eq0	L007192	control_nontr_sv	pass	0	240		0	0		
+truth_stvar_raw	eq0	L008631	control_nontr_sv	pass	0	336		0	0		
+truth_stvar_raw	eq0	L012530	control_nontr_sv	pass	0	123		0	0		
+truth_stvar_raw	eq0	L005688	control_nontr_sv	pass	0	580		0	0		
+truth_stvar_raw	eq0	L011931	control_nontr_sv	pass	0	837		0	0		
+truth_stvar_raw	eq0	L004620	control_nontr_sv	pass	0	313		0	0		
+truth_stvar_raw	eq0	L014899	control_nontr_sv	pass	0	51		0	0		
+truth_stvar_raw	eq0	L001527	control_nontr_sv	pass	0	297		0	0		
+truth_stvar_raw	eq0	L002292	control_nontr_sv	pass	0	1479		0	0		
+truth_stvar_raw	eq0	L009283	control_nontr_sv	pass	0	135		0	0		
+truth_stvar_raw	eq0	L003883	control_nontr_sv	pass	0	2886		0	0		
+truth_stvar_raw	eq0	L016274	control_nontr_sv	pass	0	528		0	0		
+truth_stvar_apply_filtered	eq0	L001909	hotspot_vntr	pass	0	7652		0	0		
+truth_stvar_apply_filtered	eq0	L009000	hotspot_vntr	pass	0	19625		0	0		
+truth_stvar_apply_filtered	eq0	L007009	hotspot_vntr	pass	0	13050		0	0		
+truth_stvar_apply_filtered	eq0	L009658	hotspot_vntr	pass	0	8714		0	0		
+truth_stvar_apply_filtered	eq0	L005990	hotspot_vntr	pass	0	846		0	0		
+truth_stvar_apply_filtered	eq0	L012184	hotspot_vntr	pass	0	8317		0	0		
+truth_stvar_apply_filtered	eq0	L005411	hotspot_vntr	pass	0	2444		0	0		
+truth_stvar_apply_filtered	eq0	L002013	hotspot_vntr	pass	0	2458		0	0		
+truth_stvar_apply_filtered	eq0	L000289	hotspot_vntr	pass	0	3498		0	0		
+truth_stvar_apply_filtered	eq0	L001084	hotspot_vntr	pass	0	2530	overlap_skipped_alleles	0	0		
+truth_stvar_apply_filtered	eq0	L010328	hotspot_vntr	pass	0	2504		0	0		
+truth_stvar_apply_filtered	eq0	L009803	hotspot_vntr	pass	0	4745		0	0		
+truth_stvar_apply_filtered	eq0	L013244	hotspot_vntr	pass	0	1558		0	0		
+truth_stvar_apply_filtered	eq0	L011138	hotspot_vntr	pass	0	7502		0	0		
+truth_stvar_apply_filtered	eq0	L002143	hotspot_vntr	pass	0	865		0	0		
+truth_stvar_apply_filtered	eq0	L007040	hotspot_vntr	pass	0	31963		0	0		
+truth_stvar_apply_filtered	eq0	L008864	hotspot_vntr	pass	0	3694		0	0		
+truth_stvar_apply_filtered	eq0	L015347	hotspot_vntr	pass	0	12274		0	0		
+truth_stvar_apply_filtered	eq0	L012294	hotspot_vntr	pass	0	1476		0	0		
+truth_stvar_apply_filtered	eq0	L007081	hotspot_vntr	pass	0	4677		0	0		
+truth_stvar_apply_filtered	eq0	L014160	hotspot_vntr	pass	0	2603		0	0		
+truth_stvar_apply_filtered	eq0	L002096	hotspot_vntr	pass	0	4219		0	0		
+truth_stvar_apply_filtered	eq0	L015331	hotspot_vntr	pass	0	1547		0	0		
+truth_stvar_apply_filtered	eq0	L005481	hotspot_vntr	pass	0	647		0	0		
+truth_stvar_apply_filtered	eq0	L014358	hotspot_vntr	pass	0	1231		0	0		
+truth_stvar_apply_filtered	eq0	L014297	hotspot_vntr	pass	0	1754		0	0		
+truth_stvar_apply_filtered	eq0	L004145	hotspot_vntr	pass	0	4581		0	0		
+truth_stvar_apply_filtered	eq0	L009448	hotspot_vntr	pass	0	3218		0	0		
+truth_stvar_apply_filtered	eq0	L000034	hotspot_vntr	pass	0	1166		0	0		
+truth_stvar_apply_filtered	eq0	L006952	hotspot_vntr	pass	0	1957		0	0		
+truth_stvar_apply_filtered	eq0	L008216	hotspot_vntr	pass	0	460		0	0		
+truth_stvar_apply_filtered	eq0	L008976	hotspot_vntr	pass	0	10187		0	0		
+truth_stvar_apply_filtered	eq0	L014210	hotspot_vntr	pass	0	2443		0	0		
+truth_stvar_apply_filtered	eq0	L001264	hotspot_vntr	pass	0	2755		0	0		
+truth_stvar_apply_filtered	eq0	L012272	hotspot_vntr	pass	0	7022		0	0		
+truth_stvar_apply_filtered	eq0	L015415	hotspot_vntr	pass	0	2621		0	0		
+truth_stvar_apply_filtered	eq0	L011463	hotspot_vntr	pass	0	2411		0	0		
+truth_stvar_apply_filtered	eq0	L002182	hotspot_vntr	pass	0	1748		0	0		
+truth_stvar_apply_filtered	eq0	L009656	hotspot_vntr	pass	0	673		0	0		
+truth_stvar_apply_filtered	eq0	L009398	hotspot_vntr	pass	0	1211		0	0		
+truth_stvar_apply_filtered	eq0	L007376	control_vntr_matched	pass	0	682		0	0		
+truth_stvar_apply_filtered	eq0	L001894	control_vntr_matched	pass	0	447		0	0		
+truth_stvar_apply_filtered	eq0	L000709	control_vntr_matched	pass	0	238		0	0		
+truth_stvar_apply_filtered	eq0	L010350	control_vntr_matched	pass	0	225		0	0		
+truth_stvar_apply_filtered	eq0	L007172	control_vntr_matched	pass	0	338		0	0		
+truth_stvar_apply_filtered	eq0	L011430	control_vntr_matched	pass	0	276		0	0		
+truth_stvar_apply_filtered	eq0	L000381	control_vntr_matched	pass	0	548		0	0		
+truth_stvar_apply_filtered	eq0	L007065	control_vntr_matched	pass	0	73		0	0		
+truth_stvar_apply_filtered	eq0	L017325	control_vntr_matched	pass	0	6654		0	0		
+truth_stvar_apply_filtered	eq0	TR101140	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_apply_filtered	eq0	TR724750	control_vntr_matched	pass	0	1		0	0		
+truth_stvar_apply_filtered	eq0	L000308	control_vntr_matched	pass	0	2123		0	0		
+truth_stvar_apply_filtered	eq0	TR368009	control_vntr_matched	pass	0	7		0	0		
+truth_stvar_apply_filtered	eq0	L004021	control_vntr_matched	pass	0	222		0	0		
+truth_stvar_apply_filtered	eq0	L002884	control_vntr_matched	pass	0	679		0	0		
+truth_stvar_apply_filtered	eq0	L003826	control_vntr_matched	pass	0	121		0	0		
+truth_stvar_apply_filtered	eq0	TR423938	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_apply_filtered	eq0	TR687433	control_vntr_matched	pass	0	1		0	0		
+truth_stvar_apply_filtered	eq0	TR424743	control_vntr_matched	pass	0	108		0	0		
+truth_stvar_apply_filtered	eq0	TR460913	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_apply_filtered	eq0	TR499276	control_vntr_matched	pass	0	10		0	0		
+truth_stvar_apply_filtered	eq0	L003872	control_vntr_matched	pass	0	290		0	0		
+truth_stvar_apply_filtered	eq0	L009770	control_vntr_matched	pass	0	2108		0	0		
+truth_stvar_apply_filtered	eq0	L011227	control_vntr_matched	pass	0	170		0	0		
+truth_stvar_apply_filtered	eq0	TR743754	control_vntr_matched	pass	0	7		0	0		
+truth_stvar_apply_filtered	eq0	L016124	control_vntr_matched	pass	0	299		0	0		
+truth_stvar_apply_filtered	eq0	TR499275	control_vntr_matched	pass	0	57		0	0		
+truth_stvar_apply_filtered	eq0	TR668316	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_apply_filtered	eq0	L015223	control_vntr_matched	pass	0	2682		0	0		
+truth_stvar_apply_filtered	eq0	TR455654	control_vntr_matched	pass	0	7		0	0		
+truth_stvar_apply_filtered	eq0	TR687489	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_apply_filtered	eq0	L007717	control_vntr_matched	pass	0	702		0	0		
+truth_stvar_apply_filtered	eq0	L014181	control_vntr_matched	pass	0	400		0	0		
+truth_stvar_apply_filtered	eq0	TR573259	control_vntr_matched	pass	0	0		0	0		
+truth_stvar_apply_filtered	eq0	L014111	control_vntr_matched	pass	0	303		0	0		
+truth_stvar_apply_filtered	eq0	L007687	control_vntr_matched	pass	0	175		0	0		
+truth_stvar_apply_filtered	eq0	L012313	control_vntr_matched	pass	0	212		0	0		
+truth_stvar_apply_filtered	eq0	TR446002	control_vntr_matched	pass	0	15		0	0		
+truth_stvar_apply_filtered	eq0	TR831034	control_vntr_matched	pass	0	200		0	0		
+truth_stvar_apply_filtered	eq0	L001899	control_vntr_matched	pass	0	183		0	0		
+truth_stvar_apply_filtered	eq0	L003119	control_vntr_correct	pass	0	2204		0	0		
+truth_stvar_apply_filtered	eq0	L011121	control_vntr_correct	pass	0	692		0	0		
+truth_stvar_apply_filtered	eq0	L001491	control_vntr_correct	pass	0	914		0	0		
+truth_stvar_apply_filtered	eq0	L011224	control_vntr_correct	pass	0	535		0	0		
+truth_stvar_apply_filtered	eq0	L010508	control_vntr_correct	pass	0	75		0	0		
+truth_stvar_apply_filtered	eq0	L001922	control_vntr_correct	pass	0	1423		0	0		
+truth_stvar_apply_filtered	eq0	L014324	control_vntr_correct	pass	0	916		0	0		
+truth_stvar_apply_filtered	eq0	L014426	control_vntr_correct	pass	0	552		0	0		
+truth_stvar_apply_filtered	eq0	L000407	control_vntr_correct	pass	0	95		0	0		
+truth_stvar_apply_filtered	eq0	L009885	control_vntr_correct	pass	0	364		0	0		
+truth_stvar_apply_filtered	eq0	L008887	control_vntr_correct	pass	0	723		0	0		
+truth_stvar_apply_filtered	eq0	L013000	control_vntr_correct	pass	0	1602		0	0		
+truth_stvar_apply_filtered	eq0	L003672	control_vntr_correct	pass	0	246		0	0		
+truth_stvar_apply_filtered	eq0	L000698	control_vntr_correct	pass	0	1834		0	0		
+truth_stvar_apply_filtered	eq0	L008902	control_vntr_correct	pass	0	294		0	0		
+truth_stvar_apply_filtered	eq0	L015743	control_vntr_correct	pass	0	5098		0	0		
+truth_stvar_apply_filtered	eq0	L009771	control_vntr_correct	pass	0	230		0	0		
+truth_stvar_apply_filtered	eq0	L016523	control_vntr_correct	pass	0	142		0	0		
+truth_stvar_apply_filtered	eq0	L016062	control_vntr_correct	pass	0	61		0	0		
+truth_stvar_apply_filtered	eq0	L013074	control_vntr_correct	pass	0	9862		0	0		
+truth_stvar_apply_filtered	eq0	L016884	control_vntr_correct	pass	0	170		0	0		
+truth_stvar_apply_filtered	eq0	L010113	control_vntr_correct	pass	0	107		0	0		
+truth_stvar_apply_filtered	eq0	L015285	control_vntr_correct	pass	0	205		0	0		
+truth_stvar_apply_filtered	eq0	L016830	control_vntr_correct	pass	0	2221		0	0		
+truth_stvar_apply_filtered	eq0	L007033	control_vntr_correct	pass	0	3956		0	0		
+truth_stvar_apply_filtered	eq0	L003828	hotspot_other	pass	0	7178		0	0		
+truth_stvar_apply_filtered	eq0	L015904	hotspot_other	pass	0	1764		0	0		
+truth_stvar_apply_filtered	eq0	L015847	hotspot_other	pass	0	3302		0	0		
+truth_stvar_apply_filtered	eq0	L016870	hotspot_other	pass	0	10162		0	0		
+truth_stvar_apply_filtered	eq0	L008877	hotspot_other	pass	0	4243		0	0		
+truth_stvar_apply_filtered	eq0	L012256	hotspot_other	pass	0	2048		0	0		
+truth_stvar_apply_filtered	eq0	L004989	hotspot_other	pass	0	1132		0	0		
+truth_stvar_apply_filtered	eq0	L007798	hotspot_other	pass	0	2691		0	0		
+truth_stvar_apply_filtered	eq0	L013531	hotspot_other	pass	0	1836		0	0		
+truth_stvar_apply_filtered	eq0	L005261	hotspot_other	pass	0	1272		0	0		
+truth_stvar_apply_filtered	eq0	L005618	hotspot_other	pass	0	2474		0	0		
+truth_stvar_apply_filtered	eq0	L012489	hotspot_other	pass	0	384		0	0		
+truth_stvar_apply_filtered	eq0	L007844	hotspot_other	pass	0	3063		0	0		
+truth_stvar_apply_filtered	eq0	L007161	hotspot_other	pass	0	717		0	0		
+truth_stvar_apply_filtered	eq0	L015126	hotspot_other	pass	0	632		0	0		
+truth_stvar_apply_filtered	eq0	L010060	hotspot_other	pass	0	187		0	0		
+truth_stvar_apply_filtered	eq0	L004848	hotspot_other	pass	0	306		0	0		
+truth_stvar_apply_filtered	eq0	L007480	hotspot_other	pass	0	259		0	0		
+truth_stvar_apply_filtered	eq0	L005064	hotspot_other	pass	0	296		0	0		
+truth_stvar_apply_filtered	eq0	L003695	hotspot_other	pass	0	430		0	0		
+truth_stvar_apply_filtered	eq0	L013064	hotspot_other	pass	0	512		0	0		
+truth_stvar_apply_filtered	eq0	L002940	hotspot_other	pass	0	1063		0	0		
+truth_stvar_apply_filtered	eq0	L007184	hotspot_other	pass	0	489		0	0		
+truth_stvar_apply_filtered	eq0	L015708	hotspot_other	pass	0	68		0	0		
+truth_stvar_apply_filtered	eq0	L016040	control_nontr_sv	pass	0	65		0	0		
+truth_stvar_apply_filtered	eq0	L010452	control_nontr_sv	pass	0	122		0	0		
+truth_stvar_apply_filtered	eq0	L013399	control_nontr_sv	pass	0	1562		0	0		
+truth_stvar_apply_filtered	eq0	L000506	control_nontr_sv	pass	0	328		0	0		
+truth_stvar_apply_filtered	eq0	L003171	control_nontr_sv	pass	0	668		0	0		
+truth_stvar_apply_filtered	eq0	L006556	control_nontr_sv	pass	0	307		0	0		
+truth_stvar_apply_filtered	eq0	L017097	control_nontr_sv	pass	0	1714		0	0		
+truth_stvar_apply_filtered	eq0	L009600	control_nontr_sv	pass	0	210		0	0		
+truth_stvar_apply_filtered	eq0	L007192	control_nontr_sv	pass	0	240		0	0		
+truth_stvar_apply_filtered	eq0	L008631	control_nontr_sv	pass	0	336		0	0		
+truth_stvar_apply_filtered	eq0	L012530	control_nontr_sv	pass	0	123		0	0		
+truth_stvar_apply_filtered	eq0	L005688	control_nontr_sv	pass	0	580		0	0		
+truth_stvar_apply_filtered	eq0	L011931	control_nontr_sv	pass	0	837		0	0		
+truth_stvar_apply_filtered	eq0	L004620	control_nontr_sv	pass	0	313		0	0		
+truth_stvar_apply_filtered	eq0	L014899	control_nontr_sv	pass	0	51		0	0		
+truth_stvar_apply_filtered	eq0	L001527	control_nontr_sv	pass	0	297		0	0		
+truth_stvar_apply_filtered	eq0	L002292	control_nontr_sv	pass	0	1479		0	0		
+truth_stvar_apply_filtered	eq0	L009283	control_nontr_sv	pass	0	135		0	0		
+truth_stvar_apply_filtered	eq0	L003883	control_nontr_sv	pass	0	2886		0	0		
+truth_stvar_apply_filtered	eq0	L016274	control_nontr_sv	pass	0	528		0	0		
+truth_merged	eq0	L001909	hotspot_vntr	pass	0	7652	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L009000	hotspot_vntr	pass	0	19625	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L007009	hotspot_vntr	pass	0	13050	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L009658	hotspot_vntr	pass	0	8714	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L005990	hotspot_vntr	pass	0	846	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L012184	hotspot_vntr	pass	0	8317	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L005411	hotspot_vntr	pass	0	2444	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L002013	hotspot_vntr	pass	0	2458	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L000289	hotspot_vntr	pass	0	3498	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L001084	hotspot_vntr	pass	0	2530	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L010328	hotspot_vntr	pass	0	2504	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L009803	hotspot_vntr	pass	0	4745	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L013244	hotspot_vntr	pass	0	1558		0	0		
+truth_merged	eq0	L011138	hotspot_vntr	pass	0	7502	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L002143	hotspot_vntr	pass	0	865	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L007040	hotspot_vntr	pass	0	31963	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L008864	hotspot_vntr	pass	0	3694	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L015347	hotspot_vntr	pass	0	12274	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L012294	hotspot_vntr	pass	0	1476	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L007081	hotspot_vntr	pass	0	4677	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L014160	hotspot_vntr	pass	0	2603	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L002096	hotspot_vntr	pass	0	4219	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L015331	hotspot_vntr	pass	0	1547	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L005481	hotspot_vntr	pass	0	647	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L014358	hotspot_vntr	pass	0	1231	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L014297	hotspot_vntr	pass	0	1754		0	0		
+truth_merged	eq0	L004145	hotspot_vntr	pass	0	4581	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L009448	hotspot_vntr	pass	0	3218	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L000034	hotspot_vntr	pass	0	1166	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L006952	hotspot_vntr	pass	0	1957	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L008216	hotspot_vntr	pass	0	460	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L008976	hotspot_vntr	pass	0	10187	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L014210	hotspot_vntr	pass	0	2443	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L001264	hotspot_vntr	pass	0	2755	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L012272	hotspot_vntr	pass	0	7022	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L015415	hotspot_vntr	pass	0	2621	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L011463	hotspot_vntr	pass	0	2411	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L002182	hotspot_vntr	pass	0	1748	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L009656	hotspot_vntr	pass	0	673	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L009398	hotspot_vntr	pass	0	1211	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L007376	control_vntr_matched	pass	0	682		0	0		
+truth_merged	eq0	L001894	control_vntr_matched	pass	0	447		0	0		
+truth_merged	eq0	L000709	control_vntr_matched	pass	0	238		0	0		
+truth_merged	eq0	L010350	control_vntr_matched	pass	0	225		0	0		
+truth_merged	eq0	L007172	control_vntr_matched	pass	0	338		0	0		
+truth_merged	eq0	L011430	control_vntr_matched	pass	0	276	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L000381	control_vntr_matched	pass	0	548		0	0		
+truth_merged	eq0	L007065	control_vntr_matched	pass	0	73		0	0		
+truth_merged	eq0	L017325	control_vntr_matched	pass	0	6654		0	0		
+truth_merged	eq0	TR101140	control_vntr_matched	pass	0	0		0	0		
+truth_merged	eq0	TR724750	control_vntr_matched	pass	0	1		0	0		
+truth_merged	eq0	L000308	control_vntr_matched	pass	0	2123	overlap_skipped_alleles	0	0		
+truth_merged	eq0	TR368009	control_vntr_matched	pass	0	7		0	0		
+truth_merged	eq0	L004021	control_vntr_matched	pass	0	222		0	0		
+truth_merged	eq0	L002884	control_vntr_matched	pass	0	679		0	0		
+truth_merged	eq0	L003826	control_vntr_matched	pass	0	121	overlap_skipped_alleles	0	0		
+truth_merged	eq0	TR423938	control_vntr_matched	pass	0	0		0	0		
+truth_merged	eq0	TR687433	control_vntr_matched	pass	0	1		0	0		
+truth_merged	eq0	TR424743	control_vntr_matched	pass	0	108		0	0		
+truth_merged	eq0	TR460913	control_vntr_matched	pass	0	0		0	0		
+truth_merged	eq0	TR499276	control_vntr_matched	pass	0	10		0	0		
+truth_merged	eq0	L003872	control_vntr_matched	pass	0	290	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L009770	control_vntr_matched	pass	0	2108		0	0		
+truth_merged	eq0	L011227	control_vntr_matched	pass	0	170		0	0		
+truth_merged	eq0	TR743754	control_vntr_matched	pass	0	7		0	0		
+truth_merged	eq0	L016124	control_vntr_matched	pass	0	299		0	0		
+truth_merged	eq0	TR499275	control_vntr_matched	pass	0	57		0	0		
+truth_merged	eq0	TR668316	control_vntr_matched	pass	0	0		0	0		
+truth_merged	eq0	L015223	control_vntr_matched	pass	0	2682		0	0		
+truth_merged	eq0	TR455654	control_vntr_matched	pass	0	7		0	0		
+truth_merged	eq0	TR687489	control_vntr_matched	pass	0	0		0	0		
+truth_merged	eq0	L007717	control_vntr_matched	pass	0	702		0	0		
+truth_merged	eq0	L014181	control_vntr_matched	pass	0	400		0	0		
+truth_merged	eq0	TR573259	control_vntr_matched	pass	0	0		0	0		
+truth_merged	eq0	L014111	control_vntr_matched	pass	0	303		0	0		
+truth_merged	eq0	L007687	control_vntr_matched	pass	0	175		0	0		
+truth_merged	eq0	L012313	control_vntr_matched	pass	0	212	overlap_skipped_alleles	0	0		
+truth_merged	eq0	TR446002	control_vntr_matched	pass	0	15		0	0		
+truth_merged	eq0	TR831034	control_vntr_matched	pass	0	200		0	0		
+truth_merged	eq0	L001899	control_vntr_matched	pass	0	183		0	0		
+truth_merged	eq0	L003119	control_vntr_correct	pass	0	2204		0	0		
+truth_merged	eq0	L011121	control_vntr_correct	pass	0	692		0	0		
+truth_merged	eq0	L001491	control_vntr_correct	pass	0	914		0	0		
+truth_merged	eq0	L011224	control_vntr_correct	pass	0	535		0	0		
+truth_merged	eq0	L010508	control_vntr_correct	pass	0	75		0	0		
+truth_merged	eq0	L001922	control_vntr_correct	pass	0	1423	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L014324	control_vntr_correct	pass	0	916		0	0		
+truth_merged	eq0	L014426	control_vntr_correct	pass	0	552	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L000407	control_vntr_correct	pass	0	95		0	0		
+truth_merged	eq0	L009885	control_vntr_correct	pass	0	364		0	0		
+truth_merged	eq0	L008887	control_vntr_correct	pass	0	723		0	0		
+truth_merged	eq0	L013000	control_vntr_correct	pass	0	1602	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L003672	control_vntr_correct	pass	0	246		0	0		
+truth_merged	eq0	L000698	control_vntr_correct	pass	0	1834		0	0		
+truth_merged	eq0	L008902	control_vntr_correct	pass	0	294	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L015743	control_vntr_correct	pass	0	5098	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L009771	control_vntr_correct	pass	0	230		0	0		
+truth_merged	eq0	L016523	control_vntr_correct	pass	0	142	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L016062	control_vntr_correct	pass	0	61		0	0		
+truth_merged	eq0	L013074	control_vntr_correct	pass	0	9862		0	0		
+truth_merged	eq0	L016884	control_vntr_correct	pass	0	170		0	0		
+truth_merged	eq0	L010113	control_vntr_correct	pass	0	107		0	0		
+truth_merged	eq0	L015285	control_vntr_correct	pass	0	205		0	0		
+truth_merged	eq0	L016830	control_vntr_correct	pass	0	2221	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L007033	control_vntr_correct	pass	0	3956		0	0		
+truth_merged	eq0	L003828	hotspot_other	pass	0	7178	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L015904	hotspot_other	pass	0	1764	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L015847	hotspot_other	pass	0	3302	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L016870	hotspot_other	pass	0	10162		0	0		
+truth_merged	eq0	L008877	hotspot_other	pass	0	4243	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L012256	hotspot_other	pass	0	2048	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L004989	hotspot_other	pass	0	1132	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L007798	hotspot_other	pass	0	2691	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L013531	hotspot_other	pass	0	1836	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L005261	hotspot_other	pass	0	1272		0	0		
+truth_merged	eq0	L005618	hotspot_other	pass	0	2474	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L012489	hotspot_other	pass	0	384	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L007844	hotspot_other	pass	0	3063	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L007161	hotspot_other	pass	0	717	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L015126	hotspot_other	pass	0	632		0	0		
+truth_merged	eq0	L010060	hotspot_other	pass	0	187		0	0		
+truth_merged	eq0	L004848	hotspot_other	pass	0	306	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L007480	hotspot_other	pass	0	259	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L005064	hotspot_other	pass	0	296		0	0		
+truth_merged	eq0	L003695	hotspot_other	pass	0	430	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L013064	hotspot_other	pass	0	512	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L002940	hotspot_other	pass	0	1063	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L007184	hotspot_other	pass	0	489	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L015708	hotspot_other	pass	0	68		0	0		
+truth_merged	eq0	L016040	control_nontr_sv	pass	0	65		0	0		
+truth_merged	eq0	L010452	control_nontr_sv	pass	0	122		0	0		
+truth_merged	eq0	L013399	control_nontr_sv	pass	0	1562		0	0		
+truth_merged	eq0	L000506	control_nontr_sv	pass	0	328		0	0		
+truth_merged	eq0	L003171	control_nontr_sv	pass	0	668		0	0		
+truth_merged	eq0	L006556	control_nontr_sv	pass	0	307	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L017097	control_nontr_sv	pass	0	1714		0	0		
+truth_merged	eq0	L009600	control_nontr_sv	pass	0	210		0	0		
+truth_merged	eq0	L007192	control_nontr_sv	pass	0	240		0	0		
+truth_merged	eq0	L008631	control_nontr_sv	pass	0	336		0	0		
+truth_merged	eq0	L012530	control_nontr_sv	pass	0	123	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L005688	control_nontr_sv	pass	0	580		0	0		
+truth_merged	eq0	L011931	control_nontr_sv	pass	0	837		0	0		
+truth_merged	eq0	L004620	control_nontr_sv	pass	0	313	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L014899	control_nontr_sv	pass	0	51		0	0		
+truth_merged	eq0	L001527	control_nontr_sv	pass	0	297		0	0		
+truth_merged	eq0	L002292	control_nontr_sv	pass	0	1479	overlap_skipped_alleles	0	0		
+truth_merged	eq0	L009283	control_nontr_sv	pass	0	135		0	0		
+truth_merged	eq0	L003883	control_nontr_sv	pass	0	2886		0	0		
+truth_merged	eq0	L016274	control_nontr_sv	pass	0	528		0	0		
+truth_merged_raw	eq0	L001909	hotspot_vntr	FAIL	8	7652	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L009000	hotspot_vntr	FAIL	1290	19625	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L007009	hotspot_vntr	FAIL	13	13050	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L009658	hotspot_vntr	pass	0	8714	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L005990	hotspot_vntr	FAIL	362	846	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L012184	hotspot_vntr	pass	0	8317	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L005411	hotspot_vntr	pass	0	2444	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L002013	hotspot_vntr	FAIL	1	2458	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L000289	hotspot_vntr	FAIL	116	3498	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L001084	hotspot_vntr	FAIL	45	2530	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L010328	hotspot_vntr	pass	0	2504	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L009803	hotspot_vntr	FAIL	1	4745	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L013244	hotspot_vntr	pass	0	1558		0	0		
+truth_merged_raw	eq0	L011138	hotspot_vntr	pass	0	7502	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L002143	hotspot_vntr	pass	0	865	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L007040	hotspot_vntr	FAIL	15299	31963	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L008864	hotspot_vntr	pass	0	3694	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L015347	hotspot_vntr	FAIL	237	12274	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L012294	hotspot_vntr	FAIL	1	1476	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L007081	hotspot_vntr	pass	0	4677	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L014160	hotspot_vntr	FAIL	1	2603	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L002096	hotspot_vntr	pass	0	4219	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L015331	hotspot_vntr	pass	0	1547	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L005481	hotspot_vntr	pass	0	647	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L014358	hotspot_vntr	pass	0	1231	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L014297	hotspot_vntr	pass	0	1754		0	0		
+truth_merged_raw	eq0	L004145	hotspot_vntr	pass	0	4581	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L009448	hotspot_vntr	FAIL	323	3218	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L000034	hotspot_vntr	pass	0	1166	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L006952	hotspot_vntr	pass	0	1957	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L008216	hotspot_vntr	pass	0	460	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L008976	hotspot_vntr	pass	0	10187	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L014210	hotspot_vntr	FAIL	60	2443	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L001264	hotspot_vntr	FAIL	58	2755	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L012272	hotspot_vntr	pass	0	7022	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L015415	hotspot_vntr	pass	0	2621	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L011463	hotspot_vntr	pass	0	2411	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L002182	hotspot_vntr	pass	0	1748	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L009656	hotspot_vntr	pass	0	673	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L009398	hotspot_vntr	pass	0	1211	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L007376	control_vntr_matched	pass	0	682		0	0		
+truth_merged_raw	eq0	L001894	control_vntr_matched	pass	0	447		0	0		
+truth_merged_raw	eq0	L000709	control_vntr_matched	pass	0	238		0	0		
+truth_merged_raw	eq0	L010350	control_vntr_matched	pass	0	225		0	0		
+truth_merged_raw	eq0	L007172	control_vntr_matched	pass	0	338		0	0		
+truth_merged_raw	eq0	L011430	control_vntr_matched	pass	0	276	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L000381	control_vntr_matched	pass	0	548		0	0		
+truth_merged_raw	eq0	L007065	control_vntr_matched	pass	0	73		0	0		
+truth_merged_raw	eq0	L017325	control_vntr_matched	pass	0	6654		0	0		
+truth_merged_raw	eq0	TR101140	control_vntr_matched	pass	0	0		0	0		
+truth_merged_raw	eq0	TR724750	control_vntr_matched	pass	0	1		0	0		
+truth_merged_raw	eq0	L000308	control_vntr_matched	pass	0	2123	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	TR368009	control_vntr_matched	pass	0	7		0	0		
+truth_merged_raw	eq0	L004021	control_vntr_matched	pass	0	222		0	0		
+truth_merged_raw	eq0	L002884	control_vntr_matched	pass	0	679		0	0		
+truth_merged_raw	eq0	L003826	control_vntr_matched	pass	0	121	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	TR423938	control_vntr_matched	pass	0	0		0	0		
+truth_merged_raw	eq0	TR687433	control_vntr_matched	pass	0	1		0	0		
+truth_merged_raw	eq0	TR424743	control_vntr_matched	pass	0	108		0	0		
+truth_merged_raw	eq0	TR460913	control_vntr_matched	pass	0	0		0	0		
+truth_merged_raw	eq0	TR499276	control_vntr_matched	pass	0	10		0	0		
+truth_merged_raw	eq0	L003872	control_vntr_matched	pass	0	290	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L009770	control_vntr_matched	pass	0	2108		0	0		
+truth_merged_raw	eq0	L011227	control_vntr_matched	pass	0	170		0	0		
+truth_merged_raw	eq0	TR743754	control_vntr_matched	pass	0	7		0	0		
+truth_merged_raw	eq0	L016124	control_vntr_matched	pass	0	299		0	0		
+truth_merged_raw	eq0	TR499275	control_vntr_matched	pass	0	57		0	0		
+truth_merged_raw	eq0	TR668316	control_vntr_matched	pass	0	0		0	0		
+truth_merged_raw	eq0	L015223	control_vntr_matched	pass	0	2682		0	0		
+truth_merged_raw	eq0	TR455654	control_vntr_matched	pass	0	7		0	0		
+truth_merged_raw	eq0	TR687489	control_vntr_matched	pass	0	0		0	0		
+truth_merged_raw	eq0	L007717	control_vntr_matched	pass	0	702		0	0		
+truth_merged_raw	eq0	L014181	control_vntr_matched	pass	0	400		0	0		
+truth_merged_raw	eq0	TR573259	control_vntr_matched	pass	0	0		0	0		
+truth_merged_raw	eq0	L014111	control_vntr_matched	pass	0	303		0	0		
+truth_merged_raw	eq0	L007687	control_vntr_matched	pass	0	175		0	0		
+truth_merged_raw	eq0	L012313	control_vntr_matched	pass	0	212	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	TR446002	control_vntr_matched	pass	0	15		0	0		
+truth_merged_raw	eq0	TR831034	control_vntr_matched	pass	0	200		0	0		
+truth_merged_raw	eq0	L001899	control_vntr_matched	pass	0	183		0	0		
+truth_merged_raw	eq0	L003119	control_vntr_correct	pass	0	2204		0	0		
+truth_merged_raw	eq0	L011121	control_vntr_correct	pass	0	692		0	0		
+truth_merged_raw	eq0	L001491	control_vntr_correct	pass	0	914		0	0		
+truth_merged_raw	eq0	L011224	control_vntr_correct	pass	0	535		0	0		
+truth_merged_raw	eq0	L010508	control_vntr_correct	pass	0	75		0	0		
+truth_merged_raw	eq0	L001922	control_vntr_correct	pass	0	1423	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L014324	control_vntr_correct	pass	0	916		0	0		
+truth_merged_raw	eq0	L014426	control_vntr_correct	pass	0	552	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L000407	control_vntr_correct	pass	0	95		0	0		
+truth_merged_raw	eq0	L009885	control_vntr_correct	pass	0	364		0	0		
+truth_merged_raw	eq0	L008887	control_vntr_correct	pass	0	723		0	0		
+truth_merged_raw	eq0	L013000	control_vntr_correct	pass	0	1602	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L003672	control_vntr_correct	pass	0	246		0	0		
+truth_merged_raw	eq0	L000698	control_vntr_correct	pass	0	1834		0	0		
+truth_merged_raw	eq0	L008902	control_vntr_correct	pass	0	294	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L015743	control_vntr_correct	pass	0	5098	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L009771	control_vntr_correct	pass	0	230		0	0		
+truth_merged_raw	eq0	L016523	control_vntr_correct	pass	0	142	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L016062	control_vntr_correct	pass	0	61		0	0		
+truth_merged_raw	eq0	L013074	control_vntr_correct	pass	0	9862		0	0		
+truth_merged_raw	eq0	L016884	control_vntr_correct	pass	0	170		0	0		
+truth_merged_raw	eq0	L010113	control_vntr_correct	pass	0	107		0	0		
+truth_merged_raw	eq0	L015285	control_vntr_correct	pass	0	205		0	0		
+truth_merged_raw	eq0	L016830	control_vntr_correct	pass	0	2221	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L007033	control_vntr_correct	pass	0	3956		0	0		
+truth_merged_raw	eq0	L003828	hotspot_other	pass	0	7178	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L015904	hotspot_other	FAIL	228	1764	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L015847	hotspot_other	pass	0	3302	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L016870	hotspot_other	pass	0	10162		0	0		
+truth_merged_raw	eq0	L008877	hotspot_other	pass	0	4243	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L012256	hotspot_other	pass	0	2048	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L004989	hotspot_other	pass	0	1132	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L007798	hotspot_other	pass	0	2691	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L013531	hotspot_other	pass	0	1836	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L005261	hotspot_other	pass	0	1272		0	0		
+truth_merged_raw	eq0	L005618	hotspot_other	pass	0	2474	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L012489	hotspot_other	pass	0	384	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L007844	hotspot_other	FAIL	2	3063	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L007161	hotspot_other	pass	0	717	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L015126	hotspot_other	pass	0	632		0	0		
+truth_merged_raw	eq0	L010060	hotspot_other	pass	0	187		0	0		
+truth_merged_raw	eq0	L004848	hotspot_other	FAIL	1	306	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L007480	hotspot_other	pass	0	259	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L005064	hotspot_other	pass	0	296		0	0		
+truth_merged_raw	eq0	L003695	hotspot_other	pass	0	430	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L013064	hotspot_other	pass	0	512	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L002940	hotspot_other	pass	0	1063	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L007184	hotspot_other	pass	0	489	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L015708	hotspot_other	pass	0	68		0	0		
+truth_merged_raw	eq0	L016040	control_nontr_sv	pass	0	65		0	0		
+truth_merged_raw	eq0	L010452	control_nontr_sv	pass	0	122		0	0		
+truth_merged_raw	eq0	L013399	control_nontr_sv	pass	0	1562		0	0		
+truth_merged_raw	eq0	L000506	control_nontr_sv	pass	0	328		0	0		
+truth_merged_raw	eq0	L003171	control_nontr_sv	pass	0	668		0	0		
+truth_merged_raw	eq0	L006556	control_nontr_sv	pass	0	307	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L017097	control_nontr_sv	pass	0	1714		0	0		
+truth_merged_raw	eq0	L009600	control_nontr_sv	pass	0	210		0	0		
+truth_merged_raw	eq0	L007192	control_nontr_sv	pass	0	240		0	0		
+truth_merged_raw	eq0	L008631	control_nontr_sv	pass	0	336		0	0		
+truth_merged_raw	eq0	L012530	control_nontr_sv	pass	0	123	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L005688	control_nontr_sv	pass	0	580		0	0		
+truth_merged_raw	eq0	L011931	control_nontr_sv	pass	0	837		0	0		
+truth_merged_raw	eq0	L004620	control_nontr_sv	pass	0	313	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L014899	control_nontr_sv	pass	0	51		0	0		
+truth_merged_raw	eq0	L001527	control_nontr_sv	pass	0	297		0	0		
+truth_merged_raw	eq0	L002292	control_nontr_sv	pass	0	1479	overlap_skipped_alleles	0	0		
+truth_merged_raw	eq0	L009283	control_nontr_sv	pass	0	135		0	0		
+truth_merged_raw	eq0	L003883	control_nontr_sv	pass	0	2886		0	0		
+truth_merged_raw	eq0	L016274	control_nontr_sv	pass	0	528		0	0		
+empty_vcf	eq_ref	L001909	hotspot_vntr	pass	7652	7652		0	0		
+empty_vcf	eq_ref	L009000	hotspot_vntr	pass	19625	19625		0	0		
+empty_vcf	eq_ref	L007009	hotspot_vntr	pass	13050	13050		0	0		
+empty_vcf	eq_ref	L009658	hotspot_vntr	pass	8714	8714		0	0		
+empty_vcf	eq_ref	L005990	hotspot_vntr	pass	846	846		0	0		
+empty_vcf	eq_ref	L012184	hotspot_vntr	pass	8317	8317		0	0		
+empty_vcf	eq_ref	L005411	hotspot_vntr	pass	2444	2444		0	0		
+empty_vcf	eq_ref	L002013	hotspot_vntr	pass	2458	2458		0	0		
+empty_vcf	eq_ref	L000289	hotspot_vntr	pass	3498	3498		0	0		
+empty_vcf	eq_ref	L001084	hotspot_vntr	pass	2530	2530		0	0		
+empty_vcf	eq_ref	L010328	hotspot_vntr	pass	2504	2504		0	0		
+empty_vcf	eq_ref	L009803	hotspot_vntr	pass	4745	4745		0	0		
+empty_vcf	eq_ref	L013244	hotspot_vntr	pass	1558	1558		0	0		
+empty_vcf	eq_ref	L011138	hotspot_vntr	pass	7502	7502		0	0		
+empty_vcf	eq_ref	L002143	hotspot_vntr	pass	865	865		0	0		
+empty_vcf	eq_ref	L007040	hotspot_vntr	pass	31963	31963		0	0		
+empty_vcf	eq_ref	L008864	hotspot_vntr	pass	3694	3694		0	0		
+empty_vcf	eq_ref	L015347	hotspot_vntr	pass	12274	12274		0	0		
+empty_vcf	eq_ref	L012294	hotspot_vntr	pass	1476	1476		0	0		
+empty_vcf	eq_ref	L007081	hotspot_vntr	pass	4677	4677		0	0		
+empty_vcf	eq_ref	L014160	hotspot_vntr	pass	2603	2603		0	0		
+empty_vcf	eq_ref	L002096	hotspot_vntr	pass	4219	4219		0	0		
+empty_vcf	eq_ref	L015331	hotspot_vntr	pass	1547	1547		0	0		
+empty_vcf	eq_ref	L005481	hotspot_vntr	pass	647	647		0	0		
+empty_vcf	eq_ref	L014358	hotspot_vntr	pass	1231	1231		0	0		
+empty_vcf	eq_ref	L014297	hotspot_vntr	pass	1754	1754		0	0		
+empty_vcf	eq_ref	L004145	hotspot_vntr	pass	4581	4581		0	0		
+empty_vcf	eq_ref	L009448	hotspot_vntr	pass	3218	3218		0	0		
+empty_vcf	eq_ref	L000034	hotspot_vntr	pass	1166	1166		0	0		
+empty_vcf	eq_ref	L006952	hotspot_vntr	pass	1957	1957		0	0		
+empty_vcf	eq_ref	L008216	hotspot_vntr	pass	460	460		0	0		
+empty_vcf	eq_ref	L008976	hotspot_vntr	pass	10187	10187		0	0		
+empty_vcf	eq_ref	L014210	hotspot_vntr	pass	2443	2443		0	0		
+empty_vcf	eq_ref	L001264	hotspot_vntr	pass	2755	2755		0	0		
+empty_vcf	eq_ref	L012272	hotspot_vntr	pass	7022	7022		0	0		
+empty_vcf	eq_ref	L015415	hotspot_vntr	pass	2621	2621		0	0		
+empty_vcf	eq_ref	L011463	hotspot_vntr	pass	2411	2411		0	0		
+empty_vcf	eq_ref	L002182	hotspot_vntr	pass	1748	1748		0	0		
+empty_vcf	eq_ref	L009656	hotspot_vntr	pass	673	673		0	0		
+empty_vcf	eq_ref	L009398	hotspot_vntr	pass	1211	1211		0	0		
+empty_vcf	eq_ref	L007376	control_vntr_matched	pass	682	682		0	0		
+empty_vcf	eq_ref	L001894	control_vntr_matched	pass	447	447		0	0		
+empty_vcf	eq_ref	L000709	control_vntr_matched	pass	238	238		0	0		
+empty_vcf	eq_ref	L010350	control_vntr_matched	pass	225	225		0	0		
+empty_vcf	eq_ref	L007172	control_vntr_matched	pass	338	338		0	0		
+empty_vcf	eq_ref	L011430	control_vntr_matched	pass	276	276		0	0		
+empty_vcf	eq_ref	L000381	control_vntr_matched	pass	548	548		0	0		
+empty_vcf	eq_ref	L007065	control_vntr_matched	pass	73	73		0	0		
+empty_vcf	eq_ref	L017325	control_vntr_matched	pass	6654	6654		0	0		
+empty_vcf	eq_ref	TR101140	control_vntr_matched	pass	0	0		0	0		
+empty_vcf	eq_ref	TR724750	control_vntr_matched	pass	1	1		0	0		
+empty_vcf	eq_ref	L000308	control_vntr_matched	pass	2123	2123		0	0		
+empty_vcf	eq_ref	TR368009	control_vntr_matched	pass	7	7		0	0		
+empty_vcf	eq_ref	L004021	control_vntr_matched	pass	222	222		0	0		
+empty_vcf	eq_ref	L002884	control_vntr_matched	pass	679	679		0	0		
+empty_vcf	eq_ref	L003826	control_vntr_matched	pass	121	121		0	0		
+empty_vcf	eq_ref	TR423938	control_vntr_matched	pass	0	0		0	0		
+empty_vcf	eq_ref	TR687433	control_vntr_matched	pass	1	1		0	0		
+empty_vcf	eq_ref	TR424743	control_vntr_matched	pass	108	108		0	0		
+empty_vcf	eq_ref	TR460913	control_vntr_matched	pass	0	0		0	0		
+empty_vcf	eq_ref	TR499276	control_vntr_matched	pass	10	10		0	0		
+empty_vcf	eq_ref	L003872	control_vntr_matched	pass	290	290		0	0		
+empty_vcf	eq_ref	L009770	control_vntr_matched	pass	2108	2108		0	0		
+empty_vcf	eq_ref	L011227	control_vntr_matched	pass	170	170		0	0		
+empty_vcf	eq_ref	TR743754	control_vntr_matched	pass	7	7		0	0		
+empty_vcf	eq_ref	L016124	control_vntr_matched	pass	299	299		0	0		
+empty_vcf	eq_ref	TR499275	control_vntr_matched	pass	57	57		0	0		
+empty_vcf	eq_ref	TR668316	control_vntr_matched	pass	0	0		0	0		
+empty_vcf	eq_ref	L015223	control_vntr_matched	pass	2682	2682		0	0		
+empty_vcf	eq_ref	TR455654	control_vntr_matched	pass	7	7		0	0		
+empty_vcf	eq_ref	TR687489	control_vntr_matched	pass	0	0		0	0		
+empty_vcf	eq_ref	L007717	control_vntr_matched	pass	702	702		0	0		
+empty_vcf	eq_ref	L014181	control_vntr_matched	pass	400	400		0	0		
+empty_vcf	eq_ref	TR573259	control_vntr_matched	pass	0	0		0	0		
+empty_vcf	eq_ref	L014111	control_vntr_matched	pass	303	303		0	0		
+empty_vcf	eq_ref	L007687	control_vntr_matched	pass	175	175		0	0		
+empty_vcf	eq_ref	L012313	control_vntr_matched	pass	212	212		0	0		
+empty_vcf	eq_ref	TR446002	control_vntr_matched	pass	15	15		0	0		
+empty_vcf	eq_ref	TR831034	control_vntr_matched	pass	200	200		0	0		
+empty_vcf	eq_ref	L001899	control_vntr_matched	pass	183	183		0	0		
+empty_vcf	eq_ref	L003119	control_vntr_correct	pass	2204	2204		0	0		
+empty_vcf	eq_ref	L011121	control_vntr_correct	pass	692	692		0	0		
+empty_vcf	eq_ref	L001491	control_vntr_correct	pass	914	914		0	0		
+empty_vcf	eq_ref	L011224	control_vntr_correct	pass	535	535		0	0		
+empty_vcf	eq_ref	L010508	control_vntr_correct	pass	75	75		0	0		
+empty_vcf	eq_ref	L001922	control_vntr_correct	pass	1423	1423		0	0		
+empty_vcf	eq_ref	L014324	control_vntr_correct	pass	916	916		0	0		
+empty_vcf	eq_ref	L014426	control_vntr_correct	pass	552	552		0	0		
+empty_vcf	eq_ref	L000407	control_vntr_correct	pass	95	95		0	0		
+empty_vcf	eq_ref	L009885	control_vntr_correct	pass	364	364		0	0		
+empty_vcf	eq_ref	L008887	control_vntr_correct	pass	723	723		0	0		
+empty_vcf	eq_ref	L013000	control_vntr_correct	pass	1602	1602		0	0		
+empty_vcf	eq_ref	L003672	control_vntr_correct	pass	246	246		0	0		
+empty_vcf	eq_ref	L000698	control_vntr_correct	pass	1834	1834		0	0		
+empty_vcf	eq_ref	L008902	control_vntr_correct	pass	294	294		0	0		
+empty_vcf	eq_ref	L015743	control_vntr_correct	pass	5098	5098		0	0		
+empty_vcf	eq_ref	L009771	control_vntr_correct	pass	230	230		0	0		
+empty_vcf	eq_ref	L016523	control_vntr_correct	pass	142	142		0	0		
+empty_vcf	eq_ref	L016062	control_vntr_correct	pass	61	61		0	0		
+empty_vcf	eq_ref	L013074	control_vntr_correct	pass	9862	9862		0	0		
+empty_vcf	eq_ref	L016884	control_vntr_correct	pass	170	170		0	0		
+empty_vcf	eq_ref	L010113	control_vntr_correct	pass	107	107		0	0		
+empty_vcf	eq_ref	L015285	control_vntr_correct	pass	205	205		0	0		
+empty_vcf	eq_ref	L016830	control_vntr_correct	pass	2221	2221		0	0		
+empty_vcf	eq_ref	L007033	control_vntr_correct	pass	3956	3956		0	0		
+empty_vcf	eq_ref	L003828	hotspot_other	pass	7178	7178		0	0		
+empty_vcf	eq_ref	L015904	hotspot_other	pass	1764	1764		0	0		
+empty_vcf	eq_ref	L015847	hotspot_other	pass	3302	3302		0	0		
+empty_vcf	eq_ref	L016870	hotspot_other	pass	10162	10162		0	0		
+empty_vcf	eq_ref	L008877	hotspot_other	pass	4243	4243		0	0		
+empty_vcf	eq_ref	L012256	hotspot_other	pass	2048	2048		0	0		
+empty_vcf	eq_ref	L004989	hotspot_other	pass	1132	1132		0	0		
+empty_vcf	eq_ref	L007798	hotspot_other	pass	2691	2691		0	0		
+empty_vcf	eq_ref	L013531	hotspot_other	pass	1836	1836		0	0		
+empty_vcf	eq_ref	L005261	hotspot_other	pass	1272	1272		0	0		
+empty_vcf	eq_ref	L005618	hotspot_other	pass	2474	2474		0	0		
+empty_vcf	eq_ref	L012489	hotspot_other	pass	384	384		0	0		
+empty_vcf	eq_ref	L007844	hotspot_other	pass	3063	3063		0	0		
+empty_vcf	eq_ref	L007161	hotspot_other	pass	717	717		0	0		
+empty_vcf	eq_ref	L015126	hotspot_other	pass	632	632		0	0		
+empty_vcf	eq_ref	L010060	hotspot_other	pass	187	187		0	0		
+empty_vcf	eq_ref	L004848	hotspot_other	pass	306	306		0	0		
+empty_vcf	eq_ref	L007480	hotspot_other	pass	259	259		0	0		
+empty_vcf	eq_ref	L005064	hotspot_other	pass	296	296		0	0		
+empty_vcf	eq_ref	L003695	hotspot_other	pass	430	430		0	0		
+empty_vcf	eq_ref	L013064	hotspot_other	pass	512	512		0	0		
+empty_vcf	eq_ref	L002940	hotspot_other	pass	1063	1063		0	0		
+empty_vcf	eq_ref	L007184	hotspot_other	pass	489	489		0	0		
+empty_vcf	eq_ref	L015708	hotspot_other	pass	68	68		0	0		
+empty_vcf	eq_ref	L016040	control_nontr_sv	pass	65	65		0	0		
+empty_vcf	eq_ref	L010452	control_nontr_sv	pass	122	122		0	0		
+empty_vcf	eq_ref	L013399	control_nontr_sv	pass	1562	1562		0	0		
+empty_vcf	eq_ref	L000506	control_nontr_sv	pass	328	328		0	0		
+empty_vcf	eq_ref	L003171	control_nontr_sv	pass	668	668		0	0		
+empty_vcf	eq_ref	L006556	control_nontr_sv	pass	307	307		0	0		
+empty_vcf	eq_ref	L017097	control_nontr_sv	pass	1714	1714		0	0		
+empty_vcf	eq_ref	L009600	control_nontr_sv	pass	210	210		0	0		
+empty_vcf	eq_ref	L007192	control_nontr_sv	pass	240	240		0	0		
+empty_vcf	eq_ref	L008631	control_nontr_sv	pass	336	336		0	0		
+empty_vcf	eq_ref	L012530	control_nontr_sv	pass	123	123		0	0		
+empty_vcf	eq_ref	L005688	control_nontr_sv	pass	580	580		0	0		
+empty_vcf	eq_ref	L011931	control_nontr_sv	pass	837	837		0	0		
+empty_vcf	eq_ref	L004620	control_nontr_sv	pass	313	313		0	0		
+empty_vcf	eq_ref	L014899	control_nontr_sv	pass	51	51		0	0		
+empty_vcf	eq_ref	L001527	control_nontr_sv	pass	297	297		0	0		
+empty_vcf	eq_ref	L002292	control_nontr_sv	pass	1479	1479		0	0		
+empty_vcf	eq_ref	L009283	control_nontr_sv	pass	135	135		0	0		
+empty_vcf	eq_ref	L003883	control_nontr_sv	pass	2886	2886		0	0		
+empty_vcf	eq_ref	L016274	control_nontr_sv	pass	528	528		0	0		
+drop_sv	gt0	L001909	hotspot_vntr	pass	1181	7652		0	0	dropped SV record at 127841680 (1181)	
+drop_sv	gt0	L009000	hotspot_vntr	pass	1801	19625		0	0	dropped SV record at 1899149 (-1801)	
+drop_sv	gt0	L007009	hotspot_vntr	pass	2598	13050		0	0	dropped SV record at 79249907 (-2598)	
+drop_sv	gt0	L009658	hotspot_vntr	pass	4916	8714		0	0	dropped SV record at 41609192 (-4916)	
+drop_sv	gt0	L005990	hotspot_vntr	pass	362	846		0	0	dropped SV record at 371420 (362)	
+drop_sv	gt0	L012184	hotspot_vntr	pass	1615	8317		0	0	dropped SV record at 191501669 (1615)	
+drop_sv	gt0	L005411	hotspot_vntr	pass	2010	2444		0	0	dropped SV record at 867572 (-1005)	
+drop_sv	gt0	L002013	hotspot_vntr	pass	872	2458		0	0	dropped SV record at 133307931 (-872)	
+drop_sv	gt0	L000289	hotspot_vntr	pass	810	3498		0	0	dropped SV record at 31285158 (-810)	
+drop_sv	gt0	L001084	hotspot_vntr	pass	435	2530	overlap_skipped_alleles	0	0	dropped SV record at 235496324 (-435)	
+drop_sv	gt0	L010328	hotspot_vntr	pass	699	2504		0	0	dropped SV record at 38088957 (699)	
+drop_sv	gt0	L009803	hotspot_vntr	pass	1296	4745		0	0	dropped SV record at 18545602 (-1296)	
+drop_sv	gt0	L013244	hotspot_vntr	pass	418	1558		0	0	dropped SV record at 181603282 (-418)	
+drop_sv	gt0	L011138	hotspot_vntr	pass	829	7502		0	0	dropped SV record at 1427859 (-829)	
+drop_sv	gt0	L002143	hotspot_vntr	pass	483	865		0	0	dropped SV record at 1169005 (-483)	
+drop_sv	gt0	L007040	hotspot_vntr	pass	15369	31963		0	0	dropped SV record at 79877917 (-15369)	
+drop_sv	gt0	L008864	hotspot_vntr	pass	3197	3694		0	0	dropped SV record at 238034305 (3197)	
+drop_sv	gt0	L015347	hotspot_vntr	pass	1452	12274		0	0	dropped SV record at 159807184 (-1452)	
+drop_sv	gt0	L012294	hotspot_vntr	pass	212	1476		0	0	dropped SV record at 976486 (-212)	
+drop_sv	gt0	L007081	hotspot_vntr	pass	1848	4677		0	0	dropped SV record at 325553 (1848)	
+drop_sv	gt0	L014160	hotspot_vntr	pass	772	2603		0	0	dropped SV record at 167660404 (-772)	
+drop_sv	gt0	L002096	hotspot_vntr	pass	1166	4219		0	0	dropped SV record at 447509 (1166)	
+drop_sv	gt0	L015331	hotspot_vntr	pass	663	1547		0	0	dropped SV record at 159567174 (-663)	
+drop_sv	gt0	L005481	hotspot_vntr	pass	678	647		0	0	dropped SV record at 4373068 (-339)	
+drop_sv	gt0	L014358	hotspot_vntr	pass	664	1231		0	0	dropped SV record at 569964 (664)	
+drop_sv	gt0	L014297	hotspot_vntr	pass	918	1754		0	0	dropped SV record at 171507354 (-459)	
+drop_sv	gt0	L004145	hotspot_vntr	pass	3320	4581		0	0	dropped SV record at 85462351 (-3320)	
+drop_sv	gt0	L009448	hotspot_vntr	pass	393	3218		0	0	dropped SV record at 65510273 (-393)	
+drop_sv	gt0	L000034	hotspot_vntr	pass	282	1166		0	0	dropped SV record at 1558610 (-282)	
+drop_sv	gt0	L006952	hotspot_vntr	pass	1404	1957		0	0	dropped SV record at 77484075 (-1404)	
+drop_sv	gt0	L008216	hotspot_vntr	pass	90	460		0	0	dropped SV record at 108289120 (90)	
+drop_sv	gt0	L008976	hotspot_vntr	pass	2016	10187		0	0	dropped SV record at 242519675 (2016)	
+drop_sv	gt0	L014210	hotspot_vntr	pass	571	2443		0	0	dropped SV record at 169577217 (-571)	
+drop_sv	gt0	L001264	hotspot_vntr	pass	553	2755		0	0	dropped SV record at 1232599 (-553)	
+drop_sv	gt0	L012272	hotspot_vntr	pass	1507	7022		0	0	dropped SV record at 560740 (-1507)	
+drop_sv	gt0	L015415	hotspot_vntr	pass	954	2621		0	0	dropped SV record at 772481 (954)	
+drop_sv	gt0	L011463	hotspot_vntr	pass	1344	2411		0	0	dropped SV record at 44992119 (-1344)	
+drop_sv	gt0	L002182	hotspot_vntr	pass	900	1748		0	0	dropped SV record at 1754629 (-900)	
+drop_sv	gt0	L009656	hotspot_vntr	pass	210	673		0	0	dropped SV record at 41564842 (-210)	
+drop_sv	gt0	L009398	hotspot_vntr	pass	1023	1211		0	0	dropped SV record at 64829579 (-1023)	
+drop_sv	gt0	L007376	control_vntr_matched	pass	648	682		0	0	dropped SV record at 36921540 (-324)	
+drop_sv	gt0	L001894	control_vntr_matched	pass	152	447		0	0	dropped SV record at 125104858 (-76)	
+drop_sv	gt0	L000709	control_vntr_matched	pass	231	238		0	0	dropped SV record at 151491510 (-231)	
+drop_sv	gt0	L010350	control_vntr_matched	pass	216	225		0	0	dropped SV record at 43027929 (216)	
+drop_sv	gt0	L007172	control_vntr_matched	pass	340	338		0	0	dropped SV record at 4019502 (340)	
+drop_sv	gt0	L011430	control_vntr_matched	pass	130	276		0	0	dropped SV record at 39783127 (-130)	
+drop_sv	gt0	L000381	control_vntr_matched	pass	170	548		0	0	dropped SV record at 52980875 (85)	
+drop_sv	gt0	L007065	control_vntr_matched	pass	67	73		0	0	dropped SV record at 80171733 (67)	
+drop_sv	gt0	L017325	control_vntr_matched	pass	6620	6654		0	0	dropped SV record at 151661783 (-3310)	
+drop_sv	gt0	L000308	control_vntr_matched	pass	1543	2123		0	0	dropped SV record at 36822387 (-1543)	
+drop_sv	gt0	L004021	control_vntr_matched	pass	154	222		0	0	dropped SV record at 63060382 (-77)	
+drop_sv	gt0	L002884	control_vntr_matched	pass	586	679		0	0	dropped SV record at 134208192 (293)	
+drop_sv	gt0	L003826	control_vntr_matched	pass	58	121		0	0	dropped SV record at 25687743 (58)	
+drop_sv	gt0	L003872	control_vntr_matched	pass	68	290		0	0	dropped SV record at 34981317 (-68)	
+drop_sv	gt0	L009770	control_vntr_matched	pass	2096	2108		0	0	dropped SV record at 44768776 (-1048)	
+drop_sv	gt0	L011227	control_vntr_matched	pass	112	170		0	0	dropped SV record at 7427151 (-112)	
+drop_sv	gt0	L016124	control_vntr_matched	pass	180	299		0	0	dropped SV record at 143120728 (-180)	
+drop_sv	gt0	L015223	control_vntr_matched	pass	2166	2682		0	0	dropped SV record at 156528595 (1083)	
+drop_sv	gt0	L007717	control_vntr_matched	pass	584	702		0	0	dropped SV record at 1604616 (-292)	
+drop_sv	gt0	L014181	control_vntr_matched	pass	352	400		0	0	dropped SV record at 168815376 (176)	
+drop_sv	gt0	L014111	control_vntr_matched	pass	69	303		0	0	dropped SV record at 162197471 (69)	
+drop_sv	gt0	L007687	control_vntr_matched	pass	170	175		0	0	dropped SV record at 936684 (170)	
+drop_sv	gt0	L012313	control_vntr_matched	pass	121	212		0	0	dropped SV record at 1191880 (-121)	
+drop_sv	gt0	L001899	control_vntr_matched	pass	177	183		0	0	dropped SV record at 125491406 (-177)	
+drop_sv	gt0	L003119	control_vntr_correct	pass	2204	2204		0	0	dropped SV record at 31710798 (-1102)	
+drop_sv	gt0	L011121	control_vntr_correct	pass	686	692		0	0	dropped SV record at 1272451 (343)	
+drop_sv	gt0	L001491	control_vntr_correct	pass	450	914		0	0	dropped SV record at 27326362 (450)	
+drop_sv	gt0	L011224	control_vntr_correct	pass	308	535		0	0	dropped SV record at 7359517 (308)	
+drop_sv	gt0	L010508	control_vntr_correct	pass	70	75		0	0	dropped SV record at 75830500 (70)	
+drop_sv	gt0	L001922	control_vntr_correct	pass	1403	1423		0	0	dropped SV record at 128693579 (-1403)	
+drop_sv	gt0	L014324	control_vntr_correct	pass	908	916		0	0	dropped SV record at 171881472 (454)	
+drop_sv	gt0	L014426	control_vntr_correct	pass	336	552		0	0	dropped SV record at 1690771 (-336)	
+drop_sv	gt0	L000407	control_vntr_correct	pass	90	95		0	0	dropped SV record at 58607233 (90)	
+drop_sv	gt0	L009885	control_vntr_correct	pass	192	364		0	0	dropped SV record at 32793310 (-96)	
+drop_sv	gt0	L008887	control_vntr_correct	pass	506	723		0	0	dropped SV record at 239771913 (253)	
+drop_sv	gt0	L013000	control_vntr_correct	pass	1522	1602		0	0	dropped SV record at 142527657 (-761)	
+drop_sv	gt0	L003672	control_vntr_correct	pass	187	246		0	0	dropped SV record at 131077127 (-187)	
+drop_sv	gt0	L000698	control_vntr_correct	pass	1812	1834		0	0	dropped SV record at 149665534 (906)	
+drop_sv	gt0	L008902	control_vntr_correct	pass	114	294		0	0	dropped SV record at 240407955 (114)	
+drop_sv	gt0	L015743	control_vntr_correct	pass	2549	5098		0	0	dropped SV record at 59644829 (-2549)	
+drop_sv	gt0	L009771	control_vntr_correct	pass	224	230		0	0	dropped SV record at 44781267 (112)	
+drop_sv	gt0	L016523	control_vntr_correct	pass	110	142		0	0	dropped SV record at 101222533 (110)	
+drop_sv	gt0	L016062	control_vntr_correct	pass	59	61		0	0	dropped SV record at 135615740 (-59)	
+drop_sv	gt0	L013074	control_vntr_correct	pass	9862	9862		0	0	dropped SV record at 158964302 (-4931)	
+drop_sv	gt0	L016884	control_vntr_correct	pass	120	170		0	0	dropped SV record at 4855073 (-60)	
+drop_sv	gt0	L010113	control_vntr_correct	pass	60	107		0	0	dropped SV record at 50526786 (-60)	
+drop_sv	gt0	L015285	control_vntr_correct	pass	200	205		0	0	dropped SV record at 159037500 (-200)	
+drop_sv	gt0	L016830	control_vntr_correct	pass	1800	2221		0	0	dropped SV record at 149338247 (-1800)	
+drop_sv	gt0	L007033	control_vntr_correct	pass	3956	3956		0	0	dropped SV record at 79805872 (-1978)	
+drop_sv	gt0	L003828	hotspot_other	pass	3317	7178		0	0	dropped SV record at 26281242 (-3317)	
+drop_sv	gt0	L015904	hotspot_other	pass	1074	1764		0	0	dropped SV record at 101551526 (1074)	
+drop_sv	gt0	L015847	hotspot_other	pass	1454	3302		0	0	dropped SV record at 87281163 (-727)	
+drop_sv	gt0	L016870	hotspot_other	pass	8304	10162		0	0	dropped SV record at 3254664 (-4152)	
+drop_sv	gt0	L008877	hotspot_other	pass	2289	4243		0	0	dropped SV record at 239361249 (2289)	
+drop_sv	gt0	L012256	hotspot_other	pass	1143	2048		0	0	dropped SV record at 336289 (-1143)	
+drop_sv	gt0	L004989	hotspot_other	pass	670	1132		0	0	dropped SV record at 25130152 (-670)	
+drop_sv	gt0	L007798	hotspot_other	pass	1405	2691		0	0	dropped SV record at 5042069 (-1405)	
+drop_sv	gt0	L013531	hotspot_other	pass	1103	1836		0	0	dropped SV record at 37331586 (-1103)	
+drop_sv	gt0	L005261	hotspot_other	pass	1248	1272		0	0	dropped SV record at 87079900 (1248)	
+drop_sv	gt0	L005618	hotspot_other	pass	841	2474		0	0	dropped SV record at 27416681 (-841)	
+drop_sv	gt0	L012489	hotspot_other	pass	289	384		0	0	dropped SV record at 19223533 (289)	
+drop_sv	gt0	L007844	hotspot_other	pass	1284	3063		0	0	dropped SV record at 10427834 (1284)	
+drop_sv	gt0	L007161	hotspot_other	pass	246	717		0	0	dropped SV record at 3310080 (-246)	
+drop_sv	gt0	L015126	hotspot_other	pass	600	632		0	0	dropped SV record at 142652436 (-300)	
+drop_sv	gt0	L010060	hotspot_other	pass	83	187		0	0	dropped SV record at 49114845 (83)	
+drop_sv	gt0	L004848	hotspot_other	pass	183	306		0	0	dropped SV record at 94159396 (-183)	
+drop_sv	gt0	L007480	hotspot_other	pass	184	259		0	0	dropped SV record at 51830144 (184)	
+drop_sv	gt0	L005064	hotspot_other	pass	188	296		0	0	dropped SV record at 43269597 (188)	
+drop_sv	gt0	L003695	hotspot_other	pass	159	430		0	0	dropped SV record at 131520246 (-159)	
+drop_sv	gt0	L013064	hotspot_other	pass	226	512		0	0	dropped SV record at 155565945 (226)	
+drop_sv	gt0	L002940	hotspot_other	pass	1128	1063		0	0	dropped SV record at 1115561 (-1128)	
+drop_sv	gt0	L007184	hotspot_other	pass	246	489		0	0	dropped SV record at 5117340 (-246)	
+drop_sv	gt0	L016040	control_nontr_sv	pass	61	65		0	0	dropped SV record at 131907015 (61)	
+drop_sv	gt0	L010452	control_nontr_sv	pass	118	122		0	0	dropped SV record at 63783672 (59)	
+drop_sv	gt0	L013399	control_nontr_sv	pass	1560	1562		0	0	dropped SV record at 18274358 (780)	
+drop_sv	gt0	L000506	control_nontr_sv	pass	328	328		0	0	dropped SV record at 80566180 (-328)	
+drop_sv	gt0	L003171	control_nontr_sv	pass	664	668		0	0	dropped SV record at 43283171 (-332)	
+drop_sv	gt0	L006556	control_nontr_sv	pass	305	307		0	0	dropped SV record at 83505531 (-305)	
+drop_sv	gt0	L017097	control_nontr_sv	pass	1686	1714		0	0	dropped SV record at 83128843 (843)	
+drop_sv	gt0	L009600	control_nontr_sv	pass	210	210		0	0	dropped SV record at 36875378 (105)	
+drop_sv	gt0	L007192	control_nontr_sv	pass	240	240		0	0	dropped SV record at 6424938 (240)	
+drop_sv	gt0	L008631	control_nontr_sv	pass	335	336		0	0	dropped SV record at 195693164 (335)	
+drop_sv	gt0	L012530	control_nontr_sv	pass	117	123		0	0	dropped SV record at 26705356 (-117)	
+drop_sv	gt0	L005688	control_nontr_sv	pass	510	580		0	0	dropped SV record at 61574925 (255)	
+drop_sv	gt0	L011931	control_nontr_sv	pass	835	837		0	0	dropped SV record at 154743428 (835)	
+drop_sv	gt0	L004620	control_nontr_sv	pass	311	313		0	0	dropped SV record at 45458740 (-311)	
+drop_sv	gt0	L014899	control_nontr_sv	pass	50	51		0	0	dropped SV record at 95511612 (-50)	
+drop_sv	gt0	L001527	control_nontr_sv	pass	289	297		0	0	dropped SV record at 33232516 (-289)	
+drop_sv	gt0	L002292	control_nontr_sv	pass	1463	1479		0	0	dropped SV record at 17285749 (-1463)	
+drop_sv	gt0	L009283	control_nontr_sv	pass	133	135		0	0	dropped SV record at 57413988 (-133)	
+drop_sv	gt0	L003883	control_nontr_sv	pass	2886	2886		0	0	dropped SV record at 37702900 (2886)	
+drop_sv	gt0	L016274	control_nontr_sv	pass	528	528		0	0	dropped SV record at 10173215 (528)	
+swap_phase	gt0	L001909	hotspot_vntr	pass	3	7652	overlap_skipped_alleles	0	0	swapped record at 127836596: 0|1 -> 1|0	
+swap_phase	gt0	L009000	hotspot_vntr	pass	1	19625	overlap_skipped_alleles	0	0	swapped record at 1898505: 0|1 -> 1|0	
+swap_phase	gt0	L007009	hotspot_vntr	pass	1	13050	overlap_skipped_alleles	0	0	swapped record at 79255558: 0|1 -> 1|0	
+swap_phase	gt0	L009658	hotspot_vntr	pass	1	8714	overlap_skipped_alleles	0	0	swapped record at 41609886: 1|0 -> 0|1	
+swap_phase	gt0	L005990	hotspot_vntr	pass	2	846	overlap_skipped_alleles	0	0	swapped record at 371292: 0|1 -> 1|0	
+swap_phase	gt0	L012184	hotspot_vntr	pass	2	8317		0	0	swapped record at 191500127: 0|1 -> 1|0	
+swap_phase	gt0	L005411	hotspot_vntr	pass	2	2444		0	0	swapped record at 865559: 0|1 -> 1|0	
+swap_phase	gt0	L002013	hotspot_vntr	pass	1	2458	overlap_skipped_alleles	0	0	swapped record at 133308339: 0|1 -> 1|0	
+swap_phase	gt0	L000289	hotspot_vntr	pass	2	3498		0	0	swapped record at 31287049: 0|1 -> 1|0	
+swap_phase	gt0	L001084	hotspot_vntr	pass	1	2530	overlap_skipped_alleles	0	0	swapped record at 235496585: 0|1 -> 1|0	
+swap_phase	gt0	L010328	hotspot_vntr	pass	30	2504	overlap_skipped_alleles	0	0	swapped record at 38089233: 1|0 -> 0|1	
+swap_phase	gt0	L009803	hotspot_vntr	pass	2	4745		0	0	swapped record at 18547121: 0|1 -> 1|0	
+swap_phase	gt0	L013244	hotspot_vntr	pass	2	1558		0	0	swapped record at 181603194: 1|0 -> 0|1	
+swap_phase	gt0	L011138	hotspot_vntr	pass	2	7502		0	0	swapped record at 1433915: 0|1 -> 1|0	
+swap_phase	gt0	L002143	hotspot_vntr	pass	2	865		0	0	swapped record at 1168314: 0|1 -> 1|0	
+swap_phase	gt0	L007040	hotspot_vntr	pass	1	31963	overlap_skipped_alleles	0	0	swapped record at 79876913: 0|1 -> 1|0	
+swap_phase	gt0	L008864	hotspot_vntr	pass	2	3694		0	0	swapped record at 238034581: 0|1 -> 1|0	
+swap_phase	gt0	L015347	hotspot_vntr	pass	2	12274		0	0	swapped record at 159813282: 0|1 -> 1|0	
+swap_phase	gt0	L012294	hotspot_vntr	pass	423	1476	overlap_skipped_alleles	0	0	swapped record at 976486: 0|1 -> 1|0	
+swap_phase	gt0	L007081	hotspot_vntr	pass	2	4677		0	0	swapped record at 325890: 1|0 -> 0|1	
+swap_phase	gt0	L014160	hotspot_vntr	pass	2	2603		0	0	swapped record at 167662556: 0|1 -> 1|0	
+swap_phase	gt0	L002096	hotspot_vntr	pass	1	4219	overlap_skipped_alleles	0	0	swapped record at 447135: 0|1 -> 1|0	
+swap_phase	gt0	L015331	hotspot_vntr	pass	2	1547		0	0	swapped record at 159566336: 1|0 -> 0|1	
+swap_phase	gt0	L005481	hotspot_vntr	pass	2	647		0	0	swapped record at 4372271: 1|0 -> 0|1	
+swap_phase	gt0	L014358	hotspot_vntr	pass	178	1231		0	0	swapped record at 570299: 0|1 -> 1|0	
+swap_phase	gt0	L004145	hotspot_vntr	pass	2	4581		0	0	swapped record at 85454603: 1|0 -> 0|1	
+swap_phase	gt0	L009448	hotspot_vntr	pass	1	3218	overlap_skipped_alleles	0	0	swapped record at 65511227: 1|0 -> 0|1	
+swap_phase	gt0	L000034	hotspot_vntr	pass	2	1166		0	0	swapped record at 1557886: 0|1 -> 1|0	
+swap_phase	gt0	L006952	hotspot_vntr	pass	1	1957	overlap_skipped_alleles	0	0	swapped record at 77484977: 0|1 -> 1|0	
+swap_phase	gt0	L008216	hotspot_vntr	pass	2	460		0	0	swapped record at 108290264: 0|1 -> 1|0	
+swap_phase	gt0	L008976	hotspot_vntr	pass	2	10187		0	0	swapped record at 242518434: 1|0 -> 0|1	
+swap_phase	gt0	L014210	hotspot_vntr	pass	2	2443		0	0	swapped record at 169578436: 0|1 -> 1|0	
+swap_phase	gt0	L001264	hotspot_vntr	pass	2	2755		0	0	swapped record at 1235432: 0|1 -> 1|0	
+swap_phase	gt0	L012272	hotspot_vntr	pass	2	7022		0	0	swapped record at 563448: 0|1 -> 1|0	
+swap_phase	gt0	L015415	hotspot_vntr	pass	1	2621	overlap_skipped_alleles	0	0	swapped record at 771462: 0|1 -> 1|0	
+swap_phase	gt0	L011463	hotspot_vntr	pass	1	2411	overlap_skipped_alleles	0	0	swapped record at 44993254: 1|0 -> 0|1	
+swap_phase	gt0	L002182	hotspot_vntr	pass	1	1748	overlap_skipped_alleles	0	0	swapped record at 1755141: 0|1 -> 1|0	
+swap_phase	gt0	L009656	hotspot_vntr	pass	2	673		0	0	swapped record at 41566272: 0|1 -> 1|0	
+swap_phase	gt0	L009398	hotspot_vntr	pass	2	1211		0	0	swapped record at 64830841: 0|1 -> 1|0	
+swap_phase	gt0	L007376	control_vntr_matched	pass	2	682		0	0	swapped record at 36931701: 1|0 -> 0|1	
+swap_phase	gt0	L000709	control_vntr_matched	pass	8	238		0	0	swapped record at 151491231: 0|1 -> 1|0	
+swap_phase	gt0	L010350	control_vntr_matched	pass	2	225		0	0	swapped record at 43029679: 1|0 -> 0|1	
+swap_phase	gt0	L007172	control_vntr_matched	pass	4	338		0	0	swapped record at 4019502: 1|0 -> 0|1	
+swap_phase	gt0	L011430	control_vntr_matched	pass	4	276		0	0	swapped record at 39782983: 0|1 -> 1|0	
+swap_phase	gt0	L000381	control_vntr_matched	pass	2	548		0	0	swapped record at 52983463: 0|1 -> 1|0	
+swap_phase	gt0	L007065	control_vntr_matched	pass	4	73		0	0	swapped record at 80171733: 1|0 -> 0|1	
+swap_phase	gt0	L000308	control_vntr_matched	pass	34	2123		0	0	swapped record at 36822201: 1|0 -> 0|1	
+swap_phase	gt0	TR368009	control_vntr_matched	pass	2	7		0	0	swapped record at 102359437: 0|1 -> 1|0	
+swap_phase	gt0	L004021	control_vntr_matched	pass	2	222		0	0	swapped record at 63061134: 0|1 -> 1|0	
+swap_phase	gt0	L003826	control_vntr_matched	pass	2	121		0	0	swapped record at 25687267: 1|0 -> 0|1	
+swap_phase	gt0	L003872	control_vntr_matched	pass	4	290		0	0	swapped record at 34980554: 0|1 -> 1|0	
+swap_phase	gt0	L011227	control_vntr_matched	pass	40	170		0	0	swapped record at 7427040: 0|1 -> 1|0	
+swap_phase	gt0	TR743754	control_vntr_matched	pass	2	7		0	0	swapped record at 22112109: 1|0 -> 0|1	
+swap_phase	gt0	L016124	control_vntr_matched	pass	2	299		0	0	swapped record at 143120949: 1|0 -> 0|1	
+swap_phase	gt0	TR455654	control_vntr_matched	pass	6	7		0	0	swapped record at 135544935: 0|1 -> 1|0	
+swap_phase	gt0	L014111	control_vntr_matched	pass	2	303		0	0	swapped record at 162199390: 0|1 -> 1|0	
+swap_phase	gt0	L007687	control_vntr_matched	pass	2	175		0	0	swapped record at 936684: 1|0 -> 0|1	
+swap_phase	gt0	L012313	control_vntr_matched	pass	2	212		0	0	swapped record at 1191234: 1|0 -> 0|1	
+swap_phase	gt0	TR446002	control_vntr_matched	pass	4	15		0	0	swapped record at 101136783: 0|1 -> 1|0	
+swap_phase	gt0	L001899	control_vntr_matched	pass	12	183		0	0	swapped record at 125491406: 0|1 -> 1|0	
+swap_phase	gt0	L001491	control_vntr_correct	pass	900	914		0	0	swapped record at 27326362: 1|0 -> 0|1	
+swap_phase	gt0	L011224	control_vntr_correct	pass	2	535		0	0	swapped record at 7359212: 0|1 -> 1|0	
+swap_phase	gt0	L010508	control_vntr_correct	pass	2	75		0	0	swapped record at 75831613: 1|0 -> 0|1	
+swap_phase	gt0	L001922	control_vntr_correct	pass	2	1423		0	0	swapped record at 128695696: 1|0 -> 0|1	
+swap_phase	gt0	L014426	control_vntr_correct	pass	8	552		0	0	swapped record at 1690598: 0|1 -> 1|0	
+swap_phase	gt0	L000407	control_vntr_correct	pass	2	95		0	0	swapped record at 58607761: 1|0 -> 0|1	
+swap_phase	gt0	L008887	control_vntr_correct	pass	4	723		0	0	swapped record at 239772813: 1|0 -> 0|1	
+swap_phase	gt0	L013000	control_vntr_correct	pass	34	1602		0	0	swapped record at 142527180: 0|1 -> 1|0	
+swap_phase	gt0	L003672	control_vntr_correct	pass	2	246		0	0	swapped record at 131076622: 0|1 -> 1|0	
+swap_phase	gt0	L008902	control_vntr_correct	pass	132	294		0	0	swapped record at 240408497: 0|1 -> 1|0	
+swap_phase	gt0	L015743	control_vntr_correct	pass	2	5098		0	0	swapped record at 59647870: 0|1 -> 1|0	
+swap_phase	gt0	L016523	control_vntr_correct	pass	16	142		0	0	swapped record at 101222533: 1|0 -> 0|1	
+swap_phase	gt0	L016062	control_vntr_correct	pass	4	61		0	0	swapped record at 135615740: 0|1 -> 1|0	
+swap_phase	gt0	L010113	control_vntr_correct	pass	2	107		0	0	swapped record at 50526693: 1|0 -> 0|1	
+swap_phase	gt0	L015285	control_vntr_correct	pass	2	205		0	0	swapped record at 159037859: 1|0 -> 0|1	
+swap_phase	gt0	L016830	control_vntr_correct	pass	1	2221	overlap_skipped_alleles	0	0	swapped record at 149339459: 1|0 -> 0|1	
+swap_phase	gt0	L003828	hotspot_other	pass	2	7178		0	0	swapped record at 26280863: 0|1 -> 1|0	
+swap_phase	gt0	L015904	hotspot_other	pass	2	1764		0	0	swapped record at 101551881: 1|0 -> 0|1	
+swap_phase	gt0	L015847	hotspot_other	pass	4	3302		0	0	swapped record at 87279137: 1|0 -> 0|1	
+swap_phase	gt0	L008877	hotspot_other	pass	2	4243		0	0	swapped record at 239361275: 1|0 -> 0|1	
+swap_phase	gt0	L012256	hotspot_other	pass	2	2048	overlap_skipped_alleles	0	0	swapped record at 336829: 1|0 -> 0|1	
+swap_phase	gt0	L004989	hotspot_other	pass	2	1132		0	0	swapped record at 25130122: 1|0 -> 0|1	
+swap_phase	gt0	L007798	hotspot_other	pass	2	2691		0	0	swapped record at 5043611: 0|1 -> 1|0	
+swap_phase	gt0	L013531	hotspot_other	pass	1	1836	overlap_skipped_alleles	0	0	swapped record at 37332143: 0|1 -> 1|0	
+swap_phase	gt0	L005261	hotspot_other	pass	24	1272		0	0	swapped record at 87079994: 0|1 -> 1|0	
+swap_phase	gt0	L005618	hotspot_other	pass	1	2474	overlap_skipped_alleles	0	0	swapped record at 27416739: 1|0 -> 0|1	
+swap_phase	gt0	L012489	hotspot_other	pass	2	384		0	0	swapped record at 19223595: 0|1 -> 1|0	
+swap_phase	gt0	L007844	hotspot_other	pass	12	3063		0	0	swapped record at 10428376: 1|0 -> 0|1	
+swap_phase	gt0	L007161	hotspot_other	pass	148	717		0	0	swapped record at 3309274: 1|0 -> 0|1	
+swap_phase	gt0	L010060	hotspot_other	pass	2	187		0	0	swapped record at 49114980: 1|0 -> 0|1	
+swap_phase	gt0	L004848	hotspot_other	pass	2	306		0	0	swapped record at 94160101: 0|1 -> 1|0	
+swap_phase	gt0	L007480	hotspot_other	pass	184	259	overlap_skipped_alleles	0	0	swapped record at 51830144: 0|1 -> 1|0	
+swap_phase	gt0	L005064	hotspot_other	pass	216	296		0	0	swapped record at 43271459: 0|1 -> 1|0	
+swap_phase	gt0	L003695	hotspot_other	pass	6	430		0	0	swapped record at 131520222: 0|1 -> 1|0	
+swap_phase	gt0	L013064	hotspot_other	pass	18	512	overlap_skipped_alleles	0	0	swapped record at 155566422: 1|0 -> 0|1	
+swap_phase	gt0	L002940	hotspot_other	pass	6	1063	overlap_skipped_alleles	0	0	swapped record at 1116417: 0|1 -> 1|0	
+swap_phase	gt0	L007184	hotspot_other	pass	2	489		0	0	swapped record at 5117762: 0|1 -> 1|0	
+swap_phase	gt0	L015708	hotspot_other	pass	2	68		0	0	swapped record at 54326330: 0|1 -> 1|0	
+swap_phase	gt0	L016040	control_nontr_sv	pass	2	65		0	0	swapped record at 131906945: 1|0 -> 0|1	
+swap_phase	gt0	L006556	control_nontr_sv	pass	1	307	overlap_skipped_alleles	0	0	swapped record at 83505627: 1|0 -> 0|1	
+swap_phase	gt0	L008631	control_nontr_sv	pass	2	336		0	0	swapped record at 195693363: 0|1 -> 1|0	
+swap_phase	gt0	L012530	control_nontr_sv	pass	11	123	overlap_skipped_alleles	0	0	swapped record at 26705356: 1|0 -> 0|1	
+swap_phase	gt0	L011931	control_nontr_sv	pass	2	837		0	0	swapped record at 154743593: 1|0 -> 0|1	
+swap_phase	gt0	L004620	control_nontr_sv	pass	1	313	overlap_skipped_alleles	0	0	swapped record at 45459028: 1|0 -> 0|1	
+swap_phase	gt0	L014899	control_nontr_sv	pass	2	51		0	0	swapped record at 95511612: 1|0 -> 0|1	
+swap_phase	gt0	L001527	control_nontr_sv	pass	2	297		0	0	swapped record at 33232324: 1|0 -> 0|1	
+swap_phase	gt0	L002292	control_nontr_sv	pass	4	1479		0	0	swapped record at 17287356: 0|1 -> 1|0	
+swap_phase	gt0	L009283	control_nontr_sv	pass	2	135		0	0	swapped record at 57414159: 0|1 -> 1|0	
+swap_phase	gt0	L003883	control_nontr_sv	pass	2	2886		0	0	swapped record at 37702900: 1|0 -> 0|1	
+flip_gt	gt0	L001909	hotspot_vntr	pass	3	7652		0	0	GT at 127838945: 1|1 -> 1|0	
+flip_gt	gt0	L009000	hotspot_vntr	pass	1	19625		0	0	GT at 1893484: 1|1 -> 1|0	
+flip_gt	gt0	L007009	hotspot_vntr	pass	1	13050		0	0	GT at 79252611: 1|1 -> 1|0	
+flip_gt	gt0	L009658	hotspot_vntr	pass	3	8714		0	0	GT at 41615544: 1|1 -> 1|0	
+flip_gt	gt0	L005990	hotspot_vntr	pass	8	846		0	0	GT at 370340: 1|1 -> 1|0	
+flip_gt	gt0	L012184	hotspot_vntr	pass	24	8317		0	0	GT at 191498764: 1|1 -> 1|0	
+flip_gt	gt0	L005411	hotspot_vntr	pass	1005	2444		0	0	GT at 867572: 1|1 -> 1|0	
+flip_gt	gt0	L002013	hotspot_vntr	pass	1	2458		0	0	GT at 133306754: 1|1 -> 1|0	
+flip_gt	gt0	L000289	hotspot_vntr	pass	1	3498		0	0	GT at 31284123: 1|1 -> 1|0	
+flip_gt	gt0	L001084	hotspot_vntr	pass	1	2530	overlap_skipped_alleles	0	0	GT at 235494294: 1|1 -> 1|0	
+flip_gt	gt0	L010328	hotspot_vntr	pass	3	2504		0	0	GT at 38088310: 1|1 -> 1|0	
+flip_gt	gt0	L009803	hotspot_vntr	pass	72	4745		0	0	GT at 18548815: 0|1 -> 1|1	
+flip_gt	gt0	L013244	hotspot_vntr	pass	418	1558		0	0	GT at 181603282: 1|0 -> 1|1	
+flip_gt	gt0	L011138	hotspot_vntr	pass	1	7502		0	0	GT at 1436530: 1|1 -> 1|0	
+flip_gt	gt0	L002143	hotspot_vntr	pass	1	865		0	0	GT at 1166695: 1|1 -> 1|0	
+flip_gt	gt0	L007040	hotspot_vntr	pass	1	31963		0	0	GT at 79874476: 1|1 -> 1|0	
+flip_gt	gt0	L008864	hotspot_vntr	pass	3197	3694		0	0	GT at 238034305: 1|0 -> 1|1	
+flip_gt	gt0	L015347	hotspot_vntr	pass	3	12274		0	0	GT at 159814432: 1|1 -> 1|0	
+flip_gt	gt0	L012294	hotspot_vntr	pass	1	1476		0	0	GT at 977180: 1|1 -> 1|0	
+flip_gt	gt0	L007081	hotspot_vntr	pass	1	4677		0	0	GT at 325548: 1|1 -> 1|0	
+flip_gt	gt0	L014160	hotspot_vntr	pass	2	2603		0	0	GT at 167659113: 1|1 -> 1|0	
+flip_gt	gt0	L002096	hotspot_vntr	pass	132	4219		0	0	GT at 448193: 1|1 -> 1|0	
+flip_gt	gt0	L015331	hotspot_vntr	pass	1	1547		0	0	GT at 159566703: 1|1 -> 1|0	
+flip_gt	gt0	L005481	hotspot_vntr	pass	339	647		0	0	GT at 4373068: 1|1 -> 1|0	
+flip_gt	gt0	L014358	hotspot_vntr	pass	1	1231		0	0	GT at 570613: 1|1 -> 1|0	
+flip_gt	gt0	L014297	hotspot_vntr	pass	459	1754		0	0	GT at 171507354: 1|1 -> 1|0	
+flip_gt	gt0	L004145	hotspot_vntr	pass	1	4581		0	0	GT at 85451867: 1|1 -> 1|0	
+flip_gt	gt0	L009448	hotspot_vntr	pass	3	3218		0	0	GT at 65512889: 1|1 -> 1|0	
+flip_gt	gt0	L000034	hotspot_vntr	pass	282	1166		0	0	GT at 1558610: 0|1 -> 1|1	
+flip_gt	gt0	L006952	hotspot_vntr	pass	1	1957		0	0	GT at 77483774: 1|0 -> 1|1	
+flip_gt	gt0	L008216	hotspot_vntr	pass	25	460		0	0	GT at 108289226: 1|1 -> 1|0	
+flip_gt	gt0	L008976	hotspot_vntr	pass	1	10187		0	0	GT at 242516628: 1|1 -> 1|0	
+flip_gt	gt0	L014210	hotspot_vntr	pass	1	2443		0	0	GT at 169580426: 1|1 -> 1|0	
+flip_gt	gt0	L001264	hotspot_vntr	pass	1	2755		0	0	GT at 1235499: 1|1 -> 1|0	
+flip_gt	gt0	L012272	hotspot_vntr	pass	76	7022		0	0	GT at 603337: 1|1 -> 1|0	
+flip_gt	gt0	L015415	hotspot_vntr	pass	1	2621		0	0	GT at 770802: 1|1 -> 1|0	
+flip_gt	gt0	L011463	hotspot_vntr	pass	32	2411		0	0	GT at 44994863: 1|1 -> 1|0	
+flip_gt	gt0	L002182	hotspot_vntr	pass	360	1748		0	0	GT at 1755928: 1|1 -> 1|0	
+flip_gt	gt0	L009656	hotspot_vntr	pass	11	673		0	0	GT at 41566305: 1|1 -> 1|0	
+flip_gt	gt0	L009398	hotspot_vntr	pass	2	1211		0	0	GT at 64831109: 0|1 -> 1|1	
+flip_gt	gt0	L007376	control_vntr_matched	pass	324	682		0	0	GT at 36921540: 1|1 -> 1|0	
+flip_gt	gt0	L001894	control_vntr_matched	pass	76	447		0	0	GT at 125104858: 1|1 -> 1|0	
+flip_gt	gt0	L000709	control_vntr_matched	pass	231	238		0	0	GT at 151491510: 0|1 -> 1|1	
+flip_gt	gt0	L010350	control_vntr_matched	pass	216	225		0	0	GT at 43027929: 1|0 -> 1|1	
+flip_gt	gt0	L007172	control_vntr_matched	pass	340	338		0	0	GT at 4019502: 1|0 -> 1|1	
+flip_gt	gt0	L011430	control_vntr_matched	pass	4	276		0	0	GT at 39783720: 1|1 -> 1|0	
+flip_gt	gt0	L000381	control_vntr_matched	pass	85	548		0	0	GT at 52980875: 1|1 -> 1|0	
+flip_gt	gt0	L007065	control_vntr_matched	pass	1	73		0	0	GT at 80168392: 1|1 -> 1|0	
+flip_gt	gt0	TR724750	control_vntr_matched	pass	1	1		0	0	GT at 47593117: 0|1 -> 1|1	
+flip_gt	gt0	L000308	control_vntr_matched	pass	237	2123		0	0	GT at 36820980: 1|0 -> 1|1	
+flip_gt	gt0	TR368009	control_vntr_matched	pass	1	7		0	0	GT at 102357621: 1|1 -> 1|0	
+flip_gt	gt0	L004021	control_vntr_matched	pass	77	222		0	0	GT at 63060382: 1|1 -> 1|0	
+flip_gt	gt0	L002884	control_vntr_matched	pass	293	679		0	0	GT at 134208192: 1|1 -> 1|0	
+flip_gt	gt0	L003826	control_vntr_matched	pass	1	121		0	0	GT at 25686478: 1|1 -> 1|0	
+flip_gt	gt0	TR687433	control_vntr_matched	pass	1	1		0	0	GT at 389815: 0|1 -> 1|1	
+flip_gt	gt0	TR424743	control_vntr_matched	pass	45	108		0	0	GT at 142763761: 1|1 -> 1|0	
+flip_gt	gt0	TR499276	control_vntr_matched	pass	1	10		0	0	GT at 2139164: 1|1 -> 1|0	
+flip_gt	gt0	L003872	control_vntr_matched	pass	1	290		0	0	GT at 34980912: 1|1 -> 1|0	
+flip_gt	gt0	L009770	control_vntr_matched	pass	1048	2108		0	0	GT at 44768776: 1|1 -> 1|0	
+flip_gt	gt0	L011227	control_vntr_matched	pass	112	170		0	0	GT at 7427151: 0|1 -> 1|1	
+flip_gt	gt0	TR743754	control_vntr_matched	pass	1	7		0	0	GT at 22110359: 1|0 -> 1|1	
+flip_gt	gt0	L016124	control_vntr_matched	pass	180	299		0	0	GT at 143120728: 1|0 -> 1|1	
+flip_gt	gt0	TR499275	control_vntr_matched	pass	21	57		0	0	GT at 2135455: 1|1 -> 1|0	
+flip_gt	gt0	L015223	control_vntr_matched	pass	1083	2682		0	0	GT at 156528595: 1|1 -> 1|0	
+flip_gt	gt0	TR455654	control_vntr_matched	pass	4	7		0	0	GT at 135543971: 0|1 -> 1|1	
+flip_gt	gt0	L007717	control_vntr_matched	pass	292	702		0	0	GT at 1604616: 1|1 -> 1|0	
+flip_gt	gt0	L014181	control_vntr_matched	pass	176	400		0	0	GT at 168815376: 1|1 -> 1|0	
+flip_gt	gt0	L014111	control_vntr_matched	pass	69	303		0	0	GT at 162198028: 0|1 -> 1|1	
+flip_gt	gt0	L007687	control_vntr_matched	pass	1	175		0	0	GT at 935497: 1|1 -> 1|0	
+flip_gt	gt0	L012313	control_vntr_matched	pass	61	212		0	0	GT at 1191348: 1|1 -> 1|0	
+flip_gt	gt0	TR446002	control_vntr_matched	pass	6	15		0	0	GT at 101137328: 0|1 -> 1|1	
+flip_gt	gt0	L001899	control_vntr_matched	pass	177	183		0	0	GT at 125491406: 0|1 -> 1|1	
+flip_gt	gt0	L003119	control_vntr_correct	pass	1102	2204		0	0	GT at 31710798: 1|1 -> 1|0	
+flip_gt	gt0	L011121	control_vntr_correct	pass	343	692		0	0	GT at 1272451: 1|1 -> 1|0	
+flip_gt	gt0	L001491	control_vntr_correct	pass	1	914		0	0	GT at 27326267: 1|1 -> 1|0	
+flip_gt	gt0	L011224	control_vntr_correct	pass	308	535		0	0	GT at 7359517: 0|1 -> 1|1	
+flip_gt	gt0	L010508	control_vntr_correct	pass	1	75		0	0	GT at 75832875: 1|1 -> 1|0	
+flip_gt	gt0	L001922	control_vntr_correct	pass	1	1423		0	0	GT at 128695879: 1|1 -> 1|0	
+flip_gt	gt0	L014324	control_vntr_correct	pass	454	916		0	0	GT at 171881472: 1|1 -> 1|0	
+flip_gt	gt0	L014426	control_vntr_correct	pass	4	552		0	0	GT at 1690063: 1|1 -> 1|0	
+flip_gt	gt0	L000407	control_vntr_correct	pass	90	95		0	0	GT at 58607233: 1|0 -> 1|1	
+flip_gt	gt0	L009885	control_vntr_correct	pass	96	364		0	0	GT at 32793310: 1|1 -> 1|0	
+flip_gt	gt0	L008887	control_vntr_correct	pass	253	723		0	0	GT at 239771913: 1|1 -> 1|0	
+flip_gt	gt0	L013000	control_vntr_correct	pass	761	1602		0	0	GT at 142527657: 1|1 -> 1|0	
+flip_gt	gt0	L003672	control_vntr_correct	pass	187	246		0	0	GT at 131077127: 0|1 -> 1|1	
+flip_gt	gt0	L000698	control_vntr_correct	pass	906	1834		0	0	GT at 149665534: 1|1 -> 1|0	
+flip_gt	gt0	L008902	control_vntr_correct	pass	4	294		0	0	GT at 240408061: 1|1 -> 1|0	
+flip_gt	gt0	L015743	control_vntr_correct	pass	4	5098		0	0	GT at 59648169: 1|0 -> 1|1	
+flip_gt	gt0	L009771	control_vntr_correct	pass	112	230		0	0	GT at 44781267: 1|1 -> 1|0	
+flip_gt	gt0	L016523	control_vntr_correct	pass	1	142		0	0	GT at 101221910: 1|1 -> 1|0	
+flip_gt	gt0	L016062	control_vntr_correct	pass	59	61		0	0	GT at 135615740: 0|1 -> 1|1	
+flip_gt	gt0	L013074	control_vntr_correct	pass	4931	9862		0	0	GT at 158964302: 1|1 -> 1|0	
+flip_gt	gt0	L010113	control_vntr_correct	pass	1	107		0	0	GT at 50526554: 1|1 -> 1|0	
+flip_gt	gt0	L015285	control_vntr_correct	pass	200	205		0	0	GT at 159037500: 1|0 -> 1|1	
+flip_gt	gt0	L016830	control_vntr_correct	pass	4	2221		0	0	GT at 149337814: 1|1 -> 1|0	
+flip_gt	gt0	L007033	control_vntr_correct	pass	1978	3956		0	0	GT at 79805872: 1|1 -> 1|0	
+flip_gt	gt0	L003828	hotspot_other	pass	18	7178		0	0	GT at 26284678: 1|1 -> 1|0	
+flip_gt	gt0	L015904	hotspot_other	pass	1	1764		0	0	GT at 101551732: 1|1 -> 1|0	
+flip_gt	gt0	L015847	hotspot_other	pass	727	3302		0	0	GT at 87281163: 1|1 -> 1|0	
+flip_gt	gt0	L008877	hotspot_other	pass	4	4243		0	0	GT at 239360786: 1|1 -> 1|0	
+flip_gt	gt0	L012256	hotspot_other	pass	4	2048		0	0	GT at 337678: 1|1 -> 1|0	
+flip_gt	gt0	L004989	hotspot_other	pass	1	1132		0	0	GT at 25129895: 1|1 -> 1|0	
+flip_gt	gt0	L007798	hotspot_other	pass	1	2691		0	0	GT at 5043701: 1|1 -> 1|0	
+flip_gt	gt0	L013531	hotspot_other	pass	3	1836		0	0	GT at 37331465: 1|1 -> 1|0	
+flip_gt	gt0	L005261	hotspot_other	pass	1248	1272		0	0	GT at 87079900: 1|0 -> 1|1	
+flip_gt	gt0	L005618	hotspot_other	pass	56	2474		0	0	GT at 27415658: 1|1 -> 1|0	
+flip_gt	gt0	L012489	hotspot_other	pass	33	384		0	0	GT at 19224648: 1|1 -> 1|0	
+flip_gt	gt0	L007844	hotspot_other	pass	507	3063		0	0	GT at 10428653: 1|0 -> 1|1	
+flip_gt	gt0	L007161	hotspot_other	pass	246	717		0	0	GT at 3310080: 1|0 -> 1|1	
+flip_gt	gt0	L015126	hotspot_other	pass	300	632		0	0	GT at 142652436: 1|1 -> 1|0	
+flip_gt	gt0	L010060	hotspot_other	pass	27	187		0	0	GT at 49113777: 1|1 -> 1|0	
+flip_gt	gt0	L004848	hotspot_other	pass	1	306		0	0	GT at 94159642: 1|1 -> 1|0	
+flip_gt	gt0	L007480	hotspot_other	pass	37	259		0	0	GT at 51829997: 1|0 -> 1|1	
+flip_gt	gt0	L005064	hotspot_other	pass	9	296		0	0	GT at 43271179: 1|1 -> 1|0	
+flip_gt	gt0	L003695	hotspot_other	pass	42	430		0	0	GT at 131520501: 0|1 -> 1|1	
+flip_gt	gt0	L013064	hotspot_other	pass	18	512		0	0	GT at 155566961: 1|1 -> 1|0	
+flip_gt	gt0	L002940	hotspot_other	pass	200	1063		0	0	GT at 1116766: 1|0 -> 1|1	
+flip_gt	gt0	L007184	hotspot_other	pass	1	489		0	0	GT at 5117747: 0|1 -> 1|1	
+flip_gt	gt0	L015708	hotspot_other	pass	31	68		0	0	GT at 54325917: 0|1 -> 1|1	
+flip_gt	gt0	L016040	control_nontr_sv	pass	61	65		0	0	GT at 131907015: 1|0 -> 1|1	
+flip_gt	gt0	L010452	control_nontr_sv	pass	59	122		0	0	GT at 63783672: 1|1 -> 1|0	
+flip_gt	gt0	L013399	control_nontr_sv	pass	780	1562		0	0	GT at 18274358: 1|1 -> 1|0	
+flip_gt	gt0	L000506	control_nontr_sv	pass	328	328		0	0	GT at 80566180: 0|1 -> 1|1	
+flip_gt	gt0	L003171	control_nontr_sv	pass	332	668		0	0	GT at 43283171: 1|1 -> 1|0	
+flip_gt	gt0	L006556	control_nontr_sv	pass	1	307		0	0	GT at 83505427: 1|0 -> 1|1	
+flip_gt	gt0	L009600	control_nontr_sv	pass	105	210		0	0	GT at 36875378: 1|1 -> 1|0	
+flip_gt	gt0	L007192	control_nontr_sv	pass	240	240		0	0	GT at 6424938: 0|1 -> 1|1	
+flip_gt	gt0	L008631	control_nontr_sv	pass	335	336		0	0	GT at 195693164: 0|1 -> 1|1	
+flip_gt	gt0	L012530	control_nontr_sv	pass	2	123		0	0	GT at 26705524: 1|0 -> 1|1	
+flip_gt	gt0	L005688	control_nontr_sv	pass	255	580		0	0	GT at 61574925: 1|1 -> 1|0	
+flip_gt	gt0	L011931	control_nontr_sv	pass	835	837		0	0	GT at 154743428: 1|0 -> 1|1	
+flip_gt	gt0	L014899	control_nontr_sv	pass	50	51		0	0	GT at 95511612: 1|0 -> 1|1	
+flip_gt	gt0	L001527	control_nontr_sv	pass	289	297		0	0	GT at 33232516: 1|0 -> 1|1	
+flip_gt	gt0	L002292	control_nontr_sv	pass	3	1479		0	0	GT at 17287503: 1|0 -> 1|1	
+flip_gt	gt0	L009283	control_nontr_sv	pass	133	135		0	0	GT at 57413988: 1|0 -> 1|1	
+flip_gt	gt0	L003883	control_nontr_sv	pass	2886	2886		0	0	GT at 37702900: 1|0 -> 1|1	
+flip_gt	gt0	L016274	control_nontr_sv	pass	528	528		0	0	GT at 10173215: 0|1 -> 1|1	
+unphase_swapped	eq0	L001909	hotspot_vntr	pass	0	7652	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 127836596: 0|1 -> 1/0	
+unphase_swapped	eq0	L009000	hotspot_vntr	pass	0	19625	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 1898505: 0|1 -> 1/0	
+unphase_swapped	eq0	L007009	hotspot_vntr	pass	0	13050	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 79255558: 0|1 -> 1/0	
+unphase_swapped	eq0	L009658	hotspot_vntr	pass	0	8714	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 41609886: 1|0 -> 0/1	
+unphase_swapped	eq0	L005990	hotspot_vntr	pass	0	846	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 371292: 0|1 -> 1/0	
+unphase_swapped	eq0	L012184	hotspot_vntr	pass	0	8317	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 191500127: 0|1 -> 1/0	
+unphase_swapped	eq0	L005411	hotspot_vntr	pass	0	2444	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 865559: 0|1 -> 1/0	
+unphase_swapped	eq0	L002013	hotspot_vntr	pass	0	2458	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 133308339: 0|1 -> 1/0	
+unphase_swapped	eq0	L000289	hotspot_vntr	pass	0	3498	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 31287049: 0|1 -> 1/0	
+unphase_swapped	eq0	L001084	hotspot_vntr	pass	0	2530	unphased_het_records;overlap_skipped_alleles;phase_optimised_enumerated	0	0	swapped and unphased record at 235496585: 0|1 -> 1/0	
+unphase_swapped	eq0	L010328	hotspot_vntr	pass	0	2504	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 38089233: 1|0 -> 0/1	
+unphase_swapped	eq0	L009803	hotspot_vntr	pass	0	4745	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 18547121: 0|1 -> 1/0	
+unphase_swapped	eq0	L013244	hotspot_vntr	pass	0	1558	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 181603194: 1|0 -> 0/1	
+unphase_swapped	eq0	L011138	hotspot_vntr	pass	0	7502	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 1433915: 0|1 -> 1/0	
+unphase_swapped	eq0	L002143	hotspot_vntr	pass	0	865	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 1168314: 0|1 -> 1/0	
+unphase_swapped	eq0	L007040	hotspot_vntr	pass	0	31963	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 79876913: 0|1 -> 1/0	
+unphase_swapped	eq0	L008864	hotspot_vntr	pass	0	3694	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 238034581: 0|1 -> 1/0	
+unphase_swapped	eq0	L015347	hotspot_vntr	pass	0	12274	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 159813282: 0|1 -> 1/0	
+unphase_swapped	eq0	L012294	hotspot_vntr	pass	0	1476	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 976486: 0|1 -> 1/0	
+unphase_swapped	eq0	L007081	hotspot_vntr	pass	0	4677	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 325890: 1|0 -> 0/1	
+unphase_swapped	eq0	L014160	hotspot_vntr	pass	0	2603	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 167662556: 0|1 -> 1/0	
+unphase_swapped	eq0	L002096	hotspot_vntr	pass	0	4219	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 447135: 0|1 -> 1/0	
+unphase_swapped	eq0	L015331	hotspot_vntr	pass	0	1547	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 159566336: 1|0 -> 0/1	
+unphase_swapped	eq0	L005481	hotspot_vntr	pass	0	647	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 4372271: 1|0 -> 0/1	
+unphase_swapped	eq0	L014358	hotspot_vntr	pass	0	1231	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 570299: 0|1 -> 1/0	
+unphase_swapped	eq0	L004145	hotspot_vntr	pass	0	4581	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 85454603: 1|0 -> 0/1	
+unphase_swapped	eq0	L009448	hotspot_vntr	pass	0	3218	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 65511227: 1|0 -> 0/1	
+unphase_swapped	eq0	L000034	hotspot_vntr	pass	0	1166	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 1557886: 0|1 -> 1/0	
+unphase_swapped	eq0	L006952	hotspot_vntr	pass	0	1957	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 77484977: 0|1 -> 1/0	
+unphase_swapped	eq0	L008216	hotspot_vntr	pass	0	460	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 108290264: 0|1 -> 1/0	
+unphase_swapped	eq0	L008976	hotspot_vntr	pass	0	10187	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 242518434: 1|0 -> 0/1	
+unphase_swapped	eq0	L014210	hotspot_vntr	pass	0	2443	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 169578436: 0|1 -> 1/0	
+unphase_swapped	eq0	L001264	hotspot_vntr	pass	0	2755	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 1235432: 0|1 -> 1/0	
+unphase_swapped	eq0	L012272	hotspot_vntr	pass	0	7022	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 563448: 0|1 -> 1/0	
+unphase_swapped	eq0	L015415	hotspot_vntr	pass	0	2621	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 771462: 0|1 -> 1/0	
+unphase_swapped	eq0	L011463	hotspot_vntr	pass	0	2411	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 44993254: 1|0 -> 0/1	
+unphase_swapped	eq0	L002182	hotspot_vntr	pass	0	1748	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 1755141: 0|1 -> 1/0	
+unphase_swapped	eq0	L009656	hotspot_vntr	pass	0	673	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 41566272: 0|1 -> 1/0	
+unphase_swapped	eq0	L009398	hotspot_vntr	pass	0	1211	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 64830841: 0|1 -> 1/0	
+unphase_swapped	eq0	L007376	control_vntr_matched	pass	0	682	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 36931701: 1|0 -> 0/1	
+unphase_swapped	eq0	L000709	control_vntr_matched	pass	0	238	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 151491231: 0|1 -> 1/0	
+unphase_swapped	eq0	L010350	control_vntr_matched	pass	0	225	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 43029679: 1|0 -> 0/1	
+unphase_swapped	eq0	L007172	control_vntr_matched	pass	0	338	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 4019502: 1|0 -> 0/1	
+unphase_swapped	eq0	L011430	control_vntr_matched	pass	0	276	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 39782983: 0|1 -> 1/0	
+unphase_swapped	eq0	L000381	control_vntr_matched	pass	0	548	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 52983463: 0|1 -> 1/0	
+unphase_swapped	eq0	L007065	control_vntr_matched	pass	0	73	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 80171733: 1|0 -> 0/1	
+unphase_swapped	eq0	L000308	control_vntr_matched	pass	0	2123	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 36822201: 1|0 -> 0/1	
+unphase_swapped	eq0	TR368009	control_vntr_matched	pass	0	7	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 102359437: 0|1 -> 1/0	
+unphase_swapped	eq0	L004021	control_vntr_matched	pass	0	222	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 63061134: 0|1 -> 1/0	
+unphase_swapped	eq0	L003826	control_vntr_matched	pass	0	121	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 25687267: 1|0 -> 0/1	
+unphase_swapped	eq0	L003872	control_vntr_matched	pass	0	290	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 34980554: 0|1 -> 1/0	
+unphase_swapped	eq0	L011227	control_vntr_matched	pass	0	170	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 7427040: 0|1 -> 1/0	
+unphase_swapped	eq0	TR743754	control_vntr_matched	pass	0	7	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 22112109: 1|0 -> 0/1	
+unphase_swapped	eq0	L016124	control_vntr_matched	pass	0	299	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 143120949: 1|0 -> 0/1	
+unphase_swapped	eq0	TR455654	control_vntr_matched	pass	0	7	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 135544935: 0|1 -> 1/0	
+unphase_swapped	eq0	L014111	control_vntr_matched	pass	0	303	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 162199390: 0|1 -> 1/0	
+unphase_swapped	eq0	L007687	control_vntr_matched	pass	0	175	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 936684: 1|0 -> 0/1	
+unphase_swapped	eq0	L012313	control_vntr_matched	pass	0	212	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 1191234: 1|0 -> 0/1	
+unphase_swapped	eq0	TR446002	control_vntr_matched	pass	0	15	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 101136783: 0|1 -> 1/0	
+unphase_swapped	eq0	L001899	control_vntr_matched	pass	0	183	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 125491406: 0|1 -> 1/0	
+unphase_swapped	eq0	L001491	control_vntr_correct	pass	0	914	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 27326362: 1|0 -> 0/1	
+unphase_swapped	eq0	L011224	control_vntr_correct	pass	0	535	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 7359212: 0|1 -> 1/0	
+unphase_swapped	eq0	L010508	control_vntr_correct	pass	0	75	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 75831613: 1|0 -> 0/1	
+unphase_swapped	eq0	L001922	control_vntr_correct	pass	0	1423	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 128695696: 1|0 -> 0/1	
+unphase_swapped	eq0	L014426	control_vntr_correct	pass	0	552	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 1690598: 0|1 -> 1/0	
+unphase_swapped	eq0	L000407	control_vntr_correct	pass	0	95	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 58607761: 1|0 -> 0/1	
+unphase_swapped	eq0	L008887	control_vntr_correct	pass	0	723	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 239772813: 1|0 -> 0/1	
+unphase_swapped	eq0	L013000	control_vntr_correct	pass	0	1602	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 142527180: 0|1 -> 1/0	
+unphase_swapped	eq0	L003672	control_vntr_correct	pass	0	246	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 131076622: 0|1 -> 1/0	
+unphase_swapped	eq0	L008902	control_vntr_correct	pass	0	294	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 240408497: 0|1 -> 1/0	
+unphase_swapped	eq0	L015743	control_vntr_correct	pass	0	5098	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 59647870: 0|1 -> 1/0	
+unphase_swapped	eq0	L016523	control_vntr_correct	pass	0	142	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 101222533: 1|0 -> 0/1	
+unphase_swapped	eq0	L016062	control_vntr_correct	pass	0	61	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 135615740: 0|1 -> 1/0	
+unphase_swapped	eq0	L010113	control_vntr_correct	pass	0	107	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 50526693: 1|0 -> 0/1	
+unphase_swapped	eq0	L015285	control_vntr_correct	pass	0	205	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 159037859: 1|0 -> 0/1	
+unphase_swapped	eq0	L016830	control_vntr_correct	pass	0	2221	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 149339459: 1|0 -> 0/1	
+unphase_swapped	eq0	L003828	hotspot_other	pass	0	7178	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 26280863: 0|1 -> 1/0	
+unphase_swapped	eq0	L015904	hotspot_other	pass	0	1764	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 101551881: 1|0 -> 0/1	
+unphase_swapped	eq0	L015847	hotspot_other	pass	0	3302	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 87279137: 1|0 -> 0/1	
+unphase_swapped	eq0	L008877	hotspot_other	pass	0	4243	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 239361275: 1|0 -> 0/1	
+unphase_swapped	eq0	L012256	hotspot_other	pass	0	2048	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 336829: 1|0 -> 0/1	
+unphase_swapped	eq0	L004989	hotspot_other	pass	0	1132	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 25130122: 1|0 -> 0/1	
+unphase_swapped	eq0	L007798	hotspot_other	pass	0	2691	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 5043611: 0|1 -> 1/0	
+unphase_swapped	eq0	L013531	hotspot_other	pass	0	1836	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 37332143: 0|1 -> 1/0	
+unphase_swapped	eq0	L005261	hotspot_other	pass	0	1272	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 87079994: 0|1 -> 1/0	
+unphase_swapped	eq0	L005618	hotspot_other	pass	0	2474	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 27416739: 1|0 -> 0/1	
+unphase_swapped	eq0	L012489	hotspot_other	pass	0	384	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 19223595: 0|1 -> 1/0	
+unphase_swapped	eq0	L007844	hotspot_other	pass	0	3063	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 10428376: 1|0 -> 0/1	
+unphase_swapped	eq0	L007161	hotspot_other	pass	0	717	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 3309274: 1|0 -> 0/1	
+unphase_swapped	eq0	L010060	hotspot_other	pass	0	187	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 49114980: 1|0 -> 0/1	
+unphase_swapped	eq0	L004848	hotspot_other	pass	0	306	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 94160101: 0|1 -> 1/0	
+unphase_swapped	eq0	L007480	hotspot_other	pass	0	259	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 51830144: 0|1 -> 1/0	
+unphase_swapped	eq0	L005064	hotspot_other	pass	0	296	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 43271459: 0|1 -> 1/0	
+unphase_swapped	eq0	L003695	hotspot_other	pass	0	430	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 131520222: 0|1 -> 1/0	
+unphase_swapped	eq0	L013064	hotspot_other	pass	0	512	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 155566422: 1|0 -> 0/1	
+unphase_swapped	eq0	L002940	hotspot_other	pass	0	1063	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 1116417: 0|1 -> 1/0	
+unphase_swapped	eq0	L007184	hotspot_other	pass	0	489	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 5117762: 0|1 -> 1/0	
+unphase_swapped	eq0	L015708	hotspot_other	pass	0	68	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 54326330: 0|1 -> 1/0	
+unphase_swapped	eq0	L016040	control_nontr_sv	pass	0	65	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 131906945: 1|0 -> 0/1	
+unphase_swapped	eq0	L006556	control_nontr_sv	pass	0	307	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 83505627: 1|0 -> 0/1	
+unphase_swapped	eq0	L008631	control_nontr_sv	pass	0	336	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 195693363: 0|1 -> 1/0	
+unphase_swapped	eq0	L012530	control_nontr_sv	pass	0	123	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 26705356: 1|0 -> 0/1	
+unphase_swapped	eq0	L011931	control_nontr_sv	pass	0	837	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 154743593: 1|0 -> 0/1	
+unphase_swapped	eq0	L004620	control_nontr_sv	pass	0	313	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 45459028: 1|0 -> 0/1	
+unphase_swapped	eq0	L014899	control_nontr_sv	pass	0	51	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 95511612: 1|0 -> 0/1	
+unphase_swapped	eq0	L001527	control_nontr_sv	pass	0	297	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 33232324: 1|0 -> 0/1	
+unphase_swapped	eq0	L002292	control_nontr_sv	pass	0	1479	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 17287356: 0|1 -> 1/0	
+unphase_swapped	eq0	L009283	control_nontr_sv	pass	0	135	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 57414159: 0|1 -> 1/0	
+unphase_swapped	eq0	L003883	control_nontr_sv	pass	0	2886	unphased_het_records;phase_optimised_enumerated	0	0	swapped and unphased record at 37702900: 1|0 -> 0/1	
+ps_split_swapped	eq0	L001909	hotspot_vntr	pass	0	7652	phase_optimised_enumerated	0	0	records from 127836596 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L009000	hotspot_vntr	pass	0	19625	phase_optimised_enumerated	0	0	records from 1898505 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007009	hotspot_vntr	pass	0	13050	phase_optimised_enumerated	0	0	records from 79255558 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L009658	hotspot_vntr	pass	0	8714	phase_optimised_enumerated	0	0	records from 41609886 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L005990	hotspot_vntr	pass	0	846	phase_optimised_enumerated	0	0	records from 371292 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L012184	hotspot_vntr	pass	0	8317	phase_optimised_enumerated	0	0	records from 191500127 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L005411	hotspot_vntr	pass	0	2444	phase_optimised_enumerated	0	0	records from 865559 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L002013	hotspot_vntr	pass	0	2458	phase_optimised_enumerated	0	0	records from 133308339 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L000289	hotspot_vntr	pass	0	3498	phase_optimised_enumerated	0	0	records from 31287049 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L001084	hotspot_vntr	pass	0	2530	overlap_skipped_alleles;phase_optimised_enumerated	0	0	records from 235496585 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L010328	hotspot_vntr	pass	0	2504	phase_optimised_enumerated	0	0	records from 38089233 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L009803	hotspot_vntr	pass	0	4745	phase_optimised_enumerated	0	0	records from 18547121 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L013244	hotspot_vntr	pass	0	1558	phase_optimised_enumerated	0	0	records from 181603194 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L011138	hotspot_vntr	pass	0	7502	phase_optimised_enumerated	0	0	records from 1433915 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L002143	hotspot_vntr	pass	0	865	phase_optimised_enumerated	0	0	records from 1168314 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007040	hotspot_vntr	pass	0	31963	phase_optimised_enumerated	0	0	records from 79876913 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L008864	hotspot_vntr	pass	0	3694	phase_optimised_enumerated	0	0	records from 238034581 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L015347	hotspot_vntr	pass	0	12274	phase_optimised_enumerated	0	0	records from 159813282 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L012294	hotspot_vntr	pass	0	1476	phase_optimised_enumerated	0	0	records from 976486 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007081	hotspot_vntr	pass	0	4677	phase_optimised_enumerated	0	0	records from 325890 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L014160	hotspot_vntr	pass	0	2603	phase_optimised_enumerated	0	0	records from 167662556 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L002096	hotspot_vntr	pass	0	4219	phase_optimised_enumerated	0	0	records from 447135 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L015331	hotspot_vntr	pass	0	1547	phase_optimised_enumerated	0	0	records from 159566336 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L005481	hotspot_vntr	pass	0	647	phase_optimised_enumerated	0	0	records from 4372271 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L014358	hotspot_vntr	pass	0	1231	phase_optimised_enumerated	0	0	records from 570299 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L004145	hotspot_vntr	pass	0	4581	phase_optimised_enumerated	0	0	records from 85454603 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L009448	hotspot_vntr	pass	0	3218	phase_optimised_enumerated	0	0	records from 65511227 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L000034	hotspot_vntr	pass	0	1166	phase_optimised_enumerated	0	0	records from 1557886 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L006952	hotspot_vntr	pass	0	1957	phase_optimised_enumerated	0	0	records from 77484977 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L008216	hotspot_vntr	pass	0	460	phase_optimised_enumerated	0	0	records from 108290264 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L008976	hotspot_vntr	pass	0	10187	phase_optimised_enumerated	0	0	records from 242518434 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L014210	hotspot_vntr	pass	0	2443	phase_optimised_enumerated	0	0	records from 169578436 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L001264	hotspot_vntr	pass	0	2755	phase_optimised_enumerated	0	0	records from 1235432 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L012272	hotspot_vntr	pass	0	7022	phase_optimised_enumerated	0	0	records from 563448 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L015415	hotspot_vntr	pass	0	2621	phase_optimised_enumerated	0	0	records from 771462 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L011463	hotspot_vntr	pass	0	2411	phase_optimised_enumerated	0	0	records from 44993254 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L002182	hotspot_vntr	pass	0	1748	phase_optimised_enumerated	0	0	records from 1755141 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L009656	hotspot_vntr	pass	0	673	phase_optimised_enumerated	0	0	records from 41566272 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L009398	hotspot_vntr	pass	0	1211	phase_optimised_enumerated	0	0	records from 64830841 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007376	control_vntr_matched	pass	0	682	phase_optimised_enumerated	0	0	records from 36931701 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L000709	control_vntr_matched	pass	0	238	phase_optimised_enumerated	0	0	records from 151491231 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L010350	control_vntr_matched	pass	0	225	phase_optimised_enumerated	0	0	records from 43029679 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007172	control_vntr_matched	pass	0	338	phase_optimised_enumerated	0	0	records from 4019502 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L011430	control_vntr_matched	pass	0	276	phase_optimised_enumerated	0	0	records from 39782983 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L000381	control_vntr_matched	pass	0	548	phase_optimised_enumerated	0	0	records from 52983463 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007065	control_vntr_matched	pass	0	73	phase_optimised_enumerated	0	0	records from 80171733 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L000308	control_vntr_matched	pass	0	2123	phase_optimised_enumerated	0	0	records from 36822201 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	TR368009	control_vntr_matched	pass	0	7	phase_optimised_enumerated	0	0	records from 102359437 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L004021	control_vntr_matched	pass	0	222	phase_optimised_enumerated	0	0	records from 63061134 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L003826	control_vntr_matched	pass	0	121	phase_optimised_enumerated	0	0	records from 25687267 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L003872	control_vntr_matched	pass	0	290	phase_optimised_enumerated	0	0	records from 34980554 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L011227	control_vntr_matched	pass	0	170	phase_optimised_enumerated	0	0	records from 7427040 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	TR743754	control_vntr_matched	pass	0	7	phase_optimised_enumerated	0	0	records from 22112109 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L016124	control_vntr_matched	pass	0	299	phase_optimised_enumerated	0	0	records from 143120949 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	TR455654	control_vntr_matched	pass	0	7	phase_optimised_enumerated	0	0	records from 135544935 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L014111	control_vntr_matched	pass	0	303	phase_optimised_enumerated	0	0	records from 162199390 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007687	control_vntr_matched	pass	0	175	phase_optimised_enumerated	0	0	records from 936684 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L012313	control_vntr_matched	pass	0	212	phase_optimised_enumerated	0	0	records from 1191234 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	TR446002	control_vntr_matched	pass	0	15	phase_optimised_enumerated	0	0	records from 101136783 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L001899	control_vntr_matched	pass	0	183	phase_optimised_enumerated	0	0	records from 125491406 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L001491	control_vntr_correct	pass	0	914	phase_optimised_enumerated	0	0	records from 27326362 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L011224	control_vntr_correct	pass	0	535	phase_optimised_enumerated	0	0	records from 7359212 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L010508	control_vntr_correct	pass	0	75	phase_optimised_enumerated	0	0	records from 75831613 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L001922	control_vntr_correct	pass	0	1423	phase_optimised_enumerated	0	0	records from 128695696 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L014426	control_vntr_correct	pass	0	552	phase_optimised_enumerated	0	0	records from 1690598 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L000407	control_vntr_correct	pass	0	95	phase_optimised_enumerated	0	0	records from 58607761 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L008887	control_vntr_correct	pass	0	723	phase_optimised_enumerated	0	0	records from 239772813 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L013000	control_vntr_correct	pass	0	1602	phase_optimised_enumerated	0	0	records from 142527180 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L003672	control_vntr_correct	pass	0	246	phase_optimised_enumerated	0	0	records from 131076622 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L008902	control_vntr_correct	pass	0	294	phase_optimised_enumerated	0	0	records from 240408497 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L015743	control_vntr_correct	pass	0	5098	phase_optimised_enumerated	0	0	records from 59647870 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L016523	control_vntr_correct	pass	0	142	phase_optimised_enumerated	0	0	records from 101222533 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L016062	control_vntr_correct	pass	0	61	phase_optimised_enumerated	0	0	records from 135615740 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L010113	control_vntr_correct	pass	0	107	phase_optimised_enumerated	0	0	records from 50526693 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L015285	control_vntr_correct	pass	0	205	phase_optimised_enumerated	0	0	records from 159037859 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L016830	control_vntr_correct	pass	0	2221	phase_optimised_enumerated	0	0	records from 149339459 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L003828	hotspot_other	pass	0	7178	phase_optimised_enumerated	0	0	records from 26280863 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L015904	hotspot_other	pass	0	1764	phase_optimised_enumerated	0	0	records from 101551881 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L015847	hotspot_other	pass	0	3302	phase_optimised_enumerated	0	0	records from 87279137 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L008877	hotspot_other	pass	0	4243	phase_optimised_enumerated	0	0	records from 239361275 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L012256	hotspot_other	pass	0	2048	phase_optimised_enumerated	0	0	records from 336829 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L004989	hotspot_other	pass	0	1132	phase_optimised_enumerated	0	0	records from 25130122 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007798	hotspot_other	pass	0	2691	phase_optimised_enumerated	0	0	records from 5043611 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L013531	hotspot_other	pass	0	1836	phase_optimised_enumerated	0	0	records from 37332143 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L005261	hotspot_other	pass	0	1272	phase_optimised_enumerated	0	0	records from 87079994 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L005618	hotspot_other	pass	0	2474	phase_optimised_enumerated	0	0	records from 27416739 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L012489	hotspot_other	pass	0	384	phase_optimised_enumerated	0	0	records from 19223595 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007844	hotspot_other	pass	0	3063	phase_optimised_enumerated	0	0	records from 10428376 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007161	hotspot_other	pass	0	717	phase_optimised_enumerated	0	0	records from 3309274 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L010060	hotspot_other	pass	0	187	phase_optimised_enumerated	0	0	records from 49114980 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L004848	hotspot_other	pass	0	306	phase_optimised_enumerated	0	0	records from 94160101 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007480	hotspot_other	pass	0	259	phase_optimised_enumerated	0	0	records from 51830144 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L005064	hotspot_other	pass	0	296	phase_optimised_enumerated	0	0	records from 43271459 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L003695	hotspot_other	pass	0	430	phase_optimised_enumerated	0	0	records from 131520222 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L013064	hotspot_other	pass	0	512	phase_optimised_enumerated	0	0	records from 155566422 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L002940	hotspot_other	pass	0	1063	phase_optimised_enumerated	0	0	records from 1116417 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L007184	hotspot_other	pass	0	489	phase_optimised_enumerated	0	0	records from 5117762 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L015708	hotspot_other	pass	0	68	phase_optimised_enumerated	0	0	records from 54326330 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L016040	control_nontr_sv	pass	0	65	phase_optimised_enumerated	0	0	records from 131906945 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L006556	control_nontr_sv	pass	0	307	phase_optimised_enumerated	0	0	records from 83505627 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L008631	control_nontr_sv	pass	0	336	phase_optimised_enumerated	0	0	records from 195693363 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L012530	control_nontr_sv	pass	0	123	phase_optimised_enumerated	0	0	records from 26705356 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L011931	control_nontr_sv	pass	0	837	phase_optimised_enumerated	0	0	records from 154743593 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L004620	control_nontr_sv	pass	0	313	phase_optimised_enumerated	0	0	records from 45459028 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L014899	control_nontr_sv	pass	0	51	phase_optimised_enumerated	0	0	records from 95511612 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L001527	control_nontr_sv	pass	0	297	phase_optimised_enumerated	0	0	records from 33232324 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L002292	control_nontr_sv	pass	0	1479	phase_optimised_enumerated	0	0	records from 17287356 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L009283	control_nontr_sv	pass	0	135	phase_optimised_enumerated	0	0	records from 57414159 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped	eq0	L003883	control_nontr_sv	pass	0	2886	phase_optimised_enumerated	0	0	records from 37702900 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L001909	hotspot_vntr	pass	0	7652	phase_optimised_greedy;phase_greedy	0	0	records from 127836596 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L009000	hotspot_vntr	pass	0	19625	phase_optimised_greedy;phase_greedy	0	0	records from 1898505 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007009	hotspot_vntr	pass	0	13050	phase_optimised_greedy;phase_greedy	0	0	records from 79255558 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L009658	hotspot_vntr	pass	0	8714	phase_optimised_greedy;phase_greedy	0	0	records from 41609886 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L005990	hotspot_vntr	pass	0	846	phase_optimised_greedy;phase_greedy	0	0	records from 371292 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L012184	hotspot_vntr	pass	0	8317	phase_optimised_greedy;phase_greedy	0	0	records from 191500127 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L005411	hotspot_vntr	pass	0	2444	phase_optimised_greedy;phase_greedy	0	0	records from 865559 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L002013	hotspot_vntr	pass	0	2458	phase_optimised_greedy;phase_greedy	0	0	records from 133308339 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L000289	hotspot_vntr	pass	0	3498	phase_optimised_greedy;phase_greedy	0	0	records from 31287049 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L001084	hotspot_vntr	pass	0	2530	overlap_skipped_alleles;phase_optimised_greedy;phase_greedy	0	0	records from 235496585 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L010328	hotspot_vntr	pass	0	2504	phase_optimised_greedy;phase_greedy	0	0	records from 38089233 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L009803	hotspot_vntr	pass	0	4745	phase_optimised_greedy;phase_greedy	0	0	records from 18547121 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L013244	hotspot_vntr	pass	0	1558	phase_optimised_greedy;phase_greedy	0	0	records from 181603194 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L011138	hotspot_vntr	pass	0	7502	phase_optimised_greedy;phase_greedy	0	0	records from 1433915 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L002143	hotspot_vntr	pass	0	865	phase_optimised_greedy;phase_greedy	0	0	records from 1168314 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007040	hotspot_vntr	pass	0	31963	phase_optimised_greedy;phase_greedy	0	0	records from 79876913 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L008864	hotspot_vntr	pass	0	3694	phase_optimised_greedy;phase_greedy	0	0	records from 238034581 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L015347	hotspot_vntr	pass	0	12274	phase_optimised_greedy;phase_greedy	0	0	records from 159813282 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L012294	hotspot_vntr	pass	0	1476	phase_optimised_greedy;phase_greedy	0	0	records from 976486 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007081	hotspot_vntr	pass	0	4677	phase_optimised_greedy;phase_greedy	0	0	records from 325890 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L014160	hotspot_vntr	pass	0	2603	phase_optimised_greedy;phase_greedy	0	0	records from 167662556 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L002096	hotspot_vntr	pass	0	4219	phase_optimised_greedy;phase_greedy	0	0	records from 447135 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L015331	hotspot_vntr	pass	0	1547	phase_optimised_greedy;phase_greedy	0	0	records from 159566336 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L005481	hotspot_vntr	pass	0	647	phase_optimised_greedy;phase_greedy	0	0	records from 4372271 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L014358	hotspot_vntr	pass	0	1231	phase_optimised_greedy;phase_greedy	0	0	records from 570299 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L004145	hotspot_vntr	pass	0	4581	phase_optimised_greedy;phase_greedy	0	0	records from 85454603 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L009448	hotspot_vntr	pass	0	3218	phase_optimised_greedy;phase_greedy	0	0	records from 65511227 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L000034	hotspot_vntr	pass	0	1166	phase_optimised_greedy;phase_greedy	0	0	records from 1557886 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L006952	hotspot_vntr	pass	0	1957	phase_optimised_greedy;phase_greedy	0	0	records from 77484977 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L008216	hotspot_vntr	pass	0	460	phase_optimised_greedy;phase_greedy	0	0	records from 108290264 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L008976	hotspot_vntr	pass	0	10187	phase_optimised_greedy;phase_greedy	0	0	records from 242518434 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L014210	hotspot_vntr	pass	0	2443	phase_optimised_greedy;phase_greedy	0	0	records from 169578436 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L001264	hotspot_vntr	pass	0	2755	phase_optimised_greedy;phase_greedy	0	0	records from 1235432 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L012272	hotspot_vntr	pass	0	7022	phase_optimised_greedy;phase_greedy	0	0	records from 563448 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L015415	hotspot_vntr	pass	0	2621	phase_optimised_greedy;phase_greedy	0	0	records from 771462 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L011463	hotspot_vntr	pass	0	2411	phase_optimised_greedy;phase_greedy	0	0	records from 44993254 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L002182	hotspot_vntr	pass	0	1748	phase_optimised_greedy;phase_greedy	0	0	records from 1755141 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L009656	hotspot_vntr	pass	0	673	phase_optimised_greedy;phase_greedy	0	0	records from 41566272 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L009398	hotspot_vntr	pass	0	1211	phase_optimised_greedy;phase_greedy	0	0	records from 64830841 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007376	control_vntr_matched	pass	0	682	phase_optimised_greedy;phase_greedy	0	0	records from 36931701 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L000709	control_vntr_matched	pass	0	238	phase_optimised_greedy;phase_greedy	0	0	records from 151491231 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L010350	control_vntr_matched	pass	0	225	phase_optimised_greedy;phase_greedy	0	0	records from 43029679 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007172	control_vntr_matched	pass	0	338	phase_optimised_greedy;phase_greedy	0	0	records from 4019502 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L011430	control_vntr_matched	pass	0	276	phase_optimised_greedy;phase_greedy	0	0	records from 39782983 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L000381	control_vntr_matched	pass	0	548	phase_optimised_greedy;phase_greedy	0	0	records from 52983463 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007065	control_vntr_matched	pass	0	73	phase_optimised_greedy;phase_greedy	0	0	records from 80171733 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L000308	control_vntr_matched	pass	0	2123	phase_optimised_greedy;phase_greedy	0	0	records from 36822201 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	TR368009	control_vntr_matched	pass	0	7	phase_optimised_greedy;phase_greedy	0	0	records from 102359437 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L004021	control_vntr_matched	pass	0	222	phase_optimised_greedy;phase_greedy	0	0	records from 63061134 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L003826	control_vntr_matched	pass	0	121	phase_optimised_greedy;phase_greedy	0	0	records from 25687267 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L003872	control_vntr_matched	pass	0	290	phase_optimised_greedy;phase_greedy	0	0	records from 34980554 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L011227	control_vntr_matched	pass	0	170	phase_optimised_greedy;phase_greedy	0	0	records from 7427040 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	TR743754	control_vntr_matched	pass	0	7	phase_optimised_greedy;phase_greedy	0	0	records from 22112109 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L016124	control_vntr_matched	pass	0	299	phase_optimised_greedy;phase_greedy	0	0	records from 143120949 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	TR455654	control_vntr_matched	pass	0	7	phase_optimised_greedy;phase_greedy	0	0	records from 135544935 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L014111	control_vntr_matched	pass	0	303	phase_optimised_greedy;phase_greedy	0	0	records from 162199390 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007687	control_vntr_matched	pass	0	175	phase_optimised_greedy;phase_greedy	0	0	records from 936684 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L012313	control_vntr_matched	pass	0	212	phase_optimised_greedy;phase_greedy	0	0	records from 1191234 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	TR446002	control_vntr_matched	pass	0	15	phase_optimised_greedy;phase_greedy	0	0	records from 101136783 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L001899	control_vntr_matched	pass	0	183	phase_optimised_greedy;phase_greedy	0	0	records from 125491406 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L001491	control_vntr_correct	pass	0	914	phase_optimised_greedy;phase_greedy	0	0	records from 27326362 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L011224	control_vntr_correct	pass	0	535	phase_optimised_greedy;phase_greedy	0	0	records from 7359212 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L010508	control_vntr_correct	pass	0	75	phase_optimised_greedy;phase_greedy	0	0	records from 75831613 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L001922	control_vntr_correct	pass	0	1423	phase_optimised_greedy;phase_greedy	0	0	records from 128695696 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L014426	control_vntr_correct	pass	0	552	phase_optimised_greedy;phase_greedy	0	0	records from 1690598 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L000407	control_vntr_correct	pass	0	95	phase_optimised_greedy;phase_greedy	0	0	records from 58607761 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L008887	control_vntr_correct	pass	0	723	phase_optimised_greedy;phase_greedy	0	0	records from 239772813 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L013000	control_vntr_correct	pass	0	1602	phase_optimised_greedy;phase_greedy	0	0	records from 142527180 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L003672	control_vntr_correct	pass	0	246	phase_optimised_greedy;phase_greedy	0	0	records from 131076622 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L008902	control_vntr_correct	pass	0	294	phase_optimised_greedy;phase_greedy	0	0	records from 240408497 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L015743	control_vntr_correct	pass	0	5098	phase_optimised_greedy;phase_greedy	0	0	records from 59647870 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L016523	control_vntr_correct	pass	0	142	phase_optimised_greedy;phase_greedy	0	0	records from 101222533 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L016062	control_vntr_correct	pass	0	61	phase_optimised_greedy;phase_greedy	0	0	records from 135615740 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L010113	control_vntr_correct	pass	0	107	phase_optimised_greedy;phase_greedy	0	0	records from 50526693 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L015285	control_vntr_correct	pass	0	205	phase_optimised_greedy;phase_greedy	0	0	records from 159037859 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L016830	control_vntr_correct	pass	0	2221	phase_optimised_greedy;phase_greedy	0	0	records from 149339459 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L003828	hotspot_other	pass	0	7178	phase_optimised_greedy;phase_greedy	0	0	records from 26280863 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L015904	hotspot_other	pass	0	1764	phase_optimised_greedy;phase_greedy	0	0	records from 101551881 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L015847	hotspot_other	pass	0	3302	phase_optimised_greedy;phase_greedy	0	0	records from 87279137 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L008877	hotspot_other	pass	0	4243	phase_optimised_greedy;phase_greedy	0	0	records from 239361275 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L012256	hotspot_other	pass	0	2048	phase_optimised_greedy;phase_greedy	0	0	records from 336829 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L004989	hotspot_other	pass	0	1132	phase_optimised_greedy;phase_greedy	0	0	records from 25130122 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007798	hotspot_other	pass	0	2691	phase_optimised_greedy;phase_greedy	0	0	records from 5043611 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L013531	hotspot_other	pass	0	1836	phase_optimised_greedy;phase_greedy	0	0	records from 37332143 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L005261	hotspot_other	pass	0	1272	phase_optimised_greedy;phase_greedy	0	0	records from 87079994 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L005618	hotspot_other	pass	0	2474	phase_optimised_greedy;phase_greedy	0	0	records from 27416739 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L012489	hotspot_other	pass	0	384	phase_optimised_greedy;phase_greedy	0	0	records from 19223595 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007844	hotspot_other	pass	0	3063	phase_optimised_greedy;phase_greedy	0	0	records from 10428376 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007161	hotspot_other	pass	0	717	phase_optimised_greedy;phase_greedy	0	0	records from 3309274 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L010060	hotspot_other	pass	0	187	phase_optimised_greedy;phase_greedy	0	0	records from 49114980 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L004848	hotspot_other	pass	0	306	phase_optimised_greedy;phase_greedy	0	0	records from 94160101 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007480	hotspot_other	pass	0	259	phase_optimised_greedy;phase_greedy	0	0	records from 51830144 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L005064	hotspot_other	pass	0	296	phase_optimised_greedy;phase_greedy	0	0	records from 43271459 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L003695	hotspot_other	pass	0	430	phase_optimised_greedy;phase_greedy	0	0	records from 131520222 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L013064	hotspot_other	pass	0	512	phase_optimised_greedy;phase_greedy	0	0	records from 155566422 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L002940	hotspot_other	pass	0	1063	phase_optimised_greedy;phase_greedy	0	0	records from 1116417 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L007184	hotspot_other	pass	0	489	phase_optimised_greedy;phase_greedy	0	0	records from 5117762 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L015708	hotspot_other	pass	0	68	phase_optimised_greedy;phase_greedy	0	0	records from 54326330 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L016040	control_nontr_sv	pass	0	65	phase_optimised_greedy;phase_greedy	0	0	records from 131906945 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L006556	control_nontr_sv	pass	0	307	phase_optimised_greedy;phase_greedy	0	0	records from 83505627 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L008631	control_nontr_sv	pass	0	336	phase_optimised_greedy;phase_greedy	0	0	records from 195693363 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L012530	control_nontr_sv	pass	0	123	phase_optimised_greedy;phase_greedy	0	0	records from 26705356 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L011931	control_nontr_sv	pass	0	837	phase_optimised_greedy;phase_greedy	0	0	records from 154743593 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L004620	control_nontr_sv	pass	0	313	phase_optimised_greedy;phase_greedy	0	0	records from 45459028 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L014899	control_nontr_sv	pass	0	51	phase_optimised_greedy;phase_greedy	0	0	records from 95511612 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L001527	control_nontr_sv	pass	0	297	phase_optimised_greedy;phase_greedy	0	0	records from 33232324 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L002292	control_nontr_sv	pass	0	1479	phase_optimised_greedy;phase_greedy	0	0	records from 17287356 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L009283	control_nontr_sv	pass	0	135	phase_optimised_greedy;phase_greedy	0	0	records from 57414159 in PS 2 with every GT swapped, the rest PS 1	
+ps_split_swapped_greedy	eq0	L003883	control_nontr_sv	pass	0	2886	phase_optimised_greedy;phase_greedy	0	0	records from 37702900 in PS 2 with every GT swapped, the rest PS 1	

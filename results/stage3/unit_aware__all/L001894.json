@@ -1,0 +1,100 @@
+{
+ "region_id": "L001894",
+ "stratum": "control_vntr_matched",
+ "contig": "chr10",
+ "span_start": 125102969,
+ "span_end": 125109429,
+ "core_start": 125103177,
+ "core_end": 125109117,
+ "label": "unit_aware__all",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/calls/unit_aware__all/L001894.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 6461,
+ "truth_len": [
+  6471,
+  6471
+ ],
+ "called_len": [
+  6471,
+  6471
+ ],
+ "ed": 0,
+ "ed_per_kb": 0.0,
+ "exact": true,
+ "ed_ref": 447,
+ "ed_ref_per_kb": 34.5387,
+ "gain": 1.0,
+ "pairing": "slot1-h1,slot2-h2",
+ "ed_h1": 0,
+ "ed_h2": 0,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 0,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 31,
+  "descendant_before_ancestor_by_pos": 1,
+  "order_changed_by_nesting": 1,
+  "records_in_span": 83,
+  "nonref_records": 83,
+  "overlap_skipped_alleles": [
+   31,
+   31
+  ],
+  "applied_alleles": [
+   51,
+   52
+  ],
+  "applied_under_nonref_parent": [
+   0,
+   0
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 31,
+ "flags": [
+  "overlap_skipped_alleles",
+  "descendant_before_ancestor_by_pos"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 0,
+  "ed_suppress_nested": 0
+ },
+ "edit_distances_computed": 6,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 6461,
+  "span_bp": 6461,
+  "call_sv_records_in_span": 1,
+  "raw_TP-base": 1,
+  "raw_FN": 2,
+  "raw_TP-comp": 1,
+  "raw_FP": 0,
+  "raw_f1": 0.5,
+  "status": "ok",
+  "refined_TP-base": 1,
+  "refined_FN": 2,
+  "refined_TP-comp": 1,
+  "refined_FP": 0,
+  "refined_f1": 0.5,
+  "refined_status": "ok",
+  "refined_seconds": 2.0,
+  "phab_TP-base": 0,
+  "phab_FN": 0,
+  "phab_TP-comp": 0,
+  "phab_FP": 0,
+  "phab_f1": null,
+  "phab_status": "ok",
+  "phab_seconds": 2.1
+ },
+ "seconds": 4.69
+}

@@ -1,0 +1,134 @@
+graph	region_id	stratum	status	n_replicates	d_flank50k	d_ids	d_mcids	noise	blocks	ed	ed_flank50k	ed_ids	ed_mcids	why_mcids
+mc	L009656	hotspot_vntr	ok	2	1003	0		1003	1	2166	2521	2166		not defined (see NOT_DEFINED)
+mc	L014297	hotspot_vntr	ok	2	44	33		44	1	252	226	257		not defined (see NOT_DEFINED)
+mc	L015415	hotspot_vntr	ok	2	0	0		0	1	690	690	690		not defined (see NOT_DEFINED)
+mc	L005990	hotspot_vntr	ok	2	0	0		0	1	6630	6630	6630		not defined (see NOT_DEFINED)
+mc	L012184	hotspot_vntr	ok	2	514	0		514	1	1030	588	1030		not defined (see NOT_DEFINED)
+mc	L002013	hotspot_vntr	ok	2	11	54		54	1	5031	5032	5084		not defined (see NOT_DEFINED)
+mc	L011138	hotspot_vntr	ok	2	2823	2817		2823	1	2561	1617	422		not defined (see NOT_DEFINED)
+mc	L012272	hotspot_vntr	ok	2	52	44		52	1	1311	1353	1355		not defined (see NOT_DEFINED)
+mc	L001909	hotspot_vntr	ok	2	4237	2819		4237	1	7469	3402	7503		not defined (see NOT_DEFINED)
+mc	L016870	hotspot_other	ok	2	0	0		0	0	0	0	0		not defined (see NOT_DEFINED)
+mc	L016124	control_vntr_matched	ok	2	0	0		0	1	0	0	0		not defined (see NOT_DEFINED)
+mc	L007687	control_vntr_matched	ok	2	0	0		0	1	0	0	0		not defined (see NOT_DEFINED)
+mc	L007172	control_vntr_matched	ok	2	0	0		0	1	0	0	0		not defined (see NOT_DEFINED)
+mc	L011430	control_vntr_matched	ok	2	0	0		0	1	0	0	0		not defined (see NOT_DEFINED)
+mc	L007065	control_vntr_matched	ok	2	0	0		0	1	0	0	0		not defined (see NOT_DEFINED)
+mc	L004021	control_vntr_matched	ok	2	0	0		0	1	2	2	2		not defined (see NOT_DEFINED)
+mc	L014111	control_vntr_matched	ok	2	0	0		0	1	0	0	0		not defined (see NOT_DEFINED)
+mc	L000506	control_nontr_sv	ok	2	0	0		0	1	1	1	1		not defined (see NOT_DEFINED)
+mc	L006556	control_nontr_sv	ok	2	0	0		0	1	0	0	0		not defined (see NOT_DEFINED)
+unit_aware__all	L009656	hotspot_vntr	ok	2	53	0		53	1					no replicate call
+unit_aware__all	L014297	hotspot_vntr	ok	3	17	0	17	17	1					
+unit_aware__all	L015415	hotspot_vntr	ok	3	815	0	0	815	1					
+unit_aware__all	L005990	hotspot_vntr	ok	3	256	0	0	256	1					
+unit_aware__all	L012184	hotspot_vntr	ok	3	209	0	0	209	1					
+unit_aware__all	L002013	hotspot_vntr	ok	3	31	0	117	117	1					
+unit_aware__all	L011138	hotspot_vntr	ok	3	484	0	57	484	1					
+unit_aware__all	L012272	hotspot_vntr	ok	3	245	0	8	245	1					
+unit_aware__all	L001909	hotspot_vntr	ok	3	95	0	0	95	1					
+unit_aware__all	L016870	hotspot_other	ok	3	1238	0	0	1238	0					
+unit_aware__all	L016124	control_vntr_matched	ok	3	0	0	0	0	1					
+unit_aware__all	L007687	control_vntr_matched	ok	2	0	0		0	1					no replicate call
+unit_aware__all	L007172	control_vntr_matched	ok	2	0	0		0	1					no replicate call
+unit_aware__all	L011430	control_vntr_matched	ok	3	76	0	0	76	1					
+unit_aware__all	L007065	control_vntr_matched	ok	3	0	0	0	0	1					
+unit_aware__all	L004021	control_vntr_matched	ok	3	0	0	0	0	1					
+unit_aware__all	L014111	control_vntr_matched	ok	2	0	0		0	1					no replicate call
+unit_aware__all	L000506	control_nontr_sv	ok	3	0	0	0	0	1					
+unit_aware__all	L006556	control_nontr_sv	ok	2	0	0		0	1					no replicate call
+mafft_linsi	L009656	hotspot_vntr	ok	3	3	0	0	3	1					
+mafft_linsi	L014297	hotspot_vntr	ok	3	2	0	0	2	1					
+mafft_linsi	L015415	hotspot_vntr	ok	3	2	0	0	2	1					
+mafft_linsi	L005990	hotspot_vntr	ok	3	803	0	0	803	1					
+mafft_linsi	L012184	hotspot_vntr	ok	3	0	0	0	0	1					
+mafft_linsi	L002013	hotspot_vntr	ok	3	118	0	56	118	1					
+mafft_linsi	L011138	hotspot_vntr	ok	3	0	0	0	0	1					
+mafft_linsi	L012272	hotspot_vntr	no Stage 3 call											
+mafft_linsi	L001909	hotspot_vntr	ok	3	8	0	0	8	1					
+mafft_linsi	L016870	hotspot_other	ok	3	0	0	0	0	0					
+mafft_linsi	L016124	control_vntr_matched	ok	3	0	0	0	0	1					
+mafft_linsi	L007687	control_vntr_matched	ok	3	0	0	0	0	1					
+mafft_linsi	L007172	control_vntr_matched	ok	3	0	0	0	0	1					
+mafft_linsi	L011430	control_vntr_matched	ok	3	0	0	0	0	1					
+mafft_linsi	L007065	control_vntr_matched	ok	3	0	0	0	0	1					
+mafft_linsi	L004021	control_vntr_matched	ok	3	2	0	0	2	1					
+mafft_linsi	L014111	control_vntr_matched	ok	3	0	0	0	0	1					
+mafft_linsi	L000506	control_nontr_sv	ok	3	0	0	0	0	1					
+mafft_linsi	L006556	control_nontr_sv	ok	2	310	0		310	1					no replicate call
+unit_aware	L009656	hotspot_vntr	ok	3	26	0	0	26	1					
+unit_aware	L014297	hotspot_vntr	ok	3	0	0	0	0	0					
+unit_aware	L015415	hotspot_vntr	ok	3	0	0	0	0	1					
+unit_aware	L005990	hotspot_vntr	ok	3	412	0	0	412	1					
+unit_aware	L012184	hotspot_vntr	ok	3	758	0	0	758	1					
+unit_aware	L002013	hotspot_vntr	ok	3	932	0	159	932	1					
+unit_aware	L011138	hotspot_vntr	ok	3	184	0	93	184	1					
+unit_aware	L012272	hotspot_vntr	ok	3	29	0	1	29	1					
+unit_aware	L001909	hotspot_vntr	ok	3	239	0	0	239	1					
+unit_aware	L016870	hotspot_other	ok	3	0	0	0	0	0					
+unit_aware	L016124	control_vntr_matched	ok	3	0	0	0	0	1					
+unit_aware	L007687	control_vntr_matched	ok	3	57	0	0	57	1					
+unit_aware	L007172	control_vntr_matched	ok	2	183	0		183	1					no replicate call
+unit_aware	L011430	control_vntr_matched	ok	3	0	0	0	0	1					
+unit_aware	L007065	control_vntr_matched	ok	3	0	0	0	0	1					
+unit_aware	L004021	control_vntr_matched	ok	3	2	0	0	2	1					
+unit_aware	L014111	control_vntr_matched	ok	2	0	0		0	1					no replicate call
+unit_aware	L000506	control_nontr_sv	ok	3	0	0	0	0	1					
+unit_aware	L006556	control_nontr_sv	ok	2	310	0		310	1					no replicate call
+truth	L009656	hotspot_vntr	ok	3	0	0	0	0	1	0	0	0	0	
+truth	L014297	hotspot_vntr	ok	3	0	0	0	0	0	0	0	0	0	
+truth	L015415	hotspot_vntr	ok	3	0	0	0	0	1	0	0	0	0	
+truth	L005990	hotspot_vntr	ok	3	0	0	0	0	1	0	0	0	0	
+truth	L012184	hotspot_vntr	ok	3	0	0	0	0	1	763	763	763	763	
+truth	L002013	hotspot_vntr	ok	3	0	0	0	0	1	36	36	36	36	
+truth	L011138	hotspot_vntr	ok	3	0	0	0	0	1	88	88	88	88	
+truth	L012272	hotspot_vntr	ok	3	1034	0	0	1034	1	53	1087	53	53	
+truth	L001909	hotspot_vntr	ok	3	0	0	0	0	1	1	1	1	1	
+truth	L016870	hotspot_other	ok	3	0	0	0	0	0	0	0	0	0	
+truth	L016124	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+truth	L007687	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+truth	L007172	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+truth	L011430	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+truth	L007065	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+truth	L004021	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+truth	L014111	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+truth	L000506	control_nontr_sv	ok	3	0	0	0	0	1	0	0	0	0	
+truth	L006556	control_nontr_sv	ok	2	0	0		0	1	310	310	310		no replicate call
+mc_relabel	L009656	hotspot_vntr	ok	1	1003			1003	1	2166	2521			not defined (see NOT_DEFINED)
+mc_relabel	L014297	hotspot_vntr	ok	1	36			36	1	257	228			not defined (see NOT_DEFINED)
+mc_relabel	L015415	hotspot_vntr	ok	1	0			0	1	690	690			not defined (see NOT_DEFINED)
+mc_relabel	L005990	hotspot_vntr	ok	1	0			0	1	6630	6630			not defined (see NOT_DEFINED)
+mc_relabel	L012184	hotspot_vntr	ok	1	534			534	1	1030	569			not defined (see NOT_DEFINED)
+mc_relabel	L002013	hotspot_vntr	ok	1	11			11	1	5084	5084			not defined (see NOT_DEFINED)
+mc_relabel	L011138	hotspot_vntr	ok	1	1858			1858	1	422	1617			not defined (see NOT_DEFINED)
+mc_relabel	L012272	hotspot_vntr	ok	1	138			138	1	1355	1482			not defined (see NOT_DEFINED)
+mc_relabel	L001909	hotspot_vntr	ok	1	1376			1376	1	7503	7522			not defined (see NOT_DEFINED)
+mc_relabel	L016870	hotspot_other	ok	1	0			0	0	0	0			not defined (see NOT_DEFINED)
+mc_relabel	L016124	control_vntr_matched	ok	1	0			0	1	0	0			not defined (see NOT_DEFINED)
+mc_relabel	L007687	control_vntr_matched	ok	1	0			0	1	0	0			not defined (see NOT_DEFINED)
+mc_relabel	L007172	control_vntr_matched	ok	1	0			0	1	0	0			not defined (see NOT_DEFINED)
+mc_relabel	L011430	control_vntr_matched	ok	1	0			0	1	0	0			not defined (see NOT_DEFINED)
+mc_relabel	L007065	control_vntr_matched	ok	1	0			0	1	0	0			not defined (see NOT_DEFINED)
+mc_relabel	L004021	control_vntr_matched	ok	1	0			0	1	2	2			not defined (see NOT_DEFINED)
+mc_relabel	L014111	control_vntr_matched	ok	1	0			0	1	0	0			not defined (see NOT_DEFINED)
+mc_relabel	L000506	control_nontr_sv	ok	1	0			0	1	1	1			not defined (see NOT_DEFINED)
+mc_relabel	L006556	control_nontr_sv	ok	1	0			0	1	0	0			not defined (see NOT_DEFINED)
+mc_unchop	L009656	hotspot_vntr	ok	3	808	0	0	808	1	3504	3269	3504	3504	
+mc_unchop	L014297	hotspot_vntr	ok	3	0	0	0	0	1	257	257	257	257	
+mc_unchop	L015415	hotspot_vntr	ok	3	478	0	0	478	1	690	212	690	690	
+mc_unchop	L005990	hotspot_vntr	ok	3	0	0	0	0	1	4518	4518	4518	4518	
+mc_unchop	L012184	hotspot_vntr	ok	3	752	0	0	752	1	236	798	236	236	
+mc_unchop	L002013	hotspot_vntr	ok	3	51	0	3080	3080	1	5096	5060	5096	5030	
+mc_unchop	L011138	hotspot_vntr	ok	3	4189	0	0	4189	1	1977	2405	1977	1977	
+mc_unchop	L012272	hotspot_vntr	ok	3	43	0	1	43	1	199	168	199	198	
+mc_unchop	L001909	hotspot_vntr	ok	3	1881	0	0	1881	1	6612	5479	6612	6612	
+mc_unchop	L016870	hotspot_other	ok	3	0	0	0	0	0	0	0	0	0	
+mc_unchop	L016124	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+mc_unchop	L007687	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+mc_unchop	L007172	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+mc_unchop	L011430	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+mc_unchop	L007065	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+mc_unchop	L004021	control_vntr_matched	ok	3	0	0	0	0	1	2	2	2	2	
+mc_unchop	L014111	control_vntr_matched	ok	3	0	0	0	0	1	0	0	0	0	
+mc_unchop	L000506	control_nontr_sv	ok	3	0	0	0	0	1	1	1	1	1	
+mc_unchop	L006556	control_nontr_sv	ok	3	0	0	0	0	1	0	0	0	0	

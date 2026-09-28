@@ -1,0 +1,103 @@
+{
+ "region_id": "L009658",
+ "stratum": "hotspot_vntr",
+ "contig": "chr21",
+ "span_start": 41607292,
+ "span_end": 41618122,
+ "core_start": 41607553,
+ "core_end": 41617919,
+ "label": "mafft_linsi",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/calls/mafft_linsi/L009658.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 10831,
+ "truth_len": [
+  7378,
+  5627
+ ],
+ "called_len": [
+  7491,
+  6641
+ ],
+ "ed": 1441,
+ "ed_per_kb": 110.8035,
+ "exact": false,
+ "ed_ref": 8714,
+ "ed_ref_per_kb": 670.05,
+ "gain": 0.83463,
+ "pairing": "slot1-h1,slot2-h2",
+ "ed_h1": 314,
+ "ed_h2": 1127,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 1441,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 313,
+  "descendant_before_ancestor_by_pos": 1,
+  "order_changed_by_nesting": 1,
+  "records_in_span": 383,
+  "nonref_records": 383,
+  "missing_alleles_as_ref": 108,
+  "overlap_skipped_alleles": [
+   235,
+   45
+  ],
+  "applied_alleles": [
+   11,
+   163
+  ],
+  "applied_under_nonref_parent": [
+   1,
+   1
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 561,
+ "flags": [
+  "missing_alleles_as_ref",
+  "overlap_skipped_alleles",
+  "descendant_before_ancestor_by_pos",
+  "applied_under_nonref_parent"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 1441,
+  "ed_suppress_nested": 1430
+ },
+ "edit_distances_computed": 10,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 10831,
+  "span_bp": 10831,
+  "call_sv_records_in_span": 20,
+  "raw_TP-base": 6,
+  "raw_FN": 10,
+  "raw_TP-comp": 5,
+  "raw_FP": 15,
+  "raw_f1": 0.3,
+  "status": "ok",
+  "refined_TP-base": 6,
+  "refined_FN": 10,
+  "refined_TP-comp": 5,
+  "refined_FP": 15,
+  "refined_f1": 0.3,
+  "refined_status": "ok",
+  "refined_seconds": 2.5,
+  "phab_TP-base": 21,
+  "phab_FN": 4,
+  "phab_TP-comp": 22,
+  "phab_FP": 12,
+  "phab_f1": 0.731,
+  "phab_status": "ok",
+  "phab_seconds": 2.5
+ },
+ "seconds": 5.68
+}

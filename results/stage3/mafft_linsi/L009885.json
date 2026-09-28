@@ -1,0 +1,100 @@
+{
+ "region_id": "L009885",
+ "stratum": "control_vntr_correct",
+ "contig": "chr22",
+ "span_start": 32792869,
+ "span_end": 32797037,
+ "core_start": 32793106,
+ "core_end": 32795163,
+ "label": "mafft_linsi",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/calls/mafft_linsi/L009885.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 4169,
+ "truth_len": [
+  4011,
+  4011
+ ],
+ "called_len": [
+  4011,
+  4011
+ ],
+ "ed": 0,
+ "ed_per_kb": 0.0,
+ "exact": true,
+ "ed_ref": 364,
+ "ed_ref_per_kb": 45.3752,
+ "gain": 1.0,
+ "pairing": "slot1-h1,slot2-h2",
+ "ed_h1": 0,
+ "ed_h2": 0,
+ "phase": {
+  "method": "no_heterozygous_records",
+  "n_blocks": 0,
+  "n_phase_sets": 0,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 0,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 1,
+  "descendant_before_ancestor_by_pos": 1,
+  "order_changed_by_nesting": 1,
+  "records_in_span": 26,
+  "nonref_records": 26,
+  "overlap_skipped_alleles": [
+   1,
+   1
+  ],
+  "applied_alleles": [
+   25,
+   25
+  ],
+  "applied_under_nonref_parent": [
+   0,
+   0
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 1,
+ "flags": [
+  "overlap_skipped_alleles",
+  "descendant_before_ancestor_by_pos"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 0,
+  "ed_suppress_nested": 0
+ },
+ "edit_distances_computed": 4,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 4169,
+  "span_bp": 4169,
+  "call_sv_records_in_span": 1,
+  "raw_TP-base": 0,
+  "raw_FN": 1,
+  "raw_TP-comp": 0,
+  "raw_FP": 1,
+  "raw_f1": 0.0,
+  "status": "ok",
+  "refined_TP-base": 1,
+  "refined_FN": 0,
+  "refined_TP-comp": 1,
+  "refined_FP": 0,
+  "refined_f1": 1.0,
+  "refined_status": "ok",
+  "refined_seconds": 2.0,
+  "phab_TP-base": 1,
+  "phab_FN": 0,
+  "phab_TP-comp": 1,
+  "phab_FP": 0,
+  "phab_f1": 1.0,
+  "phab_status": "ok",
+  "phab_seconds": 2.0
+ },
+ "seconds": 4.61
+}

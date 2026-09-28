@@ -1,0 +1,102 @@
+{
+ "region_id": "L009000",
+ "stratum": "hotspot_vntr",
+ "contig": "chr20",
+ "span_start": 1893263,
+ "span_end": 1907673,
+ "core_start": 1893481,
+ "core_end": 1907430,
+ "label": "unit_aware",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/calls/unit_aware/L009000.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 14411,
+ "truth_len": [
+  4825,
+  4372
+ ],
+ "called_len": [
+  4436,
+  3733
+ ],
+ "ed": 1361,
+ "ed_per_kb": 147.983,
+ "exact": false,
+ "ed_ref": 19625,
+ "ed_ref_per_kb": 2133.848,
+ "gain": 0.93065,
+ "pairing": "slot1-h1,slot2-h2",
+ "ed_h1": 589,
+ "ed_h2": 772,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 1361,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 251,
+  "descendant_before_ancestor_by_pos": 3,
+  "order_changed_by_nesting": 1,
+  "records_in_span": 488,
+  "nonref_records": 488,
+  "missing_alleles_as_ref": 85,
+  "overlap_skipped_alleles": [
+   188,
+   131
+  ],
+  "applied_alleles": [
+   190,
+   189
+  ],
+  "applied_under_nonref_parent": [
+   0,
+   0
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 590,
+ "flags": [
+  "missing_alleles_as_ref",
+  "overlap_skipped_alleles",
+  "descendant_before_ancestor_by_pos"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 1361,
+  "ed_suppress_nested": 1361
+ },
+ "edit_distances_computed": 6,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 14411,
+  "span_bp": 14411,
+  "call_sv_records_in_span": 112,
+  "raw_TP-base": 29,
+  "raw_FN": 18,
+  "raw_TP-comp": 26,
+  "raw_FP": 86,
+  "raw_f1": 0.3374,
+  "status": "ok",
+  "refined_TP-base": 29,
+  "refined_FN": 18,
+  "refined_TP-comp": 26,
+  "refined_FP": 86,
+  "refined_f1": 0.3374,
+  "refined_status": "ok",
+  "refined_seconds": 2.6,
+  "phab_TP-base": 14,
+  "phab_FN": 12,
+  "phab_TP-comp": 14,
+  "phab_FP": 4,
+  "phab_f1": 0.6364,
+  "phab_status": "ok",
+  "phab_seconds": 2.6
+ },
+ "seconds": 6.25
+}

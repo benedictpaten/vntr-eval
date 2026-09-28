@@ -269,6 +269,16 @@ def gbz_query(args, out_gfa):
     return p
 
 
+def _contig_length(contig):
+    """Length of a CHM13 contig from the reference FASTA's .fai."""
+    with open(config.data_paths(contig)['ref_fa'] + '.fai') as f:
+        for line in f:
+            x = line.split('\t')
+            if x[0] == contig:
+                return int(x[1])
+    raise RuntimeError('no %s in the reference .fai' % contig)
+
+
 def fetch(reg, wd, flank=FLANK):
     """Reads overlapping the local graph's extent: the anchor-to-anchor subgraph (--between) plus
     the CHM13 window span +- flank (--interval, context 100). Writes reads_1.fq, reads_2.fq
@@ -285,13 +295,14 @@ def fetch(reg, wd, flank=FLANK):
                '--gaf-output', q1 + '.gaf', '--alignments', 'overlapping'], q1 + '.gfa')
     qs.append(q1)
     q2 = os.path.join(wd, 'q_window')
-    gbz_query(['--sample', 'CHM13', '--contig', c, '--interval', '%d..%d' % (max(0, a0 - flank), b0 + flank),
+    clen = _contig_length(c)                                   # a window past the contig end makes gbz-base fail
+    gbz_query(['--sample', 'CHM13', '--contig', c, '--interval', '%d..%d' % (max(0, a0 - flank), min(clen, b0 + flank)),
                '--context', '100', '--gaf-base', gaf_db, '--gaf-output', q2 + '.gaf',
                '--alignments', 'overlapping'], q2 + '.gfa')
     qs.append(q2)
     q3 = os.path.join(wd, 'q_nodes')
     gbz_query(['--sample', 'CHM13', '--contig', c, '--interval',
-               '%d..%d' % (max(0, a0 - flank - 2000), b0 + flank + 2000), '--context', '2000'], q3 + '.gfa')
+               '%d..%d' % (max(0, a0 - flank - 2000), min(clen, b0 + flank + 2000)), '--context', '2000'], q3 + '.gfa')
     nodes = {}
     for q in (q1, q2, q3):
         n, _, _ = parse_gfa(q + '.gfa')

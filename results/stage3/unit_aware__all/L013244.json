@@ -1,0 +1,100 @@
+{
+ "region_id": "L013244",
+ "stratum": "hotspot_vntr",
+ "contig": "chr5",
+ "span_start": 181601894,
+ "span_end": 181607783,
+ "core_start": 181602144,
+ "core_end": 181607542,
+ "label": "unit_aware__all",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/calls/unit_aware__all/L013244.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 5890,
+ "truth_len": [
+  4345,
+  5890
+ ],
+ "called_len": [
+  4464,
+  11702
+ ],
+ "ed": 5935,
+ "ed_per_kb": 579.873,
+ "exact": false,
+ "ed_ref": 1558,
+ "ed_ref_per_kb": 152.2228,
+ "gain": -2.80937,
+ "pairing": "slot1-h1,slot2-h2",
+ "ed_h1": 123,
+ "ed_h2": 5812,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 5935,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 66,
+  "records_in_span": 135,
+  "nonref_records": 135,
+  "missing_alleles_as_ref": 21,
+  "overlap_skipped_alleles": [
+   20,
+   39
+  ],
+  "applied_alleles": [
+   91,
+   35
+  ],
+  "applied_under_nonref_parent": [
+   0,
+   3
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 120,
+ "flags": [
+  "missing_alleles_as_ref",
+  "overlap_skipped_alleles",
+  "applied_under_nonref_parent"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 5846,
+  "ed_suppress_nested": 5875
+ },
+ "edit_distances_computed": 10,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 5890,
+  "span_bp": 5890,
+  "call_sv_records_in_span": 31,
+  "raw_TP-base": 5,
+  "raw_FN": 4,
+  "raw_TP-comp": 4,
+  "raw_FP": 27,
+  "raw_f1": 0.2094,
+  "status": "ok",
+  "refined_TP-base": 5,
+  "refined_FN": 4,
+  "refined_TP-comp": 4,
+  "refined_FP": 27,
+  "refined_f1": 0.2094,
+  "refined_status": "ok",
+  "refined_seconds": 2.4,
+  "phab_TP-base": 8,
+  "phab_FN": 0,
+  "phab_TP-comp": 8,
+  "phab_FP": 8,
+  "phab_f1": 0.6667,
+  "phab_status": "ok",
+  "phab_seconds": 2.5
+ },
+ "seconds": 5.51
+}

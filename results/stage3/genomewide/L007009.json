@@ -1,0 +1,115 @@
+{
+ "region_id": "L007009",
+ "stratum": "hotspot_vntr",
+ "contig": "chr18",
+ "span_start": 79248684,
+ "span_end": 79264162,
+ "core_start": 79248885,
+ "core_end": 79263950,
+ "label": "genomewide",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vg-call-eval/work/wgs-mm095/chr18/chr18.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 15479,
+ "truth_len": [
+  4398,
+  13784
+ ],
+ "called_len": [
+  4558,
+  15750
+ ],
+ "ed": 2305,
+ "ed_per_kb": 126.7737,
+ "exact": false,
+ "ed_ref": 13050,
+ "ed_ref_per_kb": 717.7428,
+ "gain": 0.82337,
+ "pairing": "slot1-h1,slot2-h2",
+ "ed_h1": 232,
+ "ed_h2": 2073,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 2305,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 113,
+  "records_in_span": 126,
+  "nonref_records": 126,
+  "missing_alleles_as_ref": 113,
+  "overlap_skipped_alleles": [
+   0,
+   113
+  ],
+  "applied_alleles": [
+   11,
+   3
+  ],
+  "applied_under_nonref_parent": [
+   0,
+   0
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 250,
+ "flags": [
+  "missing_alleles_as_ref",
+  "overlap_skipped_alleles"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 2305,
+  "ed_suppress_nested": 2305
+ },
+ "edit_distances_computed": 6,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 15479,
+  "span_bp": 15479,
+  "call_sv_records_in_span": 27,
+  "raw_TP-base": 4,
+  "raw_FN": 25,
+  "raw_TP-comp": 4,
+  "raw_FP": 23,
+  "raw_f1": 0.1429,
+  "status": "ok",
+  "refined_TP-base": 4,
+  "refined_FN": 25,
+  "refined_TP-comp": 4,
+  "refined_FP": 23,
+  "refined_f1": 0.1429,
+  "refined_status": "ok",
+  "refined_seconds": 6.4,
+  "phab_TP-base": 11,
+  "phab_FN": 9,
+  "phab_TP-comp": 11,
+  "phab_FP": 21,
+  "phab_f1": 0.4231,
+  "phab_status": "ok",
+  "phab_seconds": 5.1
+ },
+ "genomewide_labels": {
+  "dir": "/Users/benedictpaten/PycharmProjects/vg-call-eval/work/wgs-mm095/score/chr18.truvari",
+  "span_tp-base": 4,
+  "core_tp-base": 4,
+  "corepos_tp-base": 4,
+  "span_fn": 25,
+  "core_fn": 25,
+  "corepos_fn": 25,
+  "span_tp-comp": 4,
+  "core_tp-comp": 4,
+  "corepos_tp-comp": 4,
+  "span_fp": 23,
+  "core_fp": 23,
+  "corepos_fp": 23,
+  "status": "ok"
+ },
+ "seconds": 12.54
+}

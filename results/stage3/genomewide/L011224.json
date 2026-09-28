@@ -1,0 +1,110 @@
+{
+ "region_id": "L011224",
+ "stratum": "control_vntr_correct",
+ "contig": "chr4",
+ "span_start": 7357780,
+ "span_end": 7360356,
+ "core_start": 7358002,
+ "core_end": 7360112,
+ "label": "genomewide",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vg-call-eval/work/wgs-mm095/chr4/chr4.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 2577,
+ "truth_len": [
+  2577,
+  3095
+ ],
+ "called_len": [
+  3095,
+  2577
+ ],
+ "ed": 1,
+ "ed_per_kb": 0.1763,
+ "exact": false,
+ "ed_ref": 535,
+ "ed_ref_per_kb": 94.323,
+ "gain": 0.99813,
+ "pairing": "slot1-h2,slot2-h1",
+ "ed_h1": 0,
+ "ed_h2": 1,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 1,
+  "flipped_blocks": []
+ },
+ "records": {
+  "records_in_span": 25,
+  "nonref_records": 25,
+  "overlap_skipped_alleles": [
+   0,
+   0
+  ],
+  "applied_alleles": [
+   25,
+   0
+  ],
+  "applied_under_nonref_parent": [
+   0,
+   0
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 0,
+ "flags": [],
+ "sensitivity": {
+  "ed_raw_overlap": 1,
+  "ed_suppress_nested": 1
+ },
+ "edit_distances_computed": 4,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 2577,
+  "span_bp": 2577,
+  "call_sv_records_in_span": 2,
+  "raw_TP-base": 2,
+  "raw_FN": 0,
+  "raw_TP-comp": 2,
+  "raw_FP": 0,
+  "raw_f1": 1.0,
+  "status": "ok",
+  "refined_TP-base": 2,
+  "refined_FN": 0,
+  "refined_TP-comp": 2,
+  "refined_FP": 0,
+  "refined_f1": 1.0,
+  "refined_status": "nothing_to_refine",
+  "refined_seconds": 1.5,
+  "phab_TP-base": 2,
+  "phab_FN": 0,
+  "phab_TP-comp": 2,
+  "phab_FP": 0,
+  "phab_f1": 1.0,
+  "phab_status": "nothing_to_refine",
+  "phab_seconds": 1.4
+ },
+ "genomewide_labels": {
+  "dir": "/Users/benedictpaten/PycharmProjects/vg-call-eval/work/wgs-mm095/score/chr4.truvari",
+  "span_tp-base": 2,
+  "core_tp-base": 2,
+  "corepos_tp-base": 2,
+  "span_fn": 0,
+  "core_fn": 0,
+  "corepos_fn": 0,
+  "span_tp-comp": 2,
+  "core_tp-comp": 2,
+  "corepos_tp-comp": 2,
+  "span_fp": 0,
+  "core_fp": 0,
+  "corepos_fp": 0,
+  "status": "ok"
+ },
+ "seconds": 3.57
+}

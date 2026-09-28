@@ -1,0 +1,101 @@
+{
+ "region_id": "L002013",
+ "stratum": "hotspot_vntr",
+ "contig": "chr10",
+ "span_start": 133306396,
+ "span_end": 133310776,
+ "core_start": 133306612,
+ "core_end": 133310510,
+ "label": "mc_relabel",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/diag/mc_relabel@hybrid200k/L002013.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 4381,
+ "truth_len": [
+  2997,
+  5357
+ ],
+ "called_len": [
+  6460,
+  6957
+ ],
+ "ed": 5084,
+ "ed_per_kb": 608.5707,
+ "exact": false,
+ "ed_ref": 2458,
+ "ed_ref_per_kb": 294.2303,
+ "gain": -1.06835,
+ "pairing": "slot1-h2,slot2-h1",
+ "ed_h1": 3973,
+ "ed_h2": 1111,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 5084,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 85,
+  "order_changed_by_nesting": 1,
+  "records_in_span": 212,
+  "nonref_records": 212,
+  "missing_alleles_as_ref": 35,
+  "overlap_skipped_alleles": [
+   60,
+   16
+  ],
+  "applied_alleles": [
+   105,
+   106
+  ],
+  "applied_under_nonref_parent": [
+   3,
+   0
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 137,
+ "flags": [
+  "missing_alleles_as_ref",
+  "overlap_skipped_alleles",
+  "applied_under_nonref_parent"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 5068,
+  "ed_suppress_nested": 4933
+ },
+ "edit_distances_computed": 10,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 4381,
+  "span_bp": 4381,
+  "call_sv_records_in_span": 21,
+  "raw_TP-base": 4,
+  "raw_FN": 11,
+  "raw_TP-comp": 4,
+  "raw_FP": 20,
+  "raw_f1": 0.2051,
+  "status": "ok",
+  "refined_TP-base": 4,
+  "refined_FN": 11,
+  "refined_TP-comp": 4,
+  "refined_FP": 20,
+  "refined_f1": 0.2051,
+  "refined_status": "ok",
+  "refined_seconds": 2.2,
+  "phab_TP-base": 5,
+  "phab_FN": 5,
+  "phab_TP-comp": 5,
+  "phab_FP": 13,
+  "phab_f1": 0.3571,
+  "phab_status": "ok",
+  "phab_seconds": 3.0
+ },
+ "seconds": 5.85
+}

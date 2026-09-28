@@ -1,0 +1,101 @@
+{
+ "region_id": "L014426",
+ "stratum": "control_vntr_correct",
+ "contig": "chr7",
+ "span_start": 1689539,
+ "span_end": 1691424,
+ "core_start": 1689789,
+ "core_end": 1691167,
+ "label": "mafft_linsi",
+ "vcf": "/Users/benedictpaten/PycharmProjects/vntr-eval/work/stage3/calls/mafft_linsi/L014426.vcf.gz",
+ "scorer_version": 2,
+ "apply_filtered": false,
+ "sample": "HG002",
+ "truth_ploidy": 2,
+ "ref_len": 1886,
+ "truth_len": [
+  1866,
+  1359
+ ],
+ "called_len": [
+  1355,
+  1874
+ ],
+ "ed": 13,
+ "ed_per_kb": 4.031,
+ "exact": false,
+ "ed_ref": 552,
+ "ed_ref_per_kb": 171.1628,
+ "gain": 0.97645,
+ "pairing": "slot1-h2,slot2-h1",
+ "ed_h1": 9,
+ "ed_h2": 4,
+ "phase": {
+  "method": "fully_phased",
+  "n_blocks": 1,
+  "n_phase_sets": 1,
+  "assignments_evaluated": 1,
+  "enum_cap": 12,
+  "enum_cap_hit": false,
+  "ed_given_phase": 13,
+  "flipped_blocks": []
+ },
+ "records": {
+  "nested_records": 3,
+  "order_changed_by_nesting": 1,
+  "records_in_span": 19,
+  "nonref_records": 19,
+  "missing_alleles_as_ref": 2,
+  "overlap_skipped_alleles": [
+   0,
+   1
+  ],
+  "applied_alleles": [
+   17,
+   7
+  ],
+  "applied_under_nonref_parent": [
+   1,
+   1
+  ]
+ },
+ "overlap_mode": "trimmed",
+ "conflicting_allele_pairs": 3,
+ "flags": [
+  "missing_alleles_as_ref",
+  "overlap_skipped_alleles",
+  "applied_under_nonref_parent"
+ ],
+ "sensitivity": {
+  "ed_raw_overlap": 13,
+  "ed_suppress_nested": 5
+ },
+ "edit_distances_computed": 10,
+ "status": "ok",
+ "truvari": {
+  "bench_bp": 1886,
+  "span_bp": 1886,
+  "call_sv_records_in_span": 2,
+  "raw_TP-base": 2,
+  "raw_FN": 0,
+  "raw_TP-comp": 2,
+  "raw_FP": 0,
+  "raw_f1": 1.0,
+  "status": "ok",
+  "refined_TP-base": 2,
+  "refined_FN": 0,
+  "refined_TP-comp": 2,
+  "refined_FP": 0,
+  "refined_f1": 1.0,
+  "refined_status": "nothing_to_refine",
+  "refined_seconds": 1.2,
+  "phab_TP-base": 2,
+  "phab_FN": 0,
+  "phab_TP-comp": 2,
+  "phab_FP": 0,
+  "phab_f1": 1.0,
+  "phab_status": "nothing_to_refine",
+  "phab_seconds": 1.2
+ },
+ "seconds": 2.97
+}
