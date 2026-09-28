@@ -74,6 +74,48 @@ Production (genome-wide calls, one draw) summed ED on the same regions: 1338
 
 Production (genome-wide calls, one draw) summed ED on the same regions: 2
 
+## hotspot_vntr, regions shared by all seven graphs (n=29; mc summed ED 81926)
+
+| graph | summed ED | vs mc | better / worse |
+|---|---|---|---|
+| unit_aware__all | 44638 | -46% | 16 / 10 |
+| mafft_linsi | 61146 | -25% | 18 / 8 |
+| unit_aware | 38582 | -53% | 18 / 5 |
+| poa_abpoa | 49511 | -40% | 18 / 7 |
+| poa_abpoa__all | 41054 | -50% | 17 / 8 |
+| truth | 6976 | -91% | 25 / 0 |
+
+## hotspot_vntr, regions shared by all but poa_abpoa__all (n=36; mc summed ED 108446)
+
+| graph | summed ED | vs mc | better / worse |
+|---|---|---|---|
+| unit_aware__all | 64867 | -40% | 19 / 13 |
+| mafft_linsi | 97661 | -10% | 19 / 11 |
+| unit_aware | 63223 | -42% | 20 / 8 |
+| poa_abpoa | 85029 | -22% | 20 / 9 |
+| truth | 14927 | -86% | 30 / 1 |
+
+## hotspot_other, regions shared by all seven graphs (n=23; mc summed ED 23549)
+
+| graph | summed ED | vs mc | better / worse |
+|---|---|---|---|
+| unit_aware__all | 16634 | -29% | 12 / 7 |
+| mafft_linsi | 12665 | -46% | 13 / 6 |
+| unit_aware | 13832 | -41% | 14 / 5 |
+| poa_abpoa | 13390 | -43% | 10 / 7 |
+| poa_abpoa__all | 15457 | -34% | 13 / 5 |
+| truth | 2308 | -90% | 18 / 4 |
+
+## hotspot_other, regions shared by all but poa_abpoa__all (n=24; mc summed ED 23549)
+
+| graph | summed ED | vs mc | better / worse |
+|---|---|---|---|
+| unit_aware__all | 16634 | -29% | 12 / 7 |
+| mafft_linsi | 12665 | -46% | 13 / 6 |
+| unit_aware | 13832 | -41% | 14 / 5 |
+| poa_abpoa | 13390 | -43% | 10 / 7 |
+| truth | 2308 | -90% | 18 / 4 |
+
 ## Decision
 
 | graph | hotspot VNTR win | other-hotspot win | controls pass | reproducibly worse controls |

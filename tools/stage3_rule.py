@@ -84,6 +84,20 @@ def main():
         if pr['production_ed_sum'] is not None:
             out.append('\nProduction (genome-wide calls, one draw) summed ED on the same regions: %d' % pr['production_ed_sum'])
         out.append('')
+    # the per-stratum tables above pair each graph with mc on ITS regions; graphs cover different hotspot
+    # sets (a graph missing where its aligner ran out of memory), so rows are compared here on shared sets
+    for s in ('hotspot_vntr', 'hotspot_other'):
+        for gs, lab in ((GRAPHS, 'all seven graphs'), ([g for g in GRAPHS if g != 'poa_abpoa__all'], 'all but poa_abpoa__all')):
+            ids = [r for r in strat if strat[r] == s and all(r in reps[g] for g in gs)]
+            base = sum(statistics.median(reps['mc'][r]) for r in ids)
+            out += ['## %s, regions shared by %s (n=%d; mc summed ED %d)' % (s, lab, len(ids), base), '',
+                    '| graph | summed ED | vs mc | better / worse |', '|---|---|---|---|']
+            for g in gs[1:]:
+                v = sum(statistics.median(reps[g][r]) for r in ids)
+                b_ = sum(max(reps[g][r]) < min(reps['mc'][r]) for r in ids)
+                w_ = sum(min(reps[g][r]) > max(reps['mc'][r]) for r in ids)
+                out.append('| %s | %d | %+.0f%% | %d / %d |' % (g, v, 100 * (v / base - 1) if base else 0, b_, w_))
+            out.append('')
     out += ['## Decision', '', '| graph | hotspot VNTR win | other-hotspot win | controls pass | reproducibly worse controls |', '|---|---|---|---|---|']
     for g in GRAPHS[1:]:
         def w(s):
