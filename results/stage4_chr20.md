@@ -134,3 +134,21 @@ and 1 the same.
   - reads/ (FASTQ.gz, reads.json)
   - score/<arm>/ (harness output, haps/, summary.json)
   - run_rest.sh and run_mcnull.sh
+
+## Stage 4b: realign every eligible repeat (no detection rule)
+
+All 669 packaged eligible TR regions (>= 50 bp haplotype length variation) realigned with abPOA
+defaults on hap32: 636 got a graph (33 refused on predicted memory), 624 patched (12 refused because a
+panel-haplotype fragment ends inside). Same reads, mapping and vg call as the other arms
+(`work/stage4/chr20/run_all.sh`; scores in `work/stage4/chr20/score_all/`).
+
+| chr20 | production | unpatched | patched, 49 detected | patched, 624 eligible |
+|---|---|---|---|---|
+| SV precision / recall | 0.5017 / 0.5765 | 0.4937 / 0.5778 | 0.5324 / 0.5778 | **0.5908** / 0.5765 |
+| SV F1 | 0.5365 | 0.5325 | 0.5542 | **0.5835** |
+| SV FP / FN | 428 / 324 | 445 / 323 | 382 / 323 | **302** / 324 |
+| SV FP inside / outside the 624 regions | 385 / 43 | 390 / 55 | - | 246 / 56 |
+| SNV F1 / indel F1 | 0.9851 / 0.9288 | 0.9851 / 0.9275 | 0.9851 / 0.9270 | 0.9853 / 0.9282 |
+
+Eligible regions left unpatched hold 30 production SV FPs: 12 patch-refused (fragment ends, 19 FP),
+33 memory-refused (5 FP), 11 not packageable (6 FP).
