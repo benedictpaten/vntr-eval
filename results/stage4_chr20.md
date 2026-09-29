@@ -152,3 +152,35 @@ panel-haplotype fragment ends inside). Same reads, mapping and vg call as the ot
 
 Eligible regions left unpatched hold 30 production SV FPs: 12 patch-refused (fragment ends, 19 FP),
 33 memory-refused (5 FP), 11 not packageable (6 FP).
+
+## Stage 4c/4d: full-panel abPOA and the motif-guided aligner, every eligible repeat
+
+Same 669 eligible regions, reads, mapping, vg call and scoring as Stage 4b (`work/stage4/chr20/run_full.sh`,
+`run_units.sh`; scores in `work/stage4/chr20/score_{all,full,units}/`).
+- Full panel: the HG002-free eval panel fetched per region (660 of 669; spans > 100 kb skipped), all
+  distinct sequences aligned with abPOA defaults, projected onto the 34 hap32 rows: 633 aligned (36 over
+  the memory cap), 621 patched.
+- Motif-guided (repeat-unit-aware) on hap32, fallback abPOA where the motif is unusable (Stage 3 showed
+  the mafft fallback breaks simple SVs): 659 candidates, 629 patched.
+
+| chr20 | production | unpatched | abPOA hap32 (624) | abPOA full panel -> hap32 (621) | motif-guided hap32 (629) |
+|---|---|---|---|---|---|
+| SV precision / recall | 0.5017 / 0.5765 | 0.4937 / 0.5778 | **0.5908** / 0.5765 | 0.4675 / 0.4928 | 0.4762 / 0.5556 |
+| SV F1 | 0.5365 | 0.5325 | **0.5835** | 0.4798 | 0.5128 |
+| SV FP / FN | 428 / 324 | 445 / 323 | **302** / 324 | 426 / 388 | 462 / 340 |
+| SV FP inside / outside patched | 385 / 43 | 390 / 55 | 246 / 56 | 358 / 68 | 412 / 50 |
+| SV FN inside / outside patched | 278 / 46 | 275 / 48 | 277 / 47 | 328 / 60 | 305 / 35 |
+| SNV F1 / indel F1 | 0.9851 / 0.9288 | 0.9851 / 0.9275 | 0.9853 / 0.9282 | 0.9836 / 0.9181 | 0.9853 / 0.9266 |
+
+(Inside/outside use each arm's own patched set.) Read mapping is the same in every arm (first 3M GAF
+records: unmapped 0.02%, MAPQ < 5 6.64-6.69%) and only 7-14 regions per arm fell back to appended node
+IDs, so the differences come from how the patched graphs represent alleles, not from mapping.
+
+- **abPOA on hap32 is the only arm that helps**: FP -143, FN flat, small variants flat or slightly up.
+- **Aligning the full panel and projecting hurts calling**: FN +65, SNV F1 -0.0015, indel F1 -0.0094,
+  FP only -19. The ~460-way alignment is the harder problem (Stage 0 saw deletions cut into unit-sized
+  pieces when aligned inside the full panel), and here that costs recall and small-variant accuracy.
+  Where the small-variant errors fall (inside vs outside patched regions) was not checked.
+- **The motif-guided aligner, applied to every eligible repeat, is net negative** (FP +17, FN +17),
+  consistent with Stage 3's record-level truvari: its haplotypes are close to the truth but written as
+  records the truth VCF does not use, and most eligible regions are not hotspots.
