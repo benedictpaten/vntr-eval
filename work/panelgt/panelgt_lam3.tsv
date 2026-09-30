@@ -1,0 +1,23 @@
+region_id	group	haps	reads_kept	panel_call_ed	ceiling_ed	error
+TR761026	hurt	16	86	0	0	
+TR755910	hurt	18	144	3419	69	
+TR761129	hurt	25	238	103	41	
+TR760137	hurt	9	234	180	180	
+TR773368	hurt	8	25	0	0	
+TR772413	hurt	22	189	0	0	
+TR755896	hurt	7	38	500	0	
+TR770009	hurt	9	50	0	0	
+TR769752	helped	29	100	252	33	
+TR772976	helped	32	120	1653	101	
+TR755726	helped	26	40	141	65	
+TR766584	helped	2	84	0	0	
+TR773452	helped	10	237	41	0	
+TR757936	helped	11	1060	2	2	
+TR772945	hotspot	25	133	131	63	
+TR772999	hotspot	32	81	807	130	
+TR773491	hotspot	24	95	1046	177	
+TR772198	hotspot	28	192	1164	104	
+TR764119	mc_right	23	74	11	1	
+TR765271	mc_right	22	177	4	4	
+TR773234	mc_right	10	47	3	2	
+TR772722	mc_right	9	26	1	1	

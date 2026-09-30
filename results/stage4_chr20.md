@@ -471,3 +471,35 @@ away in total over the 22 regions (exact in 7 regions), against 6,840-10,222 for
 repeat, not the graph alignment. Genotyping each repeat as one site whose alleles are the panel haplotypes
 (scored with reads aligned to the merged, fine-grained graph) could cut the error several-fold; the graph
 realignment choice matters much less.
+
+## Stage 4j: prototype genotyping of a repeat as one site of panel-haplotype alleles
+
+`tools/panel_genotype.py` (+ `tools/c/semig.c`), offline, same 22-region test set. Alleles = the distinct hap32
+panel sequences over the region (anchor to anchor). Reads = the reads the genome-wide mapping placed in the
+region's window that share a 21-mer with the region; each gets its semi-global edit distance d to every
+allele (both strands) and is dropped if > 8% of its length from all of them. A diploid pair (h1, h2) scores
+sum_r log(0.5 e^(-3 d_r1) + 0.5 e^(-3 d_r2)) plus w x a Poisson depth term: the number of kept reads against
+kappa (L1 + L2 + 2(R - 1)), with kappa (read starts per bp per haplotype) estimated from reads lying wholly
+in 2 kb of CHM13 flank on each side (0.09-0.10, as 30x predicts). No truth is used except for scoring.
+Single run (vg call numbers are 3-replicate medians).
+
+| method | summed ED to truth | regions better / worse vs this row's baseline |
+|---|---|---|
+| ceiling: nearest panel haplotype to each truth haplotype | 973 | – |
+| panel genotyper, read content only (w = 0) | 9,458 | vs mc 7/8 |
+| panel genotyper, depth weight w = 0.3 | 5,107 | vs mc 9/7 |
+| **panel genotyper, depth weight w = 1** | **4,127** | vs mc 9/8; vs abPOA hap32 10/7; vs abPOA full 13/6 |
+| vg call on mc | 6,840 | – |
+| vg call on abPOA hap32 | 10,222 | – |
+| vg call on abPOA full panel | 7,741 | – |
+
+- Without a depth term, content alone cannot tell copy number (reads inside an array fit every allele), and
+  the prototype is no better than vg call. With it, summed error falls 40% below vg call on mc and 60% below
+  vg call on the abPOA hap32 graph, reaching the ceiling in 7 of 22 regions.
+- Region counts are only even against mc (9 better, 8 worse): the gain is concentrated in regions where vg
+  call builds badly wrong alleles (TR772999: 467 vs 1,621), while the prototype still makes a few large
+  length errors (TR772976: called 2,828/1,283 against truth 2,810/2,801). The depth weight was chosen from two
+  values on this same set.
+- So whole-allele genotyping of repeats is promising but not yet a clear win. Next: use mate pairs (insert
+  size spans arrays and measures length), base qualities and mapping quality in the read likelihood; test on
+  held-out regions; then, if it holds, genotype chains of snarls inside repeats jointly in vg call itself.
