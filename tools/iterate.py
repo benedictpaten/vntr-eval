@@ -135,6 +135,14 @@ _reg('s2_zip_post', 'poa_abpoa__all projected graph, zip merge (as s2_zip_pre) o
      kind='merge', base='poa_abpoa__all', where='post', how='zip')
 
 
+# Coarsened graphs: fewer, larger sites. Runs of >= k alignment columns where every hap32 row has the
+# same base become shared anchor nodes; between two anchors each distinct row sequence is one allele node.
+for _base in ('poa_abpoa', 'poa_abpoa__all', 'fp_G'):
+    for _k in (16, 32, 64):
+        _reg('cz%d_%s' % (_k, _base), 'coarsened %s: anchors = runs of >= %d identical columns, whole alleles '
+             'between them' % (_base, _k), kind='coarsen', base=_base, k=_k)
+
+
 def variant(name):
     if name in VARIANTS:
         return VARIANTS[name]
@@ -522,6 +530,8 @@ def build_one(v, rid, timeout=TIMEOUT, mem_mb=MEM_MB, force=False):
             info = build_abpoa(v, spec, rid, timeout, mem_mb)
         elif spec['kind'] == 'merge':
             info = build_merge(v, spec, rid)
+        elif spec['kind'] == 'coarsen':
+            info = build_coarsen(v, spec, rid)
         else:
             raise ValueError('unknown kind %s' % spec['kind'])
     except Exception as e:  # noqa: BLE001  (one region must not end a batch)
@@ -530,6 +540,59 @@ def build_one(v, rid, timeout=TIMEOUT, mem_mb=MEM_MB, force=False):
     with open(js, 'w') as f:
         json.dump(info, f, indent=1, default=str)
     return info
+
+
+def proj_msa_of(v, rid):
+    """The hap32 MSA a variant's graph was induced from."""
+    spec = variant(v)
+    if spec['kind'] == 'link':
+        return os.path.join(spec['src'], rid + '.msa.fa')
+    return os.path.join(CAND, v, rid + '.msa.fa')
+
+
+def build_coarsen(v, spec, rid):
+    recs = msa_graph.read_fasta(proj_msa_of(spec['base'], rid))
+    recs = list(recs.items()) if isinstance(recs, dict) else list(recs)
+    names = [n for n, _ in recs]
+    rows = [q.upper() for _, q in recs]
+    ncol = len(rows[0])
+    cons = [len({r[c] for r in rows}) == 1 and rows[0][c] not in '-.' for c in range(ncol)]
+    # anchor runs of >= k conserved columns (always keep the first and last run: the region anchors)
+    runs, c = [], 0
+    while c < ncol:
+        if cons[c]:
+            d = c
+            while d < ncol and cons[d]:
+                d += 1
+            runs.append((c, d))
+            c = d
+        else:
+            c += 1
+    keep = [r for i, r in enumerate(runs) if r[1] - r[0] >= spec['k'] or i in (0, len(runs) - 1)]
+    seqs, paths, nid = {}, collections.OrderedDict((n, []) for n in names), [0]
+    def node(sq):
+        nid[0] += 1
+        seqs[str(nid[0])] = sq
+        return str(nid[0])
+    prev = 0
+    for (a, b) in keep + [(ncol, ncol)]:
+        alle = {}
+        for n, r in zip(names, rows):
+            seg = r[prev:a].replace('-', '').replace('.', '')
+            if seg:
+                if seg not in alle:
+                    alle[seg] = node(seg)
+                paths[n].append((alle[seg], '+'))
+        if a < b:
+            an = node(rows[0][a:b])
+            for n in names:
+                paths[n].append((an, '+'))
+        prev = b
+    out = os.path.join(CAND, v, rid + '.gfa')
+    write_gfa(out + '.tmp', seqs, paths)
+    poa_panel.check_paths(out + '.tmp', msa_graph.read_fasta(os.path.join(REGIONS, rid, 'hap32.fa')))
+    os.replace(out + '.tmp', out)
+    return {'variant': v, 'region_id': rid, 'status': 'ok', 'anchors': len(keep), 'nodes': len(seqs)}
 
 
 def _pool(fn, jobs, items):
@@ -545,7 +608,7 @@ def cmd_build(variants, ids, jobs, force, timeout, mem_mb):
         os.makedirs(os.path.join(CAND, v), exist_ok=True)
         with open(os.path.join(CAND, v, 'variant.json'), 'w') as f:
             json.dump(dict(spec, name=v), f, indent=1)
-        if spec['kind'] == 'merge':
+        if spec['kind'] in ('merge', 'coarsen'):
             cmd_build([spec['base']], ids, jobs, False, timeout, mem_mb)
         # biggest first so the long jobs start early
         size = {r: os.path.getsize(poa_panel.union_files(r)[0]) if os.path.exists(poa_panel.union_files(r)[0]) else 0

@@ -437,3 +437,37 @@ Files: `tools/iterate.py`; `work/iterate/`:
 - `candidates/<variant>/`, `panel/<variant>/` (full MSAs), `stage0/`, `score/`
 - `w/stage3/` (calls; hybrid graphs, indexes and GAFs cleaned after scoring)
 - `stage2/fraglen.json`
+
+## Stage 4i: coarsened sites, and where the called-haplotype error comes from
+
+Same 22-region test set and 3-replicate local vg call as Stage 4h (`tools/iterate.py`; results in
+`work/iterate/results.tsv`, `coarsen_table.txt`).
+
+**Coarsening does not help.** Across the Stage 4h variants, within-region call error tracked the number of
+top-level snarls (more sites, worse calls in 18 of 20 regions; median Spearman +0.37), so we tried fewer,
+larger sites: `coarsen` keeps runs of >= k columns where every hap32 row agrees as anchors and makes each
+distinct row sequence between anchors one allele (k = 16/32/64, applied to abPOA hap32, full panel, full
+panel -G). Every coarsened graph calls far worse (summed ED 23,400-28,700 vs mc 6,840 and abPOA hap32
+10,222; loses most regions to abPOA hap32), as expected once whole alleles repeat shared sequence
+(repeated-k-mer fraction 0.75-0.86): reads can no longer be placed.
+
+**Where the error is.** Called haplotypes compared with the truth (best pairing) and with the 34 hap32 panel
+sequences, final-arm calls, 22 regions (44 haplotypes per graph):
+
+| graph | called haplotypes identical to a panel haplotype | ED from those | ED from off-panel (stitched) haplotypes | VCF records |
+|---|---|---|---|---|
+| mc | 55% | 907 | 5,940 | 862 |
+| abPOA hap32 | 52% | 798 | 9,435 | 1,084 |
+| abPOA full panel | 45% | 849 | 7,006 | 1,646 |
+| full panel -G | 45% | 884 | 6,539 | 1,480 |
+
+In every graph 87-92% of the error comes from called haplotypes that no panel haplotype carries: the caller
+combines alleles of different panel haplotypes across adjacent sites. The full-panel graphs have more sites
+(more records) and produce such haplotypes slightly more often, which is how they lose calls. The ceiling
+for calling only panel haplotypes is far lower: each truth haplotype's nearest panel haplotype is 973 edits
+away in total over the 22 regions (exact in 7 regions), against 6,840-10,222 for the calls.
+
+**Implication.** At these regions the limiting step is how vg call builds alleles across the sites of one
+repeat, not the graph alignment. Genotyping each repeat as one site whose alleles are the panel haplotypes
+(scored with reads aligned to the merged, fine-grained graph) could cut the error several-fold; the graph
+realignment choice matters much less.
