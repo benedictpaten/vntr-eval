@@ -12,14 +12,14 @@
     python3 tools/package_regions.py bed    [--vntr-regions FILE] [--out DIR] [--min-len 1000]
     python3 tools/package_regions.py validate [--out DIR]
 
-`build --anchor-mode snarl` (truth-free; tools/snarl_anchors.py) takes the anchors from the snarl
+`build` (default --anchor-mode snarl; truth-free; tools/snarl_anchors.py) takes the anchors from the snarl
 decomposition instead: the boundaries of the smallest snarl, or run of consecutive snarls of one
 chain, enclosing the padded interval (`snarl_anchors.py build` caches it once per contig). A locus
 whose enclosing span exceeds --max-span is skipped (no fallback), and loci whose spans overlap are
 merged into one region named after the first (region.json 'merged_loci'), with the anchors of
 the union. Everything after anchor choice is the same.
 
-`build` (default --anchor-mode truth) runs, per locus: anchor choice and extraction with tools/region.py (anchors are CHM13
+`build` (with --anchor-mode truth) runs, per locus: anchor choice and extraction with tools/region.py (anchors are CHM13
 nodes that every hap32 path visits once and no truth record touches; the interval is padded
 by --pad bp on each side first, so the anchor-to-anchor span holds the whole locus plus at
 least --pad bp of flank; when that rule finds no anchors, or only ones more than --max-span
@@ -1295,7 +1295,7 @@ def main(argv=None):
     b.add_argument('--max-span', type=int, default=MAX_SPAN,
                    help='longest anchor-to-anchor span before falling back to nearer anchors')
     b.add_argument('--jobs', type=int, default=3)
-    b.add_argument('--anchor-mode', choices=('truth', 'snarl'), default='truth',
+    b.add_argument('--anchor-mode', choices=('truth', 'snarl'), default='snarl',
                    help='truth: CHM13 nodes every hap32 path visits once and no truth record touches '
                         '(with a nearest-best-covered fallback); snarl: truth-free snarl chain boundaries')
     b.add_argument('--snarl-cache', default=os.path.join(config.WORK_DIR, 'stage4', 'snarls'),
