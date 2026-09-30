@@ -1,0 +1,25 @@
+# chr20 test set for full-panel iteration. SV FP/FN counted inside the patched_full span +-100 bp (work/iterate/region_sv.py);
+# d_full / d_all = (FP+FN) change vs unpatched of the full-panel (patched_full) and hap32 (patched_all) abPOA arms.
+region_id	group	span_bp	n_distinct	full_abpoa_s	prod_fp_fn	unpatched	patched_full	patched_all	d_full	d_all	reason
+TR761026	hurt	3756	140	2.71	1/0	1/0	9/1	5/1	9	5	full-panel arm added 9 SV errors (hap32 arm 5)
+TR755910	hurt	2581	124	1.63	5/3	5/3	12/2	4/2	6	-2	full-panel arm added 6 SV errors (hap32 arm -2)
+TR761129	hurt	5686	276	10.4	6/3	5/3	8/5	1/4	5	-3	full-panel arm added 5 SV errors (hap32 arm -3)
+TR760137	hurt	3590	81	0.68	4/1	4/1	8/1	2/1	4	-2	full-panel arm added 4 SV errors (hap32 arm -2)
+TR773368	hurt	1235	47	0.04	0/0	0/0	4/0	0/0	4	0	full-panel arm added 4 SV errors (hap32 arm 0)
+TR772413	hurt	2143	179	0.55	7/2	7/2	10/3	6/2	4	-1	full-panel arm added 4 SV errors (hap32 arm -1)
+TR755896	hurt	3505	74	0.67	2/0	2/0	4/1	0/0	3	-2	full-panel arm added 3 SV errors (hap32 arm -2)
+TR770009	hurt	2274	184	1.44	5/1	5/1	8/1	0/0	3	-6	full-panel arm added 3 SV errors (hap32 arm -6)
+TR769752	helped	2010	419	0.96	6/1	6/1	0/0	3/1	-7	-3	full-panel arm removed 7 SV errors (hap32 arm -3)
+TR772976	helped	1295	398	12.95	4/0	8/0	2/0	4/0	-6	-4	full-panel arm removed 6 SV errors (hap32 arm -4)
+TR755726	helped	1669	271	2.52	4/2	4/3	1/2	1/2	-4	-4	full-panel arm removed 4 SV errors (hap32 arm -4)
+TR766584	helped	1030	64	0.04	3/2	3/2	0/1	0/0	-4	-5	full-panel arm removed 4 SV errors (hap32 arm -5)
+TR773452	helped	2003	67	0.72	4/6	4/6	2/5	4/6	-3	0	full-panel arm removed 3 SV errors (hap32 arm 0)
+TR757936	helped	6462	93	0.55	3/0	3/0	0/0	0/0	-3	-3	full-panel arm removed 3 SV errors (hap32 arm -3)
+TR772945	hotspot	1951	166	1.19	12/1	11/1	5/1	3/3	-6	-6	production SV FP 12 (FN 1)
+TR772999	hotspot	3312	417	16.6	11/7	9/5	3/10	6/10	-1	2	production SV FP 11 (FN 7)
+TR773491	hotspot	4194	286	8.01	11/3	11/3	8/4	10/3	-2	-1	production SV FP 11 (FN 3)
+TR772198	hotspot	2100	251	2.73	10/1	12/1	10/1	5/2	-2	-6	production SV FP 10 (FN 1)
+TR764119	mc_right	1018	186	0.09	0/0	0/0	0/2	0/0	2	0	production 0 FP / 0 FN with 2 truth SVs matched (TP), 186 distinct panel alleles
+TR765271	mc_right	1666	160	0.15	0/0	0/0	0/2	0/0	2	0	production 0 FP / 0 FN with 2 truth SVs matched (TP), 160 distinct panel alleles
+TR773234	mc_right	920	121	0.05	0/0	0/0	0/0	0/0	0	0	production 0 FP / 0 FN with 2 truth SVs matched (TP), 121 distinct panel alleles
+TR772722	mc_right	1942	41	0.05	0/0	0/0	0/0	0/0	0	0	production 0 FP / 0 FN with 2 truth SVs matched (TP), 41 distinct panel alleles

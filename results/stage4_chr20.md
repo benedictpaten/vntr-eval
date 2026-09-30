@@ -307,3 +307,133 @@ arm in `work/stage4/chr20/patched_v2`, scores in `work/stage4/chr20/score_v2`). 
 So the snarl anchors do what the truth rule did without consulting truth: 603/649 identical anchors, and
 every realigned region patched. Threading fragments in the one fragment-heavy hotspot costs recall there
 and gains nothing elsewhere. Caveats: single replicate, and truvari refine was not run on this arm.
+
+## Stage 4h: full-panel test-set iteration
+
+**Result.** On a fixed 22-region chr20 test set, no variant of the full-panel arm closes the gap to abPOA on
+hap32. abPOA's `-G` (path-score heuristic), combined with a higher mismatch penalty, removes up to about
+half of the extra repeated k-mers. But the called haplotypes barely improve: abPOA on hap32 stays
+reproducibly better at 10-14 regions and worse at 1-2 against every full-panel variant. `-G` alone is the
+best full-panel variant for calling, with 8 regions better and 5 worse than `poa_abpoa__all`. Merging
+parallel nodes after alignment changes nothing, so the duplication is not identical parallel nodes.
+
+**Test set** (`work/iterate/testset.tsv`; per-region chr20 SV FP+FN inside the patched_full span ± 100 bp,
+from `work/iterate/region_sv.py`, which reproduces the 98/111 (+44) and 115/60 (-131) counts):
+- **8 regions where the full-panel arm hurt most**: +38 errors in total (the hap32 arm: -11).
+- **6 where it helped most**: -27 (the hap32 arm: -19).
+- **4 hotspots**: 10-12 production SV FPs each.
+- **4 where MC is already right**: 0 production FP/FN and 2 matched truth SVs each, with 41-186 distinct
+  panel alleles.
+- **On chr20 these 22 regions hold**: unpatched 132 SV errors, patched_full 136, patched_all 91.
+- **Every region's full-panel abPOA finishes in under 20 s.** The hotspot TR756034 (106 s, 5.5 GB) was left out.
+
+**Harness** (`tools/iterate.py`). Each variant goes through the same steps:
+1. **Build.** The region's full-panel union goes through the same `realign.align_fasta` masking, projection
+   (`panel.project`) and `msa_graph.py` path checks as `poa_panel.py`.
+2. **Stage 0.** `evaluate.py --skip truth`.
+3. **Call.** `call_local.py` hybrid200k, hybrid50k and hybrid200kids, i.e. 3 replicates, with reads re-mapped.
+4. **Score.** `score_haplotypes.score_region` without truvari; the score is `ed_suppress_nested`.
+5. **Compare.** The replicate rule of `stage3_rule.py`.
+
+`fp_default` rebuilds `poa_abpoa__all`'s full MSA byte for byte (same Stage 0), so the pipeline reproduces
+Stage 4c. The fragment-length setting is Stage 2's documented mean 402 / sd 166; the original
+`fraglen.json` was lost, and a re-fetch gives 399 / 166. At TR772413 the hybrid50k replicate fails for
+every graph: a 1-bp flank node on no walk is dropped from the GBZ. That region therefore has 2 replicates.
+
+**Baselines on the test set** (medians over the 22 regions; ED = summed median called-haplotype edit
+distance; b/w = regions reproducibly better/worse under the replicate rule):
+
+| graph | kmer_frac_extra | cost/opt | nodes/kb | summed ED | exact | b/w vs mc | b/w vs poa_abpoa | b/w vs poa_abpoa__all |
+|---|---|---|---|---|---|---|---|---|
+| mc | 0.259 | 1.408 | 215 | 6,840 | 4 | - | 5/9 | 9/5 |
+| abPOA hap32 (`poa_abpoa`) | 0.175 | 1.057 | 104 | 10,222 | 5 | 9/5 | - | 11/2 |
+| abPOA full panel (`poa_abpoa__all`) | 0.286 | 1.117 | 136 | 7,741 | 2 | 5/9 | 2/11 | - |
+
+The harness reproduces the direction of the chr20 result:
+- **By region counts, abPOA on hap32 beats the full-panel arm 11/2 and MC 9/5.** The full-panel arm
+  loses to MC 5/9.
+- **In the "hurt" group, the full-panel arm is worse than MC at 5 of 8 regions** and better at 1.
+- **The "helped" group does not reproduce against MC** (1 better, 3 worse). Its chr20 gains were 3-7
+  truvari records per region.
+- **Summed ED is dominated by single blow-ups**, so the region counts are the verdict. abPOA on hap32
+  has 3,532 at TR772976 and 3,106 at TR772999 (one replicate there is 515).
+
+**Sweep** (full panel, projected; 22 regions each; ranked by median `kmer_frac_extra`). "gap" is the
+share of the mean `kmer_frac_extra` difference between `poa_abpoa__all` (0.320) and `poa_abpoa`
+(0.237) that the variant removes. "b/w" counts regions whose `kmer_frac_extra` moved by more than 0.005.
+
+| variant | abPOA flags / structure | kmerx median / mean | gap | kmerx b/w vs `__all` | cost/opt median / mean | nodes/kb |
+|---|---|---|---|---|---|---|
+| fp_GX8O6 | -G -X 8 -O 6,26 | 0.234 / 0.283 | 45% | 15/1 | 1.104 / 1.224 | 111 |
+| fp_GX6 | -G -X 6 | 0.237 / 0.288 | 38% | 15/2 | 1.112 / 1.221 | 96 |
+| fp_GX10 | -G -X 10 | 0.239 / 0.282 | 46% | 14/2 | 1.084 / 1.224 | 109 |
+| fp_GX8 | -G -X 8 | 0.240 / 0.288 | 39% | 14/3 | 1.084 / 1.224 | 109 |
+| fp_GX8nb | -G -X 8 -b -1 | 0.242 / 0.274 | **55%** | 17/1 | 1.110 / 1.183 | 100 |
+| fp_X8 | -X 8 | 0.256 / 0.301 | 22% | 12/3 | 1.105 / 1.225 | 105 |
+| fp_GX5 | -G -X 5 | 0.256 / 0.288 | 39% | 15/2 | 1.103 / 1.215 | 105 |
+| fp_GX6nb | -G -X 6 -b -1 | 0.259 / 0.276 | 53% | 14/2 | 1.094 / 1.173 | 95 |
+| fp_GX6O6 | -G -X 6 -O 6,26 -E 2,1 | 0.273 / 0.296 | 29% | 13/3 | 1.113 / 1.213 | 102 |
+| fp_nb, fp_b100 | -b -1; -b 100 -f 0.1 (identical graphs) | 0.279 / 0.314 | 6% | 6/2 | 1.123 / 1.212 | 134 |
+| fp_G | -G | 0.280 / 0.305 | 17% | 9/5 | 1.107 / 1.211 | 114 |
+| fp_Gnb | -G -b -1 | 0.285 / 0.295 | 30% | 12/3 | 1.107 / 1.218 | 109 |
+| s2 merges (5) | identical siblings; zip (same seq + same preds or succs); `vg mod -U 10`; before or after projection | 0.286 / 0.319-0.320 | 0-1% | 0/0 | 1.117 / 1.203 | 134-136 |
+| fp_J | -J | 0.286 / 0.319 | 0% | 1/0 | 1.117 / 1.202 | 136 |
+| `poa_abpoa__all` | defaults | 0.286 / 0.320 | 0% | - | 1.117 / 1.203 | 136 |
+| fp_GX6M1 | -G -M 1 -X 3 | 0.287 / 0.302 | 21% | 10/3 | 1.101 / 1.170 | 111 |
+| fp_O6 | -O 6,26 -E 2,1 | 0.291 / 0.323 | -4% | 4/8 | 1.121 / 1.221 | 127 |
+| fp_freq | most frequent distinct allele first | 0.294 / 0.347 | -33% | 10/12 | 1.318 / 1.430 | 123 |
+| fp_X6 | -X 6 | 0.297 / 0.306 | 16% | 11/4 | 1.119 / 1.227 | 118 |
+| s1_seed20 | 20 most frequent + longest + shortest, then `abpoa -i` | 0.315 / 0.324 | -6% | 8/9 | 1.163 / 1.385 | 109 |
+| fp_aff | -O 6,0 -E 2,0 (affine) | 0.319 / 0.323 | -4% | 7/8 | 1.103 / 1.174 | 135 |
+| fp_R, fp_RJ | -R; -R -J (identical) | 0.328 / 0.342 | -27% | 2/14 | 1.121 / 1.191 | 133 |
+| s1_seed10 | 10 most frequent + longest + shortest, then `abpoa -i` | 0.334 / 0.343 | -28% | 8/9 | 1.378 / 1.504 | 139 |
+| fp_short | shortest first | 0.357 / 0.360 | -48% | 6/13 | 1.105 / 1.200 | 179 |
+
+What moves the duplication:
+- **`-G` combined with a mismatch penalty of 6 or more is the only lever that removes much of it.**
+  Alone, each does little (`-G` 17%, `-X 8` 22%), but together they remove 38-46%, and 53-55% unbanded.
+  Unbanded without `-G` does little (6%).
+- **Gap placement does nothing or harms:** `-J` changes nothing and `-R` adds duplication. Stronger gap
+  penalties and affine gaps also do not help.
+- **Input orders other than longest-first hurt.** Frequency-first and the seeded variants also raise
+  cost/opt (1.3-1.5 mean), because long alleles are then aligned globally onto graphs of short ones. A
+  sample-independent seed does not reproduce v2's effect: the hap32 rows still enter among hundreds of
+  other alleles.
+- **Node merging finds almost nothing to merge.** Identical-sibling merge: 0 nodes in all 22 regions.
+  Zip: 517 nodes in the full graphs, 213 after projection. `vg mod -U 10`: -1.5% nodes. None changes
+  `kmer_frac_extra` by more than 0.0005, and every path still spells its sequence. The duplicated units
+  sit at different offsets on different branches, not on parallel identical nodes.
+
+**Local calling of the best variants** (3 replicates each):
+
+| graph | summed ED | exact | b/w vs mc | b/w vs poa_abpoa | b/w vs poa_abpoa__all |
+|---|---|---|---|---|---|
+| mc | 6,840 | 4 | - | 5/9 | 9/5 |
+| poa_abpoa | 10,222 | 5 | 9/5 | - | 11/2 |
+| poa_abpoa__all | 7,741 | 2 | 5/9 | 2/11 | - |
+| fp_G (-G) | 7,406 | 4 | 6/7 | 2/10 | **8/5** |
+| fp_GX8 (-G -X 8) | 7,766 | 4 | 4/8 | 2/11 | 7/4 |
+| fp_GX8nb (-G -X 8 -b -1) | 7,685 | 4 | 6/6 | 2/10 | 5/3 |
+| fp_GX6 (-G -X 6) | 9,228 | 4 | 6/9 | 1/12 | 6/6 |
+| fp_GX6nb (-G -X 6 -b -1) | 11,600 | 3 | 5/9 | 1/14 | 4/8 |
+
+- **No full-panel variant approaches abPOA on hap32**: at best 2 regions better against 10 worse.
+- **`-G` is a modest gain over `poa_abpoa__all`** (8/5, summed ED -335, exact regions 2 -> 4). It is not
+  better than MC (6/7).
+- **Less duplication does not buy better calls.** fp_GX6 and fp_GX6nb have the least duplication and call
+  no better than `-G` alone. Their summed ED is inflated by single regions: fp_GX6 has 3,149 at TR755910,
+  where every other graph has 604.
+- **Stage 0 barely ranks the graphs.** Within a region, the Spearman correlation of `kmer_frac_extra`
+  with the median ED across the 8 called graphs has median 0.09; for cost/opt it is 0.17.
+- **The replicates disagree in 56 of 176 region x graph cells**, so a single call would have been
+  misleading.
+
+So the full-panel arm's calling loss is not the repeated k-mers that abPOA's knobs remove. If the full
+panel is to be used, `-G` is the setting to use. Otherwise hap32-only alignment remains the arm to patch with.
+
+Files: `tools/iterate.py`; `work/iterate/`:
+- `testset.tsv`, `region_sv.py` / `region_sv.tsv` (per-region chr20 SV errors, all patched regions)
+- `results.tsv` (region x variant), `summary.tsv`, `paired.py` (paired Stage 0 vs `__all`)
+- `candidates/<variant>/`, `panel/<variant>/` (full MSAs), `stage0/`, `score/`
+- `w/stage3/` (calls; hybrid graphs, indexes and GAFs cleaned after scoring)
+- `stage2/fraglen.json`
