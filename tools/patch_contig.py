@@ -11,8 +11,13 @@ map_hybrid, vg_call_command), for many regions at once:
          crosses a region anchor to anchor its walk there becomes the candidate path of the same
          name (flipped where the GBZ stores the path reversed); W-line fields 1-5 stay as they are,
          so CHM13 and GRCh38 stay REFERENCE paths exactly as in the source GBZ (header RS tag kept;
-         the NM/SG graph-name tags dropped, since the graph changes). A region is left UNPATCHED
-         (and recorded) when any path fragment starts or ends inside it, visits it without crossing
+         the NM/SG graph-name tags dropped, since the graph changes). With --fragments, a path
+         that starts or ends inside a region (or on its right / left anchor) is threaded too: its
+         run from its first to its last step inside the region becomes the candidate path of the
+         fragment's name (<path>:enters_L|exits_R|internal|anchor_L|anchor_R, from
+         realign.py --fragments-poa), which must spell the run. A region is left UNPATCHED
+         (and recorded) when any path fragment starts or ends inside it (without --fragments, or
+         with no matching candidate path), visits it without crossing
          anchor to anchor, crosses it under a name the candidate lacks, or when a candidate path is
          not threaded exactly once; overlapping regions keep the first by span start. Node IDs: the
          region's candidate segments (>1,024 bp chopped, as gbwtgraph would) are laid, in the
@@ -38,7 +43,7 @@ map_hybrid, vg_call_command), for many regions at once:
          outside the patched regions, and score_haplotypes.py batch over the patched regions.
 
     python3 tools/patch_contig.py gfa   --out work/stage4/chr20
-    python3 tools/patch_contig.py patch --out work/stage4/chr20/patched --ids FILE --method poa_abpoa
+    python3 tools/patch_contig.py patch --out work/stage4/chr20/patched --ids FILE --method poa_abpoa [--fragments]
     python3 tools/patch_contig.py patch --out work/stage4/chr20/unpatched --ids none
     python3 tools/patch_contig.py reads --out work/stage4/chr20/reads --jobs 4
     python3 tools/patch_contig.py map   --gfa .../patched/graph.gfa --reads .../reads --out .../patched --threads 8
@@ -123,6 +128,28 @@ def between(reg, od):
     return rl.parse_gfa(p)[0]
 
 
+def classify_fragment(seg, AL, AR, at_start, at_end):
+    """A run of a path inside a region that does not cross anchor to anchor, as a threadable
+    fragment: (class, reversed) with class enters_L / anchor_L (a prefix of the region, the path
+    ends inside or on the left anchor), exits_R / anchor_R (a suffix, the path starts inside or on
+    the right anchor) or internal (the whole path is inside; reversed is None, fixed later by
+    sequence), named as in hap32.fragments.fa / realign.region_fragments. None when the run is
+    not at an end of its path (a visit that leaves the way it came)."""
+    L, R = ('>', AL), ('>', AR)
+    Lr, Rr = ('<', AL), ('<', AR)
+    if seg[0] == L and at_end:
+        return ('anchor_L' if len(seg) == 1 else 'enters_L'), False
+    if seg[-1] == Lr and at_start:
+        return ('anchor_L' if len(seg) == 1 else 'enters_L'), True
+    if seg[-1] == R and at_start:
+        return ('anchor_R' if len(seg) == 1 else 'exits_R'), False
+    if seg[0] == Rr and at_end:
+        return ('anchor_R' if len(seg) == 1 else 'exits_R'), True
+    if at_start and at_end and not {L, Lr, R, Rr} & set(seg):
+        return 'internal', None
+    return None
+
+
 def cmd_patch(a):
     os.makedirs(a.out, exist_ok=True)
     src = a.gfa or os.path.join(os.path.dirname(a.out.rstrip('/')), 'orig.gfa')
@@ -154,6 +181,8 @@ def cmd_patch(a):
     runs = collections.defaultdict(list)     # W-line index -> [(i, j, rid, rev)]
     spans = collections.defaultdict(collections.Counter)   # rid -> name -> spanning runs
     bad = collections.defaultdict(collections.Counter)
+    fcount = collections.defaultdict(collections.Counter)
+    frag_pending = collections.defaultdict(list)   # rid -> [(W index, i, j, name, seq as stored, rev|None)]
     run_seq = {}
     wi = -1
     with open(src) as f:
@@ -184,9 +213,19 @@ def cmd_patch(a):
                     elif seg[0] == ('<', AR) and seg[-1] == ('<', AL):
                         rev = True
                     else:
-                        why = ('fragment_starts_inside' if i == 0 else 'fragment_ends_inside' if j == len(steps)
-                               else 'visit_not_anchor_to_anchor')
-                        bad[rid][why] += 1
+                        fr = classify_fragment(seg, AL, AR, i == 0, j == len(steps)) if a.fragments else None
+                        if fr is None:
+                            why = ('fragment_starts_inside' if i == 0 else 'fragment_ends_inside' if j == len(steps)
+                                   else 'visit_not_anchor_to_anchor')
+                            bad[rid][why] += 1
+                        else:
+                            cls, frev = fr
+                            nd = inside[rid]
+                            sq = ''.join(nd[n] if o == '>' else rc(nd[n]) for o, n in seg)
+                            base = '%s:%s' % (name, cls)
+                            fcount[rid][base] += 1
+                            fname = base if fcount[rid][base] == 1 else '%s:%d' % (base, fcount[rid][base])
+                            frag_pending[rid].append((wi, i, j, fname, sq, frev))
                         k = m + 1
                         continue
                     fw = flip(seg) if rev else seg
@@ -196,7 +235,7 @@ def cmd_patch(a):
                     runs[wi].append((i, j, rid, rev, name))
                     k = m + 1
     # candidates: every path spells hap32.fa and the path's own run; every hap32 name threaded once
-    cand = {}
+    cand, nfrag = {}, {}
     for rid in list(inside):
         if bad[rid]:
             status[rid] = 'unpatched:' + ','.join('%s=%d' % kv for kv in sorted(bad[rid].items()))
@@ -218,9 +257,25 @@ def cmd_patch(a):
         for nm in hap:
             if spans[rid][nm] != 1:
                 why = why or 'hap32_path_not_crossing:%s' % nm
+        # fragments: each is threaded along the candidate path of its name, in the orientation
+        # that spells the run (fixed by the anchor it touches; either for an internal piece)
+        fruns = []
+        for wi_, i, j, fname, sq, frev in frag_pending[rid]:
+            if fname not in sp:
+                why = why or 'fragment_not_in_candidate:%s' % fname
+                continue
+            cs = ''.join(snodes[n] if o == '>' else rc(snodes[n]) for o, n in sp[fname])
+            ok = [r for r in ((False, True) if frev is None else (frev,)) if cs == (rc(sq) if r else sq)]
+            if not ok:
+                why = why or 'fragment_sequence_differs:%s' % fname
+                continue
+            fruns.append((wi_, i, j, ok[0], fname))
         if why:
             status[rid] = 'unpatched:' + why
             continue
+        for wi_, i, j, rev, fname in fruns:
+            runs[wi_].append((i, j, rid, rev, fname))
+        nfrag[rid] = len(fruns)
         cand[rid] = (snodes, sedges, sp)
     removed = set(n for rid in cand for n in inside[rid])
     taken = {i for i in all_ids if str(i) not in removed}
@@ -261,7 +316,8 @@ def cmd_patch(a):
         status[rid] = 'patched'
         reginfo[rid] = {'old_nodes': len(inside[rid]), 'new_nodes': n_new, 'candidate_segments': len(snodes),
                         'id_range': [lo, hi], 'free_ids': len(free), 'ids_interleaved': inter,
-                        'paths_crossing': sum(spans[rid].values()), 'span': [info[rid]['span_start'], info[rid]['span_end']]}
+                        'paths_crossing': sum(spans[rid].values()), 'fragments_threaded': nfrag.get(rid, 0),
+                        'span': [info[rid]['span_start'], info[rid]['span_end']]}
     # pass 2: write
     out_gfa = os.path.join(a.out, 'graph.gfa')
     log('patch: writing', out_gfa, '(%d regions patched)' % len(cand))
@@ -285,7 +341,7 @@ def cmd_patch(a):
                     fo.write(line)
             elif t == 'W':
                 wi += 1
-                rr = [r for r in runs.get(wi, []) if r[2] in cand]
+                rr = sorted(r for r in runs.get(wi, []) if r[2] in cand)
                 if not rr:
                     fo.write(line)
                     continue
@@ -713,6 +769,9 @@ def main(argv=None):
         if name == 'patch':
             s.add_argument('--ids', required=True, help="file of region IDs, or 'none' (unpatched)")
             s.add_argument('--method', default='poa_abpoa')
+            s.add_argument('--fragments', action='store_true',
+                           help='thread paths that start or end inside a region along the candidate\'s '
+                                'fragment paths (realign.py --fragments-poa) instead of leaving the region unpatched')
         if name == 'reads':
             s.add_argument('--jobs', type=int, default=4)
             s.add_argument('--chunk', type=int, default=2000000)

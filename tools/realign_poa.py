@@ -386,6 +386,154 @@ def project_to_hap32(msa_fa, hap32_fa, out_fa, allow_missing=False):
             'msa_rows': len(msa)}
 
 
+# ---------------------------------------------------------------- fragments (abpoa -i)
+
+# Fragment classes (package_regions.py names, plus the anchor-only pieces realign.py derives):
+# a prefix of the region is aligned in extension mode from the left, a suffix in extension mode
+# on the reversed MSA and sequence (so from the right), an internal piece in local mode.
+FRAG_PASSES = (('prefix', ('enters_L', 'anchor_L'), 2, False),
+               ('suffix', ('exits_R', 'anchor_R'), 2, True),
+               ('internal', ('internal',), 1, False))
+
+
+def _drop_gap_columns(rows):
+    if not rows:
+        return rows
+    keep = [c for c in range(len(rows[0])) if any(r[c] != '-' for r in rows)]
+    if len(keep) == len(rows[0]):
+        return rows
+    return [''.join(r[c] for c in keep) for r in rows]
+
+
+def add_fragments_inc(rows, frags, workdir, timeout=DEFAULT_TIMEOUT, mem_mb=DEFAULT_MEM_MB):
+    """Add fragment sequences to an existing MSA with `abpoa -i`, one pass per class (FRAG_PASSES),
+    each pass against the MSA of everything added so far (spanning rows and earlier fragments).
+    rows: [(name, aligned row)]; frags: [(name, class, sequence)]. Returns (rows, info): the input
+    rows followed by one row per fragment, all in the same columns (all-gap columns dropped), or
+    (None, info) when a pass fails. The input rows keep their alignment exactly (only inserted
+    all-gap columns); every row is checked to spell its sequence."""
+    import realign                      # late import: realign imports this module as a plugin
+    names = [n for n, _ in rows]
+    cur = [r.upper().replace('.', '-') for _, r in rows]
+    orig = list(cur)
+    info = collections.OrderedDict([('method', 'abpoa -i per class: prefix -m 2, suffix -m 2 on the '
+                                     'reversed MSA, internal -m 1'), ('passes', [])])
+    known = set(c for _, cls, _, _ in FRAG_PASSES for c in cls)
+    other = [n for n, c, _ in frags if c not in known]
+    if other:
+        info.update(status='error', message='unknown fragment class: %s' % ', '.join(other[:5]))
+        return None, info
+    for tag, classes, mode, rev in FRAG_PASSES:
+        todo = [(n, s.upper()) for n, c, s in frags if c in classes and s]
+        if not todo:
+            continue
+        f = (lambda x: x[::-1]) if rev else (lambda x: x)
+        drow = collections.OrderedDict()
+        for r in cur:
+            drow.setdefault(r, len(drow))
+        dseq = collections.OrderedDict()
+        for _, s in todo:
+            dseq.setdefault(s, len(dseq))
+        wd = os.path.join(workdir, 'frag_' + tag)
+        os.makedirs(wd, exist_ok=True)
+        mf, sf, of = (os.path.join(wd, x) for x in ('msa.fa', 'in.fa', 'out.fa'))
+        with open(mf, 'w') as fo:
+            for r, k in drow.items():
+                fo.write('>m%d\n%s\n' % (k, f(r)))
+        with open(sf, 'w') as fo:
+            for s, k in dseq.items():
+                fo.write('>f%d\n%s\n' % (k, f(s)))
+        cmd = [ABPOA, '-m', str(mode), '-r', '1', '-i', mf, sf]
+        p = {'pass': tag, 'mode': mode, 'reversed': rev, 'n_fragments': len(todo), 'n_distinct': len(dseq),
+             'msa_rows_in': len(drow), 'columns_in': len(cur[0])}
+        r = realign.run_proc(cmd, of, os.path.join(wd, 'abpoa.log'), timeout=timeout, mem_mb=mem_mb,
+                             env=config.tool_env(), cwd=wd)
+        p.update(status=r['status'], seconds=r.get('seconds'), peak_rss_mb=r.get('peak_rss_mb'))
+        info['passes'].append(p)
+        if r['status'] != 'ok' or not os.path.getsize(of):
+            info.update(status='error' if r['status'] == 'ok' else r['status'],
+                        message='abpoa -i %s pass: %s' % (tag, r.get('status')))
+            return None, info
+        got = {n: f(row.upper().replace('.', '-')) for n, row in msa_graph.read_msa(of)}
+        # abpoa re-lays gaps of the rows it reads (always on the reversed pass), so the fragments
+        # are carried back into the columns of `cur`: a fragment base goes to the old column of
+        # the rows that share its new column when they all came from one old column (and it keeps
+        # the fragment's column order); otherwise it gets an inserted column of its own, shared
+        # with the other fragments' bases of the same new column in the same gap.
+        oldset = None
+        for r0, k in drow.items():
+            row = got.get('m%d' % k)
+            if row is None or row.replace('-', '') != r0.replace('-', ''):
+                info.update(status='error', message='abpoa -i %s pass changed MSA row m%d' % (tag, k))
+                return None, info
+            if oldset is None:
+                oldset = [set() for _ in range(len(row))]
+            for a, b in zip((c for c, x in enumerate(r0) if x != '-'), (c for c, x in enumerate(row) if x != '-')):
+                oldset[b].add(a)
+        placed, ins_keys = [], set()
+        unanchored = 0
+        for n, s in todo:
+            row = got.get('f%d' % dseq[s])
+            if row is None or row.replace('-', '') != s or len(row) != len(oldset):
+                info.update(status='error', message='abpoa -i %s pass: fragment %s does not spell its sequence'
+                            % (tag, n))
+                return None, info
+            prev, pl = -1, []
+            for c, x in enumerate(row):
+                if x == '-':
+                    continue
+                o = oldset[c]
+                if len(o) == 1 and min(o) > prev:
+                    prev = min(o)
+                    pl.append((prev, None, x))
+                else:
+                    pl.append((prev, c, x))
+                    ins_keys.add((prev, c))
+                    unanchored += 1
+            placed.append(pl)
+        ncol0 = len(cur[0])
+        by_prev = collections.defaultdict(list)
+        for j, c in ins_keys:
+            by_prev[j].append(c)
+        order, colpos = [], {}
+        for j in range(-1, ncol0):
+            if j >= 0:
+                colpos[(j, None)] = len(order)
+                order.append((j, None))
+            for c in sorted(by_prev.get(j, ())):
+                colpos[(j, c)] = len(order)
+                order.append((j, c))
+        ncol = len(order)
+        oldpos = [colpos[(j, None)] for j in range(ncol0)]
+        new_cur = []
+        for r0 in cur:
+            buf = ['-'] * ncol
+            for j, x in enumerate(r0):
+                if x != '-':
+                    buf[oldpos[j]] = x
+            new_cur.append(''.join(buf))
+        fr = []
+        for pl in placed:
+            buf = ['-'] * ncol
+            for j, c, x in pl:
+                buf[colpos[(j, None) if c is None else (j, c)]] = x
+            fr.append(''.join(buf))
+        for (n, s), row in zip(todo, fr):
+            assert row.replace('-', '') == s, n
+        cur = new_cur + fr
+        names += [n for n, _ in todo]
+        p['columns_out'] = ncol
+        p['relaid_columns'] = sum(1 for o in oldset if len(o) > 1)
+        p['fragment_bases_unanchored'] = unanchored
+    cur = _drop_gap_columns(cur)
+    proj = _drop_gap_columns(cur[:len(orig)])
+    info['input_alignment_preserved'] = proj == orig
+    info['columns'] = len(cur[0]) if cur else 0
+    info['n_fragment_rows'] = len(cur) - len(orig)
+    info['status'] = 'ok'
+    return list(zip(names, cur)), info
+
+
 # ---------------------------------------------------------------- CLI
 
 def main(argv=None):

@@ -12,6 +12,7 @@ repository; every location has an environment override (`VNTR_EVAL_DIR`, `VNTR_R
 | [viewer.py](#viewerpy) | one self-contained HTML page per region: MSA, baseline and candidate graphs, calls, reads | no (reads and called haplotypes only with it) |
 | [region.py](region.md) | everything about one CHM13 interval of the hap32 graph: anchored subgraph, haplotypes, truth haplotypes, calls, reads | yes |
 | [package_regions.py](../regions/README.md) | builds the region packages in `regions/` | yes |
+| [snarl_anchors.py](snarl_anchors.py) | truth-free region anchors: the boundaries of the smallest snarl (or run of consecutive snarls of one chain) enclosing a padded interval, from `vg snarls -T -P CHM13` on the contig GBZ, cached per contig; `package_regions.py build --anchor-mode snarl` uses it | yes (once per contig) |
 | [evaluate.py](METRICS.md) | Stage 0/1 metrics of one graph of one region -> `results/<method>/<id>.json` | no (Stage 1 reads: yes) |
 | [realign.py](#realignpy) | re-align a region's `hap32.fa` (or any FASTA) with mafft FFT-NS-2 / L-INS-i / E-INS-i / G-INS-i (and plugin methods: `realign_poa.py`) and build `candidates/<method>/<id>.gfa` | no |
 | [panel.py](#panelpy-the-full-panel-arm) | the full-panel arm: union of all haplotypes, projection of a full-panel MSA onto hap32, the full MC graph over each span, panel statistics and checks | `union`/`project`/`panel-graph`: no; the rest reads cached full-graph queries |

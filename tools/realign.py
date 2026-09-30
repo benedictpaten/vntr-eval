@@ -84,6 +84,15 @@ haplotypes that do not span the region) is added with mafft --addfragments --kee
 written to candidates/<METHOD>/<id>.fragments.msa.fa (fragment rows only, in the columns of
 <id>.msa.fa; --keeplength deletes fragment bases that would need a new column, so these rows do
 not always spell their fragment). The graph never includes fragments.
+
+Fragments in the graph (--fragments-poa): the fragments, plus the anchor-only pieces region.json
+lists (region_fragments), are added to the finished MSA with `abpoa -i` (realign_poa.add_fragments_inc:
+prefixes in extension mode, suffixes in extension mode on the reversed MSA, internal pieces in
+local mode; new columns may appear, and whether the spanning rows' alignment came through
+unchanged is recorded), and the graph is built from all rows, so every fragment is a path of
+<id>.gfa named as in hap32.fragments.fa (<path>:anchor_L / :anchor_R for the anchor pieces).
+<id>.msa.fa then holds the spanning rows in the combined columns and <id>.fragments.msa.fa the
+fragment rows. patch_contig.py threads each fragment along its path.
 """
 import argparse
 import collections
@@ -588,9 +597,42 @@ def previous_status(method, rid, cand_root=None):
     return st
 
 
+def region_fragments(rdir):
+    """[(name, class, sequence)]: hap32.fragments.fa (class = the name's suffix: enters_L, exits_R,
+    internal) plus the anchor-only pieces region.json lists (a path that ends on the left anchor or
+    starts on the right one; package_regions.py leaves them out of hap32.fragments.fa), named
+    <path>:anchor_L / <path>:anchor_R with the anchor's sequence."""
+    out, seen = [], collections.Counter()
+
+    def add(name, cls, seq):
+        seen[name] += 1
+        out.append((name if seen[name] == 1 else '%s:%d' % (name, seen[name]), cls, seq))
+
+    fp = os.path.join(rdir, 'hap32.fragments.fa')
+    if os.path.exists(fp):
+        for n, sq in msa_graph.read_fasta(fp):
+            name = n.split()[0]
+            out.append((name, name.split(':')[1], sq))
+            seen[name] += 1
+    rj = json.load(open(os.path.join(rdir, 'region.json')))
+    L, R = rj['anchor_left'][:-1], rj['anchor_right'][:-1]
+    for piece in (rj.get('hap32') or {}).get('anchor_only_pieces') or []:
+        m = re.match(r'^(.*)\(([<>])(\d+)\)$', piece)
+        if not m:
+            raise ValueError('cannot parse anchor-only piece %r' % piece)
+        nm, _, node = m.groups()
+        if node == L:
+            add('%s:anchor_L' % nm, 'anchor_L', rj['anchor_left_seq'])
+        elif node == R:
+            add('%s:anchor_R' % nm, 'anchor_R', rj['anchor_right_seq'])
+        else:
+            raise ValueError('anchor-only piece %r is on neither anchor' % piece)
+    return out
+
+
 def realign_region(method, rdir, threads=2, timeout=DEFAULT_TIMEOUT, mem_mb=DEFAULT_MEM_MB, force=False,
                    retry_failed=False, fragments=False, dedup=True, mask_min_run=1, cand_root=None,
-                   workroot=None, record_runtime=True, merge_blocks=False):
+                   workroot=None, record_runtime=True, merge_blocks=False, fragments_poa=False):
     """Align regions/<id>/hap32.fa, build the graph, write candidates/<method>/<id>.*; returns the
     runtime row (status 'skipped' when an earlier result is kept)."""
     rid = os.path.basename(os.path.normpath(rdir))
@@ -624,11 +666,40 @@ def realign_region(method, rdir, threads=2, timeout=DEFAULT_TIMEOUT, mem_mb=DEFA
     info['description'] = m.description
     info['msa'] = _rel(o['msa']) if info['status'] == 'ok' else None
     graph_s = None
+    graph_msa, graph_hap, frag_rows = tmp_msa, hap, None
+    tmp_all = tmp_msa + '.all'
+    tmp_hap = tmp_msa + '.hap.fa'
+    if info['status'] == 'ok' and fragments_poa:
+        # fragments join the alignment (abpoa -i) and the graph, one path each
+        frags = region_fragments(rdir)
+        if frags:
+            import realign_poa
+            rows = msa_graph.read_msa(tmp_msa)
+            wdf = tempfile.mkdtemp(prefix='fraginc.', dir=workroot)
+            try:
+                allrows, finfo = realign_poa.add_fragments_inc(rows, frags, wdf, timeout=timeout, mem_mb=mem_mb)
+            finally:
+                shutil.rmtree(wdf, ignore_errors=True)
+            finfo['n_fragments'] = len(frags)
+            finfo['classes'] = dict(collections.Counter(c for _, c, _ in frags))
+            info['fragments'] = finfo
+            if allrows:
+                nsp = len(rows)
+                msa_graph.write_msa(allrows[:nsp], tmp_msa)
+                msa_graph.write_msa(allrows, tmp_all)
+                _write_fa(tmp_hap, [(n, sq) for n, sq in msa_graph.read_fasta(hap)] +
+                          [(n, sq) for n, _, sq in frags])
+                graph_msa, graph_hap, frag_rows = tmp_all, tmp_hap, allrows[nsp:]
+        else:
+            info['fragments'] = {'status': 'none', 'note': 'no fragments or anchor-only pieces'}
     if info['status'] == 'ok':
         tg = time.time()
         tmp_gfa = o['gfa'] + '.tmp%d' % os.getpid()
         try:
-            st = msa_graph.msa_to_gfa(tmp_msa, hap, tmp_gfa, merge_blocks=merge_blocks, workdir=workroot)
+            st = msa_graph.msa_to_gfa(graph_msa, graph_hap, tmp_gfa, merge_blocks=merge_blocks, workdir=workroot)
+            if frag_rows:
+                msa_graph.write_msa(frag_rows, o['frag'])
+                st['fragment_paths'] = len(frag_rows)
             os.replace(tmp_msa, o['msa'])
             os.replace(tmp_gfa, o['gfa'])
             st['msa'] = _rel(o['msa'])
@@ -640,10 +711,10 @@ def realign_region(method, rdir, threads=2, timeout=DEFAULT_TIMEOUT, mem_mb=DEFA
             info['status'] = 'graph_error'
             info['message'] = str(e)
         graph_s = round(time.time() - tg, 2)
-        for p in (tmp_msa, tmp_gfa):
+        for p in (tmp_msa, tmp_gfa, tmp_all, tmp_hap):
             if os.path.exists(p):
                 os.remove(p)
-    if info['status'] == 'ok' and fragments:
+    if info['status'] == 'ok' and fragments and not fragments_poa:
         frag = os.path.join(rdir, 'hap32.fragments.fa')
         if os.path.exists(frag) and os.path.getsize(frag) > 0:
             info['fragments'] = add_fragments(o['msa'], frag, o['frag'], threads, workroot, timeout, mem_mb)
@@ -746,6 +817,10 @@ def main(argv=None):
     ap.add_argument('--retry-failed', action='store_true', help='re-run regions whose last attempt failed or timed out')
     ap.add_argument('--retry', help='re-run regions whose last status is in this comma list (e.g. memout)')
     ap.add_argument('--fragments', action='store_true', help='also write <id>.fragments.msa.fa (mafft --addfragments)')
+    ap.add_argument('--fragments-poa', action='store_true',
+                    help='add the fragments and anchor-only pieces to the alignment with abpoa -i and to the '
+                         'graph, one path each (<id>.fragments.msa.fa holds their rows)')
+    ap.add_argument('--no-runtime', action='store_true', help='do not update results/realign_runtime.tsv')
     ap.add_argument('--no-dedup', action='store_true', help='align identical sequences separately')
     ap.add_argument('--mask-min-run', type=int, default=1, help='shortest non-ACGT run cut out before alignment')
     ap.add_argument('--merge-blocks', action='store_true', help='pass --merge-blocks to msa_graph (not the default)')
@@ -795,7 +870,8 @@ def main(argv=None):
     kw = dict(threads=a.threads, timeout=a.timeout, mem_mb=a.mem_mb, force=a.force,
               retry_failed=set(a.retry.split(',')) if a.retry else a.retry_failed,
               fragments=a.fragments, dedup=not a.no_dedup, mask_min_run=a.mask_min_run, cand_root=a.candidates,
-              workroot=a.workdir, merge_blocks=a.merge_blocks)
+              workroot=a.workdir, merge_blocks=a.merge_blocks, fragments_poa=a.fragments_poa,
+              record_runtime=not a.no_runtime)
     counts = collections.Counter()
     worst = 0
     for mname in methods:

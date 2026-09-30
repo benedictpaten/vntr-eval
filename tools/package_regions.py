@@ -3,6 +3,7 @@
 
     python3 tools/package_regions.py build  [--loci FILE] [--out DIR] [--work DIR] [--pad 200]
                                             [--max-span 250000] [--jobs 3] [--only ID,ID] [--force]
+                                            [--anchor-mode truth|snarl] [--snarl-cache DIR]
     python3 tools/package_regions.py hprc-fetch [--loci FILE] [--work DIR] [--only ID,ID]
     python3 tools/package_regions.py hprc   [--out DIR] [--work DIR] [--jobs 1] [--only ID,ID]
                                             [--force]
@@ -11,7 +12,14 @@
     python3 tools/package_regions.py bed    [--vntr-regions FILE] [--out DIR] [--min-len 1000]
     python3 tools/package_regions.py validate [--out DIR]
 
-`build` runs, per locus: anchor choice and extraction with tools/region.py (anchors are CHM13
+`build --anchor-mode snarl` (truth-free; tools/snarl_anchors.py) takes the anchors from the snarl
+decomposition instead: the boundaries of the smallest snarl, or run of consecutive snarls of one
+chain, enclosing the padded interval (`snarl_anchors.py build` caches it once per contig). A locus
+whose enclosing span exceeds --max-span is skipped (no fallback), and loci whose spans overlap are
+merged into one region named after the first (region.json 'merged_loci'), with the anchors of
+the union. Everything after anchor choice is the same.
+
+`build` (default --anchor-mode truth) runs, per locus: anchor choice and extraction with tools/region.py (anchors are CHM13
 nodes that every hap32 path visits once and no truth record touches; the interval is padded
 by --pad bp on each side first, so the anchor-to-anchor span holds the whole locus plus at
 least --pad bp of flank; when that rule finds no anchors, or only ones more than --max-span
@@ -205,6 +213,16 @@ def stage_extract(args):
     kw = dict(pad=pad, reads=False, names=False, verbose=False)
     note = None
     try:
+        if locus.get('anchors'):
+            # snarl mode: the anchors are fixed; no fallback
+            note = locus['anchor_note']
+            vr.analyse(locus['contig'], locus['core_start'], locus['core_end'], tdir,
+                       anchors=locus['anchors'], max_span=max_span, **kw)
+            s = json.load(open(sj))
+            s.setdefault('warnings', []).append(note)
+            s['package_anchor_note'] = note
+            json.dump(s, open(sj, 'w'), indent=1)
+            return rid, 'ok', note, time.time() - t0
         try:
             vr.analyse(locus['contig'], locus['core_start'], locus['core_end'], tdir,
                        max_span=max_span, **kw)
@@ -607,6 +625,9 @@ def stage_write(args):
         rj = collections.OrderedDict()
         rj['region_id'] = rid
         rj['stratum'] = locus['stratum']
+        rj['anchor_mode'] = locus.get('anchor_mode', 'truth')
+        if locus.get('merged_loci'):
+            rj['merged_loci'] = locus['merged_loci']
         rj['role'] = STRATUM_ROLE.get(locus['stratum'], locus['stratum'])
         rj['contig'] = contig
         rj['core_start'] = locus['core_start']
@@ -1121,17 +1142,91 @@ def run_pool(fn, jobs, items):
             yield res
 
 
+def snarl_assign(loci, pad, max_span, cache):
+    """Snarl-mode anchors for every locus; overlapping spans are merged (repeatedly, since the
+    union's anchors can reach further). Returns (loci to build, {region_id: skip reason})."""
+    import snarl_anchors as sa
+    by_contig = collections.defaultdict(list)
+    for l in loci:
+        by_contig[l['contig']].append(l)
+    out, skipped = [], {}
+    for contig, ls in by_contig.items():
+        A = sa.Anchors(contig, cache)
+        clen = vr.contig_length(config.data_paths(contig)['ref_fa'], contig)
+        # at a contig end there is no boundary node beyond the interval: clamp the padded
+        # interval to the first / last boundary node on CHM13
+        first_end = min(p[1] for p in A.pts)
+        last_start = max(p[0] for p in A.pts)
+
+        def anchors(a0, b0):
+            return A.query(max(a0, first_end), min(b0, last_start), max_span)
+
+        groups = []
+        for l in ls:
+            a0, b0 = max(0, l['core_start'] - 1 - pad), min(clen, l['core_end'] + pad)
+            try:
+                L, R, info = anchors(a0, b0)
+            except sa.SnarlAnchorError as e:
+                skipped[l['region_id']] = str(e)
+                continue
+            groups.append({'loci': [l], 'a0': a0, 'b0': b0, 'L': L, 'R': R, 'info': info})
+        while True:
+            groups.sort(key=lambda g: g['info']['L'][0])
+            merged, changed = [], False
+            for g in groups:
+                if merged and g['info']['L'][0] < merged[-1]['info']['R'][1]:
+                    m = merged[-1]
+                    m['loci'] += g['loci']
+                    m['a0'], m['b0'] = min(m['a0'], g['a0']), max(m['b0'], g['b0'])
+                    changed = True
+                    try:
+                        m['L'], m['R'], m['info'] = anchors(m['a0'], m['b0'])
+                    except sa.SnarlAnchorError as e:
+                        m['error'] = str(e)
+                else:
+                    merged.append(g)
+            groups = merged
+            if not changed:
+                break
+        for g in groups:
+            ids = [l['region_id'] for l in g['loci']]
+            if g.get('error'):
+                for rid in ids:
+                    skipped[rid] = 'merged group %s: %s' % (','.join(ids), g['error'])
+                continue
+            l = dict(g['loci'][0])
+            if len(ids) > 1:
+                l['core_start'] = min(x['core_start'] for x in g['loci'])
+                l['core_end'] = max(x['core_end'] for x in g['loci'])
+                l['merged_loci'] = ids
+            l['anchors'] = (g['L'], g['R'])
+            l['anchor_mode'] = 'snarl'
+            l['anchor_note'] = 'snarl anchors: %d+ / %d+, chain span %d bp (%s)%s' % (
+                g['L'], g['R'], g['info']['span_bp'], g['info']['rule'],
+                ('; merged overlapping loci ' + ','.join(ids)) if len(ids) > 1 else '')
+            out.append(l)
+    return out, skipped
+
+
 def cmd_build(a):
     loci = load_loci(a.loci)
     if a.only:
         keep = set(a.only.split(','))
         loci = [l for l in loci if l['region_id'] in keep]
+    snarl_skipped = {}
+    if a.anchor_mode == 'snarl':
+        n0 = len(loci)
+        loci, snarl_skipped = snarl_assign(loci, a.pad, a.max_span, a.snarl_cache)
+        print('[%s] snarl anchors: %d loci -> %d regions (%d merged away, %d skipped)' % (
+            now(), n0, len(loci), n0 - len(loci) - len(snarl_skipped), len(snarl_skipped)), flush=True)
+        for k, v in snarl_skipped.items():
+            print('  SKIP %s: %s' % (k, v), flush=True)
     os.makedirs(a.work, exist_ok=True)
     os.makedirs(a.out, exist_ok=True)
     for l in loci:
         os.makedirs(os.path.join(a.work, l['region_id']), exist_ok=True)
     t0 = time.time()
-    status = {}
+    status = {k: ('skipped', v) for k, v in snarl_skipped.items()}
     print('[%s] stage A: extract %d loci (jobs %d, pad %d)' % (now(), len(loci), a.jobs, a.pad), flush=True)
     for rid, st, msg, sec in run_pool(stage_extract, a.jobs, [(l, a.work, a.pad, a.force, a.max_span) for l in loci]):
         status[rid] = (st, msg)
@@ -1200,6 +1295,11 @@ def main(argv=None):
     b.add_argument('--max-span', type=int, default=MAX_SPAN,
                    help='longest anchor-to-anchor span before falling back to nearer anchors')
     b.add_argument('--jobs', type=int, default=3)
+    b.add_argument('--anchor-mode', choices=('truth', 'snarl'), default='truth',
+                   help='truth: CHM13 nodes every hap32 path visits once and no truth record touches '
+                        '(with a nearest-best-covered fallback); snarl: truth-free snarl chain boundaries')
+    b.add_argument('--snarl-cache', default=os.path.join(config.WORK_DIR, 'stage4', 'snarls'),
+                   help='snarl_anchors.py build output directory (snarl mode)')
     b.add_argument('--only')
     b.add_argument('--force', action='store_true')
     h = sub.add_parser('hprc')

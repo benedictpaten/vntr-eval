@@ -115,6 +115,23 @@ def main():
         check(rp.variant('poa_abpoa', 'p', 'given')[0] == ('poa_abpoa' if rp.DEFAULTS['poa_abpoa']['config'] == 'p'
                                                           else 'poa_abpoa_p_given'), 'variant naming')
         check(rp.variant('poa_spoa', None, 'random:2')[0] == 'poa_spoa_random2', 'spoa variant naming')
+        # fragments added with abpoa -i: rows spell, spanning alignment kept, prefix at the first
+        # column, suffix at the last, internal inside
+        rows = msa_graph.read_msa(os.path.join(tmp, 'poa_abpoa.msa.fa'))
+        full = rows[0][1].replace('-', '')
+        frags = [('p:enters_L', 'enters_L', full[:150]), ('a:anchor_L', 'anchor_L', full[:3]),
+                 ('s:exits_R', 'exits_R', full[-140:]), ('b:anchor_R', 'anchor_R', full[-2:]),
+                 ('i:internal', 'internal', full[100:180])]
+        out, finfo = rp.add_fragments_inc(rows, frags, tmp)
+        check(finfo['status'] == 'ok' and len(out) == len(rows) + len(frags), 'abpoa -i adds every fragment')
+        d = dict(out)
+        check(all(d[n].replace('-', '') == sq for n, _, sq in frags), 'fragment rows spell their sequences')
+        check(rp._drop_gap_columns([d[n] for n, _ in rows]) == [r for _, r in rows], 'spanning alignment kept')
+        first = lambda r: next(i for i, c in enumerate(r) if c != '-')  # noqa: E731
+        last = lambda r: max(i for i, c in enumerate(r) if c != '-')  # noqa: E731
+        ncol = len(out[0][1])
+        check(first(d['p:enters_L']) == 0 and first(d['a:anchor_L']) == 0, 'prefixes start at the first column')
+        check(last(d['s:exits_R']) == ncol - 1 and last(d['b:anchor_R']) == ncol - 1, 'suffixes end at the last column')
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     print('all tests passed')
