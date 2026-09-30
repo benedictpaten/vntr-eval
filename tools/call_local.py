@@ -1400,7 +1400,7 @@ def vg_call_command(reg, gbz, gaf, mosaic, threads, extra=()):
     ploidy = ploidy_of(reg)
     cmd = [VG_PINNED, 'call', gbz, '-p', 'CHM13#0#%s' % reg['contig'], '-d', str(ploidy),
            '-t', str(threads)] + PRODUCTION_FLAGS + ['--mosaic-out', mosaic] + list(extra) + \
-          ['--gaf-reads', gaf]
+          os.environ.get('VG_CALL_EXTRA', '').split() + ['--gaf-reads', gaf]
     return cmd
 
 

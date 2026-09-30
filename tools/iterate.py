@@ -143,6 +143,19 @@ for _base in ('poa_abpoa', 'poa_abpoa__all', 'fp_G'):
              'between them' % (_base, _k), kind='coarsen', base=_base, k=_k)
 
 
+# Linkage strength: the same graphs called with a stronger Li-Stephens linkage model (vg call
+# --linkage-weight, default 2). lw2_mc is mc laid out as a candidate (like the lw*_mc arms) with the
+# default weight, the baseline for them.
+MC_LINK = os.path.join(IT, 'mc_link')
+for _w in (2, 4, 8):
+    _reg('lw%d_mc' % _w, 'mc graph as a candidate, --linkage-weight %d' % _w, kind='link', src=MC_LINK, full=None,
+         extra=['--linkage-weight', str(_w)])
+for _base in ('poa_abpoa', 'poa_abpoa__all'):
+    for _w in (4, 8):
+        _reg('lw%d_%s' % (_w, _base), '%s, --linkage-weight %d' % (_base, _w), kind='link',
+             src=VARIANTS[_base]['src'], full=None, extra=['--linkage-weight', str(_w)])
+
+
 def variant(name):
     if name in VARIANTS:
         return VARIANTS[name]
@@ -683,7 +696,8 @@ def cmd_call(variants, ids, jobs, threads):
         with open(lg, 'a') as f:
             subprocess.run([sys.executable, os.path.join(TOOLS, 'call_local.py'), 'run', ','.join(todo), '--graphs', v,
                             '--arms', ','.join(ARMS), '--arm-graphs', v, '--jobs', str(jobs), '--threads',
-                            str(threads), '--compact'], stdout=f, stderr=subprocess.STDOUT, env=call_env(), cwd=REPO)
+                            str(threads), '--compact'], stdout=f, stderr=subprocess.STDOUT,
+                           env=dict(call_env(), VG_CALL_EXTRA=' '.join(variant(v).get('extra', []))), cwd=REPO)
         miss = [(r, rep) for r in todo for rep in REPS if not os.path.exists(vcf_path(v, r, rep))]
         if miss:
             log('call', v, 'missing', len(miss), 'calls, e.g.', miss[:4], '(see %s)' % lg)

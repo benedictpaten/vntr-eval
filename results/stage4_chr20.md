@@ -503,3 +503,46 @@ Single run (vg call numbers are 3-replicate medians).
 - So whole-allele genotyping of repeats is promising but not yet a clear win. Next: use mate pairs (insert
   size spans arrays and measures length), base qualities and mapping quality in the read likelihood; test on
   held-out regions; then, if it holds, genotype chains of snarls inside repeats jointly in vg call itself.
+
+## 4k. Is the linkage prior too weak? (test set, `--linkage-weight`)
+
+Question: 87-92% of the called-haplotype error in 4i came from called haplotypes that no panel haplotype
+carries (recombinant paths), yet vg call has a Li-Stephens linkage HMM that should penalise switching
+between panel haplotypes. Test: raise `--linkage-weight` (default 2) and re-call the 22-region test set,
+3 replicates, pinned vg 2a6a228a5 (`tools/iterate.py`, kind `link`; the flag reaches vg through
+`VG_CALL_EXTRA` in `tools/call_local.py`, checked in each call's command line).
+
+The `lwN_*` rows build the graph through the candidate path (GFA -> GBZ, new node IDs), so `lw2_mc` is mc
+with only its node layout changed: 7,779 against 6,840 for mc with its native IDs. Node layout alone moves
+summed ED by ~14% here (the depth-rate window was keyed on node ID in this binary; see the PR's positional
+window). Rows are therefore compared at the same weight and the same layout path.
+
+| graph | summed ED, w=2 | w=4 | w=8 | w=8 vs w=2, better / worse |
+|---|---|---|---|---|
+| mc (candidate layout) | 7,779 | 7,294 | 6,508 | 5/3 |
+| abPOA hap32 | 10,222 | 7,014 | 5,933 | 7/5 |
+| abPOA full panel, projected | 7,741 | 8,059 | 5,883 | 6/5 |
+
+| at w=8 | better / worse |
+|---|---|
+| abPOA hap32 vs mc | 6/4 (ED -9%) |
+| abPOA full panel vs mc | 3/9 |
+| abPOA full panel vs abPOA hap32 | 2/11 |
+
+Called haplotypes found in the panel (44 per graph) and the error split between in-panel and off-panel calls:
+
+| graph | in panel, w=2 -> w=8 | ED in / off panel, w=2 | w=8 |
+|---|---|---|---|
+| mc (candidate layout) | 24 -> 32 | 907 / 6,879 | 1,944 / 4,604 |
+| abPOA hap32 | 23 -> 31 | 798 / 9,435 | 1,144 / 4,936 |
+| abPOA full panel | 20 -> 26 | 849 / 7,006 | 1,432 / 4,358 |
+
+- Yes, the prior is too weak for these regions. Quadrupling the weight cuts the recombinant calls
+  by a third and the summed error by 16-42% in every graph. The gain is concentrated in a few regions (most
+  region counts are ties under the replicate rule), mostly the hotspots: abPOA hap32 hotspot ED 4,440 -> 1,510.
+- The weight helps the aligned graphs most. That fits the idea that finer, more even snarls give the
+  HMM more junctions at which to switch haplotypes.
+- More linkage does not rescue the full-panel projection: it has the lowest summed ED but loses region-wise
+  to both mc and abPOA hap32. Its duplicated repeat units (4g) still cost whole regions.
+- Still off-panel: 12-18 of 44 called haplotypes, holding 75-80% of the remaining error. w=8 is the top of
+  this sweep, not a fitted optimum. Whether it costs anything outside repeats is a whole-contig question; see 4l.
