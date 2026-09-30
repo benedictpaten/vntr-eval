@@ -546,3 +546,28 @@ Called haplotypes found in the panel (44 per graph) and the error split between 
   to both mc and abPOA hap32. Its duplicated repeat units (4g) still cost whole regions.
 - Still off-panel: 12-18 of 44 called haplotypes, holding 75-80% of the remaining error. w=8 is the top of
   this sweep, not a fitted optimum. Whether it costs anything outside repeats is a whole-contig question; see 4l.
+
+## 4l. Linkage weight 8 on the whole of chr20
+
+The four Stage 4 chr20 arms re-called at `--linkage-weight 8` with their existing graphs and read mappings
+(`work/iterate/lw_chr20.sh`, pinned vg 2a6a228a5, one draw each). Haplotype ED is summed over the 624
+patched repeat regions scored in 4b (median-free, single draw; better/worse = regions with lower/higher ED).
+
+| arm | weight | SV F1 | SV FP / FN | SNV F1 | indel F1 | ALL F1 | haplotype ED, 624 regions |
+|---|---|---|---|---|---|---|---|
+| unpatched (mc) | 2 | 0.5325 | 445 / 323 | 0.9851 | 0.9275 | 0.9721 | 88,099 |
+| unpatched (mc) | 8 | 0.5335 | 438 / 324 | 0.9834 | 0.9182 | 0.9688 | 81,015 |
+| mc re-laid (mcnull) | 2 | 0.5317 | 438 / 326 | 0.9851 | 0.9273 | 0.9721 | 84,912 |
+| mc re-laid (mcnull) | 8 | 0.5417 | 428 / 319 | 0.9834 | 0.9178 | 0.9687 | 82,235 |
+| abPOA hap32 patched | 2 | 0.5835 | 302 / 324 | 0.9853 | 0.9282 | 0.9724 | 93,529 |
+| abPOA hap32 patched | 8 | 0.5861 | 304 / 319 | 0.9833 | 0.9174 | 0.9686 | 81,378 |
+| full panel patched | 2 | 0.4798 | 426 / 388 | 0.9836 | 0.9181 | 0.9687 | – |
+| full panel patched | 8 | 0.4775 | 428 / 389 | 0.9820 | 0.9091 | 0.9655 | – |
+
+- The test-set result generalises to the repeats: at weight 8 the haplotype ED over the 624 patched
+  regions falls 8% on mc and 13% on the patched graph (95/56 and 92/62 regions better/worse).
+- SV F1 barely moves (+0.001 to +0.010), and the patching gain is unchanged (+0.053 at both weights).
+- Small variants pay for it genome-wide: SNV F1 -0.0017, indel F1 -0.009, ALL F1 -0.0033 in every arm
+  (unpatched: +108 SNV FP, +139 SNV FN, +175 indel FP, +201 indel FN). A global weight of 8 is a bad trade.
+- So the prior is too weak inside repeats and about right elsewhere. The lever to test is a
+  repeat-conditional linkage weight, not a new default.

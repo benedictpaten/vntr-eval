@@ -714,7 +714,7 @@ def cmd_score(a):
     import bench_wgs
     import bench_metrics as bm
     res = os.path.join(wd, 'score.json')
-    if not os.path.exists(res) or os.path.getmtime(res) < os.path.getmtime(a.vcf):
+    if a.force or not os.path.exists(res) or os.path.getmtime(res) < os.path.getmtime(a.vcf):
         log('score: bench_wgs.score_contig', a.label)
         r = bench_wgs.score_contig(Path(wd), a.contig, 'HG002', a.threads, cl.TRUVARI)
         with open(res, 'w') as f:

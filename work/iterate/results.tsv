@@ -769,6 +769,160 @@ fp_short	TR764119	mc_right	ok	0.08	0.0	152	149.31	0.2616	1.4214
 fp_short	TR765271	mc_right	ok	0.19	0.0	305	183.07	0.36349	1.1182					
 fp_short	TR773234	mc_right	ok	0.08	0.0	63	68.48	0.08819	1.032					
 fp_short	TR772722	mc_right	ok	0.08	0.0	340	175.08	0.36086	1.517					
+lw2_mc	TR761026	hurt	ok			1094	291.27	0.2944	1.0723	0,0,0	0	tie	tie	better
+lw2_mc	TR755910	hurt	ok			403	156.14	0.4278	1.1694	670,672,670	670	tie	worse	worse
+lw2_mc	TR761129	hurt	ok			1601	281.57	0.40392	3.1958	610,543,610	610	tie	worse	better
+lw2_mc	TR760137	hurt	ok			431	120.06	0.23403	1.057	180,180,180	180	tie	tie	tie
+lw2_mc	TR773368	hurt	ok			88	71.26	0.02814	1.0058	2,2,2	2	tie	worse	better
+lw2_mc	TR772413	hurt	ok			857	399.91	0.49824	1.4214	64,64	64.0	tie	better	better
+lw2_mc	TR755896	hurt	ok			438	124.96	0.22456	1.1836	0,0,0	0	tie	tie	tie
+lw2_mc	TR770009	hurt	ok			699	307.39	0.17281	1.0771	9,9,9	9	tie	worse	better
+lw2_mc	TR769752	helped	ok			534	265.67	0.20284	1.6883	670,670,670	670	tie	worse	worse
+lw2_mc	TR772976	helped	ok			5747	4437.84	0.66772	1.5628	1559,1559,1559	1559	tie	better	worse
+lw2_mc	TR755726	helped	ok			997	597.36	0.52352	2.8952	124,124,124	124	tie	worse	better
+lw2_mc	TR766584	helped	ok			166	161.17	0.02545	1.5268	0,0,0	0	tie	tie	tie
+lw2_mc	TR773452	helped	ok			714	356.47	0.28362	1.4319	0,0,0	0	tie	better	better
+lw2_mc	TR757936	helped	ok			245	37.91	0.0422	1.2815	2,2,2	2	tie	better	better
+lw2_mc	TR772945	hotspot	ok			321	164.53	0.40909	1.4309	813,782,813	813	tie	worse	worse
+lw2_mc	TR772999	hotspot	ok			4387	1324.58	0.72115	1.7083	1622,1510,1622	1622	tie	tie	tie
+lw2_mc	TR773491	hotspot	ok			2000	476.87	0.54173	1.9778	474,442,474	474	tie	better	better
+lw2_mc	TR772198	hotspot	ok			1257	598.57	0.59287	1.3943	962,961,962	962	tie	worse	worse
+lw2_mc	TR764119	mc_right	ok			146	143.42	0.19532	1.7107	11,11,11	11	tie	worse	worse
+lw2_mc	TR765271	mc_right	ok			228	136.85	0.16804	1.0511	4,4,4	4	tie	tie	tie
+lw2_mc	TR773234	mc_right	ok			132	143.48	0.04613	1.1099	2,2,2	2	tie	tie	tie
+lw2_mc	TR772722	mc_right	ok			161	82.9	0.0601	1.1976	1,1,1	1	tie	tie	tie
+lw4_mc	TR761026	hurt	ok			1094	291.27	0.2944	1.0723	0,0,0	0	tie	tie	better
+lw4_mc	TR755910	hurt	ok			403	156.14	0.4278	1.1694	670,672,670	670	tie	worse	worse
+lw4_mc	TR761129	hurt	ok			1601	281.57	0.40392	3.1958	594,571,594	594	tie	worse	better
+lw4_mc	TR760137	hurt	ok			431	120.06	0.23403	1.057	180,180,180	180	tie	tie	tie
+lw4_mc	TR773368	hurt	ok			88	71.26	0.02814	1.0058	2,2,2	2	tie	worse	better
+lw4_mc	TR772413	hurt	ok			857	399.91	0.49824	1.4214	62,62	62.0	better	better	better
+lw4_mc	TR755896	hurt	ok			438	124.96	0.22456	1.1836	0,0,0	0	tie	tie	tie
+lw4_mc	TR770009	hurt	ok			699	307.39	0.17281	1.0771	60,60,60	60	worse	worse	worse
+lw4_mc	TR769752	helped	ok			534	265.67	0.20284	1.6883	680,807,680	680	worse	worse	worse
+lw4_mc	TR772976	helped	ok			5747	4437.84	0.66772	1.5628	1551,1666,1551	1551	tie	better	worse
+lw4_mc	TR755726	helped	ok			997	597.36	0.52352	2.8952	116,116,116	116	better	worse	better
+lw4_mc	TR766584	helped	ok			166	161.17	0.02545	1.5268	0,0,0	0	tie	tie	tie
+lw4_mc	TR773452	helped	ok			714	356.47	0.28362	1.4319	0,0,0	0	tie	better	better
+lw4_mc	TR757936	helped	ok			245	37.91	0.0422	1.2815	2,2,2	2	tie	better	better
+lw4_mc	TR772945	hotspot	ok			321	164.53	0.40909	1.4309	124,83,124	124	better	better	better
+lw4_mc	TR772999	hotspot	ok			4387	1324.58	0.72115	1.7083	1738,1340,1738	1738	tie	tie	tie
+lw4_mc	TR773491	hotspot	ok			2000	476.87	0.54173	1.9778	560,620,560	560	worse	tie	better
+lw4_mc	TR772198	hotspot	ok			1257	598.57	0.59287	1.3943	937,939,937	937	better	worse	worse
+lw4_mc	TR764119	mc_right	ok			146	143.42	0.19532	1.7107	11,11,11	11	tie	worse	worse
+lw4_mc	TR765271	mc_right	ok			228	136.85	0.16804	1.0511	4,4,4	4	tie	tie	tie
+lw4_mc	TR773234	mc_right	ok			132	143.48	0.04613	1.1099	2,2,2	2	tie	tie	tie
+lw4_mc	TR772722	mc_right	ok			161	82.9	0.0601	1.1976	1,1,1	1	tie	tie	tie
+lw4_poa_abpoa	TR761026	hurt	ok			653	173.86	0.27876	1.0543	0,0,0	0	tie	tie	better
+lw4_poa_abpoa	TR755910	hurt	ok			104	40.29	0.0964	1.0009	604,604,604	604	better	tie	tie
+lw4_poa_abpoa	TR761129	hurt	ok			1190	209.29	0.38385	1.3415	414,414,414	414	better	better	better
+lw4_poa_abpoa	TR760137	hurt	ok			945	263.23	0.2887	1.2987	180,180,180	180	tie	tie	tie
+lw4_poa_abpoa	TR773368	hurt	ok			13	10.53	0.0	1.001	0,0,0	0	better	tie	better
+lw4_poa_abpoa	TR772413	hurt	ok			377	175.92	0.35265	1.1123	67,67	67.0	worse	better	better
+lw4_poa_abpoa	TR755896	hurt	ok			164	46.79	0.14859	1.0082	0,0,0	0	tie	tie	tie
+lw4_poa_abpoa	TR770009	hurt	ok			91	40.02	0.12799	1.0279	0,0,0	0	better	tie	better
+lw4_poa_abpoa	TR769752	helped	ok			227	112.94	0.15131	1.0475	294,291,294	294	better	worse	better
+lw4_poa_abpoa	TR772976	helped	ok			3077	2376.06	0.60199	1.1983	3522,3522,3522	3522	worse	better	worse
+lw4_poa_abpoa	TR755726	helped	ok			410	245.66	0.39263	1.0958	113,113,113	113	better	worse	better
+lw4_poa_abpoa	TR766584	helped	ok			29	28.16	0.02213	1.0336	0,0,0	0	tie	tie	tie
+lw4_poa_abpoa	TR773452	helped	ok			269	134.3	0.19891	1.0278	11,11,11	11	worse	better	better
+lw4_poa_abpoa	TR757936	helped	ok			75	11.61	0.0207	1.0011	2,2,2	2	tie	better	better
+lw4_poa_abpoa	TR772945	hotspot	ok			184	94.31	0.2467	1.0198	81,81,81	81	better	better	better
+lw4_poa_abpoa	TR772999	hotspot	ok			2866	865.34	0.68806	1.1315	487,1197,487	487	better	tie	better
+lw4_poa_abpoa	TR773491	hotspot	ok			673	160.47	0.43046	1.1018	665,618,665	665	worse	worse	better
+lw4_poa_abpoa	TR772198	hotspot	ok			698	332.38	0.48697	1.0655	560,560,560	560	better	better	worse
+lw4_poa_abpoa	TR764119	mc_right	ok			65	63.85	0.12086	1.1666	7,7,7	7	better	tie	tie
+lw4_poa_abpoa	TR765271	mc_right	ok			115	69.03	0.12523	1.0592	4,4,4	4	tie	tie	tie
+lw4_poa_abpoa	TR773234	mc_right	ok			39	42.39	0.03826	1.0419	2,2,2	2	tie	tie	tie
+lw4_poa_abpoa	TR772722	mc_right	ok			46	23.69	0.00519	1.1888	1,1,1	1	tie	tie	tie
+lw4_poa_abpoa__all	TR761026	hurt	ok	2.71	293.1	900	239.62	0.3447	1.0533	1,1,1	1	worse	worse	tie
+lw4_poa_abpoa__all	TR755910	hurt	ok	1.63	251.8	124	48.04	0.10864	1.0015	604,604,604	604	better	tie	tie
+lw4_poa_abpoa__all	TR761129	hurt	ok	10.4	642.8	1822	320.44	0.58244	2.658	720,904,720	720	worse	worse	tie
+lw4_poa_abpoa__all	TR760137	hurt	ok	0.68	288.5	409	113.93	0.19428	1.4319	180,180,180	180	tie	tie	tie
+lw4_poa_abpoa__all	TR773368	hurt	ok	0.04	0.0	40	32.39	0.09618	1.0169	419,419,419	419	worse	worse	worse
+lw4_poa_abpoa__all	TR772413	hurt	ok	0.55	64.6	617	287.91	0.50165	1.1175	109,109	109.0	worse	worse	better
+lw4_poa_abpoa__all	TR755896	hurt	ok	0.67	190.7	372	106.13	0.34321	1.1677	0,0,0	0	tie	tie	tie
+lw4_poa_abpoa__all	TR770009	hurt	ok	1.44	125.8	303	133.25	0.29713	1.0593	34,34,34	34	worse	worse	tie
+lw4_poa_abpoa__all	TR769752	helped	ok	0.96	62.5	278	138.31	0.1485	1.1459	296,263,296	296	better	tie	better
+lw4_poa_abpoa__all	TR772976	helped	ok	12.95	354.6	4660	3598.46	0.74893	1.3949	1345,1029,1345	1345	tie	better	tie
+lw4_poa_abpoa__all	TR755726	helped	ok	2.52	161.5	615	368.48	0.5021	1.1449	216,216,216	216	worse	worse	better
+lw4_poa_abpoa__all	TR766584	helped	ok	0.04	0.0	52	50.49	0.02792	1.0268	0,0,0	0	tie	tie	tie
+lw4_poa_abpoa__all	TR773452	helped	ok	0.72	214.2	638	318.52	0.35406	1.0537	1379,1379,1379	1379	worse	worse	tie
+lw4_poa_abpoa__all	TR757936	helped	ok	0.55	456.1	94	14.55	0.03933	1.009	2,2,2	2	tie	better	better
+lw4_poa_abpoa__all	TR772945	hotspot	ok	1.19	117.7	206	105.59	0.27566	1.0244	713,558,713	713	better	worse	tie
+lw4_poa_abpoa__all	TR772999	hotspot	ok	16.6	594.6	4036	1218.6	0.77612	1.1325	1095,1289,1095	1095	better	tie	tie
+lw4_poa_abpoa__all	TR773491	hotspot	ok	8.01	487.3	920	219.36	0.50874	1.1164	658,961,658	658	worse	worse	tie
+lw4_poa_abpoa__all	TR772198	hotspot	ok	2.73	148.5	1072	510.48	0.58817	1.0975	280,312,280	280	better	better	better
+lw4_poa_abpoa__all	TR764119	mc_right	ok	0.09	0.0	113	111.0	0.18293	1.2943	1,7,1	1	better	tie	tie
+lw4_poa_abpoa__all	TR765271	mc_right	ok	0.15	0.0	236	141.66	0.274	1.2013	4,4,4	4	tie	tie	tie
+lw4_poa_abpoa__all	TR773234	mc_right	ok	0.05	0.0	54	58.7	0.07169	1.2655	2,2,2	2	tie	tie	tie
+lw4_poa_abpoa__all	TR772722	mc_right	ok	0.05	0.0	77	39.65	0.06621	1.0524	1,1,1	1	tie	tie	tie
+lw8_mc	TR761026	hurt	ok			1094	291.27	0.2944	1.0723	0,0,0	0	tie	tie	better
+lw8_mc	TR755910	hurt	ok			403	156.14	0.4278	1.1694	670,614,670	670	tie	worse	worse
+lw8_mc	TR761129	hurt	ok			1601	281.57	0.40392	3.1958	457,727,457	457	tie	tie	better
+lw8_mc	TR760137	hurt	ok			431	120.06	0.23403	1.057	180,180,180	180	tie	tie	tie
+lw8_mc	TR773368	hurt	ok			88	71.26	0.02814	1.0058	2,2,2	2	tie	worse	better
+lw8_mc	TR772413	hurt	ok			857	399.91	0.49824	1.4214	62,62	62.0	better	better	better
+lw8_mc	TR755896	hurt	ok			438	124.96	0.22456	1.1836	0,0,0	0	tie	tie	tie
+lw8_mc	TR770009	hurt	ok			699	307.39	0.17281	1.0771	16,16,16	16	worse	worse	better
+lw8_mc	TR769752	helped	ok			534	265.67	0.20284	1.6883	147,273,147	147	better	tie	better
+lw8_mc	TR772976	helped	ok			5747	4437.84	0.66772	1.5628	1671,1671,1671	1671	worse	better	worse
+lw8_mc	TR755726	helped	ok			997	597.36	0.52352	2.8952	115,116,115	115	better	worse	better
+lw8_mc	TR766584	helped	ok			166	161.17	0.02545	1.5268	0,0,0	0	tie	tie	tie
+lw8_mc	TR773452	helped	ok			714	356.47	0.28362	1.4319	0,0,0	0	tie	better	better
+lw8_mc	TR757936	helped	ok			245	37.91	0.0422	1.2815	2,2,2	2	tie	better	better
+lw8_mc	TR772945	hotspot	ok			321	164.53	0.40909	1.4309	81,81,81	81	better	better	better
+lw8_mc	TR772999	hotspot	ok			4387	1324.58	0.72115	1.7083	1532,726,1532	1532	tie	tie	tie
+lw8_mc	TR773491	hotspot	ok			2000	476.87	0.54173	1.9778	621,621,621	621	worse	worse	better
+lw8_mc	TR772198	hotspot	ok			1257	598.57	0.59287	1.3943	938,937,938	938	better	worse	worse
+lw8_mc	TR764119	mc_right	ok			146	143.42	0.19532	1.7107	7,11,7	7	tie	tie	tie
+lw8_mc	TR765271	mc_right	ok			228	136.85	0.16804	1.0511	4,4,4	4	tie	tie	tie
+lw8_mc	TR773234	mc_right	ok			132	143.48	0.04613	1.1099	2,2,2	2	tie	tie	tie
+lw8_mc	TR772722	mc_right	ok			161	82.9	0.0601	1.1976	1,1,1	1	tie	tie	tie
+lw8_poa_abpoa	TR761026	hurt	ok			653	173.86	0.27876	1.0543	41,41,41	41	worse	worse	worse
+lw8_poa_abpoa	TR755910	hurt	ok			104	40.29	0.0964	1.0009	604,604,604	604	better	tie	tie
+lw8_poa_abpoa	TR761129	hurt	ok			1190	209.29	0.38385	1.3415	368,373,368	368	better	better	better
+lw8_poa_abpoa	TR760137	hurt	ok			945	263.23	0.2887	1.2987	180,180,180	180	tie	tie	tie
+lw8_poa_abpoa	TR773368	hurt	ok			13	10.53	0.0	1.001	2,2,2	2	tie	worse	better
+lw8_poa_abpoa	TR772413	hurt	ok			377	175.92	0.35265	1.1123	6,6	6.0	better	better	better
+lw8_poa_abpoa	TR755896	hurt	ok			164	46.79	0.14859	1.0082	0,0,0	0	tie	tie	tie
+lw8_poa_abpoa	TR770009	hurt	ok			91	40.02	0.12799	1.0279	0,0,0	0	better	tie	better
+lw8_poa_abpoa	TR769752	helped	ok			227	112.94	0.15131	1.0475	331,327,331	331	better	worse	worse
+lw8_poa_abpoa	TR772976	helped	ok			3077	2376.06	0.60199	1.1983	2761,2781,2761	2761	worse	better	worse
+lw8_poa_abpoa	TR755726	helped	ok			410	245.66	0.39263	1.0958	114,113,114	114	better	worse	better
+lw8_poa_abpoa	TR766584	helped	ok			29	28.16	0.02213	1.0336	0,0,0	0	tie	tie	tie
+lw8_poa_abpoa	TR773452	helped	ok			269	134.3	0.19891	1.0278	0,0,0	0	tie	better	better
+lw8_poa_abpoa	TR757936	helped	ok			75	11.61	0.0207	1.0011	2,2,2	2	tie	better	better
+lw8_poa_abpoa	TR772945	hotspot	ok			184	94.31	0.2467	1.0198	81,81,81	81	better	better	better
+lw8_poa_abpoa	TR772999	hotspot	ok			2866	865.34	0.68806	1.1315	658,1336,658	658	better	tie	tie
+lw8_poa_abpoa	TR773491	hotspot	ok			673	160.47	0.43046	1.1018	647,647,647	647	worse	worse	better
+lw8_poa_abpoa	TR772198	hotspot	ok			698	332.38	0.48697	1.0655	124,124,124	124	better	better	better
+lw8_poa_abpoa	TR764119	mc_right	ok			65	63.85	0.12086	1.1666	7,7,7	7	better	tie	tie
+lw8_poa_abpoa	TR765271	mc_right	ok			115	69.03	0.12523	1.0592	4,4,4	4	tie	tie	tie
+lw8_poa_abpoa	TR773234	mc_right	ok			39	42.39	0.03826	1.0419	2,2,2	2	tie	tie	tie
+lw8_poa_abpoa	TR772722	mc_right	ok			46	23.69	0.00519	1.1888	1,1,1	1	tie	tie	tie
+lw8_poa_abpoa__all	TR761026	hurt	ok	2.71	293.1	900	239.62	0.3447	1.0533	42,42,42	42	worse	worse	worse
+lw8_poa_abpoa__all	TR755910	hurt	ok	1.63	251.8	124	48.04	0.10864	1.0015	670,670,670	670	tie	worse	worse
+lw8_poa_abpoa__all	TR761129	hurt	ok	10.4	642.8	1822	320.44	0.58244	2.658	590,591,590	590	tie	worse	better
+lw8_poa_abpoa__all	TR760137	hurt	ok	0.68	288.5	409	113.93	0.19428	1.4319	180,180,180	180	tie	tie	tie
+lw8_poa_abpoa__all	TR773368	hurt	ok	0.04	0.0	40	32.39	0.09618	1.0169	419,419,419	419	worse	worse	worse
+lw8_poa_abpoa__all	TR772413	hurt	ok	0.55	64.6	617	287.91	0.50165	1.1175	208,208	208.0	worse	worse	worse
+lw8_poa_abpoa__all	TR755896	hurt	ok	0.67	190.7	372	106.13	0.34321	1.1677	0,0,0	0	tie	tie	tie
+lw8_poa_abpoa__all	TR770009	hurt	ok	1.44	125.8	303	133.25	0.29713	1.0593	102,89,102	102	worse	worse	worse
+lw8_poa_abpoa__all	TR769752	helped	ok	0.96	62.5	278	138.31	0.1485	1.1459	308,337,308	308	better	worse	tie
+lw8_poa_abpoa__all	TR772976	helped	ok	12.95	354.6	4660	3598.46	0.74893	1.3949	1383,1028,1383	1383	tie	better	tie
+lw8_poa_abpoa__all	TR755726	helped	ok	2.52	161.5	615	368.48	0.5021	1.1449	173,173,173	173	worse	worse	better
+lw8_poa_abpoa__all	TR766584	helped	ok	0.04	0.0	52	50.49	0.02792	1.0268	0,0,0	0	tie	tie	tie
+lw8_poa_abpoa__all	TR773452	helped	ok	0.72	214.2	638	318.52	0.35406	1.0537	26,1698,26	26	worse	tie	tie
+lw8_poa_abpoa__all	TR757936	helped	ok	0.55	456.1	94	14.55	0.03933	1.009	2,2,2	2	tie	better	better
+lw8_poa_abpoa__all	TR772945	hotspot	ok	1.19	117.7	206	105.59	0.27566	1.0244	310,558,310	310	better	worse	tie
+lw8_poa_abpoa__all	TR772999	hotspot	ok	16.6	594.6	4036	1218.6	0.77612	1.1325	560,641,560	560	better	tie	better
+lw8_poa_abpoa__all	TR773491	hotspot	ok	8.01	487.3	920	219.36	0.50874	1.1164	662,662,662	662	worse	worse	better
+lw8_poa_abpoa__all	TR772198	hotspot	ok	2.73	148.5	1072	510.48	0.58817	1.0975	234,238,234	234	better	better	better
+lw8_poa_abpoa__all	TR764119	mc_right	ok	0.09	0.0	113	111.0	0.18293	1.2943	7,7,7	7	better	tie	tie
+lw8_poa_abpoa__all	TR765271	mc_right	ok	0.15	0.0	236	141.66	0.274	1.2013	4,4,4	4	tie	tie	tie
+lw8_poa_abpoa__all	TR773234	mc_right	ok	0.05	0.0	54	58.7	0.07169	1.2655	2,2,2	2	tie	tie	tie
+lw8_poa_abpoa__all	TR772722	mc_right	ok	0.05	0.0	77	39.65	0.06621	1.0524	1,1,1	1	tie	tie	tie
 s1_seed10	TR761026	hurt	ok	2.54	303.3	777	206.87	0.32131	1.0499					
 s1_seed10	TR755910	hurt	ok	1.62	252.8	144	55.79	0.21505	1.0509					
 s1_seed10	TR761129	hurt	ok	14.89	769.1	1882	330.99	0.58104	4.2213					
