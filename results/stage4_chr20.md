@@ -727,3 +727,63 @@ fallback.
 
 Files: `tools/iterate.py` (`star_align`, `left_normalise_pair`, `star_merge`, `profile_align`); candidates,
 full MSAs and Stage 0 under `work/iterate/{candidates,panel,stage0}/<variant>/`.
+
+## 4o. The repeat-unit-aware aligner on the full panel
+
+Question: does `unit_aware` (`tools/realign_units.py`), which aligns whole repeat units, give a
+sample-independent full-panel MSA whose hap32 projection is as good as aligning hap32 alone? Same gate as 4n:
+median kmerx ≤ 0.256 and median cost/opt ≤ 1.117.
+
+Variants (`tools/iterate.py`, kind `link`):
+- `ua32`: the existing hap32 arm, `work/stage4/candidates/unit_aware`.
+- `ua_all`: the full panel aligned by `tools/units_panel.py run --panel-root work/stage4/panel`, with its
+  existing caps (1,800 s, 12 GB per region), then projected.
+- `ua_all_poa`: the same, with the new `--fallback-engine abpoa`. abPOA (`poa_abpoa`) then aligns
+  everything that is not a unit array: the flank pieces, regions without a usable motif, and the adequacy
+  guard's fallback. The switch is `realign_units.FALLBACK_ENGINES`. Its output goes under the method name
+  `unit_aware_poa`.
+
+Every test region's `region.json` carries a motif. 21 regions take the unit path. TR773234 (period 2) falls
+back in both variants because its CHM13 array covers 0.37 of the core. The guard ran at TR761129 and
+TR764119, and both times the fallback cost more, so the unit MSA was kept.
+
+Stage 0, 22 regions; b/w against `poa_abpoa__all` as in 4n.
+
+| variant | kmerx median / mean | kmerx b/w | cost/opt median / mean | cost/opt b/w | nodes/kb | max align s / peak RSS | gate |
+|---|---|---|---|---|---|---|---|
+| mc | 0.259 / 0.307 | 11/7 | 1.408 / 1.507 | 4/18 | 215 | - | - |
+| `poa_abpoa` (hap32 alone) | 0.175 / 0.237 | 20/1 | 1.057 / 1.092 | 16/2 | 104 | - | sample-dependent |
+| `poa_abpoa__all` | 0.286 / 0.320 | - | 1.117 / 1.203 | - | 136 | 17 s | - |
+| st_chm13 | 0.192 / 0.276 | 16/3 | 1.259 / 1.347 | 8/14 | 79 | 27 s | fails cost/opt |
+| pf_famsa | 0.287 / 0.304 | 11/6 | 1.066 / 1.104 | 18/1 | 115 | 108 s | fails kmerx |
+| ua32 (hap32 alone) | 0.231 / 0.266 | 18/3 | 1.041 / 1.062 | 21/0 | 115 | - | sample-dependent |
+| **ua_all** | **0.257** / 0.294 | 17/3 | **1.061** / 1.084 | 19/0 | 116 | 274 s / 7.3 GB | fails kmerx by 0.001 |
+| ua_all_poa | 0.258 / 0.295 | 16/3 | 1.061 / 1.091 | 18/0 | 116 | 101 s / 1.5 GB | fails kmerx |
+
+- **`ua_all` is the first full-panel variant that beats `poa_abpoa__all` on both metrics in most
+  regions.**
+  - Its cost/opt is within 0.004 of hap32 alone, like FAMSA's.
+  - Its median kmerx (0.2572) misses the gate (0.256) by 0.001, so it was not called. It is also above the
+    0.24 that would have justified calling a near miss.
+- **Projecting costs the unit-aware aligner much less than it costs abPOA.**
+  - From hap32 alone to the full-panel projection, `unit_aware` gains 0.026 kmerx and 0.019 cost/opt.
+    abPOA gains 0.111 and 0.060.
+  - Most of the remaining kmerx gap to `poa_abpoa` (0.175) is already there in `ua32` (0.231). The unit
+    aligner duplicates more k-mers than abPOA even on the hap32 rows alone.
+- **The fallback engine hardly matters on repeats.**
+  - Apart from TR773234, the two engines differ only in the flanks. Per-region kmerx is within 0.004 and
+    cost/opt within 0.012.
+  - At TR773234, mafft FFT-NS-i (0.036 / 1.127) beats abPOA, which reproduces `poa_abpoa__all` exactly
+    (0.072 / 1.266). That is the whole difference in the means.
+  - abPOA is faster and lighter. At TR761129 the guard's mafft fallback took 274 s and 7.3 GB against
+    48 s for abPOA.
+  - The mafft deletion scattering that hurt `unit_aware` on whole chr20 came from non-repeat fallback
+    regions, and this test set has only one.
+
+Next: `unit_aware`'s own kmerx on hap32 is the lever, not the panel. Find which unit columns hold the extra
+k-mers in `ua32` against `poa_abpoa`. Or call `ua_all` anyway, since it misses the gate by 0.001 and its
+cost/opt is the best of any sample-independent variant.
+
+Files: `tools/units_panel.py` and `tools/realign_units.py` (`--fallback-engine`), `tools/iterate.py`
+(`ua32`, `ua_all`, `ua_all_poa`); full MSAs in `work/stage4/panel/unit_aware{,_poa}/`, projections in
+`work/stage4/candidates/unit_aware{,_poa}__all/`; runtime rows in `results/realign_runtime.all.units.tsv`.

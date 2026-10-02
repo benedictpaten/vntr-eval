@@ -181,6 +181,18 @@ _reg('pf_muscle', 'full panel, MUSCLE5 -super5, projected', kind='profile', tool
 _reg('pf_mafft', 'full panel, mafft FFT-NS-2 (--retree 2 --maxiterate 0), projected', kind='profile',
      tool='mafft', args=['--retree', '2', '--maxiterate', '0'], threads=2)
 
+# The repeat-unit-aware aligner (realign_units, 4o). ua32 is its hap32 arm (Stage 4 candidates);
+# ua_all and ua_all_poa run it on the full panel (tools/units_panel.py run --panel-root
+# work/stage4/panel [--fallback-engine abpoa]) and project the MSA onto hap32. They differ only in
+# the aligner of the non-unit parts (flank pieces, regions without a usable motif, the guard's
+# fallback): mafft, or abPOA.
+_reg('ua32', 'unit_aware on the 34 hap32 rows (Stage 4 candidates)', kind='link',
+     src=os.path.join(S4, 'candidates', 'unit_aware'), full=None)
+_reg('ua_all', 'unit_aware on the full panel, mafft for non-unit parts, projected', kind='link',
+     src=os.path.join(S4, 'candidates', 'unit_aware__all'), full=os.path.join(S4, 'panel', 'unit_aware'))
+_reg('ua_all_poa', 'unit_aware on the full panel, abPOA for non-unit parts, projected', kind='link',
+     src=os.path.join(S4, 'candidates', 'unit_aware_poa__all'), full=os.path.join(S4, 'panel', 'unit_aware_poa'))
+
 
 # Linkage strength: the same graphs called with a stronger Li-Stephens linkage model (vg call
 # --linkage-weight, default 2). lw2_mc is mc laid out as a candidate (like the lw*_mc arms) with the

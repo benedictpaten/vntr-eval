@@ -32,6 +32,11 @@ Usage (from the repository root):
     python3 tools/units_panel.py one REGION [--threads 3] [--timeout 1800] ...   # one job, this process
     python3 tools/units_panel.py table [--log BATCH.log]   # rewrite the runtime table from the JSONs
 
+--fallback-engine abpoa aligns the non-unit parts (flank pieces, the fallback for regions without a
+usable motif, the guard's fallback) with abPOA instead of mafft (realign_units.FALLBACK_ENGINES),
+under the method name unit_aware_poa: candidates/unit_aware_poa__all/, panel/unit_aware_poa/ and its
+own rows in the runtime table. abPOA calls use the full-panel memory model (poa_panel.predict_mb).
+
 Scheduling: every region is a separate process (its own session), at most --jobs at a time,
 regions smallest first (total distinct bp), so one slow region does not starve the rest. The
 parent samples the summed RSS of the job's whole process tree (mafft runs in sessions of its
@@ -71,6 +76,11 @@ import realign  # noqa: E402
 import realign_units  # noqa: E402
 
 METHOD = realign_units.METHOD            # unit_aware
+ENGINE_SUFFIX = {'mafft': '', 'abpoa': '_poa'}   # method name per realign_units fallback engine
+
+
+def method_name(engine='mafft'):
+    return METHOD + ENGINE_SUFFIX[engine or 'mafft']
 RUNTIME_TSV = os.path.join(config.RESULTS_DIR, 'realign_runtime.all.units.tsv')
 RUNTIME_COLS = ['region_id', 'method', 'panel', 'n_distinct', 'seconds', 'status', 'mode', 'fallback_method',
                 'reason', 'stratum', 'span_bp', 'n_panel_records', 'n_hap32_only', 'max_len', 'len2', 'total_bp',
@@ -114,8 +124,8 @@ def out_paths(rid, cand_root=None, panel_root=None, method=METHOD):
             'full_msa': os.path.join(pd, rid + '.msa.fa.gz'), 'full_gfa': os.path.join(pd, rid + '.gfa')}
 
 
-def previous_status(rid, cand_root=None, panel_root=None):
-    o = out_paths(rid, cand_root, panel_root)
+def previous_status(rid, cand_root=None, panel_root=None, method=METHOD):
+    o = out_paths(rid, cand_root, panel_root, method)
     try:
         with open(o['json']) as f:
             j = json.load(f)
@@ -196,7 +206,8 @@ def check_paths(gfa, fasta_recs):
 
 # ---------------------------------------------------------------- one job
 
-def summary_row(rid, info_r, info, times, status, seconds, threads, timeout, mem_mb, peak=None, note=None):
+def summary_row(rid, info_r, info, times, status, seconds, threads, timeout, mem_mb, peak=None, note=None,
+                method=METHOD):
     al = info.get('align') or {}
     pg = info.get('panel_graph') or {}
     g = info.get('graph') or {}
@@ -211,7 +222,7 @@ def summary_row(rid, info_r, info, times, status, seconds, threads, timeout, mem
     ups = u.get('units_per_seq') or []
     if note is None:
         note = info.get('message') or ''
-    return {'region_id': rid, 'method': METHOD, 'panel': 'all', 'n_distinct': info_r['n_distinct'],
+    return {'region_id': rid, 'method': method, 'panel': 'all', 'n_distinct': info_r['n_distinct'],
             'seconds': seconds, 'status': status, 'mode': al.get('mode') or '', 'fallback_method': fbm or '',
             'reason': (al.get('reason') or '')[:160].replace('\t', ' ').replace('\n', ' '),
             'stratum': info_r['stratum'], 'span_bp': info_r['span_bp'], 'n_panel_records': info_r['n_panel_records'],
@@ -245,14 +256,21 @@ def write_json(path, info):
 
 
 def run_job(rid, threads=DEFAULT_THREADS, timeout=DEFAULT_TIMEOUT, mem_mb=DEFAULT_MEM_MB, cand_root=None,
-            panel_root=None, workroot=None, record_runtime=True, panel_engine='native', params=None):
+            panel_root=None, workroot=None, record_runtime=True, panel_engine='native', params=None,
+            fallback_engine='mafft'):
     """Align region rid's full-panel union with unit_aware; write every output; return the runtime row."""
+    P = params or realign_units.Params(fallback_engine=fallback_engine)
+    method = method_name(P.fallback_engine)
+    if P.fallback_engine == 'abpoa':
+        import poa_panel
+        import realign_poa
+        realign_poa.predict_mb = poa_panel._aligner_predict      # the full-panel memory model
     info_r = region_info(rid)
     rd = info_r['rd']
     fa, mp = union_files(rid)
     hap_fa = os.path.join(rd, 'hap32.fa')
     rjp = os.path.join(rd, 'region.json')
-    o = out_paths(rid, cand_root, panel_root)
+    o = out_paths(rid, cand_root, panel_root, method)
     os.makedirs(o['cand_dir'], exist_ok=True)
     os.makedirs(o['panel_dir'], exist_ok=True)
     workroot = workroot or os.path.join(config.WORK_DIR, 'realign_units')
@@ -260,7 +278,6 @@ def run_job(rid, threads=DEFAULT_THREADS, timeout=DEFAULT_TIMEOUT, mem_mb=DEFAUL
     for k in ('msa', 'gfa', 'full_msa', 'full_gfa'):      # never leave an older result beside a new attempt
         if os.path.exists(o[k]):
             os.remove(o[k])
-    P = params or realign_units.Params()
     P.timeout = int(timeout)
     P.mem_mb = int(mem_mb)
     t0 = time.time()
@@ -282,8 +299,8 @@ def run_job(rid, threads=DEFAULT_THREADS, timeout=DEFAULT_TIMEOUT, mem_mb=DEFAUL
         return orig_align_fasta(*args, **kw)
     realign.align_fasta = clamped_align_fasta
     info = collections.OrderedDict([
-        ('method', METHOD), ('panel', 'all'), ('region_id', rid), ('stratum', info_r['stratum']),
-        ('span_bp', info_r['span_bp']), ('status', None), ('union_fa', realign._rel(fa)),
+        ('method', method), ('fallback_engine', P.fallback_engine), ('panel', 'all'), ('region_id', rid),
+        ('stratum', info_r['stratum']), ('span_bp', info_r['span_bp']), ('status', None), ('union_fa', realign._rel(fa)),
         ('union_map', realign._rel(mp)), ('n_distinct', info_r['n_distinct']),
         ('n_hap32_only', info_r['n_hap32_only']), ('n_panel_records', info_r['n_panel_records']),
         ('max_len', info_r['max_len']), ('len2', info_r['len2']), ('total_bp', info_r['total_bp']),
@@ -349,7 +366,8 @@ def run_job(rid, threads=DEFAULT_THREADS, timeout=DEFAULT_TIMEOUT, mem_mb=DEFAUL
     info['host_load'] = round(os.getloadavg()[0], 1)
     info['units_panel_version'] = 1
     write_json(o['json'], info)
-    row = summary_row(rid, info_r, info, times, info['status'], info['seconds'], threads, timeout, mem_mb)
+    row = summary_row(rid, info_r, info, times, info['status'], info['seconds'], threads, timeout, mem_mb,
+                      method=method)
     if record_runtime:
         update_runtime(row)
     return row
@@ -358,7 +376,8 @@ def run_job(rid, threads=DEFAULT_THREADS, timeout=DEFAULT_TIMEOUT, mem_mb=DEFAUL
 def record_killed(rid, status, seconds, peak, a, why):
     """The job was killed from outside (timeout / memout / crash): write its realign.json and row."""
     info_r = region_info(rid)
-    o = out_paths(rid, a.cand_root, a.panel_root)
+    method = method_name(a.fallback_engine)
+    o = out_paths(rid, a.cand_root, a.panel_root, method)
     os.makedirs(o['cand_dir'], exist_ok=True)
     for k in ('msa', 'gfa', 'full_msa', 'full_gfa'):
         if os.path.exists(o[k]):
@@ -369,8 +388,8 @@ def record_killed(rid, status, seconds, peak, a, why):
                 if p.startswith(rid + '.') and '.tmp' in p:
                     os.remove(os.path.join(d, p))
     info = collections.OrderedDict([
-        ('method', METHOD), ('panel', 'all'), ('region_id', rid), ('stratum', info_r['stratum']),
-        ('span_bp', info_r['span_bp']), ('status', status), ('message', why),
+        ('method', method), ('fallback_engine', a.fallback_engine), ('panel', 'all'), ('region_id', rid),
+        ('stratum', info_r['stratum']), ('span_bp', info_r['span_bp']), ('status', status), ('message', why),
         ('n_distinct', info_r['n_distinct']), ('n_hap32_only', info_r['n_hap32_only']),
         ('n_panel_records', info_r['n_panel_records']), ('max_len', info_r['max_len']),
         ('total_bp', info_r['total_bp']), ('timeout_s', a.timeout), ('mem_cap_mb', a.mem_mb),
@@ -378,7 +397,7 @@ def record_killed(rid, status, seconds, peak, a, why):
         ('finished', datetime.datetime.now().isoformat(timespec='seconds')), ('units_panel_version', 1)])
     write_json(o['json'], info)
     row = summary_row(rid, info_r, info, {}, status, round(seconds, 1), a.threads, a.timeout, a.mem_mb,
-                      peak=peak, note=why)
+                      peak=peak, note=why, method=method)
     if not a.no_runtime:
         update_runtime(row)
     return row
@@ -460,7 +479,8 @@ def pick_regions(arg, stratum=None):
 
 def job_argv(rid, a, result):
     cmd = [sys.executable, os.path.abspath(__file__), 'one', rid, '--timeout', str(a.timeout),
-           '--mem-mb', str(a.mem_mb), '--threads', str(a.threads), '--result', result]
+           '--mem-mb', str(a.mem_mb), '--threads', str(a.threads), '--result', result,
+           '--fallback-engine', a.fallback_engine]
     for opt in ('cand_root', 'panel_root', 'workdir'):
         v = getattr(a, opt)
         if v:
@@ -472,7 +492,7 @@ def job_argv(rid, a, result):
 
 def set_peak(rid, peak, a):
     """Record the parent-sampled peak RSS of a finished job in its realign.json."""
-    o = out_paths(rid, a.cand_root, a.panel_root)
+    o = out_paths(rid, a.cand_root, a.panel_root, method_name(a.fallback_engine))
     try:
         with open(o['json']) as f:
             info = json.load(f, object_pairs_hook=collections.OrderedDict)
@@ -483,8 +503,9 @@ def set_peak(rid, peak, a):
 
 
 def rebuild_table(a, log_path=None):
-    """Rewrite the runtime table from every candidates/unit_aware__all/<id>.realign.json (one
-    schema for all rows); peak RSS comes from the JSON, else from a batch log's 'rss N MB'."""
+    """Rewrite the runtime rows of every region with a candidates/<method>__all/<id>.realign.json
+    (one schema for all rows; other rows are kept); peak RSS comes from the JSON, else from a batch
+    log's 'rss N MB'."""
     import re
     peaks = {}
     if log_path:
@@ -493,8 +514,9 @@ def rebuild_table(a, log_path=None):
             if m:
                 peaks[m.group(1)] = float(m.group(2))
     rows = []
+    method = method_name(a.fallback_engine)
     for rid in pick_regions('all'):
-        o = out_paths(rid, a.cand_root, a.panel_root)
+        o = out_paths(rid, a.cand_root, a.panel_root, method)
         try:
             with open(o['json']) as f:
                 info = json.load(f)
@@ -504,7 +526,7 @@ def rebuild_table(a, log_path=None):
         peak = info.get('peak_rss_mb', peaks.get(rid))
         info_r = region_info(rid)
         row = summary_row(rid, info_r, info, times, info.get('status'), info.get('seconds'), info.get('threads'),
-                          info.get('timeout_s'), info.get('mem_cap_mb'), peak=peak)
+                          info.get('timeout_s'), info.get('mem_cap_mb'), peak=peak, method=method)
         row['finished'] = info.get('finished', '')
         row['host_load'] = info.get('host_load', '')
         rows.append(row)
@@ -512,11 +534,16 @@ def rebuild_table(a, log_path=None):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path + '.lock', 'w') as lk:
         fcntl.flock(lk, fcntl.LOCK_EX)
+        old = []                     # rows of other methods and of regions outside $VNTR_REGIONS stay
+        done = set((r['method'], r['region_id']) for r in rows)
+        if os.path.exists(path):
+            with open(path) as f:
+                old = [r for r in csv.DictReader(f, delimiter='\t') if (r.get('method'), r.get('region_id')) not in done]
         tmp = path + '.tmp%d' % os.getpid()
         with open(tmp, 'w', newline='') as f:
             w = csv.DictWriter(f, RUNTIME_COLS, delimiter='\t', extrasaction='ignore', lineterminator='\n')
             w.writeheader()
-            for r in sorted(rows, key=lambda r: (r['method'], r['region_id'])):
+            for r in sorted(old + rows, key=lambda r: (r['method'], r['region_id'])):
                 w.writerow(dict((c, r.get(c, '')) for c in RUNTIME_COLS))
         os.replace(tmp, path)
         fcntl.flock(lk, fcntl.LOCK_UN)
@@ -537,13 +564,15 @@ def run_batch(a):
     rids.sort(key=lambda r: (infos[r]['total_bp'], infos[r]['max_len'], r))
     pending = []
     for rid in rids:
-        prev = previous_status(rid, a.cand_root, a.panel_root)
+        prev = previous_status(rid, a.cand_root, a.panel_root, method_name(a.fallback_engine))
         if prev and not a.force and not (a.retry_failed and prev != 'ok'):
             continue
         pending.append(rid)
-    log('%d regions to run (of %d); %d at a time, %d threads, timeout %d s, cap %d MB'
-        % (len(pending), len(rids), a.jobs, a.threads, a.timeout, a.mem_mb))
-    logdir = os.path.join(a.workdir or os.path.join(config.WORK_DIR, 'realign_units'), 'units_panel_logs')
+    log('%d regions to run (of %d); %d at a time, %d threads, timeout %d s, cap %d MB, fallback engine %s'
+        % (len(pending), len(rids), a.jobs, a.threads, a.timeout, a.mem_mb, a.fallback_engine))
+    # one log directory per method: two engines' batches may run at once over the same regions
+    logdir = os.path.join(a.workdir or os.path.join(config.WORK_DIR, 'realign_units'), 'units_panel_logs',
+                          method_name(a.fallback_engine))
     os.makedirs(logdir, exist_ok=True)
     running = {}
     counts = collections.Counter()
@@ -624,6 +653,11 @@ def main(argv=None):
         p.add_argument('--panel-root', help='full-panel outputs root (default %s)' % panel.PANEL_DIR)
         p.add_argument('--workdir', help='scratch (default $VNTR_WORK/realign_units)')
         p.add_argument('--no-runtime', action='store_true', help='do not write the runtime table')
+        engine(p)
+
+    def engine(p):
+        p.add_argument('--fallback-engine', choices=list(ENGINE_SUFFIX), default='mafft',
+                       help='aligner of the non-unit parts (default mafft; abpoa -> method unit_aware_poa)')
     p = sub.add_parser('run', help='a batch of regions, smallest first')
     p.add_argument('--regions', default='all')
     p.add_argument('--stratum')
@@ -639,6 +673,7 @@ def main(argv=None):
     p.add_argument('--log', help='a batch log to take peak RSS from where the JSON has none')
     p.add_argument('--cand-root')
     p.add_argument('--panel-root')
+    engine(p)
     a = ap.parse_args(argv)
     if a.cmd == 'table':
         n = rebuild_table(a, a.log)
@@ -647,7 +682,8 @@ def main(argv=None):
     if a.cmd == 'one':
         rid = os.path.basename(os.path.normpath(a.region))
         row = run_job(rid, threads=a.threads, timeout=a.timeout, mem_mb=a.mem_mb, cand_root=a.cand_root,
-                      panel_root=a.panel_root, workroot=a.workdir, record_runtime=not a.no_runtime)
+                      panel_root=a.panel_root, workroot=a.workdir, record_runtime=not a.no_runtime,
+                      fallback_engine=a.fallback_engine)
         if a.result:
             with open(a.result + '.tmp', 'w') as f:
                 json.dump(row, f)

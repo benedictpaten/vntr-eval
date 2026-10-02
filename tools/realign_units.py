@@ -59,6 +59,8 @@ The algorithm (details, parameters and measurements in tools/UNIT_ALIGN.md):
 
 Fallback (non-TR strata, unusable motif, the guard, or any failure of the unit path): realign.py's
 mafft_linsi pipeline on the whole sequences (--fallback picks another realign.py method).
+--fallback-engine abpoa uses abPOA (poa_abpoa) for the fallback, the guard's fallback and the flank
+pieces instead of mafft.
 """
 import argparse
 import collections
@@ -82,6 +84,14 @@ import msa_graph  # noqa: E402
 METHOD = 'unit_aware'
 DEFAULT_FALLBACK = 'mafft_linsi'
 VERSION = 1
+
+# The aligner for everything that is not a unit array: the flank pieces, the fallback (no usable
+# motif, or the unit path failed) and the adequacy guard's fallback. Each engine sets the three
+# realign.py methods; an explicit flank_method / fallback / fallback_large overrides its choice.
+FALLBACK_ENGINES = collections.OrderedDict([
+    ('mafft', {'flank_method': 'auto', 'fallback': DEFAULT_FALLBACK, 'fallback_large': 'mafft_fftnsi'}),
+    ('abpoa', {'flank_method': 'poa_abpoa', 'fallback': 'poa_abpoa', 'fallback_large': 'poa_abpoa'}),
+])
 
 # mafft --text: every byte but newline, CR, space, '-', '<', '=', '>' (checked with maffttext2hex)
 _BAD = set([0x0a, 0x0d, 0x20, 0x2d, 0x3c, 0x3d, 0x3e])
@@ -127,6 +137,11 @@ class Params(object):
         self.guard_max_cells = 3e10 # bit-parallel edit-distance budget for the sample (sum of len a x len b)
         self.timeout = 900
         self.mem_mb = 10000
+        self.fallback_engine = kw.pop('fallback_engine', None) or 'mafft'
+        if self.fallback_engine not in FALLBACK_ENGINES:
+            raise ValueError('unknown fallback engine %s (%s)' % (self.fallback_engine, ', '.join(FALLBACK_ENGINES)))
+        for k, v in FALLBACK_ENGINES[self.fallback_engine].items():
+            setattr(self, k, v)
         for k, v in kw.items():
             if not hasattr(self, k):
                 raise TypeError('unknown parameter %s' % k)
@@ -1630,7 +1645,7 @@ def params_from_args(a):
     if a.dp_scores:
         ma, mi, go, ge = [int(x) for x in a.dp_scores.split(',')]
         kw.update(ma=ma, mi=mi, go=go, ge=ge)
-    for k in ('fallback_large', 'large_n', 'flank_k', 'unit_aligner', 'refine_rounds', 'polish_rounds', 'refine', 'unit_go', 'unit_mafft', 'unit_op', 'unit_ep', 'matrix', 'max_symbols', 'fallback', 'timeout',
+    for k in ('fallback_engine', 'fallback_large', 'large_n', 'flank_k', 'unit_aligner', 'refine_rounds', 'polish_rounds', 'refine', 'unit_go', 'unit_mafft', 'unit_op', 'unit_ep', 'matrix', 'max_symbols', 'fallback', 'timeout',
               'mem_mb', 'flank_method', 'guard_ratio', 'min_units', 'min_identity', 'min_core_cov', 'period_tol'):
         v = getattr(a, k, None)
         if v is not None:
@@ -1663,6 +1678,9 @@ def main(argv=None):
     ap.add_argument('--unit-ep', type=float)
     ap.add_argument('--matrix', choices=['norm', 'sp'])
     ap.add_argument('--max-symbols', type=int)
+    ap.add_argument('--fallback-engine', choices=list(FALLBACK_ENGINES),
+                    help='aligner for the flank pieces, the fallback and the guard fallback (default mafft); '
+                         '--flank-method, --fallback and --fallback-large override it')
     ap.add_argument('--flank-method', help='realign.py method for flank pieces (default auto)')
     ap.add_argument('--fallback', help='realign.py method for the fallback (default mafft_linsi)')
     ap.add_argument('--fallback-large', help='fallback above --large-n distinct sequences (default mafft_fftnsi)')

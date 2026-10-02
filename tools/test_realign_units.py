@@ -330,6 +330,24 @@ class TestEndToEnd(unittest.TestCase):
         for (n, r), (_, s) in zip(msa_graph.read_msa(out), self.recs):
             self.assertEqual(r.replace('-', ''), s.upper())
 
+    def test_fallback_engine_abpoa(self):
+        P = ru.Params(fallback_engine='abpoa')
+        self.assertEqual((P.flank_method, P.fallback, P.fallback_large), ('poa_abpoa',) * 3)
+        self.assertEqual(ru.Params(fallback_engine='abpoa', fallback='mafft_linsi').fallback, 'mafft_linsi')
+        self.assertEqual(ru.Params().fallback, ru.DEFAULT_FALLBACK)
+        self.assertRaises(ValueError, ru.Params, fallback_engine='spoa')
+        import realign_poa
+        if not shutil.which(realign_poa.ABPOA):
+            self.skipTest('abpoa not installed')
+        rj = dict(self.rj, stratum='control_nontr_sv')
+        p = os.path.join(self.tmp, 'nontr_poa.json')
+        json.dump(rj, open(p, 'w'))
+        out = os.path.join(self.tmp, 'fb_poa.msa.fa')
+        info = ru.align_units_fasta(self.fa, p, out, threads=1, params=P, workdir=self.tmp)
+        self.assertEqual((info['status'], info['mode'], info['fallback']['method']), ('ok', 'fallback', 'poa_abpoa'))
+        for (n, r), (_, s) in zip(msa_graph.read_msa(out), self.recs):
+            self.assertEqual(r.replace('-', ''), s.upper())
+
 
 if __name__ == '__main__':
     unittest.main()
