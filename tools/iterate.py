@@ -179,6 +179,28 @@ _reg('st_long', 'full panel, centre-star to the longest distinct allele, project
 _reg('pf_famsa', 'full panel, FAMSA defaults, projected', kind='profile', tool='famsa', args=[])
 _reg('pf_famsa_go2', 'full panel, FAMSA with twice the gap-open cost (-go -29700), projected', kind='profile',
      tool='famsa', args=['-go', '-29700'])
+# FAMSA gap-cost sweep (4t): its default gap costs are tuned for protein, and on whole chr20 its projection
+# cuts single large deletions into many pieces. Refinement off keeps the higher gap-open runs inside the cap.
+_reg('pf_famsa_r0', 'full panel, FAMSA with refinement off, projected', kind='profile', tool='famsa',
+     args=['-refine_mode', 'off'])
+_reg('pf_famsa_go2r0', 'full panel, FAMSA with twice the gap-open cost and refinement off, projected',
+     kind='profile', tool='famsa', args=['-go', '-29700', '-refine_mode', 'off'])
+_reg('pf_famsa_go4r0', 'full panel, FAMSA with four times the gap-open cost and refinement off, projected',
+     kind='profile', tool='famsa', args=['-go', '-59400', '-refine_mode', 'off'])
+_reg('pf_famsa_upgma', 'full panel, FAMSA with a UPGMA guide tree, projected', kind='profile', tool='famsa',
+     args=['-gt', 'upgma'])
+_reg('gnl_pf_famsa', 'pf_famsa full-panel MSA, gaps left-normalised per row, projected', kind='gapnorm',
+     base='pf_famsa', where='full', direction='left')
+_reg('gjl_pf_famsa', 'pf_famsa full-panel MSA, gap runs left-normalised jointly, projected', kind='gapnorm',
+     base='pf_famsa', where='full', direction='left', joint=True)
+_reg('pf_famsa_h32', 'FAMSA defaults on the hap32 rows alone (sample-dependent control)', kind='profile',
+     tool='famsa', args=[], subset='hap32')
+_reg('pf_famsa_ge2', 'full panel, FAMSA with half the gap-extension cost (-ge -625), projected', kind='profile',
+     tool='famsa', args=['-ge', '-625'])
+_reg('pf_famsa_ge4', 'full panel, FAMSA with a quarter of the gap-extension cost (-ge -312), projected',
+     kind='profile', tool='famsa', args=['-ge', '-312'])
+_reg('pf_famsa_ge8', 'full panel, FAMSA with an eighth of the gap-extension cost (-ge -156), projected',
+     kind='profile', tool='famsa', args=['-ge', '-156'])
 _reg('pf_kalign', 'full panel, Kalign 3 --type dna (defaults), projected', kind='profile', tool='kalign', args=[])
 _reg('pf_muscle', 'full panel, MUSCLE5 -super5, projected', kind='profile', tool='muscle', args=[])
 _reg('pf_mafft', 'full panel, mafft FFT-NS-2 (--retree 2 --maxiterate 0), projected', kind='profile',
@@ -381,6 +403,13 @@ def build_abpoa(v, spec, rid, timeout, mem_mb):
             m = realign._as_method(v, {'align': variant_align, 'tool': 'abpoa', 'description': spec['desc'],
                                        'params': {'flags': spec.get('flags', []), 'order': spec.get('order', 'longest'),
                                                   'weight': weight, 'seed_k': spec.get('seed_k')}})
+        if spec.get('subset') == 'hap32':
+            # A sample-dependent control: align only the distinct sequences hap32 uses.
+            names = set(n for n, _ in msa_graph.read_fasta(os.path.join(rd, 'hap32.fa')))
+            keep = set(r['id'] for r in rows if names & set(r['members']))
+            sub = os.path.join(wd, 'hap32.union.fa')
+            msa_graph.write_msa([(n, q) for n, q in msa_graph.read_fasta(fa) if n in keep], sub)
+            fa = sub
         full = os.path.join(wd, 'full.msa.fa')
         al = realign.align_fasta(m, fa, full, threads=spec.get('threads', 1), timeout=timeout, mem_mb=mem_mb,
                                  workdir=wd, dedup=True)

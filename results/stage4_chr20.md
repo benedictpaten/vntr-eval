@@ -1068,3 +1068,92 @@ Whole chr20, vg 91d38c802, all eligible repeats patched (refined = `truvari refi
   cross-branch alignment and brings the breakpoints back. abPOA on hap32 gets both because it is
   optimised for exactly the rows that are genotyped.
 - Best sample-independent arm: mst, refined 0.644 (above unpatched 0.640; below hap32 0.665).
+
+## 4t. Ranking arms per region, FAMSA on whole chr20, and what fragments the projection
+
+**FAMSA on whole chr20.** `pf_famsa` (4n: best full-panel cost/opt, 1.066; never called because it missed
+the kmerx gate by 0.001) through `mst_chr20_align.sh` / `mst_chr20.sh`. 633 of 636 regions aligned; the
+three with 30-37 kb alleles have no candidate and stay unpatched. Raw SV F1 0.5202 (FP 461 / FN 334),
+refined 0.6211 (FP 376 / FN 252). By the single F1 number that is below `mst` (0.644) and unpatched
+(0.640).
+
+**The single F1 number misranks the arms.** Per-region refined SV FP and FN (records with FORMAT/BD FP in
+`refine.comp.vcf.gz` and FN in `refine.base.vcf.gz`, inside each patched span ±100 bp), compared by a
+paired bootstrap over regions (2,000 resamples) and a sign test. Script and table:
+`<session scratchpad>/region_metrics.py`, `region_metrics.tsv`, `boot.py`.
+- **Concentration.** The full-panel arms' FP excess over abPOA on hap32, summed over the six arms: the
+  10 worst regions hold 77% of it. TR756034 alone holds 22%: a 14.4 kb span with 450 distinct alleles,
+  already left out of the 4h test set as the hotspot. Every arm is bad there: hap32 has 59 errors in
+  that region, FAMSA 135.
+- **Noise.** Taking, region by region, the better of hap32 and unpatched cuts hap32's 347 errors
+  (TR756034 excluded) to 244. Small alignment changes move a region's calls a long way.
+
+FP+FN difference, 95% bootstrap CI over regions (TR756034 excluded; * = CI excludes 0):
+
+| arm | vs abPOA on hap32 | vs unpatched | regions better / worse than hap32 |
+|---|---|---|---|
+| unpatched | +82 [+21, +143] * | - | 53 / 93 |
+| abPOA full | +95 [+30, +164] * | +13 [-54, +80] | 54 / 85 |
+| unit-aware full | +120 [+46, +202] * | +38 [-45, +126] | 52 / 88 |
+| mst | +92 [+25, +168] * | +10 [-60, +88] | 57 / 71 |
+| mst3 | +89 [+13, +167] * | +7 [-68, +87] | 53 / 69 |
+| bbt64m | +78 [+4, +151] * | -4 [-71, +64] | 51 / 78 |
+| **FAMSA full** | **+48 [-27, +135]** | -34 [-113, +52] | **67 / 59** |
+| FAMSA on hap32 only (control, sample-dependent) | +26 [-36, +89] | -56 [-130, +22] | 60 / 65 |
+
+- abPOA on hap32 beats unpatched significantly. Every sample-independent arm except FAMSA is
+  significantly worse than hap32, and none differs from unpatched. `mst`'s 4q lead over unpatched
+  (0.644 against 0.640) is noise.
+- FAMSA is the only full-panel arm whose CI against hap32 includes 0. Per region it wins as often as it
+  loses (67 / 59). Its low total comes from TR756034 and a handful of other regions.
+- **The FAMSA-on-hap32 control splits FAMSA's deficit in two, each half within noise.** Projection from
+  the full panel costs +22 [-35, +84] (FAMSA full against FAMSA on hap32), and the aligner costs
+  +26 [-36, +89] (FAMSA on hap32 against abPOA on hap32). Refined SV F1 of the control: 0.6472
+  (FP 332 / FN 242).
+
+**Graph metrics do not predict per-region errors; fragmentation does, weakly.** Per-region differences
+from hap32 in kmerx, top-level sites and nodes have Spearman |ρ| ≤ 0.11 with ΔFP and ≤ 0.25 with ΔFN. A
+better measure is the gap runs of the hap32 rows in the projection: the number of maximal gap runs in
+each distinct row, interior runs only, summed (`frag.py`, `gapruns_chr20.py`). It is still weak per arm
+(|ρ| ≤ 0.17), but pooled over the six full-panel arms, error excess rises monotonically with the gap-run
+ratio to hap32:
+
+| ratio | ≤1.00 | 1.00 | 1.00-1.29 | 1.29-1.85 | >1.85 |
+|---|---|---|---|---|---|
+| mean ΔFP+FN per region | -0.06 | 0.00 | +0.11 | +0.23 | +0.60 |
+
+Whole-chr20 totals (gap runs / distinct runs): hap32 84,282 / 13,827; FAMSA 91,459 / 20,417; FAMSA on
+hap32 64,365 / 16,050; abPOA full 141,027 / 21,685; mst 142,647 / 24,048; bbt64m 151,192 / 22,678;
+unit-aware full 156,636 / 26,592. Unit-cost cost/opt cannot see fragmentation: one deletion and the same
+deletion in pieces cost the same edits.
+
+**How the full panel fragments a deletion** (TR770009, truth one 1,349 bp homozygous deletion):
+- hap32's 9 distinct rows are 7 short alleles (838-986 bp) and 2 long ones (2,234 and 2,274 bp).
+- abPOA on hap32 gives the 7 short alleles one 1,288 bp gap in the same column, and calls one 1,265 bp
+  deletion (TP).
+- FAMSA on hap32 gives them three stacked pieces; 2 FP.
+- FAMSA on the full panel cuts each short allele into 10 or more pieces (20, 20, 144, 164, 147, 65,
+  ...), and calls 9 deletion records, all FP. The panel's hundreds of intermediate-length alleles pull
+  each short allele's units to wherever their own units sit. The projection drops the intermediates,
+  leaving the short alleles' units scattered along the long alleles.
+
+The same holds over the 13 regions where FAMSA lost or won most: FAMSA on hap32 has 8,145 gap runs (abPOA
+on hap32 8,011), FAMSA full 14,383.
+
+**What did not work.**
+- **Tuning FAMSA.** It has no DNA mode (protein matrices only), and every gap-cost change is
+  pathological on DNA repeats:
+  - `-go` ×2 and ×4 with refinement off time out at 900 s in 6 of 13 regions. Where they finish, the
+    alignment is degenerate: one site per region and 200,000 distinct gap runs.
+  - `-ge` /2, /4 and /8 time out or exceed 12 GB in all 13 regions.
+  - Refinement off alone changes nothing (14,621 gap runs against 14,383).
+- **Normalising FAMSA's full-panel MSA** makes the projection more fragmented, as 4m found for abPOA:
+  per-row left normalisation gives 101,995 / 26,938 and joint left normalisation 100,607 / 21,740,
+  against 91,459 / 20,417.
+- **Why a per-row fix cannot work.** `gap_norm.merge_runs` scores one row against the other rows held
+  fixed, under linear sum-of-pairs cost. Each short allele is individually best where the intermediates
+  already are, so no single-row move reaches the configuration in which every allele's deletion is one
+  stacked block. That configuration is optimal under sum-of-pairs with natural affine gaps when units
+  are similar. It is also the right target for subsampling: any two panel rows are equally likely to be
+  co-sampled, so the expected projected cost is proportional to the all-pairs score. It has to be built
+  jointly.
