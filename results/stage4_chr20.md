@@ -653,3 +653,77 @@ alignment intact can remove them. Two directions remain:
 
 Files: `tools/gap_norm.py`, `tools/test_gap_norm.py`; `work/iterate/gapnorm/diagnose{4,22}.json`; candidates
 and full MSAs under `work/iterate/candidates/<variant>/` and `work/iterate/panel/<variant>/`.
+
+## 4n. A different alignment objective: centre-star and profile aligners
+
+Question: 4m traced the full-panel projection's duplication to abPOA cutting each allele's indels at
+junctions that other panel alleles support. Does an objective that stacks indels in shared columns give a
+sample-independent full-panel MSA whose hap32 projection is as good as aligning hap32 alone? Gate for
+calling: median kmerx at least 0.03 below `poa_abpoa__all` (≤ 0.256) and median cost/opt not above it
+(≤ 1.117).
+
+Variants (`tools/iterate.py`, kinds `star` and `profile`). Each goes through the same masking, projection,
+path check and Stage 0 as every full-panel variant, with a cap of 900 s and 12 GB per region:
+- **Centre-star** (`st_cons`, `st_chm13`, `st_long`). Each distinct allele is aligned to one centre by
+  abPOA on the two sequences (`-m 0 -b -1`, default two-piece affine scores). Its indels are then
+  left-normalised where that leaves the cost unchanged. The pairwise alignments are merged on the centre's
+  columns, and the insertions that fall between the same two centre bases are aligned to each other with
+  abPOA. The centre is abPOA's consensus of the full panel (`abpoa -r 0`, longest first: the graph
+  `poa_abpoa__all` comes from), CHM13's sequence, or the longest allele.
+- **Profile aligners**: FAMSA 2.5.2 defaults (`pf_famsa`; it scores with a protein matrix, having no DNA
+  mode), FAMSA with twice the gap-open cost (`pf_famsa_go2`), Kalign 3.5.1 `--type dna` (`pf_kalign`), mafft
+  v7.526 FFT-NS-2 (`pf_mafft`) and MUSCLE 5.3 `-super5` (`pf_muscle`). Kalign came from Homebrew core,
+  FAMSA and MUSCLE from the brewsci/bio Homebrew tap. No full-panel mafft MSAs of these regions were on
+  disk: `results/realign_runtime.all.mafft.tsv` covers the L-numbered region set.
+
+Stage 0, 22 regions. b/w = regions where the metric fell / rose by more than 0.005 against
+`poa_abpoa__all`; lower is better for both metrics.
+
+| variant | kmerx median / mean | kmerx b/w | cost/opt median / mean | cost/opt b/w | nodes/kb | max align s | gate |
+|---|---|---|---|---|---|---|---|
+| mc | 0.259 / 0.307 | 11/7 | 1.408 / 1.507 | 4/18 | 215 | - | - |
+| `poa_abpoa` (hap32 alone) | 0.175 / 0.237 | 20/1 | 1.057 / 1.092 | 16/2 | 104 | - | sample-dependent |
+| `poa_abpoa__all` | 0.286 / 0.320 | - | 1.117 / 1.203 | - | 136 | 17 | - |
+| st_chm13 | 0.192 / 0.276 | 16/3 | 1.259 / 1.347 | 8/14 | 79 | 27 | fails cost/opt |
+| st_cons | 0.231 / 0.295 | 15/4 | 1.153 / 1.248 | 11/10 | 102 | 40 | fails cost/opt |
+| st_long | 0.234 / 0.288 | 13/6 | 1.215 / 1.427 | 6/14 | 88 | 41 | fails cost/opt |
+| pf_famsa | 0.287 / 0.304 | 11/6 | **1.066 / 1.104** | 18/1 | 115 | 108 | fails kmerx |
+| pf_mafft | 0.345 / 0.331 | 11/9 | 1.262 / 1.493 | 6/15 | 154 | 344 | fails both |
+| pf_kalign | 0.403 / 0.407 | 1/21 | 1.342 / 1.366 | 2/18 | 387 | 257 | fails both |
+| pf_muscle | the 8 largest regions hit 900 s (in UCLUST clustering); only the smallest, TR773368, was run to the end (162 s); stopped | | | | | | fails |
+| pf_famsa_go2 | 2 of 11 regions finished (3 over 12 GB, 4 over 900 s, 2 exited with an error); stopped | | | | | | fails |
+
+- **Stacking indels on one centre removes much of the duplication.** Star cuts median kmerx by 0.05-0.09,
+  and with CHM13 as the centre reaches 0.192, close to hap32 alone. The largest gains are where 4m's
+  fragmentation was worst:
+  - TR770009: 0.297 -> 0.111 (`st_cons`).
+  - TR755896: 0.343 -> 0.177.
+  - TR773368: 0.096 -> 0.000, the same graph as hap32 alone.
+
+  This confirms 4m: the fragmentation comes from aligning each allele to its best path through hundreds of
+  others.
+- **Every star raises cost/opt.** Two alleles meet only through the centre, so their induced alignment can
+  cost the sum of their distances to it.
+  - Insertions in different slots of the centre are never aligned to each other, and the same goes for
+    deletions of different centre bases.
+  - Worst case, diverse repeats of equal length: in TR764119, the induced pairwise edit cost summed over
+    the hap32 pairs is 50,892, against 24,968 for `poa_abpoa__all` (cost/opt 2.67 vs 1.29).
+  - The same slot effect adds duplication in some regions: TR755910 kmerx 0.109 -> 0.400.
+  - The consensus is the most central centre and costs least. The longest allele almost removes
+    insertion slots (8,193 insertion columns over the 22 regions, against 244,348 for the consensus), but
+    not the cost.
+- **FAMSA is the best full-panel aligner on cost/opt.** It reaches 1.066 against 1.057 for hap32 alone,
+  and is better than `poa_abpoa__all` in 18 regions and worse in 1, but its median kmerx does not move.
+  - mafft FFT-NS-2 and Kalign are worse than abPOA on both metrics.
+  - MUSCLE5 is too slow for 400 or more alleles of a few kb.
+  - Raising FAMSA's gap-open cost so that gaps stack exceeds the time and memory caps.
+- **No variant passes the gate, so none was called.** The two objectives trade off: a single centre
+  stacks indels but loses pairwise optimality, and progressive profile alignment keeps pairwise optimality
+  but still fragments.
+
+Next, if the full panel is kept: refine the star by leave-one-out realignment of each allele to the
+profile of the rest, which targets exactly the cross-slot cost. Otherwise use 4m's sample-dependent
+fallback.
+
+Files: `tools/iterate.py` (`star_align`, `left_normalise_pair`, `star_merge`, `profile_align`); candidates,
+full MSAs and Stage 0 under `work/iterate/{candidates,panel,stage0}/<variant>/`.

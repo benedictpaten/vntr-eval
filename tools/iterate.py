@@ -5,8 +5,8 @@ A VARIANT is a way to build a hap32 candidate graph for a region: MC itself, an 
 candidate set (poa_abpoa, poa_abpoa__all), an abPOA flag string / input order run on the region's
 full HG002-free panel (tools/panel.py union) and projected onto the 34 hap32 rows, or a named
 structural variant (seeded incremental alignment, post-alignment node merging, coarsening, gap
-normalisation of the full-panel MSA). For every region of
-the test set (work/iterate/testset.tsv) the harness
+normalisation of the full-panel MSA, a centre-star or profile-aligner MSA of the full panel). For
+every region of the test set (work/iterate/testset.tsv) the harness
 
   build   -> work/iterate/candidates/<variant>/<id>.{gfa,msa.fa,json}   (+ full MSA in panel/<variant>/)
   stage0  -> work/iterate/stage0/<variant>/<id>.json   (evaluate.py --skip truth: kmer_frac_extra,
@@ -162,6 +162,26 @@ _reg('gnpl_poa_abpoa__all', 'poa_abpoa__all projection, gaps left-normalised to 
      kind='gapnorm', base='poa_abpoa__all', where='proj', direction='left')
 
 
+# A different alignment objective for the full panel (4n). 'star': every distinct allele is aligned
+# pairwise to one centre (abPOA on the two sequences, unbanded, its default two-piece affine scores),
+# each pairwise alignment's indels are left-normalised, and the alignments are merged on the centre's
+# columns; the insertions that fall between the same two centre bases are aligned to each other with
+# abPOA. 'profile': a progressive aligner that scores a sequence or profile against a profile, whose
+# position-specific gap costs make indels stack in shared columns. Both are projected onto hap32 as
+# the abPOA variants are.
+_reg('st_cons', 'full panel, centre-star to the abPOA consensus of the full panel (abpoa -r 0, longest '
+     'first, as poa_abpoa__all), projected', kind='star', centre='consensus')
+_reg('st_chm13', 'full panel, centre-star to CHM13\'s sequence, projected', kind='star', centre='ref')
+_reg('st_long', 'full panel, centre-star to the longest distinct allele, projected', kind='star', centre='longest')
+_reg('pf_famsa', 'full panel, FAMSA defaults, projected', kind='profile', tool='famsa', args=[])
+_reg('pf_famsa_go2', 'full panel, FAMSA with twice the gap-open cost (-go -29700), projected', kind='profile',
+     tool='famsa', args=['-go', '-29700'])
+_reg('pf_kalign', 'full panel, Kalign 3 --type dna (defaults), projected', kind='profile', tool='kalign', args=[])
+_reg('pf_muscle', 'full panel, MUSCLE5 -super5, projected', kind='profile', tool='muscle', args=[])
+_reg('pf_mafft', 'full panel, mafft FFT-NS-2 (--retree 2 --maxiterate 0), projected', kind='profile',
+     tool='mafft', args=['--retree', '2', '--maxiterate', '0'], threads=2)
+
+
 # Linkage strength: the same graphs called with a stronger Li-Stephens linkage model (vg call
 # --linkage-weight, default 2). lw2_mc is mc laid out as a candidate (like the lw*_mc arms) with the
 # default weight, the baseline for them.
@@ -220,7 +240,7 @@ def full_msa_of(v, rid):
     spec = variant(v)
     if spec['kind'] == 'link':
         return os.path.join(spec['full'], rid + '.msa.fa.gz') if spec.get('full') else None
-    if spec['kind'] == 'abpoa' or (spec['kind'] == 'gapnorm' and spec['where'] == 'full'):
+    if spec['kind'] in ('abpoa', 'star', 'profile') or (spec['kind'] == 'gapnorm' and spec['where'] == 'full'):
         return os.path.join(FULLMSA, v, rid + '.msa.fa.gz')
     return None
 
@@ -295,18 +315,27 @@ def build_abpoa(v, spec, rid, timeout, mem_mb):
             'predicted_mb': poa_panel.predict_mb('abpoa', lens)}
     wd = tempfile.mkdtemp(prefix='it.%s.%s.' % (v, rid), dir=TMP)
     try:
-        if info['predicted_mb'] > mem_mb:
+        if spec['kind'] == 'abpoa' and info['predicted_mb'] > mem_mb:
             info.update(status='memout', message='predicted %.0f MB' % info['predicted_mb'])
             return info
-        m = realign._as_method(v, {'align': variant_align, 'tool': 'abpoa', 'description': spec['desc'],
-                                   'params': {'flags': spec.get('flags', []), 'order': spec.get('order', 'longest'),
-                                              'weight': weight, 'seed_k': spec.get('seed_k')}})
+        if spec['kind'] == 'star':
+            m = realign._as_method(v, {'align': star_align, 'tool': 'abpoa', 'description': spec['desc'],
+                                       'params': {'centre': spec['centre']}})
+        elif spec['kind'] == 'profile':
+            m = realign._as_method(v, {'align': profile_align, 'tool': spec['tool'], 'description': spec['desc'],
+                                       'params': {'tool': spec['tool'], 'args': spec.get('args', [])}})
+        else:
+            m = realign._as_method(v, {'align': variant_align, 'tool': 'abpoa', 'description': spec['desc'],
+                                       'params': {'flags': spec.get('flags', []), 'order': spec.get('order', 'longest'),
+                                                  'weight': weight, 'seed_k': spec.get('seed_k')}})
         full = os.path.join(wd, 'full.msa.fa')
-        al = realign.align_fasta(m, fa, full, threads=1, timeout=timeout, mem_mb=mem_mb, workdir=wd, dedup=True)
+        al = realign.align_fasta(m, fa, full, threads=spec.get('threads', 1), timeout=timeout, mem_mb=mem_mb,
+                                 workdir=wd, dedup=True)
         a = al.get('aligner') or {}
         info['align'] = {'status': al['status'], 'message': al.get('message'), 'seconds': a.get('seconds'),
                          'peak_rss_mb': a.get('peak_rss_mb'), 'command': a.get('command'),
-                         'stage1': a.get('stage1'), 'n_seed': a.get('n_seed')}
+                         'stage1': a.get('stage1'), 'n_seed': a.get('n_seed'),
+                         'tool_version': a.get('tool_version'), 'star': a.get('star')}
         if al['status'] != 'ok':
             info.update(status=al['status'], message=al.get('message'))
             return info
@@ -558,7 +587,7 @@ def build_one(v, rid, timeout=TIMEOUT, mem_mb=MEM_MB, force=False):
                     info['align'] = {'seconds': a.get('seconds'), 'peak_rss_mb': a.get('peak_rss_mb')}
             else:
                 info = {'variant': v, 'region_id': rid, 'status': 'missing', 'src': src}
-        elif spec['kind'] == 'abpoa':
+        elif spec['kind'] in ('abpoa', 'star', 'profile'):
             info = build_abpoa(v, spec, rid, timeout, mem_mb)
         elif spec['kind'] == 'merge':
             info = build_merge(v, spec, rid)
@@ -671,6 +700,226 @@ def build_gapnorm(v, spec, rid):
         return info
     finally:
         shutil.rmtree(wd, ignore_errors=True)
+
+
+# ------------------------------------------------------------------ build: centre-star and profile MSAs (4n)
+
+class Capped(Exception):
+    """A per-region time or memory cap was hit (status 'timeout' or 'memout')."""
+
+    def __init__(self, status, msg):
+        Exception.__init__(self, msg)
+        self.status = status
+
+
+_VERSIONS = {}
+
+
+def tool_version(tool):
+    """'<tool> <first version number it prints>', cached per process."""
+    if tool not in _VERSIONS:
+        if tool == 'mafft':
+            _VERSIONS[tool] = 'mafft ' + realign.mafft_version()
+        else:
+            import re
+            cmd = {'famsa': ['famsa'], 'kalign': ['kalign', '--version'], 'muscle': ['muscle', '-version'],
+                   'abpoa': [ABPOA, '-v']}[tool]
+            try:
+                p = subprocess.run(cmd, capture_output=True, text=True, timeout=60, env=config.tool_env())
+                m = re.search(r'\d+\.\d+(\.\d+)?', p.stdout + p.stderr)
+                _VERSIONS[tool] = '%s %s' % (tool, m.group(0) if m else 'unknown')
+            except (OSError, subprocess.SubprocessError):
+                _VERSIONS[tool] = tool + ' unknown'
+    return _VERSIONS[tool]
+
+
+def _abpoa_rows(recs, wd, tag, flags, deadline, mem_mb, consensus=False):
+    """abpoa -m 0 -r 1 FLAGS on recs in the given order -> {name: row} (with consensus: -r 0, the
+    consensus sequence). Raises Capped when the region's deadline or the memory cap is reached."""
+    left = deadline - time.time()
+    if left <= 0:
+        raise Capped('timeout', 'time cap reached before %s' % tag)
+    fa, out = os.path.join(wd, tag + '.fa'), os.path.join(wd, tag + '.out.fa')
+    realign._write_fa(fa, recs)
+    r = realign.run_proc([ABPOA, '-m', '0', '-r', '0' if consensus else '1'] + list(flags) + [fa], out, None,
+                         timeout=left, mem_mb=mem_mb, env=config.tool_env())
+    if r['status'] in ('timeout', 'memout'):
+        raise Capped(r['status'], 'abpoa %s: %s after %.0f s' % (tag, r['status'], r['seconds']))
+    if r['status'] != 'ok':
+        raise RuntimeError('abpoa %s: exit %s' % (tag, r.get('returncode')))
+    return collections.OrderedDict(msa_graph.read_msa(out)), r.get('peak_rss_mb') or 0.0
+
+
+def left_normalise_pair(a, b):
+    """Left-normalise the indels of a two-row alignment without changing its cost. A run of gaps in one
+    row over columns [s, e) moves to [s-1, e-1) when column s-1 aligns two bases and the other row
+    has the same base at s-1 and e-1, so the base that moves keeps its match or mismatch. Repeats to a
+    fixed point (runs that meet merge, which can only lower an affine cost). Returns the two rows."""
+    a, b = list(a), list(b)
+    n = len(a)
+    moved = True
+    while moved:
+        moved = False
+        for g, o in ((a, b), (b, a)):
+            c = 0
+            while c < n:
+                if g[c] != '-' or o[c] == '-':
+                    c += 1
+                    continue
+                e = c
+                while e < n and g[e] == '-' and o[e] != '-':
+                    e += 1
+                end, s = e, c
+                while s > 0 and g[s - 1] != '-' and o[s - 1] != '-' and o[s - 1] == o[e - 1]:
+                    g[e - 1], g[s - 1] = g[s - 1], '-'
+                    s, e = s - 1, e - 1
+                    moved = True
+                c = end
+    return ''.join(a), ''.join(b)
+
+
+def star_merge(centre, pairs, wd, deadline, mem_mb, stats):
+    """Merge pairwise alignments to the centre into one MSA. pairs: {name: (centre row, sequence row)}.
+    The columns are the centre's bases, and between each two of them (and at both ends) an insertion
+    slot; the distinct insertions of one slot are aligned to each other with abPOA (longest first).
+    Returns {name: MSA row}."""
+    n = len(centre)
+    cols, ins = {}, {}
+    for k, (ca, sa) in pairs.items():
+        col, slot, p = ['-'] * n, collections.defaultdict(list), 0
+        for x, y in zip(ca, sa):
+            if x == '-':
+                if y != '-':
+                    slot[p].append(y)
+            else:
+                col[p] = y
+                p += 1
+        if p != n:
+            raise ValueError('pairwise centre row of %s spells %d of %d bases' % (k, p, n))
+        cols[k], ins[k] = col, {q: ''.join(v) for q, v in slot.items()}
+    byslot = collections.defaultdict(set)
+    for d in ins.values():
+        for q, s in d.items():
+            byslot[q].add(s)
+    slot_rows = {}
+    for q, strs in byslot.items():
+        if len(strs) == 1:
+            s = next(iter(strs))
+            slot_rows[q] = (len(s), {s: s})
+            continue
+        recs = sorted(strs, key=lambda x: (-len(x), x))
+        got, pk = _abpoa_rows([('i%d' % i, s) for i, s in enumerate(recs)], wd, 'slot', [], deadline, mem_mb)
+        al = {s: got['i%d' % i] for i, s in enumerate(recs)}
+        slot_rows[q] = (len(al[recs[0]]), al)
+        stats['slots_aligned'] += 1
+        stats['slot_seqs_aligned'] += len(recs)
+        stats['peak_rss_mb'] = max(stats['peak_rss_mb'], pk)
+    stats['slots'] = len(slot_rows)
+    stats['insert_columns'] = sum(w for w, _ in slot_rows.values())
+    out = {}
+    for k in pairs:
+        parts = []
+        for q in range(n + 1):
+            if q in slot_rows:
+                w, al = slot_rows[q]
+                s = ins[k].get(q)
+                parts.append(al[s] if s else '-' * w)
+            if q < n:
+                parts.append(cols[k][q])
+        out[k] = ''.join(parts)
+    return out
+
+
+def star_align(in_fa, out_fa, threads=1, workdir=None, timeout=TIMEOUT, mem_mb=MEM_MB, centre='consensus', **_):
+    """realign.py plugin: centre-star MSA of the distinct masked sequences (named s<k>). The centre is
+    abPOA's consensus of all of them (abpoa -r 0, longest first, as poa_abpoa__all is built), with
+    centre='ref' s0, which is CHM13's sequence (panel.union lists it first), or with centre='longest'
+    the longest sequence. Each sequence is aligned
+    to the centre with abpoa -m 0 -b -1 (global, unbanded, default scores), its indels left-normalised
+    (left_normalise_pair), and the alignments merged (star_merge). The whole region shares one time cap;
+    each abPOA run has the memory cap."""
+    t0 = time.time()
+    deadline = t0 + timeout
+    recs = msa_graph.read_fasta(in_fa)
+    wd = tempfile.mkdtemp(prefix='star.', dir=workdir)
+    stats = collections.Counter(peak_rss_mb=0.0)
+    res = {'command': ['abpoa', '-m', '0', '-b', '-1', '(pairwise to the centre)'], 'tool_version': tool_version('abpoa')}
+    cseq = ''
+    try:
+        if centre == 'ref':
+            if recs[0][0] != 's0':
+                raise ValueError('centre=ref needs s0 (CHM13) first, got %s' % recs[0][0])
+            cseq = recs[0][1]
+        elif centre == 'longest':
+            cseq = sorted(recs, key=lambda r: (-len(r[1]), int(r[0][1:])))[0][1]
+        else:
+            byl = sorted(recs, key=lambda r: (-len(r[1]), int(r[0][1:])))
+            got, pk = _abpoa_rows(byl, wd, 'cons', [], deadline, mem_mb, consensus=True)
+            cseq = next(iter(got.values()))
+            stats['peak_rss_mb'] = max(stats['peak_rss_mb'], pk)
+        if not cseq or set(cseq) - set('ACGT'):
+            raise ValueError('centre is empty or not ACGT')
+        pairs = collections.OrderedDict()
+        for name, s in recs:
+            if s == cseq:
+                pairs[name] = (cseq, s)
+                stats['identical_to_centre'] += 1
+                continue
+            got, pk = _abpoa_rows([('c', cseq), ('q', s)], wd, 'pair', ['-b', '-1'], deadline, mem_mb)
+            stats['peak_rss_mb'] = max(stats['peak_rss_mb'], pk)
+            ca, sa = got['c'], got['q']
+            keep = [i for i in range(len(ca)) if ca[i] != '-' or sa[i] != '-']
+            ca, sa = ''.join(ca[i] for i in keep), ''.join(sa[i] for i in keep)
+            if ca.replace('-', '') != cseq or sa.replace('-', '') != s:
+                raise ValueError('abpoa pairwise rows do not spell their inputs (%s)' % name)
+            ca, sa = left_normalise_pair(ca, sa)
+            pairs[name] = (ca, sa)
+        stats['pairs'] = len(pairs)
+        rows = star_merge(cseq, pairs, wd, deadline, mem_mb, stats)
+        msa_graph.write_msa([(n, rows[n]) for n, _ in recs], out_fa)
+        res['status'] = 'ok'
+    except Capped as e:
+        res.update(status=e.status, message=str(e))
+    finally:
+        shutil.rmtree(wd, ignore_errors=True)
+    res['seconds'] = round(time.time() - t0, 2)
+    res['peak_rss_mb'] = stats.pop('peak_rss_mb')
+    res['star'] = dict(stats, centre=centre, centre_len=len(cseq))
+    return res
+
+
+def profile_align(in_fa, out_fa, threads=1, workdir=None, timeout=TIMEOUT, mem_mb=MEM_MB, tool='kalign', args=(),
+                  **_):
+    """realign.py plugin: a progressive profile aligner on the distinct masked sequences, under the
+    region's time and memory cap (realign.run_proc). mafft goes through realign.mafft_align. Rows are
+    rewritten upper-case with '-' gaps."""
+    if tool == 'mafft':
+        r = realign.mafft_align(in_fa, out_fa, threads=threads, workdir=workdir, timeout=timeout, mem_mb=mem_mb,
+                                args=args)
+        r['tool_version'] = tool_version('mafft')
+        return r
+    exe = shutil.which(tool, path=config.tool_env()['PATH']) or tool
+    part = os.path.join(workdir, 'profile.out.fa')
+    if tool == 'famsa':
+        cmd = [exe, '-t', str(threads)] + list(args) + [in_fa, part]
+    elif tool == 'kalign':
+        cmd = [exe, '-i', in_fa, '-o', part, '--type', 'dna', '-n', str(threads)] + list(args)
+    elif tool == 'muscle':
+        cmd = [exe, '-super5', in_fa, '-output', part, '-threads', str(threads)] + list(args)
+    else:
+        raise ValueError('unknown profile tool %s' % tool)
+    lg = os.path.join(workdir, tool + '.log')
+    r = realign.run_proc(cmd, lg + '.out', lg, timeout=timeout, mem_mb=mem_mb, env=config.tool_env(), cwd=workdir)
+    r['command'] = [tool] + [x if x not in (in_fa, part) else ('<in.fa>' if x == in_fa else '<out.fa>')
+                             for x in cmd[1:]]
+    r['tool_version'] = tool_version(tool)
+    if r['status'] == 'ok' and not (os.path.exists(part) and os.path.getsize(part)):
+        r['status'] = 'error'
+    if r['status'] == 'ok':
+        msa_graph.write_msa(msa_graph.read_msa(part), out_fa)
+    else:
+        r['message'] = realign._tail(lg)
+    return r
 
 
 def _pool(fn, jobs, items):
