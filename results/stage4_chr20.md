@@ -1422,24 +1422,40 @@ site.
 called haplotypes to HG002's truth haplotypes, under the best pairing, over the 636 regions every
 method scored.
 
+**Six regions are left out: the scorer cannot read them** (`work/iterate/atomic/enclosed_chr20.json`).
+- They lie inside one 474 kb top-level snarl, `>118064890>118038506` at chr20:30.96-31.43 Mb.
+- Every vg arm calls that snarl 0|1, with an ALT 5,253 bp longer than REF. The two walks share 40,184
+  nodes and differ at about 1,000 spread across the snarl.
+- The scorer cuts a record that encloses the span down to the span by base offset. So every region
+  inside receives the ALT's whole net length change: 5,253 to 5,392 edits per region in every vg arm.
+  That is 31,753 for the medoid star, against 167 for the prototype and 1 for the ceiling.
+- The ALT walk passes through each region's own nodes, so what vg called there is unmeasured, not
+  wrong. Cutting the ALT by its walk instead of by offset would recover them.
+- None of the six has an SV false positive or negative, so the SV estimate in 4u is unaffected.
+
+**Summed edit distance over the remaining 630 regions:**
+
 | method | summed edit distance | regions exact |
 |---|---|---|
-| ceiling: best pair of hap32 sequences | 6,998 | 472 |
-| **whole-allele prototype** | **52,357** | **374** |
-| vg call, medoid-star graph | 87,023 | 360 |
-| vg call, MC graph | 88,315 | 354 |
-| vg call, CHM13-star graph | 91,889 | 359 |
-| vg call, abPOA-hap32 graph | 94,305 | 361 |
+| ceiling: best pair of hap32 sequences | 6,997 | 467 |
+| **whole-allele prototype** | **52,190** | 371 |
+| vg call, medoid-star graph | 55,270 | 360 |
+| vg call, MC graph | 56,579 | 354 |
+| vg call, CHM13-star graph | 60,136 | 359 |
+| vg call, abPOA-hap32 graph | 62,569 | 361 |
 
 - **Most of vg call's error is stitching.**
-  - 171 to 201 of 1,272 called haplotypes are spelled by no hap32 sequence: the caller took alleles of
+  - 163 to 193 of 1,260 called haplotypes are spelled by no hap32 sequence: the caller took alleles of
     different panel haplotypes at successive sites inside one repeat.
-  - Those haplotypes carry 70-73% of the error, whatever graph the call used.
+  - Those haplotypes carry 71-76% of the error, whatever graph the call used.
   - A stitched haplotype beat the best panel pair in only 8 regions, by 15 edits in total.
-- **The prototype wins per region against the medoid star:** -34,666 [-69,709, -3,410], better in 156
-  regions and worse in 105.
-- **Its remaining error is copy number.** 52,308 of its 52,357 edits are in the 224 regions where it
-  picks an allele of the wrong length.
+- **The prototype does not beat vg call overall.** Against the medoid star the difference is -3,080
+  [-27,691, +17,141], with the prototype better in 150 regions and worse in 105.
+  - It removes stitching but picks the wrong length more often.
+  - With the six regions included it appeared to win by -34,666 [-69,709, -3,410]. That was the
+    scorer artefact.
+- **Its remaining error is copy number.** 52,308 of its 52,357 edits over all 636 regions are in the
+  224 regions where it picks an allele of the wrong length.
 
 **Preview with the existing chain mode.** vg call's experimental chain mode (`-I`) with
 `--read-likelihood` is not a usable preview: summed edit distance 438,133, 10 regions exact.
@@ -1487,40 +1503,55 @@ failed.
 | repeat sites - abPOA on hap32 | -80 [-145, -20] | 62/42 | 267 vs 347 |
 | descent - repeat sites | +18 [-14, +53] | 14/23 | 285 vs 267 |
 
-**Called-haplotype edit distance** (same 636 regions as above):
+**Called-haplotype edit distance** (the same 630 regions as above, without the six the scorer cannot
+read):
 
 | method | summed edit distance | regions exact | off-panel haplotypes (their error) |
 |---|---|---|---|
-| ceiling | 6,998 | 472 | - |
-| whole-allele prototype | 52,357 | 374 | - |
-| vg call, st_medoid | 87,023 | 360 | 190 (70%) |
-| **+ --repeat-sites** | **77,298** | **385** | **37 (38%)** |
-| + --repeat-descent | 82,820 | 373 | 122 (67%) |
-| + --repeat-linkage only | 86,162 | 367 | 156 (70%) |
+| ceiling | 6,997 | 467 | - |
+| whole-allele prototype | 52,190 | 371 | - |
+| vg call, st_medoid | 55,270 | 360 | 182 (71%) |
+| **+ --repeat-sites** | **45,545** | **385** | **29 (18%)** |
+| + --repeat-descent | 51,067 | 373 | 114 (67%) |
+| + --repeat-linkage only | 54,409 | 367 | 148 (72%) |
 
-- repeat sites - st_medoid: -9,725 [-19,214, -1,595], better/worse 90/50.
-- descent - repeat sites: +5,522 [-363, +12,680], better/worse 16/46.
-- prototype - repeat sites: -24,941 [-58,701, +8,400], better/worse 118/107.
+- repeat sites - st_medoid: -9,725 [-18,877, -1,459], better/worse 90/50.
+- descent - repeat sites: +5,522 [-859, +12,749], better/worse 16/46.
+- prototype - repeat sites: +6,645 [-16,689, +29,569], better/worse 112/107.
 
 **Findings:**
 - **Repeat sites work.** Refined SV F1 rises 0.6957 → 0.7204 (+0.025), significant per region, with
-  small variants unchanged. Off-panel haplotypes fall from 190 to 37. That is within the +0.03 to
+  small variants unchanged. Off-panel haplotypes fall from 182 to 29. That is within the +0.03 to
   +0.06 estimated from the prototype.
-- **Descent gives back part of the gain.** It re-opens stitching inside the chosen walks (122
+- **Descent gives back part of the gain.** It re-opens stitching inside the chosen walks (114
   off-panel haplotypes) and is worse than plain repeat sites in 46 regions against 16. Raw SV F1 is
   slightly higher, but refined F1 and edit distance are lower. Small variants nested on the chosen
   walks are not found well enough to pay for the stitching.
 - **Linkage alone is not enough.** A near-zero switch probability between a region's snarls removes
-  only 34 of 190 off-panel haplotypes. Each snarl is still genotyped on its own, and linkage only
+  only 34 of 182 off-panel haplotypes. Each snarl is still genotyped on its own, and linkage only
   phases the per-snarl choices; it cannot make them consistent with one panel walk.
-- **Where a region is a repeat site, it matches the prototype.**
-  - On the 610 regions where it calls only panel haplotypes, repeat sites total 37,222, against the
-    prototype's 42,947.
-  - The remaining gap is 26 regions still called off-panel. They hold 40,076 of the 77,298, against
-    9,410 for the prototype there.
-  - The four worst (TR763074, TR762996, TR763076, TR762999; 21,245 edits) lie inside one 474 kb
-    top-level snarl near the centromere.
-  - Others (for example TR772976, TR772999) lie inside a larger top-level snarl whose boundaries fall
-    outside the region.
-  - The fix is to let a repeat site sit at the region's own chain, nested or not, rather than only on
-    the top-level chain.
+- **Where a region is a repeat site, no stitching is left.**
+  - Regions are classed by the top-level snarls that overlap them
+    (`work/iterate/atomic/repeat_cover_class_chr20.json`).
+  - The classes come from replaying the site construction offline on the graph's snarls. The replay
+    reproduces vg's log exactly: 546 regions with a snarl inside, 78 without.
+
+| region class | regions | ceiling | prototype | st_medoid | repeat sites | off-panel haplotypes under repeat sites (their error) |
+|---|---|---|---|---|---|---|
+| every overlapping top-level snarl lies inside | 490 | 4,650 | 28,916 | 42,920 | 35,002 | 0 (0) |
+| some inside, some cross the region's edge | 56 | 96 | 11,753 | 2,780 | 1,234 | 1 (0) |
+| inside a larger top-level snarl, so not a site | 72 | 932 | 5,648 | 5,697 | 5,697 | 21 (4,848) |
+| not in the BED (unpatched) | 12 | 1,319 | 5,873 | 3,873 | 3,612 | 7 (3,417) |
+
+  - **On the 490 fully covered regions:**
+    - Repeat sites call no off-panel haplotype.
+    - What is left is a wrong choice among panel walks: 35,002 edits, against the prototype's 28,916.
+      Prototype - repeat sites is -6,086 [-25,718, +8,633], better/worse 85/78.
+    - Choosing among whole walks, not the walks offered, is now the larger lever.
+  - **The 72 regions that are not sites:**
+    - 71 lie in one top-level snarl of 1,062,607 bp, `>120680384>120784567` at chr20:64.11-65.17 Mb.
+      The other lies in a 300 kb snarl and is exact.
+    - Their off-panel error, 4,848 edits (11% of the total), is all a site nested inside that snarl
+      could recover.
+  - **The 12 unpatched regions** hold another 3,417 off-panel edits, 3,362 of them in TR773254. They
+    could be added to the BED; they are left out only because the alignment patch skipped them.
