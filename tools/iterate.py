@@ -4,7 +4,8 @@
 A VARIANT is a way to build a hap32 candidate graph for a region: MC itself, an existing Stage 4
 candidate set (poa_abpoa, poa_abpoa__all), an abPOA flag string / input order run on the region's
 full HG002-free panel (tools/panel.py union) and projected onto the 34 hap32 rows, or a named
-structural variant (seeded incremental alignment, post-alignment node merging). For every region of
+structural variant (seeded incremental alignment, post-alignment node merging, coarsening, gap
+normalisation of the full-panel MSA). For every region of
 the test set (work/iterate/testset.tsv) the harness
 
   build   -> work/iterate/candidates/<variant>/<id>.{gfa,msa.fa,json}   (+ full MSA in panel/<variant>/)
@@ -143,6 +144,24 @@ for _base in ('poa_abpoa', 'poa_abpoa__all', 'fp_G'):
              'between them' % (_base, _k), kind='coarsen', base=_base, k=_k)
 
 
+# Gap normalisation (4m): the base's full-panel MSA with each row's gap runs shifted left (or right)
+# against the column consensus to a fixed point (tools/gap_norm.py), then projected and rebuilt as
+# the base was. 'merge' first joins a row's consecutive gap runs when moving the bases between them
+# costs at most that many edits per other row (linear sum of pairs). where='proj' normalises the
+# hap32 projection instead (against the hap32 rows' consensus): sample-dependent, a reference only.
+for _base in ('poa_abpoa__all', 'fp_G'):
+    for _d in ('left', 'right'):
+        _reg('gn%s_%s' % (_d[0], _base), '%s full-panel MSA, gaps %s-normalised to the column consensus, '
+             'projected' % (_base, _d), kind='gapnorm', base=_base, where='full', direction=_d)
+_reg('gml_poa_abpoa__all', 'poa_abpoa__all full-panel MSA, gap runs merged (1 edit per other row), then '
+     'left-normalised, projected', kind='gapnorm', base='poa_abpoa__all', where='full', direction='left', merge=1.0)
+_reg('gjl_poa_abpoa__all', 'poa_abpoa__all full-panel MSA, gap runs left-normalised jointly (a run shared by '
+     'several rows moves only if it can in all of them), projected', kind='gapnorm', base='poa_abpoa__all',
+     where='full', direction='left', joint=True)
+_reg('gnpl_poa_abpoa__all', 'poa_abpoa__all projection, gaps left-normalised to the hap32 consensus',
+     kind='gapnorm', base='poa_abpoa__all', where='proj', direction='left')
+
+
 # Linkage strength: the same graphs called with a stronger Li-Stephens linkage model (vg call
 # --linkage-weight, default 2). lw2_mc is mc laid out as a candidate (like the lw*_mc arms) with the
 # default weight, the baseline for them.
@@ -201,7 +220,7 @@ def full_msa_of(v, rid):
     spec = variant(v)
     if spec['kind'] == 'link':
         return os.path.join(spec['full'], rid + '.msa.fa.gz') if spec.get('full') else None
-    if spec['kind'] == 'abpoa':
+    if spec['kind'] == 'abpoa' or (spec['kind'] == 'gapnorm' and spec['where'] == 'full'):
         return os.path.join(FULLMSA, v, rid + '.msa.fa.gz')
     return None
 
@@ -545,6 +564,8 @@ def build_one(v, rid, timeout=TIMEOUT, mem_mb=MEM_MB, force=False):
             info = build_merge(v, spec, rid)
         elif spec['kind'] == 'coarsen':
             info = build_coarsen(v, spec, rid)
+        elif spec['kind'] == 'gapnorm':
+            info = build_gapnorm(v, spec, rid)
         else:
             raise ValueError('unknown kind %s' % spec['kind'])
     except Exception as e:  # noqa: BLE001  (one region must not end a batch)
@@ -608,6 +629,50 @@ def build_coarsen(v, spec, rid):
     return {'variant': v, 'region_id': rid, 'status': 'ok', 'anchors': len(keep), 'nodes': len(seqs)}
 
 
+def build_gapnorm(v, spec, rid):
+    """Normalise the gap placement of the base's full-panel MSA (where='full') or of its hap32
+    projection (where='proj') with gap_norm.py, then project and build the graph as finish_graph does
+    for every abPOA variant (column graph, path check)."""
+    import gap_norm
+    rd = os.path.join(REGIONS, rid)
+    info = {'variant': v, 'region_id': rid, 'base': spec['base'], 'where': spec['where'],
+            'direction': spec['direction'], 'merge': spec.get('merge'), 'joint': bool(spec.get('joint'))}
+    if spec['where'] == 'full':
+        src = full_msa_of(spec['base'], rid)
+    else:
+        src = proj_msa_of(spec['base'], rid)
+    if not src or not os.path.exists(src):
+        info.update(status='no_base', message=str(src))
+        return info
+    named = [(n, r) for n, r in msa_graph.read_msa(src) if n not in msa_graph.CONSENSUS_NAMES]
+    rows = [r for _, r in named]
+    t0 = time.time()
+    if spec.get('merge') is not None:
+        rows, info['merge_stats'] = gap_norm.merge_runs(rows, spec['merge'])
+    norm = gap_norm.normalise_joint if spec.get('joint') else gap_norm.normalise
+    rows, info['norm'] = norm(rows, spec['direction'])
+    info['norm']['seconds'] = round(time.time() - t0, 2)
+    wd = tempfile.mkdtemp(prefix='it.%s.%s.' % (v, rid), dir=TMP)
+    try:
+        out = os.path.join(wd, 'norm.msa.fa')
+        msa_graph.write_msa(list(zip([n for n, _ in named], rows)), out)
+        if spec['where'] == 'full':
+            os.makedirs(os.path.join(FULLMSA, v), exist_ok=True)
+            with open(out, 'rb') as fi, gzip.open(os.path.join(FULLMSA, v, rid + '.msa.fa.gz'), 'wb') as fo:
+                shutil.copyfileobj(fi, fo)
+            proj = os.path.join(wd, 'proj.msa.fa')
+            _, mp = poa_panel.union_files(rid)
+            info['projection'] = panel.project(out, mp, os.path.join(rd, 'hap32.fa'), proj)
+        else:
+            proj = out
+        info['graph'] = finish_graph(rid, proj, os.path.join(CAND, v, rid + '.gfa'), wd)
+        shutil.copy(proj, os.path.join(CAND, v, rid + '.msa.fa'))
+        info['status'] = 'ok'
+        return info
+    finally:
+        shutil.rmtree(wd, ignore_errors=True)
+
+
 def _pool(fn, jobs, items):
     with concurrent.futures.ProcessPoolExecutor(max_workers=jobs) as ex:
         futs = {ex.submit(fn, *it): it for it in items}
@@ -621,7 +686,7 @@ def cmd_build(variants, ids, jobs, force, timeout, mem_mb):
         os.makedirs(os.path.join(CAND, v), exist_ok=True)
         with open(os.path.join(CAND, v, 'variant.json'), 'w') as f:
             json.dump(dict(spec, name=v), f, indent=1)
-        if spec['kind'] in ('merge', 'coarsen'):
+        if spec['kind'] in ('merge', 'coarsen', 'gapnorm'):
             cmd_build([spec['base']], ids, jobs, False, timeout, mem_mb)
         # biggest first so the long jobs start early
         size = {r: os.path.getsize(poa_panel.union_files(r)[0]) if os.path.exists(poa_panel.union_files(r)[0]) else 0

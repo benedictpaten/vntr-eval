@@ -1,0 +1,219 @@
+[
+ {
+  "region_id": "TR773368",
+  "rows": 34,
+  "distinct_rows": 8,
+  "kmerx_f": 0.09618,
+  "kmerx_h": 0.0,
+  "extra_f": 136,
+  "extra_h": 0,
+  "excess": 136,
+  "split_links": {
+   "f_worse": 534
+  },
+  "link_cost_f_h_opt": {
+   "f_worse": [
+    136146,
+    133181,
+    133181
+   ]
+  },
+  "segment_len_median": {
+   "f_worse": 295
+  },
+  "merged_by_equal": 0,
+  "merged_by_any": 534,
+  "explained_by_placement": 0.0,
+  "explained_by_any_link": 3.926,
+  "examples": [],
+  "kmerx_proj_norm_left": 0.0427,
+  "kmerx_proj_norm_right": 0.08518,
+  "kmerx_full_norm_left": 0.05752,
+  "full_norm_left_stats": {
+   "passes": 2,
+   "moves": 4700,
+   "columns_in": 1403,
+   "columns_out": 1403
+  },
+  "kmerx_full_norm_right": 0.11373,
+  "full_norm_right_stats": {
+   "passes": 2,
+   "moves": 8273,
+   "columns_in": 1403,
+   "columns_out": 1403
+  }
+ },
+ {
+  "region_id": "TR770009",
+  "rows": 34,
+  "distinct_rows": 9,
+  "kmerx_f": 0.29713,
+  "kmerx_h": 0.12799,
+  "extra_f": 1034,
+  "extra_h": 359,
+  "excess": 675,
+  "split_links": {
+   "f_worse": 1084
+  },
+  "link_cost_f_h_opt": {
+   "f_worse": [
+    424551,
+    406834,
+    402787
+   ]
+  },
+  "segment_len_median": {
+   "f_worse": 628
+  },
+  "merged_by_equal": 0,
+  "merged_by_any": 1084,
+  "explained_by_placement": 0.0,
+  "explained_by_any_link": 1.606,
+  "examples": [],
+  "kmerx_proj_norm_left": 0.26259,
+  "kmerx_proj_norm_right": 0.30747,
+  "kmerx_full_norm_left": 0.27697,
+  "full_norm_left_stats": {
+   "passes": 3,
+   "moves": 37813,
+   "columns_in": 4526,
+   "columns_out": 4526
+  },
+  "kmerx_full_norm_right": 0.31771,
+  "full_norm_right_stats": {
+   "passes": 3,
+   "moves": 87114,
+   "columns_in": 4526,
+   "columns_out": 4526
+  }
+ },
+ {
+  "region_id": "TR765271",
+  "rows": 34,
+  "distinct_rows": 22,
+  "kmerx_f": 0.274,
+  "kmerx_h": 0.12523,
+  "extra_f": 725,
+  "extra_h": 275,
+  "excess": 450,
+  "split_links": {
+   "equal": 113,
+   "f_worse": 263,
+   "f_better": 224
+  },
+  "link_cost_f_h_opt": {
+   "equal": [
+    5104,
+    5104,
+    4237
+   ],
+   "f_worse": [
+    10352,
+    6404,
+    5587
+   ],
+   "f_better": [
+    16736,
+    17456,
+    14432
+   ]
+  },
+  "segment_len_median": {
+   "equal": 45,
+   "f_worse": 84,
+   "f_better": 309
+  },
+  "merged_by_equal": 113,
+  "merged_by_any": 589,
+  "explained_by_placement": 0.251,
+  "explained_by_any_link": 1.309,
+  "examples": [
+   {
+    "kmer": "ATCCATCCATCCATCCATCCA",
+    "row_a": 0,
+    "row_b": 2,
+    "f_cols": [
+     370,
+     374
+    ],
+    "h_col": 374,
+    "cost_f": 8,
+    "cost_h": 8,
+    "opt": 8
+   },
+   {
+    "kmer": "ATCCATCCATCCATCCATCCA",
+    "row_a": 0,
+    "row_b": 2,
+    "f_cols": [
+     374,
+     378
+    ],
+    "h_col": 378,
+    "cost_f": 8,
+    "cost_h": 8,
+    "opt": 8
+   }
+  ],
+  "kmerx_proj_norm_left": 0.25773,
+  "kmerx_proj_norm_right": 0.32903,
+  "kmerx_full_norm_left": 0.26707,
+  "full_norm_left_stats": {
+   "passes": 3,
+   "moves": 9536,
+   "columns_in": 1793,
+   "columns_out": 1793
+  },
+  "kmerx_full_norm_right": 0.34054,
+  "full_norm_right_stats": {
+   "passes": 6,
+   "moves": 66678,
+   "columns_in": 1793,
+   "columns_out": 1793
+  }
+ },
+ {
+  "region_id": "TR755896",
+  "rows": 34,
+  "distinct_rows": 7,
+  "kmerx_f": 0.34321,
+  "kmerx_h": 0.14859,
+  "extra_f": 2039,
+  "extra_h": 681,
+  "excess": 1358,
+  "split_links": {
+   "f_worse": 3516
+  },
+  "link_cost_f_h_opt": {
+   "f_worse": [
+    1762275,
+    1615404,
+    1590612
+   ]
+  },
+  "segment_len_median": {
+   "f_worse": 1364
+  },
+  "merged_by_equal": 0,
+  "merged_by_any": 3001,
+  "explained_by_placement": 0.0,
+  "explained_by_any_link": 2.21,
+  "examples": [],
+  "kmerx_proj_norm_left": 0.32643,
+  "kmerx_proj_norm_right": 0.31616,
+  "kmerx_full_norm_left": 0.3619,
+  "full_norm_left_stats": {
+   "passes": 3,
+   "moves": 25959,
+   "columns_in": 4459,
+   "columns_out": 4455
+  },
+  "kmerx_full_norm_right": 0.35279,
+  "full_norm_right_stats": {
+   "passes": 5,
+   "moves": 46495,
+   "columns_in": 4459,
+   "columns_out": 4455
+  }
+ }
+]

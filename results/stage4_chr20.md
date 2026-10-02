@@ -571,3 +571,85 @@ patched repeat regions scored in 4b (median-free, single draw; better/worse = re
   (unpatched: +108 SNV FP, +139 SNV FN, +175 indel FP, +201 indel FN). A global weight of 8 is a bad trade.
 - So the prior is too weak inside repeats and about right elsewhere. The lever to test is a
   repeat-conditional linkage weight, not a new default.
+
+## 4m. Gap placement in the full-panel MSA
+
+Question: the hap32 projection of the full-panel abPOA MSA (`poa_abpoa__all`) has more repeated k-mers than
+abPOA run on the hap32 rows alone (`poa_abpoa`): kmerx (`kmer_frac_extra`) median 0.286 against 0.175. Is
+this inconsistent gap placement, meaning two rows with the same unit content whose indels sit in different
+columns? If so, normalising each row's gaps against the column consensus should remove it. Tools:
+`tools/gap_norm.py` (with tests in `tools/test_gap_norm.py`) and `iterate.py` kind `gapnorm`. Stage 0 was
+run on the 22-region test set.
+
+**Diagnosis** (`gap_norm.py diagnose`; `work/iterate/gapnorm/diagnose22.json`). In a column graph, a 21-mer's
+positions are the columns where its occurrences start. This reproduces Stage 0's kmerx exactly. A pair of
+occurrences is *split* when abPOA on hap32 puts them in one column and the projection puts them in two. For
+each split pair, the two rows' induced pairwise alignments are compared between the nearest base pairs
+that both MSAs align. Over that stretch both MSAs align the same two subsequences, so the costs compare
+directly.
+
+| | TR773368 | TR770009 | TR765271 | TR755896 | all 22 |
+|---|---|---|---|---|---|
+| extra k-mer positions, projection minus hap32-only | 136 | 675 | 450 | 1,358 | 47,063 |
+| explained by equal-cost placement (split positions merged by equal-cost pairs) | 0 | 0 | 113 | 0 | ≤ 2,080 (≤ 4.4%) |
+| split pairs: projection's alignment worse / equal / better | 534 / 0 / 0 | 1,084 / 0 / 0 | 263 / 113 / 224 | 3,516 / 0 / 0 | 88% / 1% / 10% |
+| gap runs over distinct hap32 rows, projection vs hap32-only | 8 vs 2 | 191 vs 36 | 336 vs 169 | 56 vs 21 | 33,878 vs 20,171 |
+
+- **Gap placement is not the cause.** Equally good alignments that place an indel elsewhere explain at
+  most 4.4% of the excess, and 0% in 3 of the 4 regions examined by hand. In 88% of split pairs, the
+  projection aligns the two rows worse than hap32-only does over the stretch between shared anchors (summed
+  cost +16%).
+- **The projection fragments indels.** Each hap32 row's indels are cut into 1.7 times as many gap runs,
+  for the same total gap length. Example: in TR773368 the 816 bp allele's 419 bp deletion becomes six
+  pieces, against one in the hap32-only MSA.
+- **The fragments are not noise.** 99.7% of the hap32 rows' gap runs in the full MSA have exactly the same
+  start and end as a run of some non-hap32 panel allele. abPOA aligns each sequence to its best path through
+  a graph of up to 460 alleles. Each unit of a short allele therefore matches whichever panel allele fits it
+  best, and its deletion breaks at those alleles' junctions. The full MSA is self-consistent. The projection
+  keeps the junctions but drops most of the alleles that justified them.
+- **How the extra k-mers arise.** 86% of the extra positions are k-mers that span a gap in their row at
+  that position (junction k-mers). The rest are unit copies placed against differently varied units.
+- **The panel supports these junctions.** A sum-of-pairs merge test on the full MSA confirms this.
+  `gap_norm.merge_runs` moves the bases between two of a row's gap runs so as to join the runs. It accepts
+  a move costing up to λ edits per other row (λ = 0-2). On the 4 regions it moves kmerx by at most 0.015,
+  and on the 22 regions `gml_poa_abpoa__all` (λ = 1, then left normalisation) does no better than left
+  normalisation alone.
+
+**Variants** (Stage 0, 22 regions; b/w = regions where the metric fell / rose by more than 0.005; lower is
+better for both metrics):
+
+| variant | MSA processing | kmerx median / mean | kmerx b/w vs `__all` | cost/opt median / mean | cost/opt b/w vs `__all` |
+|---|---|---|---|---|---|
+| mc | - | 0.259 / 0.307 | 11/7 | 1.408 / 1.507 | 4/18 |
+| `poa_abpoa` | abPOA on hap32 alone | 0.175 / 0.237 | 20/1 | 1.057 / 1.092 | 16/2 |
+| `poa_abpoa__all` | none | 0.286 / 0.320 | - | 1.117 / 1.203 | - |
+| gnl_poa_abpoa__all | full MSA, per-row left normalisation | 0.308 / 0.320 | 12/3 | 1.183 / 1.259 | 3/15 |
+| gnr_poa_abpoa__all | full MSA, per-row right normalisation | 0.338 / 0.356 | 2/18 | 1.151 / 1.247 | 5/14 |
+| gnl_fp_G | `-G` full MSA, left (vs fp_G: kmerx 11/3, cost 2/17) | 0.289 / 0.305 | 13/6 | 1.144 / 1.261 | 7/14 |
+| gnr_fp_G | `-G` full MSA, right (vs fp_G: 1/19, 6/13) | 0.308 / 0.341 | 6/16 | 1.130 / 1.247 | 5/12 |
+| gml_poa_abpoa__all | full MSA, merge (λ = 1), then left | 0.308 / 0.322 | 8/4 | 1.175 / 1.249 | 4/13 |
+| gjl_poa_abpoa__all | full MSA, joint left: a run shared by several rows moves only if it can in all | 0.282 / 0.318 | 5/1 | 1.127 / 1.213 | 2/5 |
+| gnpl_poa_abpoa__all | the projection, left, against the hap32 consensus (sample-dependent; reference only) | 0.266 / 0.303 | 20/0 | 1.150 / 1.245 | 4/14 |
+
+- **Per-row normalisation lowers kmerx in most regions and raises cost/opt in most.**
+  - It scatters gap runs that rows shared, because each row stops at its own first variant base. Over the
+    22 regions, distinct gap runs rise from 4,394 to 6,380, though total runs fall from 33,878 to 28,892.
+  - Where that happens, kmerx rises too. In TR772945 it goes from 0.276 to 0.426.
+  - Right normalisation is worse on both metrics.
+- **Joint normalisation avoids the scattering and is nearly inert:** kmerx −0.004, cost/opt +0.010. That is
+  the most a placement fix can do, consistent with the ≤ 4.4% ceiling above.
+- **Even on the projection itself, normalisation does not close the gap.** The sample-dependent version
+  reaches 0.266, against 0.175 for hap32-only, and still raises cost/opt.
+- **No variant beats `poa_abpoa__all` on kmerx without raising cost/opt**, so none was called.
+
+So the full-panel projection's duplication is not a gap-placement artefact. Its junctions are real
+junctions of the full panel, which a 34-row subset does not need. No normalisation that leaves the panel's
+alignment intact can remove them. Two directions remain:
+- **A different alignment objective for the full panel.** Score each row against the column profile (sum of
+  pairs, affine gaps, iterative refinement) instead of against abPOA's best path, so that an indel is cut
+  only where many alleles support the cut.
+- **Accept the sample dependence.** Re-align, on the hap32 rows, each projected window whose junctions no
+  two hap32 rows share.
+
+Files: `tools/gap_norm.py`, `tools/test_gap_norm.py`; `work/iterate/gapnorm/diagnose{4,22}.json`; candidates
+and full MSAs under `work/iterate/candidates/<variant>/` and `work/iterate/panel/<variant>/`.
