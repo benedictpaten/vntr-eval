@@ -14,7 +14,11 @@ import msa_graph, iterate  # noqa: E402
 ARMS = [('abpoa_h32', 'poa_abpoa', 'abPOA on the hap32 rows (sample-dependent)'),
         ('abpoa_full', 'poa_abpoa__all', 'abPOA on the full panel, projected'),
         ('st_chm13', 'st_chm13__all', 'centre-star to CHM13 on the full panel, projected'),
-        ('famsa_full', 'pf_famsa__all', 'FAMSA on the full panel, projected')]
+        ('famsa_full', 'pf_famsa__all', 'FAMSA on the full panel, projected'),
+        ('st_maj', 'st_maj__all', 'centre-star to the majority consensus of the full panel, projected'),
+        ('st_medoid', 'st_medoid__all', 'centre-star to the medoid allele of the full panel, projected'),
+        ('st_long', 'st_long__all', 'centre-star to the longest allele of the full panel, projected'),
+        ('mst3', 'mst3__all', 'nearest-neighbour threading on the full panel, projected')]
 FULL = [('abpoa_full', 'poa_abpoa__all'), ('st_chm13', 'st_chm13')]
 CAND = R + '/work/stage4/candidates'
 
@@ -51,8 +55,24 @@ def region(rid, with_full):
             d['desc'][arm] = desc
     wd = tempfile.mkdtemp(prefix='viz.', dir=R + '/work/tmp')
     opt = {}
+    # pair_recall.py's cache, in the same order of sequences (by length, then MSA order)
+    cf = '%s/work/iterate/pairrecall_cache/%s.json.gz' % (R, rid)
+    cache = json.load(gzip.open(cf, 'rt')) if os.path.exists(cf) else {}
+    order = sorted(base, key=len)
     for i in range(len(seqs)):
         for j in range(i + 1, len(seqs)):
+            a, b = order.index(seqs[i]), order.index(seqs[j])
+            hit = cache.get('%d,%d' % (min(a, b), max(a, b)))
+            if hit is not None:
+                part = hit[1]
+                if a > b:   # cached for (b, a): invert
+                    inv = [-1] * len(seqs[i])
+                    for k, v in enumerate(part):
+                        if v >= 0:
+                            inv[v] = k
+                    part = inv
+                opt['%d,%d' % (i, j)] = part
+                continue
             got, _ = iterate._abpoa_rows([('p', seqs[i]), ('q', seqs[j])], wd, 'pair', ['-b', '-1'],
                                          time.time() + 3600, iterate.MEM_MB)
             opt['%d,%d' % (i, j)] = partner(got['p'], got['q'])

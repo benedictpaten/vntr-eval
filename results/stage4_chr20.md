@@ -1278,3 +1278,46 @@ Per region, refined FP+FN, paired bootstrap (TR756034 excluded):
 Next: validate `st_chm13` on held-out chr6. The chr6 packages hold only hap32 (`hap32.fa`), so
 `package_regions.py hprc` must first add each region's full panel. That is one query of the
 5.7 GB HPRC GBZ per region (45-65 s, about 11 GB RSS): 8-17 hours for 1,120 regions.
+
+## 4w. Alignment quality of every method
+
+Pairwise consistency with the direct optimal pairwise alignments, pooled over the 46,508 sequence pairs
+(630 regions) that every method has, on chr20. Pairs and measures are as in 4u.
+- MC graph: two bases are aligned when they occupy the same graph position, a segment and its forward
+  offset (`work/iterate/pair_recall_mc.py`). A repeated visit gives a base several partners.
+- Missed and extra: counts of aligned position pairs.
+
+| method | recall | precision | F1 | missed | extra | F1, equal length | 1-49 bp | 50-999 bp | ≥ 1 kb |
+|---|---|---|---|---|---|---|---|---|---|
+| MC graph (unpatched) | 0.801 | 0.851 | 0.825 | 16.1 M | 11.3 M | 0.986 | 0.927 | 0.772 | 0.525 |
+| abPOA, hap32 only * | 0.837 | 0.840 | 0.839 | 13.1 M | 12.9 M | **0.994** | 0.948 | 0.792 | 0.524 |
+| FAMSA, hap32 only * | 0.836 | 0.836 | 0.836 | 13.2 M | 13.3 M | 0.991 | 0.939 | 0.796 | 0.520 |
+| abPOA, full panel | 0.780 | 0.787 | 0.784 | 17.7 M | 17.0 M | 0.990 | 0.913 | 0.717 | 0.434 |
+| FAMSA, full panel | 0.818 | 0.820 | 0.819 | 14.7 M | 14.5 M | 0.991 | 0.934 | 0.771 | 0.477 |
+| unit-aware, full panel | 0.821 | 0.821 | 0.821 | 14.5 M | 14.4 M | 0.993 | 0.941 | 0.765 | 0.490 |
+| mst threading | 0.824 | 0.856 | 0.840 | 14.2 M | 11.2 M | 0.990 | 0.945 | 0.785 | 0.555 |
+| mst3 threading | 0.833 | 0.860 | 0.846 | 13.5 M | 10.9 M | 0.992 | 0.949 | 0.796 | 0.561 |
+| backbone + threading (bbt64m) | 0.796 | 0.807 | 0.802 | 16.4 M | 15.3 M | 0.988 | 0.926 | 0.744 | 0.448 |
+| star to longest | 0.816 | 0.884 | 0.848 | 14.9 M | **8.7 M** | 0.978 | 0.922 | 0.806 | 0.637 |
+| **star to CHM13** | 0.856 | **0.888** | **0.872** | 11.6 M | **8.7 M** | 0.979 | 0.943 | 0.836 | **0.671** |
+| star to majority consensus | 0.853 | 0.885 | 0.868 | 11.9 M | 9.0 M | 0.982 | 0.944 | 0.832 | 0.648 |
+| star to medoid | **0.864** | 0.880 | **0.872** | **11.0 M** | 9.5 M | 0.981 | **0.954** | **0.837** | 0.637 |
+| star to abPOA consensus | 0.835 | 0.846 | 0.840 | 13.3 M | 12.3 M | 0.984 | 0.935 | 0.796 | 0.573 |
+
+\* sample-dependent. Pairs per bin: 3,250 / 20,279 / 19,866 / 3,113.
+
+- **The best stars are also the most consistent alignments**, not only the best callers. CHM13 and
+  medoid centres reach F1 0.872, against 0.839 for abPOA on the sampled 32, 0.825 for the MC graph and
+  0.784 for abPOA on the full panel.
+- **The gain is all in pairs of different length**, which is where SVs are:
+  - 50-999 bp: 0.836 against 0.792 for hap32 abPOA;
+  - ≥ 1 kb: 0.671 against 0.524.
+  - Stacked, left-normalised deletions keep each large indel in one piece.
+- **The stars lose a little on pairs of equal or near-equal length:** 0.979 against 0.994 at equal
+  length. Two non-centre alleles meet only through the centre, so their substitutions can be placed
+  less well than a direct alignment would place them.
+- **Extra (off-optimum) pairs track the calling gain better than missed pairs.** The stars cut them
+  from 12.9 M to 8.7-9.5 M, and refined SV FP falls from 251 to 176-212 (4u, 4v). Missed pairs change
+  less.
+- **Per-region stats are in the viewer.** Data: `work/iterate/viz_alignments.py`; the summary tables
+  are computed from `pair_recall*.tsv` and the score summaries.
