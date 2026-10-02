@@ -5,19 +5,20 @@ A VARIANT is a way to build a hap32 candidate graph for a region: MC itself, an 
 candidate set (poa_abpoa, poa_abpoa__all), an abPOA flag string / input order run on the region's
 full HG002-free panel (tools/panel.py union) and projected onto the 34 hap32 rows, or a named
 structural variant (seeded incremental alignment, post-alignment node merging, coarsening, gap
-normalisation of the full-panel MSA, a centre-star or profile-aligner MSA of the full panel). For
+normalisation of the full-panel MSA, a centre-star or profile-aligner MSA of the full panel, or
+nearest-neighbour threading of the full panel on a k-mer minimum spanning tree). For
 every region of the test set (work/iterate/testset.tsv) the harness
 
   build   -> work/iterate/candidates/<variant>/<id>.{gfa,msa.fa,json}   (+ full MSA in panel/<variant>/)
   stage0  -> work/iterate/stage0/<variant>/<id>.json   (evaluate.py --skip truth: kmer_frac_extra,
-             all_cost_over_opt, nodes/kb)
+             all_cost_over_opt, nodes/kb) and <id>.snarls.json (top-level snarls = sites, all snarls)
   call    -> local vg call on the hybrid graph with re-mapped reads, 3 replicates (call_local.py:
              hybrid200k, hybrid50k, hybrid200kids), under work/iterate/w/stage3/
   score   -> work/iterate/score/<variant>[@arm]/<id>.json (score_haplotypes.score_region, no truvari;
              the score is sensitivity.ed_suppress_nested, as tools/stage3_rule.py)
   clean   -> drops the hybrid graphs, indexes and GAFs of scored calls (VCFs and build.json kept)
   table   -> work/iterate/results.tsv (one row per region x variant) and a per-variant summary
-             (median kmer_frac_extra and cost/opt, summed median ED, replicate-rule better/worse
+             (median and mean kmer_frac_extra, cost/opt and sites, summed median ED, replicate-rule better/worse
              against mc, poa_abpoa and poa_abpoa__all)
 
 Replicate rule (tools/stage3_rule.py): a variant is BETTER than a baseline at a region only if every
@@ -81,6 +82,7 @@ SUMMARY = os.path.join(IT, 'summary.tsv')
 TMP = os.path.join(IT, 'tmp')
 S4 = os.path.join(REPO, 'work', 'stage4')
 VG = os.path.join(REPO, 'work', 'bin', 'vg-2a6a228a5')
+SNARL_VG = os.environ.get('VNTR_SNARL_VG') or os.path.join(REPO, 'work', 'bin', 'vg-91d38c802')
 ABPOA = realign_poa.ABPOA
 ARMS = ['hybrid50k', 'hybrid200kids']                  # replicates besides the Stage 3 call (hybrid200k)
 REPS = [''] + ['@' + a for a in ARMS]
@@ -181,6 +183,17 @@ _reg('pf_muscle', 'full panel, MUSCLE5 -super5, projected', kind='profile', tool
 _reg('pf_mafft', 'full panel, mafft FFT-NS-2 (--retree 2 --maxiterate 0), projected', kind='profile',
      tool='mafft', args=['--retree', '2', '--maxiterate', '0'], threads=2)
 
+# Nearest-neighbour threading (4q): each distinct allele is placed against ONE similar allele already in
+# the MSA instead of a graph of all of them. The alleles join a minimum spanning tree over multiset
+# k-mer distance in Prim's order from CHM13; each is aligned pairwise to its parent (abPOA, unbanded,
+# indels left-normalised) and inherits the parent's columns, with its insertions placed in the slot's
+# existing gap columns where they fit (so recurrent insertions stack) and new columns otherwise. mst3
+# aligns each allele to its 3 nearest already-aligned alleles and keeps the lowest-cost alignment.
+_reg('mst', 'full panel, nearest-neighbour threading on a k-mer MST from CHM13 (pairwise to the tree parent), '
+     'projected', kind='mst', nn=1)
+_reg('mst3', 'full panel, nearest-neighbour threading, best of the 3 nearest aligned alleles, projected',
+     kind='mst', nn=3)
+
 # The repeat-unit-aware aligner (realign_units, 4o). ua32 is its hap32 arm (Stage 4 candidates);
 # ua_all and ua_all_poa run it on the full panel (tools/units_panel.py run --panel-root
 # work/stage4/panel [--fallback-engine abpoa]) and project the MSA onto hap32. They differ only in
@@ -258,7 +271,7 @@ def full_msa_of(v, rid):
     spec = variant(v)
     if spec['kind'] == 'link':
         return os.path.join(spec['full'], rid + '.msa.fa.gz') if spec.get('full') else None
-    if spec['kind'] in ('abpoa', 'star', 'profile') or (spec['kind'] == 'gapnorm' and spec['where'] == 'full'):
+    if spec['kind'] in ('abpoa', 'star', 'profile', 'mst') or (spec['kind'] == 'gapnorm' and spec['where'] == 'full'):
         return os.path.join(FULLMSA, v, rid + '.msa.fa.gz')
     return None
 
@@ -339,6 +352,9 @@ def build_abpoa(v, spec, rid, timeout, mem_mb):
         if spec['kind'] == 'star':
             m = realign._as_method(v, {'align': star_align, 'tool': 'abpoa', 'description': spec['desc'],
                                        'params': {'centre': spec['centre']}})
+        elif spec['kind'] == 'mst':
+            m = realign._as_method(v, {'align': mst_align, 'tool': 'abpoa', 'description': spec['desc'],
+                                       'params': {'nn': spec.get('nn', 1)}})
         elif spec['kind'] == 'profile':
             m = realign._as_method(v, {'align': profile_align, 'tool': spec['tool'], 'description': spec['desc'],
                                        'params': {'tool': spec['tool'], 'args': spec.get('args', [])}})
@@ -353,7 +369,7 @@ def build_abpoa(v, spec, rid, timeout, mem_mb):
         info['align'] = {'status': al['status'], 'message': al.get('message'), 'seconds': a.get('seconds'),
                          'peak_rss_mb': a.get('peak_rss_mb'), 'command': a.get('command'),
                          'stage1': a.get('stage1'), 'n_seed': a.get('n_seed'),
-                         'tool_version': a.get('tool_version'), 'star': a.get('star')}
+                         'tool_version': a.get('tool_version'), 'star': a.get('star'), 'mst': a.get('mst')}
         if al['status'] != 'ok':
             info.update(status=al['status'], message=al.get('message'))
             return info
@@ -605,7 +621,7 @@ def build_one(v, rid, timeout=TIMEOUT, mem_mb=MEM_MB, force=False):
                     info['align'] = {'seconds': a.get('seconds'), 'peak_rss_mb': a.get('peak_rss_mb')}
             else:
                 info = {'variant': v, 'region_id': rid, 'status': 'missing', 'src': src}
-        elif spec['kind'] in ('abpoa', 'star', 'profile'):
+        elif spec['kind'] in ('abpoa', 'star', 'profile', 'mst'):
             info = build_abpoa(v, spec, rid, timeout, mem_mb)
         elif spec['kind'] == 'merge':
             info = build_merge(v, spec, rid)
@@ -940,6 +956,305 @@ def profile_align(in_fa, out_fa, threads=1, workdir=None, timeout=TIMEOUT, mem_m
     return r
 
 
+# ------------------------------------------------------------------ build: nearest-neighbour threading (4q)
+
+MST_K = 15
+ABPOA_COST = {'mismatch': 4, 'open1': 4, 'ext1': 2, 'open2': 24, 'ext2': 1}   # abPOA's default scores
+PLACE = {'match': 2.0, 'mismatch': -3.0, 'new': -1.0, 'skip': -2.5}           # place_insert scores
+PLACE_MAX_CELLS = 4000000
+PAIR_MAX_CELLS = 600000000     # a 22 kb x 22 kb unbanded pair fits the 12 GB cap; 30 kb x 30 kb does not
+_BIT = {'A': 1, 'C': 2, 'G': 4, 'T': 8}
+
+
+def kmer_tokens(seq, k=MST_K):
+    """The k-mer multiset of seq as a set: the j-th occurrence of a k-mer is its own token, so the Jaccard
+    index of two token sets is the multiset Jaccard (sum of min counts over sum of max counts), which sees
+    copy-number differences that a k-mer set would not."""
+    seen, out = collections.Counter(), set()
+    for i in range(len(seq) - k + 1):
+        w = seq[i:i + k]
+        seen[w] += 1
+        out.add(hash((w, seen[w])))
+    return out
+
+
+def mst_order(recs, k=MST_K):
+    """Prim's minimum spanning tree over the distinct sequences, distance 1 - multiset k-mer Jaccard,
+    grown from recs[0] (CHM13, s0). Returns (order, parent, dist): order is the order the sequences join
+    the tree, each joining at its nearest tree member parent[i]; dist(i, j) is the distance function."""
+    toks = [kmer_tokens(s, k) for _, s in recs]
+    n = len(recs)
+    cache = {}
+
+    def dist(i, j):
+        if i == j:
+            return 0.0
+        key = (i, j) if i < j else (j, i)
+        if key not in cache:
+            a, b = toks[i], toks[j]
+            inter = len(a & b)
+            uni = len(a) + len(b) - inter
+            cache[key] = 1.0 - (inter / uni if uni else (1.0 if recs[i][1] == recs[j][1] else 0.0))
+        return cache[key]
+
+    inside = [False] * n
+    best = [float('inf')] * n
+    parent = [None] * n
+    order = []
+    cur = 0
+    inside[0] = True
+    order.append(0)
+    for _ in range(n - 1):
+        for j in range(n):
+            if not inside[j]:
+                d = dist(cur, j)
+                if d < best[j]:
+                    best[j], parent[j] = d, cur
+        cur = min((j for j in range(n) if not inside[j]), key=lambda j: (best[j], j))
+        inside[cur] = True
+        order.append(cur)
+    return order, parent, dist
+
+
+def pair_cost(a, b):
+    """abPOA's default cost of a two-row alignment (no match bonus): 4 per mismatch and min(4 + 2L, 24 + L)
+    per gap run of length L in either row."""
+    c, n = 0, len(a)
+    i = 0
+    while i < n:
+        x, y = a[i], b[i]
+        if x != '-' and y != '-':
+            c += ABPOA_COST['mismatch'] if x != y else 0
+            i += 1
+            continue
+        g = 0 if x == '-' else 1
+        e = i
+        while e < n and (a[e] if g == 0 else b[e]) == '-' and (b[e] if g == 0 else a[e]) != '-':
+            e += 1
+        L = e - i
+        c += min(ABPOA_COST['open1'] + ABPOA_COST['ext1'] * L, ABPOA_COST['open2'] + ABPOA_COST['ext2'] * L)
+        i = e
+    return c
+
+
+def pair_align(pseq, qseq, wd, deadline, mem_mb, stats):
+    """Global pairwise alignment of qseq to pseq (abpoa -m 0 -b -1, default scores), both-gap columns
+    dropped and indels left-normalised. A pair over PAIR_MAX_CELLS cells, or one whose unbanded run hits the
+    memory cap, is aligned with abPOA's default adaptive band instead. Returns (parent row, query row,
+    cost)."""
+    try:
+        if len(pseq) * len(qseq) > PAIR_MAX_CELLS:
+            raise Capped('memout', 'predicted')
+        got, pk = _abpoa_rows([('p', pseq), ('q', qseq)], wd, 'pair', ['-b', '-1'], deadline, mem_mb)
+    except Capped as e:
+        if e.status != 'memout':
+            raise
+        got, pk = _abpoa_rows([('p', pseq), ('q', qseq)], wd, 'pair', [], deadline, mem_mb)
+        stats['banded'] += 1
+    stats['peak_rss_mb'] = max(stats['peak_rss_mb'], pk)
+    stats['pairwise'] += 1
+    pa, qa = got['p'], got['q']
+    keep = [i for i in range(len(pa)) if pa[i] != '-' or qa[i] != '-']
+    pa, qa = ''.join(pa[i] for i in keep), ''.join(qa[i] for i in keep)
+    if pa.replace('-', '') != pseq or qa.replace('-', '') != qseq:
+        raise ValueError('abpoa pairwise rows do not spell their inputs')
+    pa, qa = left_normalise_pair(pa, qa)
+    return pa, qa, pair_cost(pa, qa)
+
+
+def place_insert(ins, masks, sc=PLACE):
+    """Place an inserted string into a run of existing columns (masks: the bases each holds, as _BIT
+    masks; the parent has a gap in all of them) plus new columns. Global DP: a base into an existing
+    column scores match or mismatch, a base into a new column 'new', and skipping an existing column is
+    free before the first and after the last placed base and costs 'skip' between them; ties put the
+    insertion as far left as possible. Returns the slot as a list of (existing column index or None for a
+    new column, query base index or None)."""
+    m, g = len(ins), len(masks)
+    H = [[0.0] * (g + 1) for _ in range(m + 1)]
+    P = [bytearray(g + 1) for _ in range(m + 1)]    # 0 diagonal, 1 new column, 2 skip
+    for j in range(1, g + 1):
+        P[0][j] = 2
+    M, X, N, S = sc['match'], sc['mismatch'], sc['new'], sc['skip']
+    for i in range(1, m + 1):
+        bit = _BIT.get(ins[i - 1], 0)
+        prev, cur, pr = H[i - 1], H[i], P[i]
+        cur[0] = prev[0] + N
+        pr[0] = 1
+        last = i == m
+        sk = 0.0 if last else S
+        for j in range(1, g + 1):
+            d = prev[j - 1] + (M if masks[j - 1] & bit else X)
+            u = prev[j] + N
+            lft = cur[j - 1] + sk
+            if last and lft >= d and lft >= u:
+                cur[j], pr[j] = lft, 2
+            elif d >= u and d >= lft:
+                cur[j], pr[j] = d, 0
+            elif u >= lft:
+                cur[j], pr[j] = u, 1
+            else:
+                cur[j], pr[j] = lft, 2
+    out, i, j = [], m, g
+    while i > 0 or j > 0:
+        p = P[i][j]
+        if p == 0:
+            out.append((j - 1, i - 1))
+            i, j = i - 1, j - 1
+        elif p == 1:
+            out.append((None, i - 1))
+            i -= 1
+        else:
+            out.append((j - 1, None))
+            j -= 1
+    out.reverse()
+    return out
+
+
+class ThreadedMSA(object):
+    """An MSA grown one row at a time, each new row placed against one parent row already in it. Columns
+    are ids in self.order; rowcols[name] lists the column of each of the row's bases; mask[c] holds the
+    bases column c has received."""
+
+    def __init__(self, name, seq):
+        self.order = list(range(len(seq)))
+        self.mask = [_BIT.get(b, 0) for b in seq]
+        self.rowcols = {name: list(range(len(seq)))}
+
+    def _new(self, base):
+        self.mask.append(_BIT.get(base, 0))
+        return len(self.mask) - 1
+
+    def add(self, name, qseq, parent, pa, qa, stats):
+        """Add qseq, aligned to row PARENT as (pa, qa): a base aligned to a parent base takes that base's
+        column; a deletion is gaps in the parent's columns; the bases inserted between two parent bases go
+        into that slot's existing columns (the parent has gaps there) and new ones, by place_insert."""
+        pc = self.rowcols[parent]
+        n = len(pc)
+        pos = {c: i for i, c in enumerate(self.order)}
+        qcols = []
+        slots = {}                     # parent slot p (before parent base p) -> (first qcols index, string)
+        p, ins = 0, []
+        for x, y in zip(pa, qa):
+            if x == '-':
+                ins.append(y)
+                continue
+            if ins:
+                slots[p] = (len(qcols), ''.join(ins))
+                qcols.extend([None] * len(ins))
+                ins = []
+            if y != '-':
+                qcols.append(pc[p])
+            p += 1
+        if ins:
+            slots[p] = (len(qcols), ''.join(ins))
+            qcols.extend([None] * len(ins))
+        if p != n:
+            raise ValueError('parent row spells %d of %d bases' % (p, n))
+        segs = []                      # (start, end) of self.order replaced by a new column list
+        for sp in sorted(slots):
+            q0, s = slots[sp]
+            lo = pos[pc[sp - 1]] + 1 if sp > 0 else 0
+            hi = pos[pc[sp]] if sp < n else len(self.order)
+            old = self.order[lo:hi]
+            stats['slots'] += 1
+            if not old or len(s) * len(old) > PLACE_MAX_CELLS:
+                if old:
+                    stats['place_capped'] += 1
+                ops = [(None, t) for t in range(len(s))] + [(j, None) for j in range(len(old))]
+            else:
+                ops = place_insert(s, [self.mask[c] for c in old])
+            seg = []
+            for j, t in ops:
+                if j is None:
+                    c = self._new(s[t])
+                    stats['new_columns'] += 1
+                else:
+                    c = old[j]
+                    if t is not None:
+                        stats['reused_columns'] += 1
+                seg.append(c)
+                if t is not None:
+                    qcols[q0 + t] = c
+            segs.append((lo, hi, seg))
+        if segs:
+            out, last = [], 0
+            for lo, hi, seg in segs:
+                out.extend(self.order[last:lo])
+                out.extend(seg)
+                last = hi
+            out.extend(self.order[last:])
+            self.order = out
+        for c, b in zip(qcols, qseq):
+            self.mask[c] |= _BIT.get(b, 0)
+        self.rowcols[name] = qcols
+
+    def write(self, recs, out_fa):
+        """Write the rows of recs (name, sequence) as an MSA; returns the column count."""
+        idx = {c: i for i, c in enumerate(self.order)}
+        ncol = len(self.order)
+        out = []
+        for name, seq in recs:
+            row = ['-'] * ncol
+            last = -1
+            for c, b in zip(self.rowcols[name], seq):
+                k = idx[c]
+                if k <= last:
+                    raise ValueError('row %s: columns out of order' % name)
+                row[k] = b
+                last = k
+            out.append((name, ''.join(row)))
+        msa_graph.write_msa(out, out_fa)
+        return ncol
+
+
+def mst_align(in_fa, out_fa, threads=1, workdir=None, timeout=TIMEOUT, mem_mb=MEM_MB, nn=1, k=MST_K, **_):
+    """realign.py plugin: nearest-neighbour threading of the distinct masked sequences (named s<k>, s0 =
+    CHM13). The sequences join a minimum spanning tree (mst_order) in Prim's order from CHM13; each is
+    aligned pairwise (pair_align) to its tree parent, or with nn > 1 to each of its nn nearest
+    already-aligned sequences by k-mer distance keeping the lowest-cost alignment, and added to the MSA on
+    that parent's columns (ThreadedMSA.add). One time cap for the region; each abPOA run has the memory
+    cap."""
+    t0 = time.time()
+    deadline = t0 + timeout
+    recs = msa_graph.read_fasta(in_fa)
+    wd = tempfile.mkdtemp(prefix='mst.', dir=workdir)
+    stats = collections.Counter(peak_rss_mb=0.0)
+    res = {'command': ['abpoa', '-m', '0', '-b', '-1', '(pairwise to the nearest aligned allele)'],
+           'tool_version': tool_version('abpoa')}
+    try:
+        if recs[0][0] != 's0':
+            raise ValueError('mst needs s0 (CHM13) first, got %s' % recs[0][0])
+        order, parent, dist = mst_order(recs, k)
+        stats['tree_seconds'] = round(time.time() - t0, 2)
+        msa = ThreadedMSA(recs[0][0], recs[0][1])
+        done = [order[0]]
+        for x in order[1:]:
+            if nn > 1:
+                cand = sorted(done, key=lambda j: (dist(x, j), j))[:nn]
+            else:
+                cand = [parent[x]]
+            best = None
+            for j in cand:
+                pa, qa, c = pair_align(recs[j][1], recs[x][1], wd, deadline, mem_mb, stats)
+                if best is None or c < best[3]:
+                    best = (j, pa, qa, c)
+            if best[0] != parent[x]:
+                stats['parent_not_tree'] += 1
+            stats['cost'] += best[3]
+            msa.add(recs[x][0], recs[x][1], recs[best[0]][0], best[1], best[2], stats)
+            done.append(x)
+        stats['columns'] = msa.write(recs, out_fa)
+        res['status'] = 'ok'
+    except Capped as e:
+        res.update(status=e.status, message=str(e))
+    finally:
+        shutil.rmtree(wd, ignore_errors=True)
+    res['seconds'] = round(time.time() - t0, 2)
+    res['peak_rss_mb'] = stats.pop('peak_rss_mb')
+    res['mst'] = dict(stats, nn=nn, k=k)
+    return res
+
+
 def _pool(fn, jobs, items):
     with concurrent.futures.ProcessPoolExecutor(max_workers=jobs) as ex:
         futs = {ex.submit(fn, *it): it for it in items}
@@ -966,13 +1281,41 @@ def cmd_build(variants, ids, jobs, force, timeout, mem_mb):
 
 # ------------------------------------------------------------------ stage 0
 
+def snarl_counts(gfa):
+    """{'snarls': all non-trivial snarls, 'sites': the top-level ones} of a GFA (vg snarls | vg view -R)."""
+    p1 = subprocess.Popen([SNARL_VG, 'snarls', gfa], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    p2 = subprocess.run([SNARL_VG, 'view', '-R', '-'], stdin=p1.stdout, capture_output=True, text=True)
+    p1.stdout.close()
+    if p1.wait() != 0 or p2.returncode != 0:
+        return {'status': 'error'}
+    sn = [json.loads(x) for x in p2.stdout.splitlines() if x.strip()]
+    return {'snarls': len(sn), 'sites': sum(1 for s in sn if 'parent' not in s), 'vg': os.path.basename(SNARL_VG)}
+
+
+def snarls_one(v, rid, gfa, force=False):
+    """Site count of a variant's graph: `vg snarls` (non-trivial snarls) on the GFA, read with `vg view -R`;
+    'snarls' counts all of them and 'sites' the top-level ones (no parent), which are vg call's sites.
+    Cached in stage0/<variant>/<id>.snarls.json."""
+    out = os.path.join(STAGE0, v, rid + '.snarls.json')
+    if os.path.exists(out) and not force:
+        return json.load(open(out))
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    res = snarl_counts(gfa)
+    if res.get('status') == 'error':
+        return res
+    with open(out, 'w') as f:
+        json.dump(res, f)
+    return res
+
+
 def stage0_one(v, rid, force=False):
     out = os.path.join(STAGE0, v, rid + '.json')
-    if os.path.exists(out) and not force:
-        return 'cached'
     gfa = cand_gfa(v, rid)
     if not os.path.exists(gfa):
         return 'no_graph'
+    snarls_one(v, rid, gfa, force)
+    if os.path.exists(out) and not force:
+        return 'cached'
     os.makedirs(os.path.dirname(out), exist_ok=True)
     lg = out.replace('.json', '.log')
     with open(lg, 'w') as f:
@@ -994,9 +1337,11 @@ def stage0_metrics(v, rid):
     if not os.path.exists(p):
         return {}
     d = json.load(open(p))
+    sp = os.path.join(STAGE0, v, rid + '.snarls.json')
+    sn = json.load(open(sp)) if os.path.exists(sp) else {}
     return {'nodes': (d.get('size') or {}).get('nodes'), 'nodes_per_kb': (d.get('size') or {}).get('nodes_per_kb'),
             'kmer_frac_extra': (d.get('redundancy') or {}).get('kmer_frac_extra'),
-            'cost_over_opt': (d.get('alignment') or {}).get('all_cost_over_opt')}
+            'cost_over_opt': (d.get('alignment') or {}).get('all_cost_over_opt'), 'sites': sn.get('sites')}
 
 
 # ------------------------------------------------------------------ local calling and scoring
@@ -1123,13 +1468,18 @@ def _med(xs):
     return statistics.median(xs) if xs else None
 
 
+def _mean(xs):
+    xs = [x for x in xs if x is not None]
+    return statistics.mean(xs) if xs else None
+
+
 def cmd_table(variants=None, quiet=False):
     ts = testset()
     group = {r['region_id']: r['group'] for r in ts}
     ids = [r['region_id'] for r in ts]
     variants = variants or known_variants()
     cols = ['variant', 'region_id', 'group', 'build_status', 'align_s', 'peak_rss_mb', 'nodes', 'nodes_per_kb',
-            'kmer_frac_extra', 'cost_over_opt', 'ed_reps', 'ed_median', 'vs_mc', 'vs_poa_abpoa', 'vs_poa_abpoa__all']
+            'kmer_frac_extra', 'cost_over_opt', 'sites', 'ed_reps', 'ed_median', 'vs_mc', 'vs_poa_abpoa', 'vs_poa_abpoa__all']
     base_scores = {b: {r: rep_scores(b, r) for r in ids} for b in BASELINES}
     rows = []
     for v in variants:
@@ -1143,7 +1493,7 @@ def cmd_table(variants=None, quiet=False):
                    'align_s': al.get('seconds'), 'peak_rss_mb': al.get('peak_rss_mb'),
                    'nodes': m.get('nodes'), 'nodes_per_kb': m.get('nodes_per_kb'),
                    'kmer_frac_extra': m.get('kmer_frac_extra'), 'cost_over_opt': m.get('cost_over_opt'),
-                   'ed_reps': ','.join(str(x) for x in sc), 'ed_median': _med(sc) if sc else None}
+                   'sites': m.get('sites'), 'ed_reps': ','.join(str(x) for x in sc), 'ed_median': _med(sc) if sc else None}
             for bname in BASELINES:
                 row['vs_' + bname] = '' if bname == v else rule(sc, base_scores[bname][rid])
             rows.append(row)
@@ -1153,7 +1503,7 @@ def cmd_table(variants=None, quiet=False):
             f.write('\t'.join('' if r[c] is None else str(r[c]) for c in cols) + '\n')
     scols = ['variant', 'built', 'med_kmer_frac_extra', 'med_cost_over_opt', 'med_nodes_per_kb', 'max_align_s',
              'called', 'sum_ed_median', 'sum_ed_median_mc', 'sum_ed_median_poa', 'bw_vs_mc', 'bw_vs_poa_abpoa',
-             'bw_vs_poa_abpoa__all']
+             'bw_vs_poa_abpoa__all', 'mean_kmer_frac_extra', 'mean_cost_over_opt', 'med_sites', 'mean_sites']
     summ = []
     for v in variants:
         rs = [r for r in rows if r['variant'] == v]
@@ -1164,7 +1514,10 @@ def cmd_table(variants=None, quiet=False):
              'med_cost_over_opt': _med([r['cost_over_opt'] for r in rs]),
              'med_nodes_per_kb': _med([r['nodes_per_kb'] for r in rs]),
              'max_align_s': max([r['align_s'] for r in rs if r['align_s'] is not None] or [None], key=lambda x: x or 0),
-             'called': len(called), 'sum_ed_median': sum(r['ed_median'] for r in called) if called else None}
+             'called': len(called), 'sum_ed_median': sum(r['ed_median'] for r in called) if called else None,
+             'mean_kmer_frac_extra': _mean([r['kmer_frac_extra'] for r in rs]),
+             'mean_cost_over_opt': _mean([r['cost_over_opt'] for r in rs]),
+             'med_sites': _med([r['sites'] for r in rs]), 'mean_sites': _mean([r['sites'] for r in rs])}
         for bname, key in (('mc', 'sum_ed_median_mc'), ('poa_abpoa', 'sum_ed_median_poa')):
             bs = [_med(base_scores[bname][r]) for r in cid if base_scores[bname][r]]
             s[key] = sum(bs) if called and len(bs) == len(cid) else None
@@ -1179,12 +1532,13 @@ def cmd_table(variants=None, quiet=False):
                               for c in scols) + '\n')
     if not quiet:
         fmt = lambda x: '-' if x is None else (('%.4f' % x) if isinstance(x, float) else str(x))   # noqa: E731
-        print('%-16s %5s %8s %8s %7s %7s %6s %8s %8s %8s %7s %7s %7s' % (
-            'variant', 'built', 'kmerx', 'cost/opt', 'nod/kb', 'maxs', 'called', 'sumED', 'ED(mc)', 'ED(poa)',
+        print('%-16s %5s %8s %8s %6s %7s %7s %6s %8s %8s %8s %7s %7s %7s' % (
+            'variant', 'built', 'kmerx', 'cost/opt', 'sites', 'nod/kb', 'maxs', 'called', 'sumED', 'ED(mc)', 'ED(poa)',
             'b/w mc', 'b/w poa', 'b/w all'))
         for s in summ:
-            print('%-16s %5s %8s %8s %7s %7s %6s %8s %8s %8s %7s %7s %7s' % (
+            print('%-16s %5s %8s %8s %6s %7s %7s %6s %8s %8s %8s %7s %7s %7s' % (
                 s['variant'], s['built'], fmt(s['med_kmer_frac_extra']), fmt(s['med_cost_over_opt']),
+                '-' if s['med_sites'] is None else '%g' % s['med_sites'],
                 fmt(s['med_nodes_per_kb']), fmt(s['max_align_s']), s['called'], fmt(s['sum_ed_median']),
                 fmt(s['sum_ed_median_mc']), fmt(s['sum_ed_median_poa']), s['bw_vs_mc'] or '-',
                 s['bw_vs_poa_abpoa'] or '-', s['bw_vs_poa_abpoa__all'] or '-'))

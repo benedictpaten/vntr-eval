@@ -818,3 +818,142 @@ Refined = `truvari refine -u -a mafft`, insensitive to how an allele is split in
 - Test set on the new binary (summed called-haplotype ED): mc as a candidate 7,061 (6,840 native on the
   old binary; the renumbering effect shrank from +939 to +221), abPOA hap32 10,388, abPOA full 8,288,
   unit-aware full 8,118 (mafft fallback 8,274).
+
+## 4q. Nearest-neighbour threading: each allele placed against one similar allele
+
+Question: 4m and 4p trace the full-panel projection's loss to POA threading each allele through many
+existing allele paths, so that its indels are cut at breakpoints supported by other alleles, and those
+breakpoints become extra sites in the projection. Does an MSA in which each distinct allele is placed
+relative to ONE similar allele remove the extra sites, and does that recover hap32-level calling? Gate for
+calling (site count is now the main gate): a median site count clearly below `poa_abpoa__all` and near
+`poa_abpoa`, with kmerx not worse than `poa_abpoa__all`.
+
+Method (`tools/iterate.py`, kind `mst`; `mst_order`, `pair_align`, `place_insert`, `ThreadedMSA`,
+`mst_align`; tests in `tools/test_iterate_mst.py`):
+- **Distance.** 1 minus the multiset 15-mer Jaccard index: the j-th copy of a k-mer is its own token, so
+  copy-number differences count. Exact, over all pairs (at most 33 s per region on chr20).
+- **Order.** Prim's minimum spanning tree grown from CHM13's sequence (s0). Each allele joins at its
+  nearest tree member.
+- **Alignment.** Each allele, in tree order, is aligned pairwise to its parent: abPOA on the two sequences
+  (`-m 0 -b -1`, default convex gaps), with indels left-normalised (`left_normalise_pair`, as 4n). A pair
+  above 6x10^8 cells, or one that hits the 12 GB cap unbanded, uses abPOA's adaptive band instead. This
+  applied only to the three chr20 regions with 30-37 kb alleles, which also have no `poa_abpoa__all`
+  candidate.
+- **Merge.** The allele inherits the parent's columns.
+  - A base aligned to a parent base, match or mismatch, takes that base's column.
+  - A deletion is gaps in the parent's columns.
+  - The bases inserted between two parent bases go into that slot's existing columns, where the parent
+    has gaps, and into new columns. `place_insert` decides by a small global DP: +2 for a base a column
+    already holds, -3 for a mismatching one, -1 for a new column, -2.5 for skipping a column inside the
+    insertion, free leading and trailing skips, ties to the left. So a recurrent insertion stacks in the
+    columns of the first, and an allele that restores bases its parent deleted reuses the deleted bases'
+    columns.
+- **`mst3`.** Each allele, in the same order, is aligned to its 3 nearest already-aligned alleles by k-mer
+  distance. The alignment with the lowest abPOA cost (4 per mismatch, min(4 + 2L, 24 + L) per gap) is kept.
+  On the test set 34% of alleles took a parent other than their tree parent.
+- Both variants then go through the same projection, `write_gfa`/path check and Stage 0 as every
+  full-panel variant (900 s and 12 GB per region).
+
+**Site count.** Stage 0 now reports the top-level snarls of each graph: `vg snarls` on the GFA, read with
+`vg view -R`, using vg 91d38c802 (`iterate.snarl_counts`, cached as `stage0/<variant>/<id>.snarls.json`).
+It reproduces `work/iterate/snarl_stats.json` exactly for mc, `poa_abpoa` and `poa_abpoa__all`.
+
+Stage 0, 22 regions. b/w = regions where the metric fell / rose against `poa_abpoa__all` (by more than
+0.005 for kmerx and cost/opt, by any amount for sites); lower is better for all three.
+
+| variant | kmerx median / mean | kmerx b/w | cost/opt median / mean | cost/opt b/w | sites median / mean (total) | sites b/w | nodes/kb | max align s | gate |
+|---|---|---|---|---|---|---|---|---|---|
+| mc | 0.259 / 0.307 | 11/7 | 1.408 / 1.507 | 4/18 | 21 / 25.3 (557) | 20/0 | 215 | - | - |
+| `poa_abpoa` (hap32 alone) | 0.175 / 0.237 | 20/1 | 1.057 / 1.092 | 16/2 | 30 / 64.1 (1,411) | 18/3 | 104 | - | sample-dependent |
+| `poa_abpoa__all` | 0.286 / 0.320 | - | 1.117 / 1.203 | - | 47.5 / 74.9 (1,648) | - | 136 | 17 | - |
+| st_chm13 (4n) | 0.192 / 0.276 | 16/3 | 1.259 / 1.347 | 8/14 | 14 / 26.3 (579) | 22/0 | 79 | 27 | passes |
+| pf_famsa (4n) | 0.287 / 0.304 | 11/6 | 1.066 / 1.104 | 18/1 | 27.5 / 55.7 (1,226) | 20/1 | 115 | 108 | fails kmerx by 0.001 |
+| ua_all_poa (4o) | 0.258 / 0.295 | 16/3 | 1.061 / 1.091 | 18/0 | 29 / 61.3 (1,349) | 16/3 | 116 | 101 | passes |
+| **mst** | 0.282 / 0.285 | 17/4 | 1.238 / 1.459 | 4/15 | **23.5 / 34.4** (756) | 20/2 | 97 | 40 | passes |
+| **mst3** | 0.245 / 0.271 | 17/3 | 1.260 / 1.370 | 4/16 | **18 / 35.7** (786) | 21/1 | 103 | 96 | passes |
+
+- **Threading on one parent removes the extra sites.**
+  - Median sites fall from 47.5 to 23.5 (`mst`) and 18 (`mst3`), below hap32 alone (30). Total sites over
+    the 22 regions fall to about half of hap32 alone.
+  - On whole chr20 the same holds: summed over the 636 region graphs (`work/iterate/snarls_chr20.py`),
+    `mst` has 11,424 top-level sites, against 14,212 for hap32 alone, 18,334 for `poa_abpoa__all` (633
+    regions), 16,289 for unit-aware full and 9,385 for mc. All snarls, nested ones included: 25,866,
+    against 26,557, 34,099, 32,282 and 23,865.
+- **kmerx improves in most regions:** 17 better, 4 worse for `mst`. `mst3` also lowers the median, to
+  0.245.
+- **cost/opt is worse, as for the star (4n).** 1.24-1.26 against 1.117. Two alleles in different
+  subtrees meet only through their tree path, so their induced alignment can cost the sum of the steps.
+  Re-choosing the parent among the 3 nearest (`mst3`) does not change this.
+- **The test-set site count misranked unit-aware full.** On the test set its sites are at hap32 level
+  (median 29, total 1,349 against 1,411). On whole chr20 it has 2,077 more top-level sites than hap32
+  alone, and calling there added twice as many VCF sites (4p). The chr20 region-graph totals rank all four
+  earlier arms in the same order as their VCF site counts.
+
+**Test set, called** (vg 91d38c802, 3 replicates; summed median called-haplotype ED, lower is better; b/w
+by the replicate rule against the re-baseline arms):
+
+| variant | summed ED | b/w vs mc | b/w vs `poa_abpoa` | b/w vs `poa_abpoa__all` |
+|---|---|---|---|---|
+| mc (`rb_mc_link`) | 7,061 | - | 5/10 | 10/7 |
+| `poa_abpoa` (`rb_poa_abpoa`) | 10,388 | 10/5 | - | 10/3 |
+| `poa_abpoa__all` (`rb_poa_abpoa__all`) | 8,288 | 7/10 | 3/10 | - |
+| ua_all_poa | 8,118 | 9/7 | 4/8 | 9/6 |
+| st_chm13 | 10,778 | 9/7 | 6/6 | 10/7 |
+| **mst** | **7,750** | 9/8 | 5/8 | 10/6 |
+| mst3 | 8,065 | 10/5 | 4/8 | 9/4 |
+
+`mst` has the lowest summed ED of any full-panel arm, but as 4p found, test-set ED does not rank the
+whole-chr20 SV F1. hap32 alone has the worst ED of the baselines and the best SV F1.
+
+**Whole chr20** (all 636 eligible repeats aligned with `mst`, written to `work/stage4/candidates/mst__all/`;
+`patch_contig.py patch/map/call/score` as 4p, on vg 91d38c802; `truvari refine -u -a mafft` as
+`refine4.sh`; scripts `work/iterate/mst_chr20_align.sh`, `mst_chr20.sh`):
+
+| chr20 arm | sites (VCF IDs) | SV F1 raw | SV FP / FN raw | SV F1 refined | refined FP / FN | indel F1 | ALL F1 |
+|---|---|---|---|---|---|---|---|
+| unpatched (mc) | 112,156 | 0.5323 | 440 / 325 | 0.6397 | 347 / 243 | 0.9274 | 0.9721 |
+| abPOA on hap32 | 114,217 | **0.5838** | 305 / 321 | **0.6654** | 251 / 252 | 0.9281 | 0.9724 |
+| abPOA on the full panel, projected | 117,298 | 0.4769 | 425 / 391 | 0.6139 | 322 / 280 | 0.9180 | 0.9687 |
+| unit-aware on the full panel, projected | 116,231 | 0.4756 | 438 / 390 | 0.5799 | 367 / 295 | 0.9227 | 0.9706 |
+| **mst on the full panel, projected** | **113,616** | 0.5446 | 447 / 310 | 0.6438 | 358 / **235** | 0.9248 | 0.9714 |
+| mst3 on the full panel, projected | 113,812 | 0.5449 | 443 / 310 | 0.6349 | 369 / **235** | 0.9277 | 0.9723 |
+
+`mst3`'s three largest regions (TR762710, TR762711, TR762722; 18-22 kb alleles) went over the 900 s cap
+and use the `mst` graph (`work/stage4/candidates/mst3__all/fallback_mst.txt`; `work/iterate/mst3_chain.sh`).
+
+- **Threading recovers most of the full-panel loss, but not hap32-level calling.** Refined SV F1 is
+  0.644 for `mst`, against 0.614 for abPOA on the full panel and 0.580 for unit-aware. That is above
+  unpatched (0.640) but 0.022 below abPOA on hap32 (0.665). `mst3` is lower refined (0.635) and equal raw.
+  It has the best indel and ALL F1 of any full-panel arm (0.9277 / 0.9723, against 0.9281 / 0.9724 for
+  hap32).
+- **Fewer sites did not buy fewer false positives.**
+  - Both `mst` arms call fewer sites than hap32 patching (113,616 and 113,812, against 114,217), and their
+    region graphs have 20% fewer top-level sites.
+  - Their gain is in recall. Raw SV TP-base is 455, the highest of any arm (444 for hap32). Refined FN is
+    235, the lowest (252 for hap32, 243 unpatched).
+  - Their loss is in precision. Raw SV FP inside the patched spans is 392 (`mst`) and 388 (`mst3`),
+    against 251 for hap32 and 385 unpatched.
+  - The FP excess over hap32 is spread out. `mst` has more FPs in 85 regions and fewer in 36, and the
+    10 worst regions hold 75 of the 141. Two of those 10 are banded-fallback regions: TR768271 (+14) and
+    TR773472 (+8).
+- **So the site count is not sufficient on its own.** The extra junctions of the abPOA projection fit its
+  lost recall: its refined FN is 280, and `mst`, with fewer sites, gets 235. They do not account for hap32's
+  precision. The likely cause of the remaining FPs is the cost/opt that threading gives up (1.24 against
+  1.06 for hap32 alone). Alleles in different subtrees are aligned only through their tree path, so a
+  real SV allele can be spelled by columns that a better alignment would share with its neighbours.
+
+Recommendation: keep abPOA on hap32 as the patch method. `mst` is the best sample-independent full-panel
+arm so far, with refined SV F1 0.644 against 0.614. One-parent threading fixes the junction and recall
+problem, so the full panel's loss is not inherent to using the full panel. To close the remaining 0.02, gate
+on cost/opt as well as sites. Keep the tree threading for column placement, then refine pairwise
+optimality without re-introducing many-allele junctions. Two ways to try: realign each allele to the
+profile of its tree neighbourhood (leave-one-out, 4n's next step), or thread on the hap32 rows first and
+add the rest of the panel as children of their nearest hap32 allele.
+
+Files: `tools/iterate.py` (kinds `mst`, `mst3`; `snarl_counts`, `snarls_one`; the summary now carries
+mean kmerx and cost/opt and median and mean sites), `tools/test_iterate_mst.py`,
+`work/iterate/snarls_chr20.py` (and its `snarls_chr20.json`), `work/iterate/mst_chr20.sh`; candidates in
+`work/iterate/candidates/mst{,3}/` and `work/stage4/candidates/mst{,3}__all/`, full MSAs in
+`work/iterate/panel/mst{,3}/`, chr20 arms in `work/stage4/chr20/patched_mst{,3}/` and
+`score_rb/rb_patched_mst{,3}/`. The three `mst` regions over 6x10^8 cells were rebuilt with the banded
+fallback (`iterate.py build mst --regions TR768271,TR768619,TR773472 --force`) before patching.
