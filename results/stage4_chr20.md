@@ -1080,7 +1080,7 @@ refined 0.6211 (FP 376 / FN 252). By the single F1 number that is below `mst` (0
 **The single F1 number misranks the arms.** Per-region refined SV FP and FN (records with FORMAT/BD FP in
 `refine.comp.vcf.gz` and FN in `refine.base.vcf.gz`, inside each patched span ±100 bp), compared by a
 paired bootstrap over regions (2,000 resamples) and a sign test. Script and table:
-`<session scratchpad>/region_metrics.py`, `region_metrics.tsv`, `boot.py`.
+`work/iterate/perregion/region_metrics.py`, `region_metrics.tsv`, `boot.py`.
 - **Concentration.** The full-panel arms' FP excess over abPOA on hap32, summed over the six arms: the
   10 worst regions hold 77% of it. TR756034 alone holds 22%: a 14.4 kb span with 450 distinct alleles,
   already left out of the 4h test set as the hotspot. Every arm is bad there: hap32 has 59 errors in
@@ -1114,7 +1114,7 @@ FP+FN difference, 95% bootstrap CI over regions (TR756034 excluded; * = CI exclu
 **Graph metrics do not predict per-region errors; fragmentation does, weakly.** Per-region differences
 from hap32 in kmerx, top-level sites and nodes have Spearman |ρ| ≤ 0.11 with ΔFP and ≤ 0.25 with ΔFN. A
 better measure is the gap runs of the hap32 rows in the projection: the number of maximal gap runs in
-each distinct row, interior runs only, summed (`frag.py`, `gapruns_chr20.py`). It is still weak per arm
+each distinct row, interior runs only, summed (`work/iterate/perregion/frag.py`, `gapruns_chr20.py`). It is still weak per arm
 (|ρ| ≤ 0.17), but pooled over the six full-panel arms, error excess rises monotonically with the gap-run
 ratio to hap32:
 
@@ -1157,3 +1157,76 @@ on hap32 8,011), FAMSA full 14,383.
   are similar. It is also the right target for subsampling: any two panel rows are equally likely to be
   co-sampled, so the expected projected cost is proportional to the all-pairs score. It has to be built
   jointly.
+
+## 4u. Centre-star on whole chr20, and optimal pairwise pairs contained in each MSA
+
+**Centre-star calls best.** 4n's star builds had been rejected on unit-cost cost/opt, which 4t showed is
+blind to fragmentation, and had never been called. Whole chr20 (`mst_chr20_align.sh` / `mst_chr20.sh`, vg
+91d38c802; `st_long` patched 622 regions, `st_chm13` 624, the same as hap32):
+
+| chr20 arm | SV F1 raw (FP / FN) | SV F1 refined (FP / FN) | indel F1 | ALL F1 |
+|---|---|---|---|---|
+| unpatched (mc) | 0.5323 (440 / 325) | 0.6397 (347 / 243) | 0.9274 | 0.9721 |
+| abPOA on hap32 (sample-dependent) | 0.5838 (305 / 321) | 0.6654 (251 / 252) | 0.9281 | 0.9724 |
+| st_long: star to the longest allele | 0.5800 (316 / 324) | 0.6653 (259 / 251) | 0.9259 | 0.9716 |
+| **st_chm13: star to CHM13** | **0.6540** (201 / 296) | **0.7034** (176 / 251) | **0.9291** | **0.9728** |
+
+Per region (paired bootstrap of refined FP+FN, as 4t):
+
+| comparison | all regions | TR756034 excluded | regions better / worse |
+|---|---|---|---|
+| st_chm13 − abPOA on hap32 | -76 [-133, -26] | -65 [-114, -17] | 64 / 42 |
+| st_chm13 − unpatched | -163 [-246, -90] | -147 [-218, -77] | 102 / 50 |
+| st_chm13 − FAMSA full | -200 [-425, -57] | -113 [-192, -39] | 65 / 58 |
+| st_long − abPOA on hap32 | +9 [-54, +69] | +16 [-45, +73] | 66 / 82 |
+
+- `st_chm13` is the first sample-independent full-panel alignment to beat abPOA on hap32, significantly.
+  The gain is precision: refined FP 176 against 251, FN equal.
+- How the star works:
+  - Every distinct allele is aligned pairwise to CHM13 (abPOA, unbanded, default convex gaps) and its
+    indels are left-normalised, so equivalent repeat-unit deletions stack in the same CHM13 columns.
+  - Insertions falling between the same two CHM13 bases are aligned to each other with abPOA.
+    Insertions in different slots are never aligned to each other.
+  - Two non-CHM13 alleles are therefore aligned only by composition through CHM13. That is why 4n's
+    cost/opt was poor.
+- `st_long` has the fewest gap runs of any arm on chr20 (58,874 against hap32's 84,282) but only ties
+  hap32. Fewer gap runs is not sufficient on its own.
+
+**Optimal pairwise pairs contained in each MSA** (`work/iterate/pair_recall.py`; per-pair table
+`work/iterate/pair_recall.tsv`; optimal alignments cached in `work/iterate/pairrecall_cache/`).
+- Method: each pair of distinct hap32 sequences is aligned with abPOA on the two sequences (`-m 0 -b -1`,
+  default scores). Its aligned position pairs (both bases present) are compared with the pairs each
+  projected MSA puts in one column. There is no re-alignment between gaps.
+- Measures: recall = optimal pairs the MSA also aligns / optimal pairs; precision = MSA pairs that are on
+  the optimal alignment / MSA pairs. Ratio of sums over all pairs.
+- Caveat: there is one optimal alignment per pair, and repeats have co-optimal alternatives, so some
+  "disagreements" lie on another alignment of equal score.
+
+| alignment | pairs | recall | precision |
+|---|---|---|---|
+| abPOA on hap32 | 48,021 | 0.853 | 0.856 |
+| abPOA full panel | 47,099 | 0.807 | 0.813 |
+| FAMSA on hap32 | 48,021 | 0.851 | 0.851 |
+| FAMSA full panel | 47,430 | 0.811 | 0.814 |
+| mst | 48,021 | 0.839 | 0.868 |
+| unit-aware full | 48,021 | 0.837 | 0.838 |
+| bbt64m | 47,660 | 0.816 | 0.827 |
+| st_long | 47,289 | 0.837 | 0.899 |
+| **st_chm13** | 48,021 | **0.870** | **0.902** |
+
+- The full panel costs abPOA 0.046 in recall. The 32-only alignment contains more optimal pairs than the
+  full-panel one in most regions.
+- The CHM13 star contains the most optimal pairs, and has the highest precision, of any arm, including
+  both hap32-only ones.
+- **As a predictor of calling.** Pooled over the eight arms, the per-region precision difference from
+  hap32 has a monotone dose-response with the error difference. By precision quintile: +0.39, +0.15,
+  +0.07, 0.00, -0.06 errors per region. Per-arm Spearman is weak (|ρ| ≤ 0.15), because most regions have
+  no errors. It is a usable cheap proxy, at least as good as gap runs.
+
+Viewer: per-base agreement with the pairwise optima, by reference row, and the full-panel MSAs for two
+regions (`work/iterate/viz_alignments.py` builds its data; artifact "VNTR MSA Agreement").
+
+Next (running): stars to other centres. `st_medoid` is the allele of least panel-weighted k-mer distance to
+the rest. `st_maj` is the majority consensus of the `st_chm13` full-panel MSA, keeping columns carried by at
+least half the panel weight, so low-frequency indels drop out. `st_cons` is abPOA's heaviest-bundle
+consensus. Then the winner on held-out chr6.
