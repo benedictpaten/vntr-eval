@@ -1321,3 +1321,64 @@ Pairwise consistency with the direct optimal pairwise alignments, pooled over th
   less.
 - **Per-region stats are in the viewer.** Data: `work/iterate/viz_alignments.py`; the summary tables
   are computed from `pair_recall*.tsv` and the score summaries.
+
+## 4x. Is the CHM13 star biased towards alleles like CHM13?
+
+Concern: CHM13 and HG002 share broadly European ancestry, which many panel samples do not, so a star
+centred on CHM13 might align alleles like CHM13 well and others badly. That would flatter it on
+HG002 and penalise samples of other ancestry.
+
+**The earlier comparison favoured CHM13 by construction.**
+- The pairs scored in 4u-4w include the CHM13 row, and the reference alignment of each pair is abPOA
+  on that pair. The CHM13 star aligns every allele to CHM13 with exactly that call, so it reproduces
+  every CHM13 pair (apart from left-normalisation shifts). The medoid star does the same for its
+  centre wherever that is one of the 32 (443 of 636 regions).
+- Without those pairs (`work/iterate/pair_centres.json`), the CHM13 star falls from F1 0.872 to 0.844,
+  below the medoid star (0.855) and the majority consensus (0.846).
+
+**HG002 is not unusually close to CHM13 at these loci.** The haplotype-weighted mean k-mer distance
+from CHM13's allele is 0.134 to HG002's 32 sampled haplotypes and 0.133 to the panel. The 32 are
+closer in 317 of 624 regions.
+
+**A test that does not involve HG002** (`work/iterate/pair_bias.py`):
+- 24,034 pairs of full-panel alleles over 630 regions, drawn by haplotype frequency.
+- No pair includes HG002's haplotypes, CHM13, GRCh38, the medoid or the longest allele.
+- Pairwise consistency (F1, as 4u) is split into fifths by how far the farther allele of the pair
+  lies from CHM13's allele (1 - multiset 15-mer Jaccard).
+
+| method | all | Q1 (closest) | Q2 | Q3 | Q4 | Q5 (farthest) | Q5 vs medoid |
+|---|---|---|---|---|---|---|---|
+| **star to medoid** | **0.934** | 0.987 | 0.981 | 0.955 | 0.927 | **0.801** | 0 |
+| star to majority consensus of `st_medoid` | **0.934** | 0.988 | 0.981 | 0.956 | 0.927 | 0.799 | -0.002 |
+| star to majority consensus of `st_chm13` | 0.931 | 0.988 | 0.981 | 0.956 | 0.924 | 0.783 | -0.018 |
+| star to CHM13 | 0.929 | **0.990** | 0.980 | 0.952 | 0.919 | 0.779 | -0.022 |
+| star to abPOA consensus | 0.924 | 0.986 | 0.977 | 0.947 | 0.915 | 0.771 | -0.031 |
+| mst3 threading | 0.914 | 0.986 | 0.972 | 0.937 | 0.899 | 0.745 | -0.056 |
+| abPOA, full panel | 0.885 | 0.970 | 0.958 | 0.914 | 0.861 | 0.691 | -0.110 |
+
+- **The CHM13 star is biased.** It is the best alignment for alleles that resemble CHM13 and falls
+  steadily behind the medoid star as alleles get less like CHM13: -0.022 in the farthest fifth.
+  Every method drops in that fifth, whose alleles are divergent from everything. The sign of bias is
+  the gap opening in one direction.
+- **A consensus built from the CHM13 star inherits it.** The majority consensus read from
+  `st_chm13`'s MSA is -0.018 in the farthest fifth. The same rule read from the medoid star's MSA
+  (`st_maj_med`) is -0.002, and as good as the medoid star overall.
+
+**Calling, chr20 HG002** (per region, paired bootstrap of refined FP+FN, TR756034 excluded):
+
+| arm | raw SV F1 (FP / FN) | refined SV F1 (FP / FN) | vs abPOA on hap32 | vs st_medoid |
+|---|---|---|---|---|
+| st_chm13 (biased) | 0.6540 (201 / 296) | 0.7034 (176 / 251) | -65 [-116, -16] | -34 [-82, +13] |
+| **st_medoid** | 0.6255 (264 / 296) | 0.6957 (212 / 243) | -31 [-86, +23] | - |
+| st_maj_med | 0.6107 (292 / 299) | 0.6805 (238 / 247) | -7 [-62, +54] | +24 [+1, +55] |
+
+**Choice: the star to the medoid.**
+- It is the most consistent alignment, both on random panel pairs (0.934) and on HG002's 32 with the
+  centres' own pairs removed (0.872).
+- It degrades least for alleles unlike CHM13.
+- Its centre is a real panel allele, chosen by haplotype-weighted similarity to the whole panel, so it
+  follows the panel's composition and is the same for every sample.
+- On HG002 it calls as well as the CHM13 star within noise.
+- Its gain over abPOA on hap32 (-31 errors) is not significant on chr20 alone, so held-out chr6 is the
+  test. The neutral majority consensus is as consistent but calls worse, from the 23 regions where
+  the two differ.

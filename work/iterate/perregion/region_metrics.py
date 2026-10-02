@@ -8,7 +8,7 @@ sys.path.insert(0, R + '/tools')
 import msa_graph, gap_norm
 D = R + '/work/stage4/chr20'
 ARMS = {'unpatched': None, 'all': 'poa_abpoa', 'full': 'poa_abpoa__all', 'ua': 'unit_aware_poa__all',
-        'mst': 'mst__all', 'mst3': 'mst3__all', 'bbt64m': 'bbt64m__all', 'pf_famsa': 'pf_famsa__all', 'pf_famsa_h32': 'pf_famsa_h32__all', 'st_long': 'st_long__all', 'st_chm13': 'st_chm13__all', 'st_medoid': 'st_medoid__all', 'st_maj': 'st_maj__all', 'st_cons': 'st_cons__all'}
+        'mst': 'mst__all', 'mst3': 'mst3__all', 'bbt64m': 'bbt64m__all', 'pf_famsa': 'pf_famsa__all', 'pf_famsa_h32': 'pf_famsa_h32__all', 'st_long': 'st_long__all', 'st_chm13': 'st_chm13__all', 'st_medoid': 'st_medoid__all', 'st_maj': 'st_maj__all', 'st_cons': 'st_cons__all', 'st_maj_med': 'st_maj_med__all'}
 patch = json.load(open(D + '/patched_all/patch.json'))['regions']
 spans = {r: v['span'] for r, v in patch.items() if isinstance(v, dict) and 'span' in v}
 iv = sorted((s[0] - 100, s[1] + 100, r) for r, s in spans.items())

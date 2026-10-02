@@ -180,6 +180,8 @@ _reg('st_medoid', 'full panel, centre-star to the medoid allele (least panel-wei
      'projected', kind='star', centre='medoid')
 _reg('st_maj', 'full panel, centre-star to the majority consensus of the st_chm13 full-panel MSA (columns carried '
      'by at least half the panel weight), projected', kind='star', centre='majority', source='st_chm13', maj=0.5)
+_reg('st_maj_med', 'full panel, centre-star to the majority consensus of the st_medoid full-panel MSA, so that no '
+     'step depends on CHM13, projected', kind='star', centre='majority', source='st_medoid', maj=0.5)
 _reg('pf_famsa', 'full panel, FAMSA defaults, projected', kind='profile', tool='famsa', args=[])
 _reg('pf_famsa_go2', 'full panel, FAMSA with twice the gap-open cost (-go -29700), projected', kind='profile',
      tool='famsa', args=['-go', '-29700'])
