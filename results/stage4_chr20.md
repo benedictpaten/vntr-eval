@@ -1547,11 +1547,13 @@ read):
     - Repeat sites call no off-panel haplotype.
     - What is left is a wrong choice among panel walks: 35,002 edits, against the prototype's 28,916.
       Prototype - repeat sites is -6,086 [-25,718, +8,633], better/worse 85/78.
-    - Choosing among whole walks, not the walks offered, is now the larger lever.
+    - The larger lever is now which panel walk is chosen, not which walks are offered.
   - **The 72 regions that are not sites:**
     - 71 lie in one top-level snarl of 1,062,607 bp, `>120680384>120784567` at chr20:64.11-65.17 Mb.
       The other lies in a 300 kb snarl and is exact.
     - Their off-panel error, 4,848 edits (11% of the total), is all a site nested inside that snarl
       could recover.
-  - **The 12 unpatched regions** hold another 3,417 off-panel edits, 3,362 of them in TR773254. They
-    could be added to the BED; they are left out only because the alignment patch skipped them.
+  - **The 12 unpatched regions** hold another 3,417 off-panel edits, 3,362 of them in TR773254.
+    - 9 overlap an earlier region and could be merged into it.
+    - In the other 3, panel fragments start or end inside the region. TR773254 has 10 such fragments,
+      so a whole-walk site there would offer fewer alleles.
