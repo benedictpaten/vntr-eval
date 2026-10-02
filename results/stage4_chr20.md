@@ -957,3 +957,91 @@ mean kmerx and cost/opt and median and mean sites), `tools/test_iterate_mst.py`,
 `work/iterate/panel/mst{,3}/`, chr20 arms in `work/stage4/chr20/patched_mst{,3}/` and
 `score_rb/rb_patched_mst{,3}/`. The three `mst` regions over 6x10^8 cells were rebuilt with the banded
 fallback (`iterate.py build mst --regions TR768271,TR768619,TR773472 --force`) before patching.
+
+## 4r. Backbone plus threading: an abPOA backbone of k-medoid representatives
+
+Question: `mst` (4q) has the best recall of any full-panel arm but loses precision. Its cost/opt is 1.238,
+against 1.117 for `poa_abpoa__all` and 1.057 for hap32 alone, because alleles in different branches of the
+tree meet only through the tree. Does a two-tier alignment fix the cross-branch alignment without bringing back the
+many-allele junctions? Tier 1 is abPOA on a small, diverse set of representatives, where abPOA does well.
+Tier 2 threads the rest onto that backbone. Gate for calling: median sites near `mst` (≤ ~24) and median
+cost/opt clearly below 1.238 (aim ≤ 1.15).
+
+Method (`tools/iterate.py`, kind `bbt`; `kmedoids`, `bbt_plan`, `bbt_align`, `ThreadedMSA.from_msa`; tests
+in `tools/test_iterate_mst.py`). The method is sample-independent: it uses no HG002 data and does not
+consult the hap32 rows.
+- **Clusters.** The region's distinct full-panel sequences (panel weight > 0) are split into K groups by
+  k-medoids on `mst`'s distance (1 minus the multiset 15-mer Jaccard index). CHM13's sequence is always a
+  fixed medoid, and so is GRCh38's when it differs. Farthest-first traversal seeds the free medoids, and
+  FasterPAM's eager swaps then refine them. Ties are broken by sequence length and then the sequence
+  itself, never by hap32 membership.
+- **Backbone.** abPOA aligns the K medoids with `abpoa -m 0 -r 1` defaults, longest first, as `poa_abpoa`.
+- **Threading.** Every other panel sequence is aligned pairwise to a parent (`pair_align`, as `mst`). It is
+  added on the parent's columns with `mst`'s column-inheritance merge (`ThreadedMSA.add`). Insertions go into
+  the slot's existing gap columns where they fit, so recurrent insertions stack, including insertions
+  against backbone columns that another medoid fills. Two parent rules:
+  - `bbt32`, `bbt64`: the nearest already-placed member of the cluster (Prim's tree grown from the medoid).
+  - `bbt32m`, `bbt64m`: the cluster's medoid itself.
+
+  The hap32-only recombinant paths (panel weight 0; one test region has any) go last, on the nearest
+  medoid's cluster, so that no panel row's placement depends on them.
+- Then the same projection, `write_gfa`/path check and Stage 0 as every full-panel variant (900 s and 12 GB
+  per region). The longest build took 38 s. Clustering took at most 12 s and the backbone at most 2.4 s.
+
+Stage 0, 22 regions. b/w = regions where the metric fell / rose against `mst` (by more than 0.005 for kmerx and
+cost/opt, by any amount for sites); lower is better for all three.
+
+| variant | kmerx median / mean | kmerx b/w | cost/opt median / mean | cost/opt b/w | sites median / mean (total) | sites b/w | nodes/kb | gate |
+|---|---|---|---|---|---|---|---|---|
+| `poa_abpoa` (hap32 alone) | 0.175 / 0.237 | 18/2 | 1.057 / 1.092 | 18/1 | 30 / 64.1 (1,411) | 6/14 | 104 | sample-dependent |
+| `poa_abpoa__all` | 0.286 / 0.320 | 4/17 | 1.117 / 1.203 | 15/4 | 47.5 / 74.9 (1,648) | 2/20 | 136 | - |
+| `mst` | 0.282 / 0.285 | - | 1.238 / 1.459 | - | 23.5 / 34.4 (756) | - | 97 | - |
+| bbt32 | 0.269 / 0.300 | 8/11 | 1.195 / 1.255 | 13/7 | 29.5 / 54.0 (1,188) | 3/18 | 118 | fails both |
+| bbt64 | 0.283 / 0.312 | 6/14 | 1.158 / 1.247 | 15/4 | 30.5 / 58.4 (1,285) | 2/18 | 129 | fails both (cost/opt by 0.008) |
+| bbt32m | 0.280 / 0.296 | 8/12 | 1.195 / 1.236 | 14/5 | 29.5 / 56.0 (1,232) | 3/18 | 119 | fails both |
+| **bbt64m** | 0.286 / 0.308 | 7/14 | **1.147** / 1.234 | 16/3 | 32.5 / 61.5 (1,352) | 2/19 | 127 | fails sites |
+
+- **The backbone improves cost/opt, and K is a dial between `mst` and full-panel abPOA.**
+  - Median cost/opt falls from 1.238 to 1.195 at K = 32 and to 1.147-1.158 at K = 64. That is better than
+    `mst` in 13-16 regions and worse in 3-7.
+  - Threading on the medoid is slightly better than the in-cluster tree at K = 64. Each member's alignment
+    to its medoid is then one optimal pairwise step, not a composition of several.
+  - Means barely move (1.23-1.26 against 1.459 for `mst`), because a few regions dominate them. In TR761129,
+    `mst` is at 3.79 and bbt at 2.20-2.45, against 1.34 for hap32 alone.
+- **The sites come back with the backbone.**
+  - Median sites rise from 23.5 to 29.5-32.5, at the level of hap32 alone (30), and rise in 18-19 of the 22
+    regions.
+  - Total sites rise from 756 to 1,188-1,352, between hap32 alone (1,411) and `mst`.
+  - This is 4m's mechanism, at the scale of K alleles instead of 460. The POA cuts each representative's
+    indels at junctions that other representatives support, and the projection keeps them.
+  - Larger K raises sites and lowers cost/opt. No K reaches both of `mst`'s sites and `poa_abpoa__all`'s
+    cost/opt.
+- **Where the remaining cost/opt is** (`work/iterate/bbt_decomp.py`; graph-implied unit cost of every hap32
+  pair, through a new opt-in per-pair dump in `evaluate.py`, `VNTR_EVAL_PAIRS_OUT`).
+  - Pairs whose two alleles share a cluster carry under 1% of the optimal cost, so the gate is decided by
+    pairs across clusters.
+  - Pooled over the test set, cross-cluster pairs reach cost/opt 1.20-1.23 for the four bbt arms, against
+    1.41 for `mst`, 1.17 for full-panel abPOA and 1.09 for abPOA on hap32 alone.
+  - So the backbone recovers about three quarters of `mst`'s cross-branch loss. The rest is composition: a
+    member reaches another cluster only through its own medoid's backbone row, and a pairwise alignment
+    composed with a backbone alignment is not an optimal alignment.
+- **No variant passes, so none was called.**
+  - `bbt64m` meets the cost/opt aim (1.147) but fails the sites gate: its median of 32.5 is at the level of
+    hap32 alone, not of `mst`.
+  - `bbt64` misses on both counts.
+
+Recommendation: keep abPOA on hap32 as the patch method, and `mst` as the best sample-independent arm
+(refined SV F1 0.644). Over this family, sites and cost/opt trade against each other through a single
+quantity: how many alleles a sequence is aligned against at once. `mst` uses one, bbt uses K, full-panel
+abPOA uses all of them. To test 4q's precision hypothesis directly, call `bbt64m` anyway. Its median
+cost/opt (1.147) is well below `mst`'s (1.238) and near `poa_abpoa__all`'s (1.117), and its sites are at the
+level of hap32 alone, the best-calling arm. If its refined SV F1 lands near hap32's 0.665, sites at that
+level are not the problem, and the gate should be on cost/opt. Otherwise the next lever is to cut the composition loss without a graph of many alleles:
+realign each member to the backbone rows of its own and its nearest other cluster (two to three alleles),
+keeping `place_insert`'s column reuse.
+
+Files: `tools/iterate.py` (kind `bbt`: `kmedoids`, `_prim_from`, `bbt_plan`, `bbt_align`,
+`ThreadedMSA.from_msa`; variants `bbt32`, `bbt64`, `bbt32m`, `bbt64m`), `tools/test_iterate_mst.py`
+(`TestBackbone`), `tools/evaluate.py` (`VNTR_EVAL_PAIRS_OUT`), `work/iterate/bbt_decomp.py` and
+`bbt_decomp.json`; candidates in `work/iterate/candidates/bbt*/`, full MSAs in `work/iterate/panel/bbt*/`,
+Stage 0 in `work/iterate/stage0/bbt*/`.

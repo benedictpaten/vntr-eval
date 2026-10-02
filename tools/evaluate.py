@@ -821,6 +821,9 @@ def pair_metrics(g, names, paths, ref, cache, max_pairs, affine_budget, seed, th
     for x in rows:
         if r in (x['i'], x['j']):
             dref[x['j'] if x['i'] == r else x['i']] = x['dopt']
+    if os.environ.get('VNTR_EVAL_PAIRS_OUT'):   # opt-in diagnostic: the per-pair unit costs behind all_*
+        with open(os.environ['VNTR_EVAL_PAIRS_OUT'], 'w') as f:
+            json.dump([[names[x['i']], names[x['j']], x['cost'], x['dopt']] for x in all_rows], f)
     return res, dref
 
 

@@ -5,8 +5,9 @@ A VARIANT is a way to build a hap32 candidate graph for a region: MC itself, an 
 candidate set (poa_abpoa, poa_abpoa__all), an abPOA flag string / input order run on the region's
 full HG002-free panel (tools/panel.py union) and projected onto the 34 hap32 rows, or a named
 structural variant (seeded incremental alignment, post-alignment node merging, coarsening, gap
-normalisation of the full-panel MSA, a centre-star or profile-aligner MSA of the full panel, or
-nearest-neighbour threading of the full panel on a k-mer minimum spanning tree). For
+normalisation of the full-panel MSA, a centre-star or profile-aligner MSA of the full panel,
+nearest-neighbour threading of the full panel on a k-mer minimum spanning tree, or an abPOA backbone of
+k-medoid representatives with the rest threaded on it). For
 every region of the test set (work/iterate/testset.tsv) the harness
 
   build   -> work/iterate/candidates/<variant>/<id>.{gfa,msa.fa,json}   (+ full MSA in panel/<variant>/)
@@ -194,6 +195,17 @@ _reg('mst', 'full panel, nearest-neighbour threading on a k-mer MST from CHM13 (
 _reg('mst3', 'full panel, nearest-neighbour threading, best of the 3 nearest aligned alleles, projected',
      kind='mst', nn=3)
 
+# Backbone plus threading (4r): K k-medoid representatives of the full panel's distinct sequences (multiset
+# k-mer distance as mst; CHM13 and GRCh38 fixed as medoids; no use of HG002 or the hap32 rows) are aligned
+# with abPOA defaults (as poa_abpoa), and every other sequence is threaded onto its nearest already-placed
+# member of its cluster with mst's pairwise column-inheritance merge.
+# bbt32m and bbt64m thread every member on its cluster's medoid instead.
+for _k in (32, 64):
+    _reg('bbt%d' % _k, 'full panel, abPOA backbone of %d k-medoid representatives plus nearest-neighbour '
+         'threading within clusters, projected' % _k, kind='bbt', K=_k)
+    _reg('bbt%dm' % _k, 'full panel, abPOA backbone of %d k-medoid representatives, every other allele threaded '
+         'on its medoid, projected' % _k, kind='bbt', K=_k, attach='medoid')
+
 # The repeat-unit-aware aligner (realign_units, 4o). ua32 is its hap32 arm (Stage 4 candidates);
 # ua_all and ua_all_poa run it on the full panel (tools/units_panel.py run --panel-root
 # work/stage4/panel [--fallback-engine abpoa]) and project the MSA onto hap32. They differ only in
@@ -271,7 +283,7 @@ def full_msa_of(v, rid):
     spec = variant(v)
     if spec['kind'] == 'link':
         return os.path.join(spec['full'], rid + '.msa.fa.gz') if spec.get('full') else None
-    if spec['kind'] in ('abpoa', 'star', 'profile', 'mst') or (spec['kind'] == 'gapnorm' and spec['where'] == 'full'):
+    if spec['kind'] in ('abpoa', 'star', 'profile', 'mst', 'bbt') or (spec['kind'] == 'gapnorm' and spec['where'] == 'full'):
         return os.path.join(FULLMSA, v, rid + '.msa.fa.gz')
     return None
 
@@ -355,6 +367,13 @@ def build_abpoa(v, spec, rid, timeout, mem_mb):
         elif spec['kind'] == 'mst':
             m = realign._as_method(v, {'align': mst_align, 'tool': 'abpoa', 'description': spec['desc'],
                                        'params': {'nn': spec.get('nn', 1)}})
+        elif spec['kind'] == 'bbt':
+            grch = [i for i, r in enumerate(rows) if int(r['weight']) > 0 and
+                    any(x.startswith('GRCh38#') for x in r['members'])]
+            m = realign._as_method(v, {'align': bbt_align, 'tool': 'abpoa', 'description': spec['desc'],
+                                       'params': {'K': spec['K'], 'attach': spec.get('attach', 'cluster'),
+                                                  'grch38': grch[0] if grch else None,
+                                                  'panel': [i for i, r in enumerate(rows) if int(r['weight']) > 0]}})
         elif spec['kind'] == 'profile':
             m = realign._as_method(v, {'align': profile_align, 'tool': spec['tool'], 'description': spec['desc'],
                                        'params': {'tool': spec['tool'], 'args': spec.get('args', [])}})
@@ -369,7 +388,8 @@ def build_abpoa(v, spec, rid, timeout, mem_mb):
         info['align'] = {'status': al['status'], 'message': al.get('message'), 'seconds': a.get('seconds'),
                          'peak_rss_mb': a.get('peak_rss_mb'), 'command': a.get('command'),
                          'stage1': a.get('stage1'), 'n_seed': a.get('n_seed'),
-                         'tool_version': a.get('tool_version'), 'star': a.get('star'), 'mst': a.get('mst')}
+                         'tool_version': a.get('tool_version'), 'star': a.get('star'), 'mst': a.get('mst'),
+                         'bbt': a.get('bbt')}
         if al['status'] != 'ok':
             info.update(status=al['status'], message=al.get('message'))
             return info
@@ -621,7 +641,7 @@ def build_one(v, rid, timeout=TIMEOUT, mem_mb=MEM_MB, force=False):
                     info['align'] = {'seconds': a.get('seconds'), 'peak_rss_mb': a.get('peak_rss_mb')}
             else:
                 info = {'variant': v, 'region_id': rid, 'status': 'missing', 'src': src}
-        elif spec['kind'] in ('abpoa', 'star', 'profile', 'mst'):
+        elif spec['kind'] in ('abpoa', 'star', 'profile', 'mst', 'bbt'):
             info = build_abpoa(v, spec, rid, timeout, mem_mb)
         elif spec['kind'] == 'merge':
             info = build_merge(v, spec, rid)
@@ -1120,6 +1140,27 @@ class ThreadedMSA(object):
         self.mask = [_BIT.get(b, 0) for b in seq]
         self.rowcols = {name: list(range(len(seq)))}
 
+    @classmethod
+    def from_msa(cls, rows):
+        """Start from an existing MSA (rows: {name: aligned row}) instead of one row; all-gap columns are
+        dropped."""
+        rows = collections.OrderedDict(rows)
+        width = len(next(iter(rows.values())))
+        keep = [c for c in range(width) if any(r[c] != '-' for r in rows.values())]
+        self = cls.__new__(cls)
+        self.order = list(range(len(keep)))
+        self.mask = [0] * len(keep)
+        self.rowcols = {}
+        for name, r in rows.items():
+            cols = []
+            for j, c in enumerate(keep):
+                b = r[c]
+                if b != '-':
+                    cols.append(j)
+                    self.mask[j] |= _BIT.get(b, 0)
+            self.rowcols[name] = cols
+        return self
+
     def _new(self, base):
         self.mask.append(_BIT.get(base, 0))
         return len(self.mask) - 1
@@ -1252,6 +1293,201 @@ def mst_align(in_fa, out_fa, threads=1, workdir=None, timeout=TIMEOUT, mem_mb=ME
     res['seconds'] = round(time.time() - t0, 2)
     res['peak_rss_mb'] = stats.pop('peak_rss_mb')
     res['mst'] = dict(stats, nn=nn, k=k)
+    return res
+
+
+# ------------------------------------------------------------------ build: backbone plus threading (4r)
+
+BBT_MAX_SWEEPS = 50
+
+
+def kmedoids(n, dist, K, fixed=(), max_sweeps=BBT_MAX_SWEEPS):
+    """K medoids of points 0..n-1 under dist. The fixed medoids come first and never move; farthest-first
+    traversal fills the rest up to K, then FasterPAM's eager swaps (Schubert and Rousseeuw 2021) move the
+    free medoids while a swap lowers the summed distance of the points to their nearest medoid, until a
+    pass over every non-medoid finds none (at most max_sweeps passes). Ties go to the lower index. Returns
+    (medoids, cluster, swaps): cluster[p] is the index into medoids of p's nearest medoid (ties to the
+    earlier medoid)."""
+    D = [[dist(i, j) for j in range(n)] for i in range(n)]
+    med = list(dict.fromkeys(fixed)) or [0]
+    nfix = len(list(dict.fromkeys(fixed)))
+    if K >= n:
+        med += [i for i in range(n) if i not in med]
+    near = [min(D[m][p] for m in med) for p in range(n)]
+    while len(med) < min(K, n):
+        ism = set(med)
+        c = max((p for p in range(n) if p not in ism), key=lambda p: (near[p], -p))
+        med.append(c)
+        near = [min(a, b) for a, b in zip(near, D[c])]
+    inf = float('inf')
+
+    def nearest_two():
+        nn, dn, ds = [0] * n, [0.0] * n, [0.0] * n
+        for p in range(n):
+            b1, b2, i1 = inf, inf, 0
+            for i, m in enumerate(med):
+                d = D[m][p]
+                if d < b1:
+                    b1, b2, i1 = d, b1, i
+                elif d < b2:
+                    b2 = d
+            nn[p], dn[p], ds[p] = i1, b1, b2
+        rem = [0.0] * len(med)
+        for p in range(n):
+            rem[nn[p]] += ds[p] - dn[p]
+        return nn, dn, ds, rem
+
+    nn, dn, ds, rem = nearest_two()
+    swaps = 0
+    free = list(range(nfix, len(med)))
+    if free and K < n:
+        since, xc, passes = 0, 0, 0
+        while since < n and passes < max_sweeps * n:
+            passes += 1
+            if xc not in set(med):
+                delta = list(rem)
+                acc = 0.0
+                Dc = D[xc]
+                for p in range(n):
+                    d, a = Dc[p], dn[p]
+                    if d < a:
+                        acc += d - a
+                        delta[nn[p]] += a - ds[p]
+                    elif d < ds[p]:
+                        delta[nn[p]] += d - ds[p]
+                i = min(free, key=lambda j: (delta[j], j))
+                if delta[i] + acc < -1e-12:
+                    med[i] = xc
+                    swaps += 1
+                    nn, dn, ds, rem = nearest_two()
+                    since = 0
+                else:
+                    since += 1
+            else:
+                since += 1
+            xc = (xc + 1) % n
+    return med, nn, swaps
+
+
+def _prim_from(root, members, dist):
+    """Prim's tree over members grown from root: [(member, parent)] in joining order (root excluded)."""
+    best = {m: (dist(root, m), root) for m in members if m != root}
+    out = []
+    while best:
+        x = min(best, key=lambda m: (best[m][0], m))
+        out.append((x, best.pop(x)[1]))
+        for m in best:
+            d = dist(x, m)
+            if d < best[m][0]:
+                best[m] = (d, x)
+    return out
+
+
+def bbt_plan(recs, panel, grch38, K, k=MST_K, attach='cluster'):
+    """The threading plan of bbt_align, from the sequences and full-panel membership alone. The distinct
+    full-panel sequences (indices panel into recs; recs[0] is CHM13's) are ordered CHM13, then GRCh38's
+    when it is distinct, then by length and sequence, and split into K clusters by kmedoids on 1 - multiset
+    k-mer Jaccard (the mst distance), with CHM13 and GRCh38 fixed as medoids. Returns (reps, steps, info):
+    reps the medoids; steps [(x, parent)] in threading order: each panel sequence on its nearest
+    already-placed member of its cluster (Prim's tree grown from the medoid; with attach='medoid', on the
+    medoid itself, nearest first), then each sequence outside the panel (hap32-only recombinant paths) on
+    the nearest panel member of its nearest medoid's cluster (or on that medoid), so that no panel row's
+    placement depends on them."""
+    toks = [kmer_tokens(s, k) for _, s in recs]
+    cache = {}
+
+    def dist(i, j):
+        if i == j:
+            return 0.0
+        key = (i, j) if i < j else (j, i)
+        if key not in cache:
+            a, b = toks[i], toks[j]
+            inter = len(a & b)
+            uni = len(a) + len(b) - inter
+            cache[key] = 1.0 - (inter / uni if uni else (1.0 if recs[i][1] == recs[j][1] else 0.0))
+        return cache[key]
+
+    have = set(range(len(recs)))
+    pan = [x for x in dict.fromkeys(panel) if x in have]
+    fixed = [0] + ([grch38] if grch38 is not None and grch38 in pan and grch38 != 0 else [])
+    pan = fixed + sorted((x for x in pan if x not in fixed), key=lambda x: (len(recs[x][1]), recs[x][1]))
+    med, nn, swaps = kmedoids(len(pan), lambda a, b: dist(pan[a], pan[b]), K, fixed=range(len(fixed)))
+    reps = [pan[m] for m in med]
+    clusters = collections.OrderedDict((r, [r]) for r in reps)
+    for p, i in enumerate(nn):
+        if pan[p] not in clusters:
+            clusters[reps[i]].append(pan[p])
+    steps = []
+    for r, mem in clusters.items():
+        if attach == 'medoid':
+            steps.extend((x, r) for x in sorted((m for m in mem if m != r), key=lambda m: (dist(r, m), m)))
+        else:
+            steps.extend(_prim_from(r, mem, dist))
+    inpan = set(pan)
+    extra = [x for x in range(len(recs)) if x not in inpan]
+    for x in extra:
+        r = reps[min(range(len(reps)), key=lambda i: (dist(x, reps[i]), i))]
+        steps.append((x, r if attach == 'medoid' else min(clusters[r], key=lambda m: (dist(x, m), m))))
+    sizes = sorted(len(v) for v in clusters.values())
+    info = {'attach': attach, 'K': len(reps), 'n_panel': len(pan), 'n_outside_panel': len(extra), 'swaps': swaps,
+            'fixed': [recs[x][0] for x in fixed], 'cluster_max': sizes[-1],
+            'cluster_median': statistics.median(sizes), 'singletons': sum(1 for s in sizes if s == 1)}
+    return reps, steps, info
+
+
+def bbt_align(in_fa, out_fa, threads=1, workdir=None, timeout=TIMEOUT, mem_mb=MEM_MB, K=32, panel=None,
+              grch38=None, k=MST_K, attach='cluster', **_):
+    """realign.py plugin: backbone plus threading of the distinct masked sequences (named s<i>, s0 =
+    CHM13; panel and grch38 are such indices i, from the region's panel map). bbt_plan picks K k-medoid
+    representatives of the full-panel sequences; abPOA aligns them (abpoa -m 0 -r 1, defaults, longest
+    first, as poa_abpoa) into the backbone, and every other sequence is aligned pairwise (pair_align) to
+    its plan parent and added on that parent's columns (ThreadedMSA.add: insertions reuse the slot's gap
+    columns where they fit, so recurrent insertions stack). One time cap for the region; each abPOA run
+    has the memory cap."""
+    t0 = time.time()
+    deadline = t0 + timeout
+    recs = msa_graph.read_fasta(in_fa)
+    idx = {int(n[1:]): i for i, (n, _) in enumerate(recs)}
+    wd = tempfile.mkdtemp(prefix='bbt.', dir=workdir)
+    stats = collections.Counter(peak_rss_mb=0.0)
+    res = {'command': ['abpoa', '-m', '0', '-r', '1', '(backbone)', '+', 'abpoa', '-m', '0', '-b', '-1',
+                       '(pairwise to the plan parent)'], 'tool_version': tool_version('abpoa')}
+    plan = {}
+    try:
+        if recs[0][0] != 's0':
+            raise ValueError('bbt needs s0 (CHM13) first, got %s' % recs[0][0])
+        pan = [idx[x] for x in (panel if panel is not None else sorted(idx)) if x in idx]
+        reps, steps, plan = bbt_plan(recs, pan, idx.get(grch38) if grch38 is not None else None, K, k, attach)
+        stats['plan_seconds'] = round(time.time() - t0, 2)
+        if len(reps) == 1:
+            msa = ThreadedMSA(recs[reps[0]][0], recs[reps[0]][1])
+        else:
+            byl = sorted((recs[r] for r in reps), key=lambda r: (-len(r[1]), int(r[0][1:])))
+            t1 = time.time()
+            rows, pk = _abpoa_rows(byl, wd, 'backbone', [], deadline, mem_mb)
+            stats['backbone_seconds'] = round(time.time() - t1, 2)
+            stats['peak_rss_mb'] = max(stats['peak_rss_mb'], pk)
+            for n, s in byl:
+                if rows[n].replace('-', '') != s:
+                    raise ValueError('abpoa backbone row %s does not spell its input' % n)
+            msa = ThreadedMSA.from_msa(rows)
+            stats['backbone_columns'] = len(msa.order)
+        for x, p in steps:
+            pa, qa, c = pair_align(recs[p][1], recs[x][1], wd, deadline, mem_mb, stats)
+            stats['cost'] += c
+            msa.add(recs[x][0], recs[x][1], recs[p][0], pa, qa, stats)
+        stats['columns'] = msa.write(recs, out_fa)
+        for (n, s), (n2, row) in zip(recs, msa_graph.read_msa(out_fa)):
+            if n != n2 or row.replace('-', '') != s:
+                raise ValueError('bbt MSA row %s does not spell its input' % n)
+        res['status'] = 'ok'
+    except Capped as e:
+        res.update(status=e.status, message=str(e))
+    finally:
+        shutil.rmtree(wd, ignore_errors=True)
+    res['seconds'] = round(time.time() - t0, 2)
+    res['peak_rss_mb'] = stats.pop('peak_rss_mb')
+    res['bbt'] = dict(stats, **plan)
     return res
 
 
