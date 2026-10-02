@@ -206,6 +206,12 @@ for _base in ('poa_abpoa', 'poa_abpoa__all'):
         _reg('lw%d_%s' % (_w, _base), '%s, --linkage-weight %d' % (_base, _w), kind='link',
              src=VARIANTS[_base]['src'], full=None, extra=['--linkage-weight', str(_w)])
 
+# Re-baseline on a newer vg (set VNTR_STAGE3_VG to the pinned binary when calling these): the same
+# graphs as mc, lw2_mc, poa_abpoa and poa_abpoa__all, called again.
+_reg('rb_mc_link', 'mc as a candidate (new node IDs), re-baseline binary', kind='link', src=MC_LINK, full=None)
+for _base in ('poa_abpoa', 'poa_abpoa__all'):
+    _reg('rb_' + _base, '%s, re-baseline binary' % _base, kind='link', src=VARIANTS[_base]['src'], full=None)
+
 
 def variant(name):
     if name in VARIANTS:

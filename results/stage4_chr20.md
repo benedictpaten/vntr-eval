@@ -787,3 +787,34 @@ cost/opt is the best of any sample-independent variant.
 Files: `tools/units_panel.py` and `tools/realign_units.py` (`--fallback-engine`), `tools/iterate.py`
 (`ua32`, `ua_all`, `ua_all_poa`); full MSAs in `work/stage4/panel/unit_aware{,_poa}/`, projections in
 `work/stage4/candidates/unit_aware{,_poa}__all/`; runtime rows in `results/realign_runtime.all.units.tsv`.
+
+## 4p. Re-baseline on vg 91d38c802, and the unit-aware full panel on whole chr20
+
+All arms called with the current PR head (vg 91d38c802: positional depth-rate window, nested kappa from
+the region's ploidy, depth-term normaliser, code-review fixes), on the existing graphs and mappings.
+
+| chr20 arm | sites (VCF IDs) | SV F1 raw | SV FP / FN raw | SV F1 refined | refined FP / FN | indel F1 | ALL F1 |
+|---|---|---|---|---|---|---|---|
+| unpatched (mc) | 112,156 | 0.5323 | 440 / 325 | 0.6397 | 347 / 243 | 0.9274 | 0.9721 |
+| abPOA on hap32 | 114,217 | **0.5838** | 305 / 321 | **0.6654** | 251 / 252 | 0.9281 | 0.9724 |
+| abPOA on the full panel, projected | 117,298 | 0.4769 | 425 / 391 | 0.6139 | 322 / 280 | 0.9180 | 0.9687 |
+| unit-aware on the full panel (abPOA fallback), projected | 116,231 | 0.4756 | 438 / 390 | 0.5799 | 367 / 295 | 0.9227 | 0.9706 |
+
+Refined = `truvari refine -u -a mafft`, insensitive to how an allele is split into records.
+
+- The Stage 4 conclusions hold on the current caller: patching with abPOA on hap32 gains +0.051 raw and
+  +0.026 refined SV F1; projecting a full-panel alignment loses, raw and refined.
+- The unit-aware full panel (4o) has hap32-level stage-0 cost/opt, yet calls worst after refinement:
+  stage-0 metrics do not predict calling here.
+- `--no-atomize-blocks` does not rescue the full-panel arms (SV FN 381 and 368 against 316 for
+  abPOA-hap32), so their losses are not records split by block emission.
+- Haplotype ED summed over the 624 patched regions does not track SV F1 either (unpatched 83,037,
+  abPOA-hap32 90,618, unit-aware full 85,670, abPOA full 95,414; region counts mixed); a few regions
+  dominate the sums.
+- What does separate them: sites. The full-panel projections add 4,075-5,142 sites over the unpatched
+  graph against 2,061 for abPOA-hap32. Each indel the full-panel alignment cuts at a breakpoint supported
+  by an absent allele (4m) becomes a cut point, and so a site boundary, in the projection; more sites
+  give the genotyper more junctions at which to stitch recombinant alleles (4i: 87-92% of the error).
+- Test set on the new binary (summed called-haplotype ED): mc as a candidate 7,061 (6,840 native on the
+  old binary; the renumbering effect shrank from +939 to +221), abPOA hap32 10,388, abPOA full 8,288,
+  unit-aware full 8,118 (mafft fallback 8,274).
