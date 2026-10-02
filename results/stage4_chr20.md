@@ -1045,3 +1045,26 @@ Files: `tools/iterate.py` (kind `bbt`: `kmedoids`, `_prim_from`, `bbt_plan`, `bb
 (`TestBackbone`), `tools/evaluate.py` (`VNTR_EVAL_PAIRS_OUT`), `work/iterate/bbt_decomp.py` and
 `bbt_decomp.json`; candidates in `work/iterate/candidates/bbt*/`, full MSAs in `work/iterate/panel/bbt*/`,
 Stage 0 in `work/iterate/stage0/bbt*/`.
+
+## 4s. Where the full-panel builds stand: a sites-versus-alignment trade-off
+
+Whole chr20, vg 91d38c802, all eligible repeats patched (refined = `truvari refine -u -a mafft`):
+
+| arm | sites (VCF IDs) | SV F1 raw (FP / FN) | SV F1 refined (FP / FN) | test-set cost/opt median |
+|---|---|---|---|---|
+| unpatched (mc) | 112,156 | 0.5323 (440 / 325) | 0.6397 (347 / 243) | 1.408 |
+| abPOA on hap32 (sample-dependent) | 114,217 | **0.5838** (305 / 321) | **0.6654** (251 / 252) | 1.057 |
+| mst, nearest-neighbour threading (4q) | 113,616 | 0.5446 (447 / 310) | 0.6438 (358 / 235) | 1.238 |
+| bbt64m, 64-representative backbone + threading (4r) | 116,337 | 0.4984 (380 / 384) | 0.6196 (297 / 282) | 1.147 |
+| abPOA on the full panel | 117,298 | 0.4769 (425 / 391) | 0.6139 (322 / 280) | 1.117 |
+| unit-aware on the full panel | 116,231 | 0.4756 (438 / 390) | 0.5799 (367 / 295) | 1.061 |
+
+- Misses follow site count: refined FN rises with the sites the projection adds (235-252 at
+  112-114k sites, 280-295 at 116-117k). Extra sites come from breakpoints that absent alleles support.
+- False positives roughly follow alignment quality: bbt64m (cost/opt 1.147) has 61 fewer refined FP
+  than mst (1.238). Unit-aware full is the exception, worst on both.
+- Every sample-independent build so far buys one at the cost of the other. Threading cuts the
+  breakpoints but aligns alleles in different branches only through the tree; a backbone fixes the
+  cross-branch alignment and brings the breakpoints back. abPOA on hap32 gets both because it is
+  optimised for exactly the rows that are genotyped.
+- Best sample-independent arm: mst, refined 0.644 (above unpatched 0.640; below hap32 0.665).
