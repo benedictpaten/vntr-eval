@@ -1230,3 +1230,51 @@ Next (running): stars to other centres. `st_medoid` is the allele of least panel
 the rest. `st_maj` is the majority consensus of the `st_chm13` full-panel MSA, keeping columns carried by at
 least half the panel weight, so low-frequency indels drop out. `st_cons` is abPOA's heaviest-bundle
 consensus. Then the winner on held-out chr6.
+
+## 4v. The choice of centre for the star
+
+Three more centres, each on the full panel and projected like `st_chm13`. Code: `star_medoid` and
+`majority_consensus` in `tools/iterate.py`.
+- **`st_medoid`**: the allele with the least summed k-mer distance (as `mst`) to all the others,
+  each weighted by the panel haplotypes that carry it (the union map's `weight`).
+- **`st_maj`**: the majority consensus of the `st_chm13` full-panel MSA. A column is kept when the
+  alleles with a base there carry at least half the panel weight, and it spells its heaviest base,
+  so indels carried by less than half the panel drop out of the centre.
+- **`st_cons`**: abPOA's heaviest-bundle consensus of the full panel (4n).
+
+At TR770009 the medoid is the commonest short allele, 926 bp and carried by 115 panel haplotypes.
+The majority consensus is 1,250 bp, between the short (838-986 bp) and long (2.2 kb) alleles,
+because no single structure has a majority there.
+
+| chr20 arm | pair recall / precision (4u) | SV F1 raw (FP / FN) | SV F1 refined (FP / FN) |
+|---|---|---|---|
+| abPOA on hap32 | 0.853 / 0.856 | 0.5838 (305 / 321) | 0.6654 (251 / 252) |
+| **st_chm13** | 0.870 / **0.902** | **0.6540** (201 / 296) | **0.7034** (176 / 251) |
+| st_maj | 0.867 / 0.899 | 0.6361 (237 / 297) | 0.6962 (195 / 251) |
+| st_medoid | **0.877** / 0.893 | 0.6255 (264 / 296) | 0.6957 (212 / 243) |
+| st_cons | 0.852 / 0.863 | 0.6057 (253 / 322) | 0.6973 (199 / 243) |
+| st_long (4u) | 0.837 / 0.899 | 0.5800 (316 / 324) | 0.6653 (259 / 251) |
+
+Per region, refined FP+FN, paired bootstrap (TR756034 excluded):
+
+| comparison | difference [95% CI] | regions better / worse |
+|---|---|---|
+| st_maj − abPOA on hap32 | -54 [-101, -6] | 61 / 41 |
+| st_cons − abPOA on hap32 | -54 [-102, -7] | 61 / 44 |
+| st_medoid − abPOA on hap32 | -31 [-89, +24] | 52 / 49 |
+| st_maj − st_chm13 | +11 [-28, +52] | 33 / 34 |
+| st_cons − st_chm13 | +11 [-34, +58] | 50 / 52 |
+| st_medoid − st_chm13 | +34 [-14, +80] | 39 / 50 |
+
+- **The star, not its centre, is what wins.** Every centre that stays near the middle of the panel
+  calls 0.696-0.703 refined, against 0.665 for abPOA on hap32. The longest allele is the exception,
+  and only ties hap32.
+- **No centre is distinguishable from CHM13.** CHM13 has the best point estimate on raw and refined
+  SV F1 and the highest pair precision. It is also the simplest centre: it needs no prior MSA and is
+  the same for every sample.
+- **Pair precision ranks the stars as calling does**, except `st_cons`, whose precision is lowest
+  but whose refined F1 equals the others.
+
+Next: validate `st_chm13` on held-out chr6. The chr6 packages hold only hap32 (`hap32.fa`), so
+`package_regions.py hprc` must first add each region's full panel. That is one query of the
+5.7 GB HPRC GBZ per region (45-65 s, about 11 GB RSS): 8-17 hours for 1,120 regions.
