@@ -17,7 +17,7 @@ import msa_graph, iterate  # noqa: E402
 ARMS = {'abpoa_h32': 'poa_abpoa', 'abpoa_full': 'poa_abpoa__all', 'famsa_h32': 'pf_famsa_h32__all',
         'famsa_full': 'pf_famsa__all', 'mst': 'mst__all', 'st_long': 'st_long__all', 'st_chm13': 'st_chm13__all',
         'ua_full': 'unit_aware_poa__all', 'bbt64m': 'bbt64m__all', 'mst3': 'mst3__all', 'st_medoid': 'st_medoid__all',
-        'st_maj': 'st_maj__all', 'st_cons': 'st_cons__all', 'st_maj_med': 'st_maj_med__all'}
+        'st_maj': 'st_maj__all', 'st_cons': 'st_cons__all', 'st_maj_med': 'st_maj_med__all', 'st_amed': 'st_amed__all'}
 CAND = R + '/work/stage4/candidates'
 CACHE = R + '/work/iterate/pairrecall_cache'   # optimal pairwise alignments, as partner arrays, per region
 USE = list(ARMS)

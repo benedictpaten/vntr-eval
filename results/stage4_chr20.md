@@ -1382,3 +1382,145 @@ closer in 317 of 624 regions.
 - Its gain over abPOA on hap32 (-31 errors) is not significant on chr20 alone, so held-out chr6 is the
   test. The neutral majority consensus is as consistent but calls worse, from the 23 regions where
   the two differ.
+
+## 4y. The alignment-based medoid
+
+Concern: a weighted multiset 15-mer Jaccard may pick a poor centre in a VNTR, where k-mer content
+says little about how alleles align.
+
+**Method** (`work/iterate/aln_medoid.py`, arm `st_amed`):
+- The initial alignment is the medoid star's own full-panel MSA, so CHM13 is not involved.
+- The distance between two alleles is the number of columns where their rows differ (a mismatch, or a
+  base against a gap).
+- The centre is the allele with the smallest haplotype-weighted sum of distances to all the others.
+
+**It rarely moves the centre:**
+- It moves it in 60 of 636 regions. In 49 of those the two centres differ by under 10 bp.
+- About 8 regions disagree substantively. For example, in TR767090 the alignment medoid is the
+  commonest allele (165 haplotypes, against 47).
+
+**It changes nothing measurable:**
+
+| arm | HG002 pairs: recall / precision | refined FP+FN vs st_medoid (TR756034 excluded) |
+|---|---|---|
+| st_medoid (k-mer centre) | 0.877 / 0.893 | - |
+| st_amed (alignment centre) | 0.877 / 0.893 | +3 [-8, +16], better/worse 6/5 |
+
+**Decision:** keep the k-mer centre. It is cheaper, because it needs no initial alignment.
+
+## 4z. Calling each repeat as one site
+
+### Prototype: whole-allele genotyping
+
+**Method** (`work/iterate/atomic_chr20.py`, `tools/panel_genotype.py`): genotype each region as one
+site.
+- The alleles are the distinct hap32 sequences.
+- Reads come from within 5 kb.
+- The score is a semi-global read-to-allele edit distance plus a Poisson depth term.
+
+**Measure** (`work/iterate/hapscore_chr20.py`, `atomic_compare.py`): summed edit distance from the
+called haplotypes to HG002's truth haplotypes, under the best pairing, over the 636 regions every
+method scored.
+
+| method | summed edit distance | regions exact |
+|---|---|---|
+| ceiling: best pair of hap32 sequences | 6,998 | 472 |
+| **whole-allele prototype** | **52,357** | **374** |
+| vg call, medoid-star graph | 87,023 | 360 |
+| vg call, MC graph | 88,315 | 354 |
+| vg call, CHM13-star graph | 91,889 | 359 |
+| vg call, abPOA-hap32 graph | 94,305 | 361 |
+
+- **Most of vg call's error is stitching.**
+  - 171 to 201 of 1,272 called haplotypes are spelled by no hap32 sequence: the caller took alleles of
+    different panel haplotypes at successive sites inside one repeat.
+  - Those haplotypes carry 70-73% of the error, whatever graph the call used.
+  - A stitched haplotype beat the best panel pair in only 8 regions, by 15 edits in total.
+- **The prototype wins per region against the medoid star:** -34,666 [-69,709, -3,410], better in 156
+  regions and worse in 105.
+- **Its remaining error is copy number.** 52,308 of its 52,357 edits are in the 224 regions where it
+  picks an allele of the wrong length.
+
+**Preview with the existing chain mode.** vg call's experimental chain mode (`-I`) with
+`--read-likelihood` is not a usable preview: summed edit distance 438,133, 10 regions exact.
+
+### Repeat sites in vg call
+
+**The option.** `vg call --repeat-sites BED` is on the local vg branch `repeat-sites`, not pushed.
+- Each region becomes one site: a fake snarl spanning the top-level snarls that lie wholly inside the
+  region on the reference path. They must be consecutive links of one top-level chain.
+- The alleles are the panel haplotypes' whole walks across it (GBWT enumeration).
+- Reads are mapped to the fine-grained graph as before.
+- Scoring, the depth term and the linkage model are unchanged.
+- Output is one record per difference, through the block-record code.
+
+**Two variants answer the follow-up questions:**
+- `--repeat-descent`: the site descends into snarls nested in its chosen walks. This asks whether
+  getting the overall structure right lets smaller variants be found on the chosen walks.
+- `--repeat-linkage`: no repeat site. The region's snarls are called as usual, but the linkage model
+  allows no switch between them (switch probability 1e-9). This asks whether a strong preference for
+  non-recombinants is enough.
+
+**Gate.** Without the options, the final build's chr20 ONT VCF and mosaic are byte-identical to the
+base (`91d38c802`). The gated binary is `58faa2261`. The anchors file differs only in its `#vg-version` line.
+
+**Coverage.** 546 of the 624 regions became repeat sites, covering 8,011 top-level snarls. In the
+other 78, no top-level snarl lies wholly inside the region, and they are called as usual. None
+failed.
+
+**SV, chr20 HG002, medoid-star graph** (repeat sites with vg `2a287c328`; descent and linkage with `58faa2261`, which reports itself as `g2ab7b6a62`):
+
+| arm | raw SV F1 (FP / FN) | refined SV F1 (FP / FN) | SNV F1 | indel F1 |
+|---|---|---|---|---|
+| st_medoid | 0.6255 (264 / 296) | 0.6957 (212 / 243) | 0.9853 | 0.9278 |
+| **+ --repeat-sites** | 0.6237 (255 / 302) | **0.7204 (186 / 228)** | 0.9854 | 0.9283 |
+| + --repeat-descent | 0.6344 (252 / 292) | 0.7165 (199 / 223) | 0.9853 | 0.9281 |
+| + --repeat-linkage only | 0.6286 (261 / 294) | 0.7069 (202 / 236) | 0.9853 | 0.9279 |
+
+**Per-region paired bootstrap of refined FP+FN** (TR756034 excluded):
+
+| comparison | difference [95% CI] | better/worse | totals |
+|---|---|---|---|
+| repeat sites - st_medoid | **-49 [-93, -10]** | 39/20 | 267 vs 316 |
+| descent - st_medoid | -31 [-63, +0] | 34/23 | 285 vs 316 |
+| linkage only - st_medoid | -17 [-36, -2] | 12/4 | 299 vs 316 |
+| repeat sites - abPOA on hap32 | -80 [-145, -20] | 62/42 | 267 vs 347 |
+| descent - repeat sites | +18 [-14, +53] | 14/23 | 285 vs 267 |
+
+**Called-haplotype edit distance** (same 636 regions as above):
+
+| method | summed edit distance | regions exact | off-panel haplotypes (their error) |
+|---|---|---|---|
+| ceiling | 6,998 | 472 | - |
+| whole-allele prototype | 52,357 | 374 | - |
+| vg call, st_medoid | 87,023 | 360 | 190 (70%) |
+| **+ --repeat-sites** | **77,298** | **385** | **37 (38%)** |
+| + --repeat-descent | 82,820 | 373 | 122 (67%) |
+| + --repeat-linkage only | 86,162 | 367 | 156 (70%) |
+
+- repeat sites - st_medoid: -9,725 [-19,214, -1,595], better/worse 90/50.
+- descent - repeat sites: +5,522 [-363, +12,680], better/worse 16/46.
+- prototype - repeat sites: -24,941 [-58,701, +8,400], better/worse 118/107.
+
+**Findings:**
+- **Repeat sites work.** Refined SV F1 rises 0.6957 → 0.7204 (+0.025), significant per region, with
+  small variants unchanged. Off-panel haplotypes fall from 190 to 37. That is within the +0.03 to
+  +0.06 estimated from the prototype.
+- **Descent gives back part of the gain.** It re-opens stitching inside the chosen walks (122
+  off-panel haplotypes) and is worse than plain repeat sites in 46 regions against 16. Raw SV F1 is
+  slightly higher, but refined F1 and edit distance are lower. Small variants nested on the chosen
+  walks are not found well enough to pay for the stitching.
+- **Linkage alone is not enough.** A near-zero switch probability between a region's snarls removes
+  only 34 of 190 off-panel haplotypes. Each snarl is still genotyped on its own, and linkage only
+  phases the per-snarl choices; it cannot make them consistent with one panel walk.
+- **Where a region is a repeat site, it matches the prototype.**
+  - On the 610 regions where it calls only panel haplotypes, repeat sites total 37,222, against the
+    prototype's 42,947.
+  - The remaining gap is 26 regions still called off-panel. They hold 40,076 of the 77,298, against
+    9,410 for the prototype there.
+  - The four worst (TR763074, TR762996, TR763076, TR762999; 21,245 edits) lie inside one 474 kb
+    top-level snarl near the centromere.
+  - Others (for example TR772976, TR772999) lie inside a larger top-level snarl whose boundaries fall
+    outside the region.
+  - The fix is to let a repeat site sit at the region's own chain, nested or not, rather than only on
+    the top-level chain.

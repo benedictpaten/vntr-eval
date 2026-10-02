@@ -180,6 +180,8 @@ _reg('st_medoid', 'full panel, centre-star to the medoid allele (least panel-wei
      'projected', kind='star', centre='medoid')
 _reg('st_maj', 'full panel, centre-star to the majority consensus of the st_chm13 full-panel MSA (columns carried '
      'by at least half the panel weight), projected', kind='star', centre='majority', source='st_chm13', maj=0.5)
+_reg('st_amed', 'full panel, centre-star to the medoid by induced alignment distance in the st_medoid full-panel '
+     'MSA, projected', kind='star', centre='aln_medoid', source='st_medoid')
 _reg('st_maj_med', 'full panel, centre-star to the majority consensus of the st_medoid full-panel MSA, so that no '
      'step depends on CHM13, projected', kind='star', centre='majority', source='st_medoid', maj=0.5)
 _reg('pf_famsa', 'full panel, FAMSA defaults, projected', kind='profile', tool='famsa', args=[])
@@ -395,6 +397,8 @@ def build_abpoa(v, spec, rid, timeout, mem_mb):
                 sp['weight'] = [int(r['weight']) for r in rows]
             elif spec['centre'] == 'majority':
                 sp.update(source=full_msa_of(spec['source'], rid), source_map=mp, maj=spec.get('maj', 0.5))
+            elif spec['centre'] == 'aln_medoid':
+                sp.update(source=full_msa_of(spec['source'], rid), source_map=mp)
             m = realign._as_method(v, {'align': star_align, 'tool': 'abpoa', 'description': spec['desc'],
                                        'params': sp})
         elif spec['kind'] == 'mst':
@@ -943,6 +947,27 @@ def star_medoid(recs, weight=None, k=None):
     return recs[best[1]][1]
 
 
+def alignment_medoid(msa_gz, map_tsv):
+    """The allele of a full-panel MSA (rows named by distinct id) with the least weighted sum of
+    induced distances to the others: the number of columns in which two rows differ (a mismatch, or a
+    base against a gap). That sum is, over columns, the total weight less the weight of the rows that
+    have the row's character there, so it takes one pass. Weights are the map's `weight`. Returns the
+    allele's sequence, ungapped."""
+    w = {r['id']: int(r['weight']) for r in panel.read_map(map_tsv)}
+    rows = {n: r for n, r in msa_graph.read_msa(msa_gz) if n not in msa_graph.CONSENSUS_NAMES}
+    names = sorted(rows)
+    total = float(sum(w.get(n, 0) for n in names))
+    score = dict.fromkeys(names, 0.0)
+    for c in range(len(rows[names[0]])):
+        cw = collections.Counter()
+        for n in names:
+            cw[rows[n][c]] += w.get(n, 0)
+        for n in names:
+            score[n] += total - cw[rows[n][c]]
+    best = min(names, key=lambda n: (score[n], n))
+    return rows[best].replace('-', '')
+
+
 def majority_consensus(msa_gz, map_tsv, maj=0.5):
     """Majority consensus of a full-panel MSA (rows named by distinct id): a column is kept when the
     alleles with a base there carry at least MAJ of the panel weight (map 'weight', the panel haplotypes
@@ -968,8 +993,9 @@ def star_align(in_fa, out_fa, threads=1, workdir=None, timeout=TIMEOUT, mem_mb=M
     abPOA's consensus of all of them (abpoa -r 0, longest first, as poa_abpoa__all is built), with
     centre='ref' s0, which is CHM13's sequence (panel.union lists it first), with centre='longest'
     the longest sequence, with centre='medoid' the sequence of least weighted k-mer distance to all the
-    others (star_medoid), or with centre='majority' the majority consensus of the full-panel MSA at
-    SOURCE (majority_consensus). Each sequence is aligned
+    others (star_medoid), with centre='majority' the majority consensus of the full-panel MSA at
+    SOURCE (majority_consensus), or with centre='aln_medoid' the medoid by induced distances in that
+    MSA (alignment_medoid). Each sequence is aligned
     to the centre with abpoa -m 0 -b -1 (global, unbanded, default scores), its indels left-normalised
     (left_normalise_pair), and the alignments merged (star_merge). The whole region shares one time cap;
     each abPOA run has the memory cap."""
@@ -991,6 +1017,11 @@ def star_align(in_fa, out_fa, threads=1, workdir=None, timeout=TIMEOUT, mem_mb=M
             cseq = star_medoid(recs, weight)
         elif centre == 'majority':
             cseq = majority_consensus(source, source_map, maj)
+        elif centre == 'aln_medoid':
+            # As masked for alignment: non-ACGT runs cut out, as the inputs here are.
+            cseq = realign.mask_runs(alignment_medoid(source, source_map), 1)[0]
+            if cseq not in set(q for _, q in recs):
+                raise ValueError('the alignment medoid is not one of the inputs')
         else:
             byl = sorted(recs, key=lambda r: (-len(r[1]), int(r[0][1:])))
             got, pk = _abpoa_rows(byl, wd, 'cons', [], deadline, mem_mb, consensus=True)

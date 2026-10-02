@@ -20,7 +20,7 @@ from pair_recall import pairs  # noqa: E402
 
 ARMS = {'abpoa_full': 'poa_abpoa__all', 'famsa_full': 'pf_famsa', 'mst3': 'mst3', 'bbt64m': 'bbt64m',
         'st_long': 'st_long', 'st_chm13': 'st_chm13', 'st_maj': 'st_maj', 'st_medoid': 'st_medoid',
-        'st_cons': 'st_cons', 'st_maj_med': 'st_maj_med'}
+        'st_cons': 'st_cons', 'st_maj_med': 'st_maj_med', 'st_amed': 'st_amed'}
 
 
 def jaccard_distance(a, b):
