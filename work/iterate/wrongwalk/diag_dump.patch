@@ -1,0 +1,30 @@
+diff --git a/src/allele_likelihood.cpp b/src/allele_likelihood.cpp
+index 76d012e6e..1eec50fed 100644
+--- a/src/allele_likelihood.cpp
++++ b/src/allele_likelihood.cpp
+@@ -300,6 +300,25 @@ void AlleleReadLikelihoods::dump(ostream& out, const string& site_name) const {
+         }
+         out << endl;
+     }
++    // DIAGNOSTIC (not for the PR): each allele's length T_h, the depth inputs, and every diploid
++    // genotype's likelihood split into its read and depth terms.
++    out << "#lengths\t" << site_name;
++    for (size_t a = 0; a < n_alleles; ++a) {
++        out << "\t" << traversal_length(a);
++    }
++    out << endl;
++    out << "#depth\t" << site_name << "\t" << observed_reads() << "\t" << depth_rate << "\t"
++        << depth_read_length << "\t" << depth_weight << endl;
++    for (auto& g : score_genotypes(2)) {
++        double depth = 0.0;
++        if (uses_depth_term()) {
++            double lambda = expected_reads(g.first);
++            depth = depth_weight * ln_poisson_pmf(observed_reads(), lambda)
++                    - ln_tempered_poisson_normaliser(lambda, depth_weight);
++        }
++        out << "#gt\t" << site_name << "\t" << g.first[0] << "/" << g.first[1] << "\t" << g.second
++            << "\t" << g.second - depth << "\t" << depth << endl;
++    }
+ }
+ 
+ ////////////////////////////////////////////////////////////////////////////////

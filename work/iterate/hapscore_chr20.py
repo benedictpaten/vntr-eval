@@ -11,7 +11,13 @@ ARMS = {'mc': C + '/rb/unpatched/chr20.vcf.gz', 'abpoa_h32': C + '/rb/patched_al
         'st_chm13': C + '/patched_st_chm13/chr20.vcf.gz', 'st_medoid': C + '/patched_st_medoid/chr20.vcf.gz',
         'st_medoid_chains': C + '/patched_st_medoid/chr20.chains.vcf.gz',
         'rep_site': C + '/patched_st_medoid/chr20.rep.vcf.gz', 'rep_desc': C + '/patched_st_medoid/chr20.desc.vcf.gz',
-        'rep_link': C + '/patched_st_medoid/chr20.link.vcf.gz'}
+        'rep_link': C + '/patched_st_medoid/chr20.link.vcf.gz',
+        'rep_d1': C + '/patched_st_medoid/chr20.rep_d1.vcf.gz', 'rep_raw': C + '/patched_st_medoid/chr20.rep_raw.vcf.gz',
+        'rep_d1raw': C + '/patched_st_medoid/chr20.rep_d1raw.vcf.gz', 'rep_lw0': C + '/patched_st_medoid/chr20.rep_lw0.vcf.gz',
+        'rep_lwtiny': C + '/patched_st_medoid/chr20.rep_lwtiny.vcf.gz', 'rep_lp0': C + '/patched_st_medoid/chr20.rep_lp0.vcf.gz',
+        'rep_flat': C + '/patched_st_medoid/chr20.rep_flat.vcf.gz', 'rep_flatraw': C + '/patched_st_medoid/chr20.rep_flatraw.vcf.gz',
+        'rep_mm05': C + '/patched_st_medoid/chr20.rep_mm05.vcf.gz', 'rep_mm02': C + '/patched_st_medoid/chr20.rep_mm02.vcf.gz',
+        'rep_mm05raw': C + '/patched_st_medoid/chr20.rep_mm05raw.vcf.gz'}
 OUT = R + '/work/iterate/hapscore'
 
 

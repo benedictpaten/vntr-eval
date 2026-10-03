@@ -1557,3 +1557,85 @@ read):
     - 9 overlap an earlier region and could be merged into it.
     - In the other 3, panel fragments start or end inside the region. TR773254 has 10 such fragments,
       so a whole-walk site there would offer fewer alleles.
+
+## 4aa. Why repeat sites pick the wrong panel walk
+
+**Scope.** The 490 regions that `--repeat-sites` fully covers (4z), where vg offers only whole panel walks.
+Scripts are in `work/iterate/wrongwalk/`.
+
+**The error is copy number, in few regions** (`classify.py`).
+- Summed edit distance is 35,002: the ceiling's 4,650 plus 30,352 of excess from a wrong walk.
+- The excess sits in 146 regions, and 10 of them hold 73%.
+- 27,150 of it (89%) is in 34 regions where a wrong allele is 100 bp or more off in length.
+
+**Where the excess comes from** (`dump_analyse2.py`):
+
+| class | sites | excess |
+|---|---|---|
+| TR755508 (chr20 telomere): a right allele is not among vg's alleles | 1 | 9,379 |
+| truth off-panel, reads favour the called walk | 61 | 8,552 |
+| truth off-panel, reads favour the right walk | 10 | 4,064 |
+| truth in the panel, reads favour the right walk | 9 | 3,405 |
+| truth in the panel, reads favour the called walk | 34 | 2,392 |
+| called homozygous reference, so no site in the dump | 19 | 2,167 |
+| right lengths, wrong sequence | 12 | 393 |
+
+- "Reads favour" means the MAPQ-weighted count of reads whose best allele (by vg's own rel) is in that
+  genotype.
+- Where the truth is off-panel, vg is choosing the panel walk the reads fit best. That walk is not
+  always the one closest in edit distance. This is a limit of the panel, not of the model.
+- Only the 9 sites in the fourth row (3,405) are clear model failures.
+
+**How it was found.** `vg-diag` adds to `--dump-likelihoods` each allele's length and every diploid
+genotype's read and depth terms (`diag_dump.patch`, not in the branch). Its VCF is byte-identical to
+`rep`'s.
+
+**What is not the cause:**
+- **Read placement.** Reads that fit the right allele by sequence are placed on its nodes. Only 16 of
+  4,280 informative reads sit only on wrong-allele nodes (`rescore.py`).
+- **The linkage model.** Turning it off (`--linkage-weight 1e-6`) costs +6,340 [+1,604, +12,796].
+  Turning off its frequency prior (`--linkage-prior 0`) costs +5,386.
+- **The depth term.** At wrong sites it contributes at most 12.5 nats.
+
+**What is the cause: vg's read term.**
+- The read term picks the wrong genotype at 113 of 127 sites whose alleles could be matched to the
+  panel.
+- Base-level alignment of vg's own reads favours the right allele in 106 of 133 regions. Even so, the
+  prototype's model applied to vg's reads is worse overall (+5,799).
+- **MAPQ asymmetry** (the main failure at the in-panel sites).
+  - Reads that fit the right allele better have a median mismapping probability of 0.79; 67% are
+    at 0.5 or above.
+  - Reads that fit the wrong allele better, or fit both equally, have a median of 0.02.
+  - Reads from the expanded allele map ambiguously within the repeat, so each counts at most
+    ln(1/e_r) against the wrong genotype.
+  - At TR772489 (true 4956/4147, called 4097/4097 hom), vg's node scoring separates the alleles
+    perfectly: 129 reads have rel 0 under the called genotype. But they can count only 115 nats in
+    all.
+  - Meanwhile 337 high-MAPQ reads that the hom fits on both haplotypes cost the het 152 nats (ln 2
+    each). TR773215 is the same.
+- **The length-weighted mixture.** At TR768271 the reads favour the right allele 180 to 21, but
+  length weighting puts the called genotype ahead by 156 nats. Flat weights put the right one ahead
+  by 232.
+
+**Measured fixes** (whole-chr20 runs, covered-region edit distance vs `rep`, and refined SV F1):
+
+| arm | edit distance vs rep | refined SV F1 |
+|---|---|---|
+| `rep` | - | 0.7204 |
+| `--depth-term 1` | +33,061 | 0.6746 |
+| **`--depth-count-raw`** | **-3,327 [-9,094, +500]** | **0.7304** |
+| `--depth-term 1 --depth-count-raw` | +13,143 | 0.6925 |
+| `--flat-mixture` | +3,644 | 0.7149 |
+| `--flat-mixture --depth-count-raw` | +1,263 | 0.7246 |
+| `--mismap-max 0.5` | -1,157 | 0.7261 |
+| `--mismap-max 0.2` | +2,945 | 0.7214 |
+| `--mismap-max 0.5 --depth-count-raw` | -1,768 | 0.7282 |
+
+- Every option is global. Each fixes some repeat sites and breaks others.
+- `--depth-count-raw` is the best single option: +0.010 refined SV F1. It changes only 5 covered
+  regions, so most of its SV gain is elsewhere on chr20.
+- The model fixes target 3,405 edits (11% of the excess). Most of the rest needs alleles the panel does
+  not have (12,616) or a telomeric walk that the enumeration misses (9,379).
+- **Fix that would target the in-panel failures:** do not treat ambiguity between copies inside a
+  repeat site as mismapping. A read whose low MAPQ comes only from alternative placements within the
+  same site belongs to the site either way. This is untested.
