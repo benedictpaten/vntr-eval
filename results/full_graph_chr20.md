@@ -87,8 +87,8 @@ realigned minus original:
 - **Comparison with stage 4.** The hap32-projected medoid star (4x) gave +0.060 refined over its own
   re-mapped control. That was a different chain: the 34 production haplotypes, no re-sampling.
 
-**Cost.** Calls take as long as on the original graph: short 296 s against 349 s, ONT 794 s against
-857 s, at 8 threads. The comparable timings are below.
+**Cost.** Calling takes about as long on the realigned graph as on the original. See "Run time and
+memory" below.
 
 ### What the SV gain is made of
 
@@ -236,6 +236,97 @@ re-run and re-scored. The short-read call is the test chain's.
   - `where.py` reads the switch BED.
 - **Anchors.** Realigned: 591,327 anchors from 16,620,105 read placements, with all 18,332,729 pins
   verified. Original: 589,036.
+
+## Run time and memory
+
+### Building the realigned graph
+
+pgrealign on the full chr20 graph (458 haplotypes), 8 threads:
+
+| step | wall | CPU | peak RSS |
+|---|---|---|---|
+| prepare: vg chunk, drop gref, snarls, reference index | 199 s | 243 s | 14.7 GB |
+| extract: one streaming pass | 517 s | 2,905 s | 2.6 GB |
+| realign: 14,511 regions, medoid star | 2,137 s | 12,702 s | 8.5 GB |
+| replace (dense ids) + vg gbwt -G | 1,203 s | 4,349 s | 13.2 GB |
+
+### Preparing each arm
+
+Per arm, 8 threads; original and realigned graph are within 5% of each other:
+
+| step | wall | peak RSS |
+|---|---|---|
+| sampling index (vg autoindex -w sampling) | 1,115-1,157 s | 4.8 GB |
+| vg haplotypes, 32 haplotypes | 175 s | 4.1 GB |
+| giraffe indexes | 75 s | 12.3 GB |
+| giraffe, short reads | 530 s | 2.2 GB |
+| giraffe, ONT (-b r10) | 871-919 s | 20.9 GB |
+
+### The calls
+
+- **Setup.** `-t 5`, with the graph served from a GBZ-Base database (`gbz-base construct`), as in
+  the tier-2 docs.
+- **The earlier timings were not comparable.** The test chain passed the GBZ itself as `--gbz-base`,
+  at 8 threads, so every read fetch reloaded the graph.
+- **Genotypes do not depend on the setup.** Every call below was checked to give the same genotypes
+  as the test chain or the deliverable.
+
+Each cell is wall / CPU / peak RSS:
+
+| call | graph | vg 91d38c802 (the deliverables) | vg 8b993a339 (the fix below) |
+|---|---|---|---|
+| short reads, with mosaic | original | 242 s / 898 s / 8.5 GB | 191 s / 695 s / 10.6 GB |
+| | realigned | 256 s / 869 s / 8.5 GB | 218 s / 683 s / 8.6 GB |
+| ONT, `--preset ont`, with mosaic | original | 604 s / 2,383 s / 9.1 GB | 484 s / 1,581 s / 10.2 GB |
+| | realigned | 750 s / 2,477 s / 7.9 GB | 542 s / 1,564 s / 8.9 GB |
+| ONT with `--anchors-out` | original | 1,408 s / 3,468 s / 12.7 GB | 1,030 s / 2,265 s / 11.4 GB |
+| | realigned | 1,617 s / 3,624 s / 11.1 GB | 1,064 s / 2,169 s / 12.1 GB |
+
+**Against the earlier reference runs** (vg-call-eval):
+
+- **Short reads match the tier-2 run.** The tier-2 `readlik` chr20 call (hap32 graph, 0cab3fbd4)
+  took 172 s / 716 s / 7.5 GB. Without the mosaic, 8b993a339 on the original arm takes 173 s / 667 s
+  / 11.3 GB.
+- **The genome-wide ONT build's chr20 took 243 s.** That run used the 18-haplotype E821 graph. Its
+  own build, 2a6a228a5, takes 484 s on this 34-haplotype graph with the same reads. So the factor of
+  two comes from the graph, not from vg.
+- **`--anchors-out` costs about 2.1x the ONT call.** It turns on descent into chains the reference
+  does not cross: 94 k child calls against 58 k. The anchors run keeps only 2.2 of 5 threads busy,
+  so part of it is serial. That has not been looked at.
+
+### The regression the timings exposed, and its fix
+
+The calls at 91d38c802 were ~25% slower than at 2a6a228a5, a week earlier. That is the build the
+genome-wide ONT run used.
+- **Short reads, no mosaic, original arm:** 164 s / 680 s CPU, against 206 s / 846 s at 283808454.
+- **The cause was the depth-rate window on reference coordinates** (vg 6421bb2bc). It counted read
+  starts over three 16 kb reference buckets per site by fetching their reads through the read source.
+  - Buckets near a fetch-window edge loaded neighbouring 16,384-id windows into the 2-entry per-thread
+    cache, evicting the window the sites were using.
+  - Buckets straddling a window boundary ran an extra gbz-base subprocess each.
+  - gbz-base subprocesses rose from 576 to 939, and reads fetched from 15.7 M to 22.8 M.
+  - In a 60 s profile, threads waited longer on gbz-base for the buckets than for all the sites
+    together.
+- **The other 49 commits cost nothing measurable.**
+- **The fix (vg 8b993a339, branch `depth-rate-tallies` in `~/CLionProjects/vg-speed`, not yet on the
+  PR).**
+  - The read source counts read starts itself, from tallies it makes the first time it fetches each
+    window.
+  - Its cache is shared by all threads and holds 4 windows per thread.
+  - Every output (VCF, mosaic, anchors) is byte-identical, and TAP 18_vg_call passes 453/453.
+- **Speed is back.**
+
+  | call (original arm) | 2a6a228a5 | 283808454 | 8b993a339 |
+  |---|---|---|---|
+  | short reads | 164 s | 206 s | 173 s |
+  | ONT | 484 s | 581 s | 484 s |
+  | ONT + anchors | 1,282 s | 1,393 s | 1,030 s |
+
+- **It costs ~1-2.7 GB more peak memory, from the larger cache.** A 2-window cache saves that memory
+  but takes 189 s on short reads.
+- **Fetching is still 70-80% of worker time, as it was at 2a6a228a5.** That is waiting on the
+  gbz-base child process, then parsing its GAF text back into alignments. Prefetching the next
+  window would hide the wait.
 
 ## What went wrong on the way, and the fixes
 
