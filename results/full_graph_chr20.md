@@ -191,20 +191,49 @@ re-run and re-scored. The short-read call is the test chain's.
 
 - Switch error is from whatshap compare against the T2T-Q100 v1.1 small variants. Every call is one
   chromosome-length phase block.
-- **Phasing is slightly worse on the realigned graph:** +23 switch-error pairs on ONT and +130 on short
-  reads, over about 1,000 more het pairs. Decomposed with `scripts/switch_bed.py` (vg-call-eval), that is
-  31 → 38 true switches and 152 → 160 flips on ONT, and 1,171 → 1,249 switches and 309 → 335 flips on
-  short reads.
-- **The ONT difference is churn, not a shift.**
-  - 19 of the original's 31 switches are gone and 25 new ones appear.
-  - 8 of those 44 changed switches are in TR_chr20_26343418. It was too long to realign and is the same
-    in both graphs, so they come from sampling and mapping.
-  - 97-100% of ONT switches lie within 1 kb of a tandem-repeat region, against 63% of phased het sites.
-  - Most come in pairs inside one region (22 of 31, 28 of 38): the repeat's own hets phased against its
-    flanks, a local error rather than a long-range break.
-- **Short-read switches are no more concentrated in the repeats on the realigned graph:** 81% within
-  1 kb of a region, against 80% on the original.
-- `work/full/chr20/investigate/switches/where.py` does this.
+- **Switch errors are of three sizes.**
+  - whatshap's switch-error count is every adjacent het pair whose relative phase is wrong. Its
+    switch/flip decomposition splits that into **flips** (one het phased wrong, two errors each) and
+    **true switches**.
+  - True switches are of two kinds:
+    - two that bound a **short mis-phased stretch** of 2-20 hets;
+    - **long-range switches**, after which the phase stays wrong until the next long-range switch.
+  - On ONT the split is clean: no short stretch has more than 13 hets, and no phase segment has fewer
+    than 29.
+  - The decomposition is asserted equal to whatshap's own `all_switchflips` for all four calls.
+
+| | switch errors (whatshap) | flips | true switches | in short stretches (stretches) | long-range | mis-phased bp |
+|---|---|---|---|---|---|---|
+| original, ONT | 335 (0.561%) | 152 | 31 | 24 (15) | 7 | 25.8 Mb |
+| realigned, ONT | 358 (0.590%) | 160 | 38 | 33 (20) | **5** | 19.1 Mb |
+| original, short | 1,789 (3.03%) | 309 | 1,171 | 796 (519) | 375 | 31.8 Mb |
+| realigned, short | 1,919 (3.20%) | 335 | 1,249 | 878 (588) | 371 | 29.5 Mb |
+
+- **Flips are mostly 1 bp indels and are not a repeat effect.**
+  - On ONT, 79% (original) and 81% (realigned) of flipped hets are 1 bp indels, though 1 bp indels are
+    only 7% of the assessed hets.
+  - Flips lie within 1 kb of a tandem-repeat region at the background rate (61-65% against 63% of hets).
+  - Short-read flips are mostly SNVs (55-62%), with 1 bp indels 3x enriched.
+- **Short mis-phased stretches are a repeat's own hets phased against its flanks.**
+  - On ONT they are small: a median of 3 hets over 588 bp (original) or 762 bp (realigned).
+  - 14 of 15 and 20 of 20 sit within 1 kb of a tandem-repeat region.
+  - The realigned graph has 5 more.
+- **Long-range switches fall from 7 to 5 on ONT.**
+  - Each sits in a gap between assessed hets, of 350 bp to 1.26 Mb. Five of the original's seven gaps
+    exceed 80 kb, and two of the realigned graph's five.
+  - Two of the original's, and one of the realigned graph's, are in regions too long to realign, which
+    are the same in both graphs.
+  - Only the switch at 36,099,955 is shared.
+  - Mis-phased bp (the smaller of the two alternating halves) falls 25.8 → 19.1 Mb. With five to seven
+    switches that mostly reflects where they land.
+- **Short-read long-range switches are unchanged (375 → 371).** The extra short-read errors are short
+  stretches (+69) and flips (+26). Short-read mis-phased bp is 45-48%, near its 50% ceiling, so it says
+  nothing.
+- **In sum, the realigned graph adds local phasing errors inside repeats and removes two long-range ONT
+  switches.**
+- Two scripts in `work/full/chr20/investigate/switches/` do this:
+  - `classes.py` reads whatshap `--longest-block-tsv`, which is 0-based, so positions are +1;
+  - `where.py` reads the switch BED.
 - **Anchors.** Realigned: 591,327 anchors from 16,620,105 read placements, with all 18,332,729 pins
   verified. Original: 589,036.
 
