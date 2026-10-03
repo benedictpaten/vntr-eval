@@ -1592,7 +1592,8 @@ genotype's read and depth terms (`diag_dump.patch`, not in the branch). Its VCF 
 
 **What is not the cause:**
 - **Read placement.** Reads that fit the right allele by sequence are placed on its nodes. Only 16 of
-  4,280 informative reads sit only on wrong-allele nodes (`rescore.py`).
+  the 3,914 reads that fit the right allele better by sequence sit only on wrong-allele nodes
+  (`rescore.py`).
 - **The linkage model.** Turning it off (`--linkage-weight 1e-6`) costs +6,340 [+1,604, +12,796].
   Turning off its frequency prior (`--linkage-prior 0`) costs +5,386.
 - **The depth term.** At wrong sites it contributes at most 12.5 nats.
