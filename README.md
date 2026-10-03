@@ -15,8 +15,14 @@ aligner, and rebuilding the region's graph from the alignment, fixes that. It ho
 
 ## Status
 
-Stages 0-2 are done; Stages 3-4 (local `vg call`, whole-contig splice) are not. The results are in
-[docs/results.md](docs/results.md). In short:
+All stages are done on chr20, and the held-out test on chr6 is done.
+- Stages 3-4 patch every tandem repeat whose haplotype lengths differ into the whole-contig graph, then
+  re-call. They are in [results/stage4_chr20.md](results/stage4_chr20.md) and
+  [results/stage4_chr6.md](results/stage4_chr6.md).
+- The chosen protocol aligns the full panel to its medoid with a star alignment. Section 4x has it.
+- Calling each repeat as one site in `vg call` is parked; see [docs/repeat-sites.md](docs/repeat-sites.md).
+
+The Stage 0-2 results are in [docs/results.md](docs/results.md). In short:
 
 - **The graph gets much cleaner.** On the 34 sampled haplotypes, hotspot VNTRs go from cost/opt
   1.566 to 1.048 with a repeat-unit-aware aligner, and 33/40 reach the 1.1 target (MC: 2/40).
