@@ -327,6 +327,12 @@ genome-wide ONT run used.
   | ONT, with mosaic | 484 s / 1,626 s / 9.1 GB | 581 s / 2,345 s / 9.1 GB | 484 s / 1,581 s / 10.2 GB |
   | ONT + anchors, with mosaic | 1,282 s / 2,717 s / 12.9 GB | 1,393 s / 3,452 s / 12.7 GB | 1,030 s / 2,265 s / 11.4 GB |
 
+- **The same holds on the genome-wide run's own inputs.** These are the E821 chr20 graph (16 sampled
+  plus 2 reference haplotypes) and its ONT read database, where 2a6a228a5 reproduces the genome-wide
+  VCF exactly. Two runs of each:
+  - 2a6a228a5: 241-242 s / 720 s / 5.9-6.6 GB;
+  - 8b993a339: 241-246 s / 715-722 s / 7.9 GB.
+  The factor of two against this test's 484 s is the graph, not vg.
 - **It costs ~1-2.7 GB more peak memory, from the larger cache.** A 2-window cache saves that memory
   but takes 189 s on short reads.
 - **Fetching is still 70-80% of worker time, as it was at 2a6a228a5.** That is waiting on the
