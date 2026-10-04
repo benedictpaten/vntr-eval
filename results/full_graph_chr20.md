@@ -339,6 +339,60 @@ genome-wide ONT run used.
   gbz-base child process, then parsing its GAF text back into alignments. Prefetching the next
   window would hide the wait.
 
+### Where the long-read time goes
+
+This section profiles the ONT call (`sample`, whole run, the original arm, vg 8b993a339) against the
+short-read call on the same graph.
+
+**How reads are scored.** Each read is scored against each allele by greedy pairing:
+- it walks the mapper's own node path once, pairing each node visit with the next matching visit in
+  the allele;
+- it scores the read's own edits on shared nodes, and compares bases on differing nodes.
+
+The read is never aligned again. `--optimal-pairing` is off under `--preset ont` as well.
+
+| busy thread-seconds | short reads | ONT |
+|---|---|---|
+| waiting on the gbz-base subprocess | 187 (39%) | 770 (68%) |
+| GAF text to Alignment, in vg | 118 (25%) | 121 (11%) |
+| GBWT lookups for panel alleles | 40 | 72 |
+| greedy-pairing scoring | 1 | 1 |
+| re-genotyping, read phasing, linkage | 18 | 36 |
+
+- **The long-read cost is gbz-base.** Each 16,384-ID window query takes 2.8-3.0 s and returns ~500
+  long reads as 22-26 MB of GAF. Inside it:
+  - rANS and RLE decoding of base qualities: ~27%;
+  - rebuilding each read's path: ~25%;
+  - SQLite node lookups: ~9%;
+  - the subgraph GFA, which vg discards: 0.35 s (~12%).
+
+  Every read in a block that touches the window is decoded whole. A read crossing a window boundary
+  is decoded once per window.
+- **The ONT-only passes cost little CPU but ran serially.**
+  - Re-genotyping's linkage rerun recomputed every record's panel alleles, which the direct pass had
+    not kept: 31 s on one thread.
+  - Placing nested chains rescanned the parent traversal for every child: about 16 s.
+  - **vg f7e130b16 fixes both** (now on the PR), with byte-identical output. Each cell is wall / CPU:
+
+    | call | 8b993a339 | f7e130b16 |
+    |---|---|---|
+    | short reads | 191 s / 695 s | 176 s / 650 s |
+    | ONT | 484 s / 1,581 s | 429 s / 1,551 s |
+    | ONT + anchors (back to back) | 1,006 s / 2,217 s | 930 s / 2,182 s |
+
+- **Not adopted.**
+  - A larger ONT fetch window (`--read-window`) does help. At 32,768 IDs, 379 s / 1,428 s, but
+    12.9 GB against 10.2 GB. At 65,536, 385 s / 1,329 s, but 14.3 GB.
+  - The cache sized in node IDs would have kept that memory flat. But with one or two windows per
+    thread it refetches, and the CPU saving goes: 400 s / 1,580 s / 9.9 GB at 32,768.
+  - So the window is a memory-for-speed choice, left to the user.
+  - `-t 10` gains only 11% over `-t 5`.
+- **Open.**
+  - gbz-base 0.6.0's `--gaf-only` would skip the discarded subgraph (~12% of each query). It needs
+    the dependency upgraded.
+  - A cheaper GAF to Alignment parse in libvgio could save another ~3-4%.
+  - Snarl finding takes 32 s at startup unless `-r` is given.
+
 ## What went wrong on the way, and the fixes
 
 1. **Sparse node ids slowed calling about 8x.** The first build gave new nodes ids above the genome-wide

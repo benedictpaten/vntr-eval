@@ -17,7 +17,7 @@ set -u -o pipefail
 R=/Users/benedictpaten/PycharmProjects/vntr-eval
 E=/Users/benedictpaten/PycharmProjects/vg-call-eval
 cd $R
-VG=$R/work/bin/vg-91d38c802
+VG=$R/work/bin/vg-f7e130b16
 export PATH=$HOME/.local/bin:/opt/homebrew/bin:$PATH TMPDIR=$R/work/tmp
 C=work/full/chr20; T=$C/test; mkdir -p $T $TMPDIR
 THREADS=8
