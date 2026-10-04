@@ -308,19 +308,24 @@ genome-wide ONT run used.
   - In a 60 s profile, threads waited longer on gbz-base for the buckets than for all the sites
     together.
 - **The other 49 commits cost nothing measurable.**
+- **The window itself is worth keeping.** Where node IDs do not follow the reference (the
+  centromere and the chromosome ends), the old node-ID window gives DR 1.6-4.5 at sites of normal
+  depth. Reference coordinates give ~1. F1 is the same either way. The measurements are in
+  `work/full/chr20/depthab/`.
 - **The fix (vg 8b993a339, branch `depth-rate-tallies` in `~/CLionProjects/vg-speed`, not yet on the
   PR).**
   - The read source counts read starts itself, from tallies it makes the first time it fetches each
     window.
   - Its cache is shared by all threads and holds 4 windows per thread.
   - Every output (VCF, mosaic, anchors) is byte-identical, and TAP 18_vg_call passes 453/453.
-- **Speed is back.**
+- **Speed is back.** Each cell is wall / CPU / peak RSS. CPU includes the gbz-base subprocesses vg
+  waits for; RSS is vg's own.
 
   | call (original arm) | 2a6a228a5 | 283808454 | 8b993a339 |
   |---|---|---|---|
-  | short reads | 164 s | 206 s | 173 s |
-  | ONT | 484 s | 581 s | 484 s |
-  | ONT + anchors | 1,282 s | 1,393 s | 1,030 s |
+  | short reads, no mosaic | 164 s / 680 s / 8.6 GB | 206 s / 846 s / 8.4 GB | 173 s / 667 s / 11.3 GB |
+  | ONT, with mosaic | 484 s / 1,626 s / 9.1 GB | 581 s / 2,345 s / 9.1 GB | 484 s / 1,581 s / 10.2 GB |
+  | ONT + anchors, with mosaic | 1,282 s / 2,717 s / 12.9 GB | 1,393 s / 3,452 s / 12.7 GB | 1,030 s / 2,265 s / 11.4 GB |
 
 - **It costs ~1-2.7 GB more peak memory, from the larger cache.** A 2-window cache saves that memory
   but takes 189 s on short reads.
