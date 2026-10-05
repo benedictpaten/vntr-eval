@@ -6,6 +6,12 @@
 passes, 468/468. The measurements are in
 [results/stage4_chr20.md](../results/stage4_chr20.md), sections 4y, 4z and 4aa.
 
+**Rebased 2026-10-05** onto the PR head `0575c3825`, as branch
+[`repeat-sites-rebased`](https://github.com/benedictpaten/vg/tree/repeat-sites-rebased) (head `60d166b5f`). Only
+the TAP plan count conflicted. TAP `18_vg_call.t` passes, 476/476, and without the options the binary's records and
+mosaic are identical to `0575c3825`'s. It is still parked and not part of the PR. See
+[Rebased, on the latest chr20 graph](#rebased-on-the-latest-chr20-graph-2026-10-05).
+
 ## What it is
 
 `vg call --repeat-sites BED` genotypes each BED region as one site.
@@ -53,6 +59,36 @@ out. Those six lie inside a 474 kb record that encloses them (see 4z). Without t
 
 **No global option fixes it.** Each fixes some sites and breaks others. The best single option is
 `--depth-count-raw`, which gives refined SV F1 0.7304.
+
+## Rebased, on the latest chr20 graph (2026-10-05)
+
+The latest chr20 graph has every tandem-repeat region realigned with pgrealign: 14,511 regions. HG002 short reads
+were mapped to its 32 sampled haplotypes and called with the PR head's flags. Each arm reuses the same reads and
+the same GAF-Base. The BED is the realigned regions, from left anchor start to right anchor end, with touching
+regions merged: 14,147 intervals. Repeat sites took 13,420 of them, covering 340,951 top-level snarls. The other 727
+hold no top-level snarl on the reference.
+
+| arm | ALL F1 | indel F1 | SV F1 raw | SV F1 refined | called-haplotype edit distance | off-panel strands | call time |
+|---|---|---|---|---|---|---|---|
+| per-snarl (PR head) | 0.9738 | 0.9302 | 0.6403 | 0.7066 | 53,805 | 389 | 271 s |
+| `--repeat-sites` | 0.9730 | 0.9286 | 0.6412 | 0.7336 | 42,297 | 58 | 360 s |
+| `--repeat-descent` | 0.9730 | 0.9284 | 0.6399 | 0.7036 | 49,413 | 140 | 484 s |
+| `--repeat-linkage` | 0.9736 | 0.9296 | 0.6421 | 0.7086 | 49,737 | 264 | 272 s |
+
+Edit distance is summed over the 27,971 called strands of 13,990 regions inside the truth BED. Each arm is compared
+with per-snarl calling by a paired per-region bootstrap:
+- **Repeat sites cut haplotype error.** Edit distance falls by 11,508 [−21,094, −3,607].
+- **The refined SV gain cannot be told from zero.** SV FP+FN inside the regions changes by −19 [−73, +26]; raw SV
+  F1 is flat.
+- **They cost small variants.** ALL F1 falls 0.0008 and indel F1 0.0016. Whether that is the block records'
+  representation or real genotype changes has not been measured.
+- **`--repeat-linkage` gets a third of the edit-distance gain**: −4,068 [−7,918, −983], with no SV or small-variant
+  change. Forbidding switches is not what makes repeat sites work. What does is one joint genotype over whole panel
+  walks, with each read scored once against whole walks and a depth term over the whole region.
+- **ONT was not run.** Its recombinant calls are mostly correct (HG002's allele is often off-panel), so repeat sites,
+  which can only return panel walks, are not expected to help it.
+
+Drivers: `work/full/chr20/repeat_sites/run.sh` (calls and scores), `compare.py` (tables and bootstraps).
 
 ## Open when this is picked up again
 
