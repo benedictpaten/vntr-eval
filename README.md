@@ -58,6 +58,7 @@ results/
   realign_runtime*.tsv, mcpoa_runtime*.tsv          runtimes, and every region a method could not finish
   pages/<id>.html                                   before/after viewer pages for six loci
 tools/              Python (standard library) and a little C; README.md lists every tool
+catalogs/           the CHM13 tandem-repeat catalogue the whole-contig results were built from
 work/               caches, full-panel MSAs and graphs, intermediates (git-ignored; set VNTR_WORK to move it)
 ```
 
@@ -122,6 +123,13 @@ python3 tools/msa_graph.py MY.msa.fa regions/<id>/hap32.fa candidates/<method>/<
 For the full-panel arm, see `tools/panel.py union` and `project` in
 [regions/README.md](regions/README.md). To re-run the realigners used here, see
 `tools/realign.py --list` and [tools/README.md](tools/README.md).
+
+## The realignment pipeline
+
+The whole-contig realignment is [pgrealign](https://github.com/benedictpaten/pgrealign), a separate
+repository and a dependency of this one, pinned in `pyproject.toml` to a published commit. Install it into a virtual environment with `pip install .` from this repository. The drivers under
+`work/` call it as `python3 -m pgrealign.cli`; each stage's manifest records the pgrealign version that
+wrote it. pgrealign carries its own, newer catalogue; `catalogs/` here is the one these results used.
 
 ## Data and configuration
 

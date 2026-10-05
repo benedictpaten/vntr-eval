@@ -1,6 +1,6 @@
 # The full chr20 graph with every tandem repeat realigned, tested end to end
 
-2026-10-03. The pipeline is `pgrealign` (docs/pipeline-design.md). The drivers are work/full/overnight.sh,
+2026-10-03. The pipeline is [pgrealign](https://github.com/benedictpaten/pgrealign) (its docs/method.md). The drivers are work/full/overnight.sh,
 work/full/chr20/redo_realigned.sh, test_chain.sh and test_arm.sh. The per-region bootstrap is
 work/full/chr20/test/region_boot.py.
 

@@ -3,18 +3,15 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pgrealign"
+name = "vntr-eval"
 version = "0.1.0"
-description = "Realign regions of a pangenome graph: extract each region's haplotypes, realign them, and splice the new alignment back in"
-readme = "pgrealign/README.md"
+description = "Making the pangenome graph align VNTRs better: test regions, evaluation tools and results"
+readme = "README.md"
 requires-python = ">=3.9"
-dependencies = []
-
-[project.scripts]
-pgrealign = "pgrealign.cli:main"
+# The realignment pipeline, pinned to a published commit.
+dependencies = [
+    "pgrealign @ git+https://github.com/benedictpaten/pgrealign@600ebdf7e82fa03010053ecc93158b9de5665a4d",
+]
 
 [tool.setuptools]
-packages = ["pgrealign"]
-
-[tool.setuptools.package-data]
-pgrealign = ["c/*.c"]
+packages = []
