@@ -22,7 +22,8 @@ All stages are done on chr20, and the held-out test on chr6 is done.
 - The chosen protocol aligns the full panel to its medoid with a star alignment. Section 4x has it.
 - Calling each repeat as one site in `vg call` is parked; see [docs/repeat-sites.md](docs/repeat-sites.md).
 - The full chr20 graph with every tandem repeat realigned is built and tested end to end; see
-  [results/full_graph_chr20.md](results/full_graph_chr20.md). The plan for its remaining SV errors is
+  [results/full_graph_chr20.md](results/full_graph_chr20.md), which also has the held-out chr6 test of
+  the same pipeline. The plan for its remaining SV errors is
   [docs/sv-fixes-plan.md](docs/sv-fixes-plan.md).
 
 The Stage 0-2 results are in [docs/results.md](docs/results.md). In short:

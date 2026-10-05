@@ -230,7 +230,56 @@ spells its original sequence.
   - ONT: +70 [−153, +319].
   TR_chr20_62032077 is among the short-read regions that got worse (+433), although it is the
   forced-homology region the scores were meant to fix. That is not yet understood.
-- It has not been tested on chr6, which is held out.
+- On chr6, which is held out, it improves every column for both read types; see the next section.
+
+## Held out: chr6, HG002 (2026-10-05)
+
+Nothing was tuned on chr6. Both measurements below compare the latest pipeline with the graph before any
+realignment. The latest pipeline is pgrealign 92d3eb4, the revised alignment under a 12 GB memory budget,
+with vg 0575c3825.
+
+**Alignment quality.** `pgrealign qc` scores every realigned region's alignment against the optimal
+pairwise alignments of up to 20 random allele pairs and of CHM13 against up to 20 of the heaviest
+alleles. With `--graph`, it scores the original graph's own alignment of the same pairs against the
+same optima. Over 39,024 regions:
+
+| | before (original graph) | latest (realigned) |
+|---|---|---|
+| pair F1 | 0.9871 | **0.9932** |
+| reference F1 | 0.9864 | **0.9941** |
+| regions with pair F1 below 0.9 | 426 | **225** |
+| regions with reference F1 below 0.9 | 351 | **151** |
+| sequence per base of the longest allele | 1.053 | 1.146 |
+
+- Pair F1 is better by more than 0.01 in 4,573 regions and worse in 156. Reference F1 is better in 4,342
+  and worse in 267.
+- The gain is largest for alleles of 1-50 kb.
+- The cost is sequence: the realigned regions hold 14.6% more bases than their longest alleles,
+  against 5.3% before. Most of the extra is in the 1-50 kb regions, where the star expands.
+
+**vg call** (scored against T2T-Q100 v1.1, as for chr20):
+
+| | ALL F1 | SNV F1 | indel F1 | SV F1 raw (FP / FN) | SV F1 refined (FP / FN) |
+|---|---|---|---|---|---|
+| short, before | 0.9773 | 0.9879 | 0.9390 | 0.5894 (697 / 609) | 0.6968 (543 / 420) |
+| **short, latest** | **0.9783** | **0.9883** | **0.9416** | **0.7051** (356 / 509) | **0.7905** (252 / 364) |
+| ONT, before | 0.9761 | 0.9897 | 0.9258 | 0.6162 (653 / 564) | 0.8074 (344 / 267) |
+| **ONT, latest** | **0.9768** | **0.9899** | **0.9277** | **0.7279** (368 / 449) | **0.8699** (174 / 217) |
+
+- Every column improves for both read types, as on chr20.
+- SV false positives roughly halve for both read types, and false negatives fall too.
+
+**How it was run.** The protocol differs from chr20's: the alignment is projected onto the production
+hap32 chr6 graph, rather than 32 haplotypes being sampled again from the realigned full graph.
+1. **Realign.** The full chr6 graph's packages and the hap32 graph's were merged with `union`. They were
+   realigned as one, projected onto hap32, and replaced into the hap32 chr6 graph (work/full/chr6/v2.sh,
+   v2b.sh): 39,026 regions ok and 13 too big for the budget. The quality table measures the full graph's
+   own realignment (work/full/chr6/heldout/): 39,025 ok, 11 too big, 2 timed out, 1 failed.
+2. **Short reads.** The stage 4 chr6 reads were mapped with giraffe to the realigned hap32 graph. "Before"
+   is stage 4's unpatched call ([stage4_chr6.md](stage4_chr6.md)), made with vg 2a6a228a5.
+3. **ONT.** The 236,364 reads (7.82 Gbp, about 46x) that the genome-wide ONT build placed on chr6 were
+   rebuilt as FASTQ. Both graphs were mapped (`giraffe -b r10`) and called (`--preset ont`) with vg
+   0575c3825 (work/full/chr6/ont/run.sh).
 
 ## Deliverables: ONT anchors, mosaics and phasing
 
