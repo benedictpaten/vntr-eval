@@ -10,7 +10,7 @@ export PYTHONPATH=$R PATH=$HOME/CLionProjects/vg/bin:$PATH
 source work/stage4_chr6/env.sh
 export VNTR_STAGE2_WORK=$R/work/iterate/stage2 TMPDIR=$R/work/tmp   # env.sh points both into a cleared scratchpad
 F=work/full/chr6; V=$F/v1; S=work/stage4_chr6; D=$S/chr6; E=/Users/benedictpaten/PycharmProjects/vg-call-eval
-VG=work/bin/vg-2a6a228a5
+VG=work/bin/vg-f7e130b16
 mkdir -p $V
 step() { echo "[$(date +%T)] $*"; }
 until [ -s $F/extract.v2/summary.json ]; do sleep 30; done

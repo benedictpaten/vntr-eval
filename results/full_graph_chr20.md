@@ -172,6 +172,66 @@ The replaced regions grew from 13.11 Mb to 15.50 Mb. Their floor, the longest al
   - Re-centring the 66 regions whose graph more than doubled would remove 1.9-2.1 of the 2.39 Mb.
   - Whether it keeps the SV gain needs one more end-to-end run.
 
+## The revised alignment: uncapped medoid and rescaled scores (adopted 2026-10-04)
+
+pgrealign's realign stage now differs from the build above in two ways. The rest of this document
+describes the build above.
+
+1. **The medoid compares every allele.** Each candidate centre used to be compared with only the 64
+   heaviest alleles. In regions with many weight-1 alleles that sample leaned short, so the centre
+   came out short and the star expanded (see "Why the graph grew"). The exact medoid is computed from
+   k-mer counts and one symmetric distance matrix, so it is no slower than the capped one.
+2. **abPOA's scores are its defaults times four, except the long-gap extension, which stays 1.** A long
+   indel then costs a quarter as much per base, relative to a match. Under the defaults, two unrelated
+   stretches are cheaper to align base against base, threading short gaps through chance matches,
+   than to delete and insert. That forced homology is the 62-region short-read indel cost above.
+   The scores apply to the pairwise and the slot alignments alike.
+
+**Alignment quality, 604 chr20 regions** (all 261 with an SV error, all 59 flagged for forced
+homology, 300 random others; `work/full/chr20/investigate/star_centre/`). Each MSA is scored against
+the optimal pairwise alignment under its own scores. 'Pair F1' covers up to 60 random allele pairs per
+region; 'ref F1' covers CHM13 against up to 60 of the heaviest alleles.
+
+| alignment | sequence | pair F1 | ref F1 | columns in forced-homology windows |
+|---|---|---|---|---|
+| shipped medoid star | 2.69 Mb | 0.9249 | 0.9224 | 73,205 |
+| medoid uncapped | 2.42 Mb | 0.9255 | 0.9214 | 74,464 |
+| uncapped, mismatch 6 | 2.39 Mb | 0.9271 | 0.9234 | 37,032 |
+| **uncapped, scores x4 (adopted)** | 2.42 Mb | **0.9304** | **0.9272** | **18,689** |
+
+A forced-homology window is 40 columns holding at least 20 with both bases, of which more than 30%
+mismatch. Two other centres were measured and rejected:
+- CHM13 as the centre makes every CHM13-versus-allele alignment exact. It costs 0.007 pair F1, and
+  section 4x of results/stage4_chr20.md found it biased against alleles unlike CHM13.
+- The longest allele as the centre shrinks the graph but does not align better, even where the star
+  expands more than 3x.
+
+**End to end, chr20, HG002** ('star2'; `work/full/chr20/realign_arm.sh star2`). The realign stage made
+14,492 regions ok and 19 too big, as before. It took 43 min against 36, with 19% more aligner time. The
+replaced regions hold 15.16 Mb against 15.50 Mb. The graph has 4.71 M nodes and 101.20 Mb. Every path
+spells its original sequence.
+
+| | short ALL | short indel | short SV raw / refined | ONT indel | ONT SV raw / refined |
+|---|---|---|---|---|---|
+| realigned, shipped (vg f7e130b16) | 0.9723 | 0.9262 | 0.6144 / 0.6741 | 0.9128 | 0.6452 / 0.7611 |
+| **revised (vg f7e130b16)** | **0.9734** | **0.9288** | 0.6210 / 0.6709 | 0.9139 | **0.6614 / 0.7791** |
+| realigned, shipped (vg 0575c3825) | 0.9727 | 0.9273 | 0.6194 / 0.6844 | 0.9140 | 0.6505 / 0.8092 |
+| **revised (vg 0575c3825)** | **0.9738** | **0.9298** | **0.6317 / 0.6941** | **0.9148** | **0.6749 / 0.8291** |
+
+- The short-read indel cost is gone: 0.9288 against the original graph's 0.9277.
+- TR_chr20_64970081, the one consistent loser above, has 10 fewer errors with each read type.
+- The per-region paired bootstrap of SV FP+FN cannot separate the change from zero. Revised minus
+  shipped, at f7e130b16:
+  - short reads: raw −15 [−63, +31], refined 0 [−51, +52];
+  - ONT: raw −17 [−79, +33], refined −21 [−87, +40].
+- At the level of haplotypes it is neutral to slightly worse, also not significant. Edit distance of
+  the called haplotypes to the truth over 13,576 regions:
+  - short reads: +2,001 [−1,008, +5,577];
+  - ONT: +70 [−153, +319].
+  TR_chr20_62032077 is among the short-read regions that got worse (+433), although it is the
+  forced-homology region the scores were meant to fix. That is not yet understood.
+- It has not been tested on chr6, which is held out.
+
 ## Deliverables: ONT anchors, mosaics and phasing
 
 `work/full/chr20/deliver.sh` makes the collaborator bundle in `work/full/chr20/collaborator_HG002_chr20/`.
