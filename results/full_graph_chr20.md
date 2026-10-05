@@ -217,8 +217,15 @@ spells its original sequence.
 | **revised (vg f7e130b16)** | **0.9734** | **0.9288** | 0.6210 / 0.6709 | 0.9139 | **0.6614 / 0.7791** |
 | realigned, shipped (vg 0575c3825) | 0.9727 | 0.9273 | 0.6194 / 0.6844 | 0.9140 | 0.6505 / 0.8092 |
 | **revised (vg 0575c3825)** | **0.9738** | **0.9298** | **0.6317 / 0.6941** | **0.9148** | **0.6749 / 0.8291** |
+| revised + the 19 large regions (vg 0575c3825) | 0.9738 | 0.9302 | 0.6403 / 0.7066 | 0.9143 | 0.6821 / 0.8317 |
 
 - The short-read indel cost is gone: 0.9288 against the original graph's 0.9277.
+- **The last row patches in the 19 regions the medoid star once left out as too big.** They have alleles of
+  25-103 kb, and pgrealign now aligns them with a band (work/full/chr20/banded2.sh). Every chr20 region
+  whose alleles differ is then realigned. The 19 regions themselves are neutral: raw SV errors inside them
+  go 13 -> 18 (short) and 14 -> 13 (ONT), since the truth covers little of these mostly pericentromeric
+  regions. The small gain in the row comes from outside them (514 -> 502 and 475 -> 467): the arm re-ran
+  sampling and mapping, so it is within the chain's run-to-run noise.
 - TR_chr20_64970081, the one consistent loser above, has 10 fewer errors with each read type.
 - The per-region paired bootstrap of SV FP+FN cannot separate the change from zero. Revised minus
   shipped, at f7e130b16:
