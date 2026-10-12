@@ -29,6 +29,8 @@ repository; every location has an environment override (`VNTR_EVAL_DIR`, `VNTR_R
 | [null_decomp.py](../results/stage3_pilot.md) | Stage 3: where a null graph's call difference comes from (alignments vs caller, depth term); `rescore-*` recomputes its EDs from the kept VCFs | yes (vg runs) |
 | [iterate.py](../results/stage4_chr20.md#stage-4h-full-panel-test-set-iteration) | Stage 4h harness: named full-panel variants (abPOA flags / input order, seeded incremental alignment, node merging) built for the 22-region chr20 test set (`work/iterate/testset.tsv`) -> projected hap32 graphs, Stage 0, local calls with 3 replicates (call_local.py), called-haplotype ED (score_haplotypes.py), replicate rule vs mc / poa_abpoa / poa_abpoa__all -> `work/iterate/results.tsv`, `summary.tsv` | yes |
 | [score_haplotypes.py](#score_haplotypespy-the-stage-3-scorer) | Stage 3 scorer: the haplotypes a VCF writes over a region's span against HG002's truth (edit distance, paired per stratum), plus truvari bench/refine/phab; batch, summary and the scorer's own validation | truvari part and `validate`: yes |
+| [hardset.py](../hardset/README.md) | the hard tandem-repeat set: chr20 regions whose realigned pair F1 is below 0.8 -> `hardset/<contig>.tsv`, alleles as FASTA in `work/hardset/` | no (the pgrealign run directory) |
+| [hardset_strategies.py](../hardset/README.md#strategies) | realignment strategies on the hard set (star variants, progressive abPOA, FAMSA, mafft, clusters, unit-aware), scored by pgrealign qc's pair F1 against the same optima -> `results/hardset_<contig>.tsv` | no |
 
 Tests (offline, seconds each): every
 `tools/test_*.py`, for example `python3 tools/test_msa_graph.py`, `test_evaluate.py`, `test_panel.py`,

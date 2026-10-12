@@ -59,6 +59,7 @@ results/
   realign_runtime*.tsv, mcpoa_runtime*.tsv          runtimes, and every region a method could not finish
   pages/<id>.html                                   before/after viewer pages for six loci
 tools/              Python (standard library) and a little C; README.md lists every tool
+hardset/            the hard tandem-repeat set (chr20 regions with pair F1 < 0.8) and its strategy benchmark
 catalogs/           the CHM13 tandem-repeat catalogue the whole-contig results were built from
 work/               caches, full-panel MSAs and graphs, intermediates (git-ignored; set VNTR_WORK to move it)
 ```
