@@ -67,6 +67,7 @@ Results are in `results/hardset_chr20.tsv` (per region) and `results/hardset_chr
 | cluster_par (clusters as parallel blocks) | 45 | 0.598 | 0.478 | 4 / 29 | 2.21 | 1,525 | 8.1 | 1.02 | 1.02 |
 | cluster_merge (clusters joined by mafft --merge) | 44 | 0.700 | 0.566 | 12 / 16 | 1.36 | 3,648 | 9.5 | 1.03 | 0.87 |
 | units (motif-aware, tools/realign_units.py) | 44 | 0.630 | 0.467 | 6 / 35 | 1.43 | 3,207 | 5.5 | 1.23 | 0.34 |
+| star_centrolign_c0 (centrolign pairs to the medoid; see below) | 42 | 0.659 | 0.549 | 8 / 32 | 1.56 | 21,604 | 7.8 | 1.09 | 1.22 |
 
 How to read the table:
 - **aligned** counts the regions a strategy finished. Wherever a strategy did not finish, the medians use
@@ -111,3 +112,32 @@ star, it moves them by at most +0.05. So no strategy repairs these regions.
 
 Each region scores only 20 pairs, so a difference of 0.01 in one region is noise. The medians and the
 better/worse counts are the signal.
+
+## centrolign as the star's pairwise aligner
+
+`star_centrolign_c0` keeps the medoid star and takes each allele's alignment to the centre from
+[centrolign](https://github.com/jeizenga/centrolign) (commit a604cbd, built in `work/tools/centrolign`).
+Given two sequences, centrolign writes a CIGAR. The rows are left-normalised and merged exactly as in
+`star`, and abPOA still aligns the insertion slots. Its MSA mode is not used.
+
+- **The default settings are unusable here.** centrolign's default `constraint_method` 3 calls a
+  segment unalignable when its anchor score is low, as it is across a whole VNTR. It then writes the
+  segment as one deletion plus one insertion. On 100 qc pairs from 5 regions (`tools/centrolign_paircost.py`), those alignments cost
+  2.7-8.4x the optimum. With `constraint_method 0`, the cost is 1.11-1.24x. Giving it pgrealign's scores
+  as well moves this by less than 0.01, so the excess comes from the anchor chain, not the scores. Only
+  the `constraint_method 0` arm was run on all 45 regions.
+- **It loses to star on every measure.**
+  - Median pair F1 falls 0.703 to 0.659, and the lower quartile 0.628 to 0.549. It is better in 8
+    regions and worse in 32.
+  - On the 42 regions it finished, its cost ratio is 1.56, against 1.36 for star and 1.50 for select. The
+    cost is higher than star's in 39 of the 42.
+  - It timed out in 3 regions (TR_chr20_863627, 65507481 and 50269210).
+- **It is about 40x slower.** Each pair ran in its own process, 3 pairs at a time. The 42 finished
+  regions took 21,604 s of wall time and 43,631 CPU seconds in centrolign. Star took 587 s on the same
+  regions. The machine was heavily loaded during the run, so the wall times are high.
+- **The phase-flip regions:** it scores 0.216, 0.346, 0.536, 0.592, 0.478, 0.669 and 0.754. It timed
+  out in TR_chr20_65507481. This is below star in 6 of the 7. Its cost ratio is above star's in all 7.
+
+So centrolign does not help in these regions, and it is not worth a graph-patch test. It is built for
+long alignments where anchors are informative. Inside a VNTR, every anchor is a repeated k-mer, and the
+anchor chain stops the dynamic programming from reaching the optimum.

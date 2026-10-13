@@ -33,6 +33,12 @@ Strategies (STRATEGIES below):
   units         the repeat-unit-aware aligner (tools/realign_units.py, M4): alleles cut into catalogue-motif
                 units, unit strings aligned progressively, expanded and polished; it falls back to mafft
                 when the motif does not fit or its alignment costs > 1.2x the pairwise optima
+  star_centrolign     the medoid star with each allele's alignment to the centre from centrolign
+                      (jeizenga/centrolign, two sequences in, a CIGAR out; work/tools/centrolign or
+                      $VNTR_CENTROLIGN) instead of abPOA, left-normalised and merged exactly as `star`
+                      (abPOA still aligns the insertion slots); pairs run $VNTR_CENTROLIGN_JOBS (3) at a time
+  star_centrolign_c0  the same with centrolign's constraint_method 0: its default (3) calls a segment
+                      with too little anchor score unalignable and leaves it as a deletion plus an insertion
 
 Scoring (`score`): qc.compared_pairs picks the same pairs as `pgrealign qc` (20 random allele pairs, and
 CHM13's allele against the 20 heaviest), whose optimal alignments `optima` computed once with
@@ -49,6 +55,7 @@ import gzip
 import json
 import os
 import random
+import re
 import shutil
 import signal
 import statistics
@@ -68,12 +75,16 @@ from pgrealign.realign import MAX_CELLS  # noqa: E402
 CONTIG = 'chr20'
 ABPOA = config._tool('VNTR_ABPOA', 'abpoa')
 FAMSA = config._tool('VNTR_FAMSA', 'famsa')
+CENTROLIGN = config._tool('VNTR_CENTROLIGN', 'centrolign',
+                          os.path.join(config.WORK_DIR, 'tools', 'centrolign', 'build', 'centrolign'))
+CENTROLIGN_PAIR_JOBS = int(os.environ.get('VNTR_CENTROLIGN_JOBS', 3))
+CIGAR_RE = re.compile(r'(\d+)([=XMID])')
 CLUSTER_D = 0.5
 MC_MATRIX = [91, -114, -61, -123, -100, -114, 100, -125, -61, -100, -61, -125, 100, -114, -100,
              -123, -61, -114, 91, -100, -100, -100, -100, -100, 100]
 SELECT = ['star', 'star_longest', 'star_gapnorm']     # `select` chooses among these, first on ties
 STRATEGIES = ['star', 'star_longest', 'star_gapnorm', 'abpoa_mc', 'abpoa_prog', 'famsa', 'mafft',
-              'cluster_par', 'cluster_merge', 'units']
+              'cluster_par', 'cluster_merge', 'units', 'star_centrolign', 'star_centrolign_c0']
 
 
 def paths(contig):
@@ -301,9 +312,98 @@ def s_units(alleles, wd, ref, region=None):
     return {a: got[name[a]] for a, _, _ in alleles}
 
 
+def cigar_rows(a, b, cigar):
+    """The two rows a CIGAR spells, a being the sequence that D consumes (centrolign's first input)."""
+    ra, rb, i, j = [], [], 0, 0
+    for n, op in CIGAR_RE.findall(cigar):
+        n = int(n)
+        if op in '=XM':
+            ra.append(a[i:i + n])
+            rb.append(b[j:j + n])
+            i, j = i + n, j + n
+        elif op == 'D':
+            ra.append(a[i:i + n])
+            rb.append('-' * n)
+            i += n
+        else:
+            ra.append('-' * n)
+            rb.append(b[j:j + n])
+            j += n
+    if i != len(a) or j != len(b):
+        raise ValueError('CIGAR spells %d/%d of %d/%d bases' % (i, j, len(a), len(b)))
+    return ''.join(ra), ''.join(rb)
+
+
+def centrolign_pair(centre, seq, wd, conf=None):
+    """centrolign's alignment of seq to centre (two sequences in, a CIGAR out), as (centre row, row),
+    left-normalised as star.align_pair does. `conf` is a config file (-C) holding every parameter."""
+    if seq == centre:
+        return centre, seq
+    if not centre or not seq:
+        return centre + '-' * len(seq), '-' * len(centre) + seq
+    fa = os.path.join(wd, 'pair.fa')
+    write_fasta(fa, [('centre', centre), ('seq', seq)])
+    if conf:
+        cfg = os.path.join(wd, 'pair.yaml')
+        with open(conf) as f, open(cfg, 'w') as o:
+            o.write(f.read().replace('fasta_name: ""', 'fasta_name: "%s"' % fa))
+        cmd = [CENTROLIGN, '-C', cfg]
+    else:
+        cmd = [CENTROLIGN, '-v', '0', fa]
+    p = subprocess.run(cmd, capture_output=True, text=True, cwd=wd)
+    if p.returncode:
+        raise RuntimeError('centrolign exited %d: %s' % (p.returncode, p.stderr[-300:]))
+    ca, sa = cigar_rows(centre, seq, p.stdout.strip())
+    return star.left_normalise_pair(ca, sa)
+
+
+def s_star_centrolign(alleles, wd, ref, conf=None):
+    """The medoid star, each allele's alignment to the centre from centrolign instead of abPOA; abPOA
+    still aligns the insertion slots, and star_msa merges exactly as in `star`. The pairs run
+    CENTROLIGN_PAIR_JOBS at a time (centrolign is ~40x abPOA's time), and their summed CPU time goes to
+    stderr as cpu_seconds."""
+    import concurrent.futures
+    import resource
+    seq = {a: s if set(s) <= star._ALIGNABLE else ''.join(c if c in star._ALIGNABLE else 'N' for c in s)
+           for a, s, _ in alleles}
+    names = [a for a, _, _ in alleles]
+    cid = names[star.medoid([seq[a] for a in names], [w for _, _, w in alleles])]
+
+    def one(i, s):
+        d = os.path.join(wd, 'p%d' % i)
+        os.makedirs(d, exist_ok=True)
+        return s, centrolign_pair(seq[cid], s, d, conf)
+
+    with concurrent.futures.ThreadPoolExecutor(CENTROLIGN_PAIR_JOBS) as ex:
+        done = dict(ex.map(lambda x: one(*x), enumerate(seq[a] for a in names if a != cid)))
+    orig = star.align_pair
+    star.align_pair = lambda centre, s, align, banded=False: (centre, s) if s == centre else done[s]
+    try:
+        rows = s_star(alleles, wd, ref, centre=cid)
+    finally:
+        star.align_pair = orig
+    ru = resource.getrusage(resource.RUSAGE_CHILDREN)
+    sys.stderr.write('cpu_seconds=%.1f centre=%s\n' % (ru.ru_utime + ru.ru_stime, cid))
+    return rows
+
+
+def s_star_centrolign_c0(alleles, wd, ref):
+    """star_centrolign with constraint_method 0: every segment counts as alignable, so no stretch is
+    left as an unaligned deletion plus insertion for want of anchor score."""
+    conf = os.path.join(wd, 'c0.yaml')
+    text = subprocess.run([CENTROLIGN, '-G'], capture_output=True, text=True).stdout
+    if 'constraint_method: 3' not in text:
+        raise RuntimeError('centrolign -G has no constraint_method: 3 to change')
+    with open(conf, 'w') as f:
+        f.write(text.replace('constraint_method: 3', 'constraint_method: 0').replace(
+            'logging_level: 2', 'logging_level: 0'))
+    return s_star_centrolign(alleles, wd, ref, conf)
+
+
 FUNCS = {'star': s_star, 'star_longest': s_star_longest, 'abpoa_mc': s_abpoa_mc, 'abpoa_prog': s_abpoa_prog,
          'famsa': s_famsa, 'mafft': s_mafft, 'cluster_par': s_cluster_par, 'cluster_merge': s_cluster_merge,
-         'units': s_units, 'star_gapnorm': s_star_gapnorm}
+         'units': s_units, 'star_gapnorm': s_star_gapnorm, 'star_centrolign': s_star_centrolign,
+         'star_centrolign_c0': s_star_centrolign_c0}
 
 
 def core_coords(region):
